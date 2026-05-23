@@ -10,7 +10,7 @@
 
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Riva Computech — Microsoft 365 &amp; Azure IT Consulting" />
-<meta property="og:description" content="From Windows 95 to Windows 11 — and every migration in between. Independent IT, direct." />
+<meta property="og:description" content="Independent Microsoft 365, Azure & infrastructure IT — direct, no ticket queues, no hand-offs." />
 <meta property="og:url" content="https://rivacomputech.com/" />
 <meta property="og:image" content="https://rivacomputech.com/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -376,12 +376,14 @@
     .js .era-10 .win10,.js .era-10 .tile,.js .era-7 .window{opacity:1 !important;transform:none !important;animation:none !important}
   }
 
-  /* ===== playful closable windows ===== */
+  /* ===== playful closable windows =====
+     One self-contained bounce (shrink away → pop back). After it ends we pin the
+     rested state with .poofed{animation:none} so the per-era entrance animation
+     (winopen / w10in) can't re-fire and double-bounce. */
   .close{cursor:pointer}
-  .closable.closing{animation:winclose .5s cubic-bezier(.4,0,.7,.2) forwards !important;pointer-events:none}
-  .closable.reopen{animation:winreopen .42s ease !important}
-  @keyframes winclose{0%{opacity:1;transform:none}55%{opacity:.5;transform:scale(.62) translateY(8px)}100%{opacity:0;transform:scale(.42) translateY(22px)}}
-  @keyframes winreopen{0%{opacity:0;transform:scale(.8) translateY(10px)}100%{opacity:1;transform:none}}
+  .closable.poof{animation:winbounce .9s cubic-bezier(.34,.18,.4,1) both !important;pointer-events:none;will-change:transform,opacity}
+  .closable.poofed{animation:none !important;opacity:1 !important;transform:none !important}
+  @keyframes winbounce{0%{opacity:1;transform:none}30%{opacity:.5;transform:scale(.62) translateY(8px)}50%{opacity:0;transform:scale(.42) translateY(22px)}68%{opacity:0;transform:scale(.82) translateY(10px)}100%{opacity:1;transform:none}}
 
   /* ===== reveal ===== */
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
@@ -442,7 +444,7 @@
     <div>
       <div class="kicker">Independent Microsoft 365, Azure &amp; infrastructure consultant</div>
       <h1>The IT person who<br>actually <span class="accent">picks up the phone</span>.</h1>
-      <p class="lede">Practical Microsoft 365, Azure &amp; infrastructure help, direct — no ticket queues, no hand-offs. I've worked with Windows from&nbsp;95 to&nbsp;11, and plenty of migrations in between.</p>
+      <p class="lede">Practical Microsoft 365, Azure &amp; infrastructure help, direct — no ticket queues, no hand-offs. Years of hands-on Windows, server and cloud work, with plenty of migrations along the way.</p>
       <div class="hero-cta">
         <a class="btn" href="#contact">Book a free 30-min chat</a>
         <a class="btn ghost" href="#services">See what I help with</a>
@@ -749,17 +751,21 @@
   function tick(){ var d=new Date(),h=d.getHours(),m=d.getMinutes(),ap=h>=12?"PM":"AM"; h=h%12||12; clock.textContent=h+":"+(m<10?"0"+m:m)+" "+ap; }
   tick(); setInterval(tick, 15000);
 
-  /* playful closable windows: close X plays a non-destructive close, then respawns */
+  /* playful closable windows: close X plays a non-destructive bounce, then settles */
   document.addEventListener("click", function(e){
     var btn = e.target.closest(".close"); if(!btn) return;
     var win = btn.closest(".closable"); if(!win) return;
     e.preventDefault();
-    if(reduce || win.classList.contains("closing") || win.classList.contains("reopen")) return;
-    win.classList.add("closing");
-    setTimeout(function(){
-      win.classList.remove("closing"); win.classList.add("reopen");
-      setTimeout(function(){ win.classList.remove("reopen"); }, 440);
-    }, 520);
+    if(reduce || win.classList.contains("poof")) return;
+    win.classList.remove("poofed");
+    void win.offsetWidth; /* reflow so the animation restarts cleanly on repeat clicks */
+    win.classList.add("poof");
+    win.addEventListener("animationend", function done(ev){
+      if(ev.animationName !== "winbounce") return;
+      win.classList.remove("poof");
+      win.classList.add("poofed");
+      win.removeEventListener("animationend", done);
+    });
   });
 
   /* XP.css tabs (About window) — libraries ship no JS, so wire up panel switching */
