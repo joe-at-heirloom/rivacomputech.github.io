@@ -221,6 +221,7 @@
   .era-7 .title-bar-text .wf i:nth-child(3){background:#2f9be0}.era-7 .title-bar-text .wf i:nth-child(4){background:#ffc20e}
   .era-7 .window{transition:transform .2s ease, box-shadow .2s ease}
   .era-7 .window:hover{transform:translateY(-4px)}
+  .era-7 .window-body{padding:14px 16px 18px}
   .era-7 .window-body h3{margin:0 0 5px;font-size:15px;color:#1a5ca8;font-weight:700}
   .era-7 .window-body .desc{margin:0 0 14px;font-size:12px;color:#54667e}
   .era-7 .window-body .w7-progress{margin:14px 0 2px}
@@ -245,7 +246,8 @@
   .era-xp .window{max-width:880px;margin:0 auto;box-shadow:0 26px 54px -18px rgba(0,30,80,.6)}
   .era-xp .xp-h{font-size:clamp(18px,2.4vw,24px);font-weight:700;color:#0a3d91;margin:0 0 6px}
   .era-xp .xp-sub{margin:0 0 16px;color:#3a3a3a;font-size:13px}
-  .era-xp [role=tabpanel]{margin-top:-2px}
+  .era-xp [role=tabpanel]{margin-top:-2px;padding:18px 20px}
+  .era-xp fieldset{margin-top:14px;padding:14px 14px 12px}
   .about-grid{display:grid;grid-template-columns:150px 1fr;gap:28px;align-items:start}
   .xp-user{text-align:center}
   .xp-avatar{width:112px;height:112px;margin:0 auto 10px;border-radius:6px;display:grid;place-items:center;overflow:hidden;
@@ -268,14 +270,22 @@
      These rules only handle teal wallpaper + the two-column contact layout. */
   .era-95{background:#008080;color:#000}
   .era-95 .dialog{max-width:780px;margin:0 auto}
+  .era-95 .dialog-body{padding:18px 20px 20px}
+  .era-95 .dialog-header{padding:4px 4px 4px 8px}
   .era-95 .dialog-header .t{flex:1;font-weight:700}
-  .contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:24px;align-items:start}
+  /* Compact classic Win95 title-bar buttons (95CSS's full .btn looked oversized here) */
+  .era-95 .dialog-header .btn-group{display:flex;gap:2px}
+  .era-95 .dialog-header .btn{min-width:0;width:20px;height:18px;padding:0;display:grid;place-items:center;
+    font-size:11px;font-weight:700;line-height:1;color:#000;background:#c3c3c3;border:none;border-radius:0;
+    box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf}
+  .era-95 .dialog-header .btn:active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
+  .contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:28px;align-items:start}
   .w95-h{margin:0 0 4px;font-size:clamp(18px,2.4vw,24px);font-weight:700;color:#000}
   .w95-sub{margin:0 0 18px;font-size:13px;color:#222}
   .w95-aside p{font-size:13px;color:#111;margin:0 0 10px}
   .w95-aside a{color:#0000c0;text-decoration:underline}
   .era-95 .req{color:#b00000}
-  .era-95 .input-group{margin-bottom:11px}
+  .era-95 .input-group{margin-bottom:13px;gap:4px}
   .era-95 textarea{resize:vertical;min-height:92px}
   .hp{position:absolute;left:-9999px;opacity:0;height:0;width:0;overflow:hidden}
   .form-foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:8px}
