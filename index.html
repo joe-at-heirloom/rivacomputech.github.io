@@ -287,6 +287,11 @@
   .era-95 .req{color:#b00000}
   .era-95 .input-group{margin-bottom:13px;gap:4px}
   .era-95 textarea{resize:vertical;min-height:92px}
+  /* Classic gray Win95 push button for submit (95CSS's default button is a modern blue gloss) */
+  .era-95 #submit-btn{background:#c3c3c3;color:#000;border:none;border-radius:0;font-weight:700;font-size:13px;padding:8px 22px;
+    box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf}
+  .era-95 #submit-btn:active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf;padding:9px 21px 7px 23px}
+  .era-95 #submit-btn:focus-visible{outline:1px dotted #000;outline-offset:-5px}
   .hp{position:absolute;left:-9999px;opacity:0;height:0;width:0;overflow:hidden}
   .form-foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:8px}
   #form-status{font-size:13px;font-weight:700;min-height:1.1em}
