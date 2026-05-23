@@ -23,6 +23,11 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fredoka:wght@500;600;700&display=swap" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cascadia-code@5.2.6/index.min.css" />
+<!-- Authentic Windows-era CSS frameworks, each scoped to its section so they don't clash:
+     7.css (Win7 Aero) → .win7 · XP.css (Luna) → .era-xp · 95CSS (Win95) → .era-95 -->
+<link rel="stylesheet" href="/vendor/7.scoped.css" />
+<link rel="stylesheet" href="/vendor/xp.scoped.css" />
+<link rel="stylesheet" href="/vendor/95.scoped.css" />
 
 <script type="application/ld+json">
 {
@@ -179,6 +184,17 @@
   .era-10 .tile-ico{font-size:30px;line-height:1;display:block;margin-bottom:auto}
   .era-10 .tile h3{margin:14px 0 4px;font-size:16px;font-weight:600;font-family:var(--sans)}
   .era-10 .tile p{margin:0;font-size:13px;color:rgba(255,255,255,.92);font-family:var(--sans)}
+  /* Win10 menubar + widgets — authentic win10css values (white menubar, #91C9F7 hover, #E1E1E1 buttons) */
+  .era-10 .w10-menubar{display:flex;background:#fff;border-bottom:2px solid #f0f0f0;font-size:12px}
+  .era-10 .w10-menubar button{border:2px solid #fff;background:#fff;color:#000;font-family:var(--sans);font-size:12px;padding:3px 10px;cursor:default}
+  .era-10 .w10-menubar button:hover{background:#91C9F7;border-color:#91C9F7}
+  .era-10 .w10-foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px}
+  .era-10 .w10-foot .lbl{font-size:12px;color:#555;font-family:var(--sans)}
+  .era-10 .w10-btn{background:#E1E1E1;border:1px solid #adadad;color:#000;font-family:var(--sans);font-size:13px;padding:5px 18px;cursor:pointer;transition:background .1s,border-color .1s}
+  .era-10 .w10-btn:hover{background:#E5F1FB;border-color:#0078D7}
+  .era-10 .w10-btn:active{background:#CCE4F7;border-color:#0078D7}
+  .era-10 .w10-progress{flex:1;min-width:140px;height:5px;background:#bcbcbc}
+  .era-10 .w10-progress i{display:block;height:100%;width:78%;background:#0078D7}
 
   /* ============================================================
      PHASE 3 — WINDOWS 7 (services / Aero glass)
@@ -197,35 +213,18 @@
   .era-7 .sub{color:#c4d7ed}
   .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 
-  /* Aero window — faithful to 7.css: glass frame + glass title bar + white client pane */
-  .era-7 .window{position:relative;display:flex;flex-direction:column;border:1px solid rgba(0,0,0,.55);border-radius:6px;
-    background:linear-gradient(180deg, rgba(184,208,238,.34), rgba(150,180,220,.22));
-    box-shadow:2px 6px 24px 1px rgba(0,8,24,.6), inset 0 0 0 1px rgba(255,255,255,.55);
-    backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);
-    transition:transform .2s, box-shadow .2s}
-  .era-7 .window:hover{transform:translateY(-4px);box-shadow:2px 12px 34px 1px rgba(0,8,24,.7), inset 0 0 0 1px rgba(255,255,255,.7)}
-  .era-7 .title-bar{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:0 5px 5px 9px;border-radius:6px 6px 0 0}
-  .era-7 .title-bar-text{display:flex;align-items:center;gap:8px;padding-top:7px;font-family:var(--sans);font-size:13px;font-weight:600;color:#0a1f38;
-    text-shadow:0 0 9px #fff,0 0 9px #fff,0 0 9px #fff,0 0 8px #fff,0 0 6px #fff,0 0 6px #fff}
-  .era-7 .title-bar-text .wf{width:14px;height:14px;display:inline-grid;grid-template-columns:1fr 1fr;gap:1.4px;flex:0 0 auto}
+  /* Win7 Aero windows are rendered by the real 7.css (vendor/7.scoped.css, scoped to .win7).
+     Here we only keep the colored flag glyph in the title bar, a hover lift, and content typography. */
+  .era-7 .title-bar-text .wf{width:14px;height:14px;display:inline-grid;grid-template-columns:1fr 1fr;gap:1.4px;flex:0 0 auto;margin-right:3px}
   .era-7 .title-bar-text .wf i{display:block;border-radius:1px}
   .era-7 .title-bar-text .wf i:nth-child(1){background:#e8403a}.era-7 .title-bar-text .wf i:nth-child(2){background:#7cbb3a}
   .era-7 .title-bar-text .wf i:nth-child(3){background:#2f9be0}.era-7 .title-bar-text .wf i:nth-child(4){background:#ffc20e}
-  .era-7 .title-bar-controls{display:flex;align-self:flex-start;background:rgba(255,255,255,.2);
-    border:1px solid rgba(0,0,0,.3);border-top:0;border-radius:0 0 5px 5px;
-    box-shadow:0 1px 0 rgba(255,255,255,.66),1px 0 0 rgba(255,255,255,.66),-1px 0 0 rgba(255,255,255,.66)}
-  .era-7 .title-bar-controls button{min-width:29px;min-height:19px;display:grid;place-items:center;font-size:10px;color:#0e2c52;cursor:default;
-    border:0;border-right:1px solid rgba(0,0,0,.3);
-    background:linear-gradient(#ffffff80,#ffffff4d 45%,#0000001a 50%,#0000001a 75%,#ffffff80);box-shadow:inset 0 0 0 1px rgba(255,255,255,.5)}
-  .era-7 .title-bar-controls button:hover{color:#fff;background:radial-gradient(circle at 50% 118%,#2aceda,transparent 65%),linear-gradient(#b6d9ee 50%,#1a6ca1 0)}
-  .era-7 .title-bar-controls button.close{min-width:46px;border-right:0;
-    background:radial-gradient(circle at 50% 122%,#ffb0a0,transparent 60%),linear-gradient(#f6b6a9 48%,#e3674e 50%,#d6492f)}
-  .era-7 .title-bar-controls button.close:hover{color:#fff;
-    background:radial-gradient(circle at 50% 122%,#ff8266,transparent 62%),linear-gradient(#ff9c8b 48%,#e63f22 50%,#cf2f15)}
-  .era-7 .window-body{background:#fff;margin:0 6px 6px;border:1px solid rgba(0,0,0,.45);box-shadow:0 0 0 1px rgba(255,255,255,.6);
-    padding:20px 20px 22px;flex:1}
-  .era-7 .window-body h3{margin:0 0 5px;font-size:17px;color:#1a5ca8;font-weight:400;font-family:var(--sans)}
-  .era-7 .window-body .desc{margin:0 0 16px;font-size:14px;color:#54667e}
+  .era-7 .window{transition:transform .2s ease, box-shadow .2s ease}
+  .era-7 .window:hover{transform:translateY(-4px)}
+  .era-7 .window-body h3{margin:0 0 5px;font-size:15px;color:#1a5ca8;font-weight:700}
+  .era-7 .window-body .desc{margin:0 0 14px;font-size:12px;color:#54667e}
+  .era-7 .window-body .w7-progress{margin:14px 0 2px}
+  .era-7 .window-body .w7-progress .lbl{display:block;font-size:11px;color:#3a4d63;margin-bottom:5px}
   .aero-list{list-style:none;margin:0;padding:0}
   .aero-list li{padding:8px 0;font-size:14px;color:#26384f;display:flex;gap:10px;border-top:1px solid #e6ebf2}
   .aero-list li:first-child{border-top:none}
@@ -241,69 +240,48 @@
   .era-xp::after{content:"";position:absolute;left:-12%;right:-12%;bottom:0;height:46%;z-index:0;
     background:linear-gradient(180deg,#9ccb53 0%,#6aa636 38%,#4f8f28 100%);
     border-radius:50% 50% 0 0 / 70% 70% 0 0;box-shadow:inset 0 6px 18px rgba(255,255,255,.25)}
-  /* About — faithful to XP.css (Luna): inset blue frame + Luna gradient title */
-  .xp-win{max-width:860px;margin:0 auto;background:#ece9d8;padding:0 0 3px;border-radius:8px 8px 0 0;overflow:hidden;
-    box-shadow:inset -1px -1px #00138c,inset 1px 1px #0831d9,inset -2px -2px #001ea0,inset 2px 2px #166aee,inset -3px -3px #003bda,inset 3px 3px #0855dd, 0 26px 54px -18px rgba(0,30,80,.6)}
-  .xp-titlebar{display:flex;align-items:center;gap:8px;height:30px;padding:2px 3px 2px 7px;color:#fff;font-weight:700;font-size:14px;
-    font-family:"Trebuchet MS",var(--tahoma);text-shadow:1px 1px #0f1089;border-radius:7px 7px 0 0;
-    background:linear-gradient(180deg,#0997ff,#0053ee 8%,#0050ee 40%,#0066ff 88%,#0066ff 93%,#005bff 95%,#003dd7 96%,#003dd7)}
-  .xp-titlebar .xp-ctrls{margin-left:auto;display:flex;gap:2px}
-  .xp-titlebar .xp-ctrls b{width:22px;height:22px;display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff;border-radius:3px;
-    border:1px solid #fdfdfd;background:linear-gradient(180deg,#5b9bf0,#1c5fd6 48%,#1657cf 52%,#4f8de8)}
-  .xp-titlebar .xp-ctrls b.close{font-size:12px;background:linear-gradient(180deg,#f6a98f,#d4502d 48%,#c2431f 52%,#ec7d57)}
-  .xp-body{margin:3px;padding:20px 22px 24px;color:#1a1a1a}
-  .xp-body .xp-h{font-family:"Trebuchet MS",var(--tahoma);font-size:clamp(22px,3vw,30px);font-weight:700;color:#0a3d91;margin:0 0 6px;letter-spacing:-.3px}
-  .xp-body .xp-sub{margin:0 0 26px;color:#3a3a3a;font-size:15px}
-  .about-grid{display:grid;grid-template-columns:160px 1fr;gap:32px;align-items:start}
+  /* The XP "About" window is rendered by the real XP.css (vendor/xp.scoped.css, scoped to .era-xp).
+     These rules only lay out the content that sits inside its .window-body. */
+  .era-xp .window{max-width:880px;margin:0 auto;box-shadow:0 26px 54px -18px rgba(0,30,80,.6)}
+  .era-xp .xp-h{font-size:clamp(18px,2.4vw,24px);font-weight:700;color:#0a3d91;margin:0 0 6px}
+  .era-xp .xp-sub{margin:0 0 16px;color:#3a3a3a;font-size:13px}
+  .era-xp [role=tabpanel]{margin-top:-2px}
+  .about-grid{display:grid;grid-template-columns:150px 1fr;gap:28px;align-items:start}
   .xp-user{text-align:center}
-  .xp-avatar{width:120px;height:120px;margin:0 auto 12px;border-radius:6px;display:grid;place-items:center;overflow:hidden;
-    font-family:"Trebuchet MS",var(--tahoma);font-size:46px;font-weight:700;color:#fff;letter-spacing:1px;
+  .xp-avatar{width:112px;height:112px;margin:0 auto 10px;border-radius:6px;display:grid;place-items:center;overflow:hidden;
+    font-size:42px;font-weight:700;color:#fff;letter-spacing:1px;
     background:linear-gradient(135deg,#5aa0e6,#2f6fc0);border:3px solid #fff;box-shadow:0 0 0 1px #6d91ab,0 4px 10px rgba(0,0,0,.35)}
   .xp-avatar img{width:100%;height:100%;object-fit:cover}
-  .xp-uname{font-family:"Trebuchet MS",var(--tahoma);font-size:19px;font-weight:700;color:#0a3d91}
-  .xp-urole{font-size:13px;color:#3a3a3a;margin-top:2px}
-  .about-bio .xp-h{margin-bottom:12px}
-  .about-bio p{color:#1f1f1f;font-size:14.5px;margin:0 0 12px;line-height:1.65}
-  .about-stats{display:flex;gap:30px;flex-wrap:wrap;margin-top:18px;border-top:1px solid #cfcabb;padding-top:16px}
+  .xp-uname{font-size:15px;font-weight:700;color:#0a3d91}
+  .xp-urole{font-size:11px;color:#3a3a3a;margin-top:2px}
+  .about-bio p{color:#1f1f1f;font-size:12px;margin:0 0 10px;line-height:1.6}
+  .about-stats{display:flex;gap:24px;flex-wrap:wrap}
   .about-stats div{display:flex;flex-direction:column}
-  .about-stats b{font-family:"Trebuchet MS",var(--tahoma);font-size:23px;color:#15428b;font-weight:700;line-height:1}
-  .about-stats span{font-size:12.5px;color:#555;margin-top:4px}
+  .about-stats b{font-size:17px;color:#15428b;font-weight:700;line-height:1}
+  .about-stats span{font-size:11px;color:#555;margin-top:3px}
   .era-xp .kicker{display:none}
 
   /* ============================================================
      PHASE 5 — WINDOWS 95 (contact / gray dialog)
      ============================================================ */
-  .era-95{background:#008080;color:#000;font-family:var(--ms95)}
-  .bevel-up{background:#c3c3c3;box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf}
-  .bevel-down{background:#fff;box-shadow:inset -1px -1px #fff,inset 1px 1px #808080,inset -2px -2px #dfdfdf,inset 2px 2px #0a0a0a}
-  .w95{max-width:760px;margin:0 auto;padding:3px;background:#c3c3c3}
-  .w95-title{display:flex;align-items:center;gap:8px;height:26px;padding:0 3px 0 7px;color:#fff;font-weight:700;font-size:13px;
-    background:linear-gradient(90deg,#000080,#1084d0)}
-  .w95-title .t{flex:1}
-  .w95-title .tb{width:18px;height:18px;display:grid;place-items:center;font-size:10px;font-weight:700;color:#000}
-  .w95-inner{padding:22px 22px 24px}
-  .w95-h{font-size:clamp(20px,2.6vw,26px);font-weight:700;margin:0 0 4px;color:#000}
-  .w95-sub{margin:0 0 20px;font-size:14px;color:#222}
+  /* The Win95 contact dialog is rendered by the real 95CSS (vendor/95.scoped.css, scoped to .era-95).
+     These rules only handle teal wallpaper + the two-column contact layout. */
+  .era-95{background:#008080;color:#000}
+  .era-95 .dialog{max-width:780px;margin:0 auto}
+  .era-95 .dialog-header .t{flex:1;font-weight:700}
   .contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:24px;align-items:start}
-  .w95-aside p{font-size:14px;color:#111;margin:0 0 10px}
+  .w95-h{margin:0 0 4px;font-size:clamp(18px,2.4vw,24px);font-weight:700;color:#000}
+  .w95-sub{margin:0 0 18px;font-size:13px;color:#222}
+  .w95-aside p{font-size:13px;color:#111;margin:0 0 10px}
   .w95-aside a{color:#0000c0;text-decoration:underline}
-  .field{margin-bottom:13px}
-  .field label{display:block;font-size:13px;font-weight:700;margin-bottom:5px;color:#000}
-  .field label .req{color:#b00000}
-  input,textarea{width:100%;font-family:var(--ms95);font-size:14px;padding:6px 8px;color:#000;
-    background:#fff;border:none;box-shadow:inset -1px -1px #fff,inset 1px 1px #808080,inset -2px -2px #dfdfdf,inset 2px 2px #0a0a0a}
-  input:focus,textarea:focus{outline:1px dotted #000;outline-offset:-4px}
-  textarea{resize:vertical;min-height:96px}
+  .era-95 .req{color:#b00000}
+  .era-95 .input-group{margin-bottom:11px}
+  .era-95 textarea{resize:vertical;min-height:92px}
   .hp{position:absolute;left:-9999px;opacity:0;height:0;width:0;overflow:hidden}
-  .btn95{font-family:var(--ms95);font-size:13.5px;font-weight:700;padding:9px 22px;cursor:pointer;color:#000;
-    background:#c3c3c3;border:none;box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf}
-  .btn95:active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf;padding:10px 21px 8px 23px}
-  .btn95[disabled]{color:#808080;cursor:default}
-  .form-foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:6px}
+  .form-foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:8px}
   #form-status{font-size:13px;font-weight:700;min-height:1.1em}
   #form-status.ok{color:#006000}
   #form-status.err{color:#b00000}
-  .spin95{display:inline-block;font-family:var(--mono)}
 
   /* ===== FOOTER — Win95 taskbar ===== */
   footer{background:#008080;padding:0;position:relative;z-index:2}
@@ -505,11 +483,17 @@
         <span class="w10-title"><span class="w10-ico"><i></i><i></i><i></i><i></i></span> Why Riva Computech</span>
         <div class="w10-ctrls"><button aria-label="Minimize">─</button><button aria-label="Maximize">▢</button><button class="close" aria-label="Close">✕</button></div>
       </div>
+      <div class="w10-menubar"><button type="button">File</button><button type="button">Edit</button><button type="button">View</button><button type="button">Help</button></div>
       <div class="w10-body">
         <div class="tiles">
           <div class="tile b1"><span class="tile-ico">⚡</span><h3>Talk to a real person</h3><p>You reach the person who actually does the work — every time, not a rotating queue.</p></div>
           <div class="tile b2"><span class="tile-ico">☁</span><h3>Microsoft, done right</h3><p>Hands-on with Microsoft 365, Azure, Exchange, Intune and Entra ID, day in and day out.</p></div>
           <div class="tile b3"><span class="tile-ico">↗</span><h3>Set up to last</h3><p>Infrastructure that grows with you and stays out of your way.</p></div>
+        </div>
+        <div class="w10-foot">
+          <a class="w10-btn" href="#contact">Book assessment</a>
+          <span class="lbl">Uptime, last 90 days</span>
+          <span class="w10-progress" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"><i></i></span>
         </div>
       </div>
     </div>
@@ -517,17 +501,17 @@
 </section>
 
 <!-- ============ PHASE 3 · WINDOWS 7 · SERVICES ============ -->
-<section class="services era-7 has-intro" id="services" data-intro="800">
+<section class="services era-7 win7 has-intro" id="services" data-intro="800">
   <div class="intro intro-7" aria-hidden="true"><div class="orb7"><span class="winflag classic"><i></i><i></i><i></i><i></i></span></div></div>
   <div class="wrap">
     <div class="kicker reveal">Services</div>
     <h2 class="reveal">What I can help with.</h2>
     <p class="sub reveal">The everyday Microsoft and infrastructure work that keeps a small business running — as a one-off project or ongoing, proactive support.</p>
     <div class="svc-grid">
-      <article class="window glass is-bright reveal closable">
+      <article class="window glass active is-bright reveal closable">
         <div class="title-bar">
           <div class="title-bar-text"><span class="wf"><i></i><i></i><i></i><i></i></span> Deploy-Microsoft365</div>
-          <div class="title-bar-controls"><button class="min" aria-label="Minimize">─</button><button aria-label="Maximize">▢</button><button class="close" aria-label="Close">✕</button></div>
+          <div class="title-bar-controls"><button class="is-minimize" aria-label="Minimize"></button><button class="is-maximize" aria-label="Maximize"></button><button class="is-close close" aria-label="Close"></button></div>
         </div>
         <div class="window-body">
           <h3>Microsoft 365 &amp; Azure</h3>
@@ -540,12 +524,13 @@
             <li>Microsoft Intune (device management)</li>
             <li>Entra ID / Active Directory</li>
           </ul>
+          <div class="w7-progress"><span class="lbl">Tenant health check</span><div role="progressbar" class="animate"><div style="width:92%"></div></div></div>
         </div>
       </article>
-      <article class="window glass is-bright reveal closable">
+      <article class="window glass active is-bright reveal closable">
         <div class="title-bar">
           <div class="title-bar-text"><span class="wf"><i></i><i></i><i></i><i></i></span> Move-Tenant</div>
-          <div class="title-bar-controls"><button class="min" aria-label="Minimize">─</button><button aria-label="Maximize">▢</button><button class="close" aria-label="Close">✕</button></div>
+          <div class="title-bar-controls"><button class="is-minimize" aria-label="Minimize"></button><button class="is-maximize" aria-label="Maximize"></button><button class="is-close close" aria-label="Close"></button></div>
         </div>
         <div class="window-body">
           <h3>Migrations &amp; continuity</h3>
@@ -560,10 +545,10 @@
           </ul>
         </div>
       </article>
-      <article class="window glass is-bright reveal closable">
+      <article class="window glass active is-bright reveal closable">
         <div class="title-bar">
           <div class="title-bar-text"><span class="wf"><i></i><i></i><i></i><i></i></span> Protect-Infrastructure</div>
-          <div class="title-bar-controls"><button class="min" aria-label="Minimize">─</button><button aria-label="Maximize">▢</button><button class="close" aria-label="Close">✕</button></div>
+          <div class="title-bar-controls"><button class="is-minimize" aria-label="Minimize"></button><button class="is-maximize" aria-label="Maximize"></button><button class="is-close close" aria-label="Close"></button></div>
         </div>
         <div class="window-body">
           <h3>Infrastructure &amp; network</h3>
@@ -594,29 +579,53 @@
     </div>
   </div>
   <div class="wrap">
-    <div class="xp-win reveal closable">
-      <div class="xp-titlebar"><span class="winflag classic" style="width:15px;height:15px"><i></i><i></i><i></i><i></i></span> Riva Computech — About the owner
-        <span class="xp-ctrls"><b>_</b><b>▢</b><b class="close">✕</b></span>
+    <div class="window reveal closable">
+      <div class="title-bar active">
+        <div class="title-bar-text">Riva Computech — About the owner</div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize"></button>
+          <button aria-label="Maximize"></button>
+          <button class="close" aria-label="Close"></button>
+        </div>
       </div>
-      <div class="xp-body">
-        <div class="about-grid">
-          <div class="xp-user">
-            <!-- TODO(Devik): swap the initials tile for a real square photo: <img src="/devik.jpg" alt="Devik Patel"> -->
-            <div class="xp-avatar">DP</div>
-            <div class="xp-uname">Devik Patel</div>
-            <div class="xp-urole">Owner &amp; Consultant</div>
-          </div>
-          <div class="about-bio">
-            <p class="xp-h">Hi, I'm Devik — and you'll work with me directly.</p>
-            <p>Riva Computech is my independent practice. That's 10+ years of hands-on Microsoft 365, Azure and infrastructure work — and I do every job myself. No call centres, no hand-offs, no account managers; when you reach out, you get the person who actually does the work.</p>
-            <p>I hold a BSc in Information Technology and have worked the full range — help desk, Windows Server administration, and cloud. Because it's just me, I keep a focused set of clients and stay flexible around your schedule, so things stay personal and the accountability sits squarely with one person.</p>
-            <div class="about-stats">
-              <div><b>10+</b><span>years hands-on IT</span></div>
-              <div><b>1:1</b><span>direct with the owner</span></div>
-              <div><b>M365&nbsp;+&nbsp;Azure</b><span>specialist focus</span></div>
+      <div class="window-body">
+        <menu role="tablist" class="xp-tabs">
+          <button aria-selected="true" aria-controls="tab-about">About</button>
+          <button aria-controls="tab-cred">Credentials</button>
+        </menu>
+        <article role="tabpanel" id="tab-about">
+          <div class="about-grid">
+            <div class="xp-user">
+              <!-- TODO(Devik): swap the initials tile for a real square photo: <img src="/devik.jpg" alt="Devik Patel"> -->
+              <div class="xp-avatar">DP</div>
+              <div class="xp-uname">Devik Patel</div>
+              <div class="xp-urole">Owner &amp; Consultant</div>
+            </div>
+            <div class="about-bio">
+              <p class="xp-h">Hi, I'm Devik — and you'll work with me directly.</p>
+              <p>Riva Computech is my independent practice. That's 10+ years of hands-on Microsoft 365, Azure and infrastructure work — and I do every job myself. No call centres, no hand-offs, no account managers; when you reach out, you get the person who actually does the work.</p>
+              <fieldset>
+                <legend>Track record</legend>
+                <div class="about-stats">
+                  <div><b>10+</b><span>years hands-on IT</span></div>
+                  <div><b>1:1</b><span>direct with the owner</span></div>
+                  <div><b>M365&nbsp;+&nbsp;Azure</b><span>specialist focus</span></div>
+                </div>
+              </fieldset>
             </div>
           </div>
-        </div>
+        </article>
+        <article role="tabpanel" id="tab-cred" hidden>
+          <p class="xp-h">Background &amp; focus</p>
+          <p>I hold a BSc in Information Technology and have worked the full range — help desk, Windows Server administration, and cloud. Because it's just me, I keep a focused set of clients and stay flexible around your schedule, so things stay personal and the accountability sits squarely with one person.</p>
+          <ul class="tree-view">
+            <li>Microsoft 365 &amp; Exchange Online</li>
+            <li>Azure &amp; hybrid identity (Entra ID)</li>
+            <li>Intune device management</li>
+            <li>Migrations, backup &amp; continuity</li>
+            <li>PowerShell automation</li>
+          </ul>
+        </article>
       </div>
     </div>
   </div>
@@ -626,13 +635,15 @@
 <section class="contact era-95 has-intro" id="contact" data-intro="950">
   <div class="intro intro-95" aria-hidden="true"><div class="zoomrect"></div></div>
   <div class="wrap">
-    <div class="w95 bevel-up reveal closable">
-      <div class="w95-title">
-        <span class="winflag classic" style="width:14px;height:14px"><i></i><i></i><i></i><i></i></span>
+    <div class="dialog reveal closable">
+      <div class="dialog-header">
         <span class="t">Contact — Riva Computech</span>
-        <span class="tb bevel-up">_</span><span class="tb bevel-up">□</span><span class="tb bevel-up close">✕</span>
+        <div class="btn-group">
+          <button class="btn" type="button" aria-label="Minimize" tabindex="-1">_</button>
+          <button class="btn close" type="button" aria-label="Close" tabindex="-1">✕</button>
+        </div>
       </div>
-      <div class="w95-inner">
+      <div class="dialog-body">
         <h2 class="w95-h">Let's scope your project.</h2>
         <p class="w95-sub">Tell me what you're running and what's giving you trouble — I'll give you a straight answer, usually within a business day.</p>
         <div class="contact-grid">
@@ -648,12 +659,12 @@
             <input type="hidden" name="subject" value="New enquiry from rivacomputech.com" />
             <input type="hidden" name="from_name" value="Riva Computech website" />
             <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" />
-            <div class="field"><label for="name">Name <span class="req">*</span></label><input id="name" name="name" type="text" required autocomplete="name" /></div>
-            <div class="field"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" required autocomplete="email" /></div>
-            <div class="field"><label for="topic">Subject</label><input id="topic" name="enquiry_subject" type="text" placeholder="Tenant migration / M365 setup / …" /></div>
-            <div class="field"><label for="message">Message <span class="req">*</span></label><textarea id="message" name="message" required></textarea></div>
+            <div class="input-group"><label for="name">Name <span class="req">*</span></label><input id="name" name="name" type="text" required autocomplete="name" /></div>
+            <div class="input-group"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" required autocomplete="email" /></div>
+            <div class="input-group"><label for="topic">Subject</label><input id="topic" name="enquiry_subject" type="text" placeholder="Tenant migration / M365 setup / …" /></div>
+            <div class="input-group"><label for="message">Message <span class="req">*</span></label><textarea id="message" name="message" required></textarea></div>
             <div class="form-foot">
-              <button class="btn95" type="submit" id="submit-btn">Send message</button>
+              <button class="btn is-highlighted" type="submit" id="submit-btn">Send message</button>
               <span id="form-status" role="status" aria-live="polite"></span>
             </div>
           </form>
@@ -746,6 +757,19 @@
       win.classList.remove("closing"); win.classList.add("reopen");
       setTimeout(function(){ win.classList.remove("reopen"); }, 440);
     }, 520);
+  });
+
+  /* XP.css tabs (About window) — libraries ship no JS, so wire up panel switching */
+  Array.prototype.forEach.call(document.querySelectorAll("menu[role=tablist]"), function(list){
+    list.addEventListener("click", function(e){
+      var btn = e.target.closest("button[aria-controls]"); if(!btn) return;
+      Array.prototype.forEach.call(list.querySelectorAll("button[aria-controls]"), function(b){
+        var on = b === btn;
+        b.setAttribute("aria-selected", on ? "true" : "false");
+        var panel = document.getElementById(b.getAttribute("aria-controls"));
+        if(panel){ on ? panel.removeAttribute("hidden") : panel.setAttribute("hidden",""); }
+      });
+    });
   });
 
   /* hero typing */
