@@ -83,14 +83,9 @@
   header.nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 8px 26px -14px rgba(20,50,110,.28);border-color:rgba(13,40,80,.12)}
   .nav-inner{display:flex;align-items:center;height:70px;width:100%}
   .brand{display:flex;align-items:center;gap:11px;color:#13283f;flex:0 0 auto}
-  .brand-mark{width:34px;height:34px;border-radius:9px;display:block;overflow:hidden;flex:0 0 auto;
-    box-shadow:0 5px 14px -4px rgba(0,85,175,.6), inset 0 1px 0 rgba(255,255,255,.35)}
-  .brand-mark svg{display:block}
   .brand .logo-word{font-family:var(--logo);font-weight:600;font-size:22px;line-height:.85;letter-spacing:-.5px;color:#0e2238}
   .brand .logo-word small{display:block;font-size:9.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#6a7d96;margin-top:2px;font-family:var(--logo)}
-  .brand .brand-logo{display:flex;flex-direction:column;line-height:.8}
-  .brand .brand-logo img{height:24px;width:auto;display:block}
-  .brand .brand-logo small{font-family:var(--logo);font-size:9.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#6a7d96;margin-top:4px;padding-left:2px}
+  .brand .brand-logo{height:36px;width:auto;display:block}
   .nav-menu{display:flex;flex:1;align-items:center;justify-content:space-between;margin-left:44px}
   .nav-links{display:flex;align-items:center;gap:30px}
   .nav-links a{position:relative;color:#1f2d40;font-size:15px;font-weight:600;padding:6px 1px}
@@ -425,15 +420,7 @@
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="#top" aria-label="riva computech home">
-      <span class="brand-mark" aria-hidden="true">
-        <svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg">
-          <defs><linearGradient id="bm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a8ae4"/><stop offset="1" stop-color="#0057ad"/></linearGradient></defs>
-          <rect width="34" height="34" rx="9" fill="url(#bm)"/>
-          <path d="M17 8.5 L23 19 L11 19 Z" fill="#fff"/>
-          <rect x="11" y="21" width="12" height="4.4" rx="2.2" fill="#fff" opacity=".92"/>
-        </svg>
-      </span>
-      <span class="brand-logo"><img src="logo.svg" alt="riva computech" width="45" height="24" /><small>computech</small></span>
+      <img class="brand-logo" src="logo.svg" alt="riva computech" width="67" height="36" />
     </a>
     <div class="nav-menu" id="nav-menu">
       <nav class="nav-links">
