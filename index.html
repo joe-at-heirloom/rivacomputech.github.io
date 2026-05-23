@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-<script>document.documentElement.classList.add('js')</script>
+<script>document.documentElement.classList.add('js');try{if(sessionStorage.getItem('rc_booted')||matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('booted');}catch(e){}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -411,9 +411,76 @@
     .taskbar{flex-wrap:wrap;height:auto}
     .tasknote{display:none}
   }
+  /* ===== one-time boot screen ===== */
+  #boot{display:none}
+  .js #boot{display:flex;position:fixed;inset:0;z-index:200;background:#05080f;
+    flex-direction:column;align-items:center;justify-content:center;gap:24px;color:#dfe6f0;font-family:var(--sans)}
+  .js.booted #boot{display:none}
+  #boot.gone{opacity:0;visibility:hidden;transition:opacity .6s ease,visibility .6s ease}
+  #boot .b-logo{display:flex;align-items:center;gap:14px}
+  #boot .b-flag{width:44px;height:44px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px}
+  #boot .b-flag i{display:block;border-radius:2px}
+  #boot .b-flag i:nth-child(1){background:#f25022}#boot .b-flag i:nth-child(2){background:#7fba00}
+  #boot .b-flag i:nth-child(3){background:#00a4ef}#boot .b-flag i:nth-child(4){background:#ffb900}
+  #boot .b-name{font-family:var(--logo);font-weight:600;font-size:30px;color:#fff;line-height:1}
+  #boot .b-name small{display:block;font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:#7e93b3;margin-top:5px}
+  #boot .b-bar{width:200px;height:14px;border:1px solid #25324d;border-radius:8px;background:#080d18;padding:2px;overflow:hidden}
+  #boot .b-bar i{display:block;height:100%;width:6%;border-radius:6px;background:linear-gradient(90deg,#2a8ae4,#6bd3ff);animation:bootfill 1.9s ease forwards}
+  #boot .b-msg{font-size:12px;color:#6c83a4;letter-spacing:.4px;min-height:1.1em}
+  @keyframes bootfill{0%{width:6%}55%{width:64%}100%{width:100%}}
+
+  /* ===== interactive hero terminal ===== */
+  .term-line{display:flex;align-items:baseline;gap:8px}
+  #term-input{flex:1;min-width:0;background:transparent;border:0;outline:0;padding:0;
+    font-family:var(--mono);font-size:14px;color:#e9d27a;caret-color:#e6e8ee}
+  .term-out-line{white-space:pre-wrap;margin-top:2px}
+  .term-cmd{color:#e9d27a}
+  .term-hint{color:#7e93b3}
+  .term-body .tlink{color:#73b3ff;text-decoration:underline;cursor:pointer}
+  .term-body b{color:#9ecbff;font-weight:600}
+
+  /* ===== desktop: drag / minimize / maximize / Aero-snap ===== */
+  .win-drag-handle{cursor:grab;touch-action:none}
+  .win-dragging{cursor:grabbing;z-index:90 !important}
+  .win-min > :not(.title-bar):not(.w10-bar):not(.dialog-header){display:none !important}
+  .win-max{position:fixed !important;inset:78px 16px 64px !important;left:auto;top:auto;
+    z-index:85 !important;width:auto !important;max-width:none !important;margin:0 !important;
+    opacity:1 !important;animation:none !important;overflow:auto}
+  .win-snap{position:fixed !important;top:78px !important;bottom:64px !important;z-index:85 !important;
+    width:calc(50vw - 22px) !important;max-width:none !important;margin:0 !important;opacity:1 !important;animation:none !important;overflow:auto}
+  .win-snap.snap-left{left:16px !important;right:auto !important}
+  .win-snap.snap-right{right:16px !important;left:auto !important}
+
+  /* ===== taskbar app buttons + floating apps ===== */
+  #taskbar-apps{display:flex;gap:4px;align-items:center;margin-left:6px}
+  .task-btn{font-family:var(--ms95);font-size:12.5px;color:#000;max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    padding:5px 10px;background:#c3c3c3;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+    box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf}
+  .task-btn.active{background:#bdbdbd;box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
+  #app-layer{position:fixed;inset:0;z-index:80;pointer-events:none;background:transparent !important}
+  .appwin{position:fixed;pointer-events:auto;width:min(420px,92vw);z-index:82}
+  .appwin.min{display:none}
+  .appwin .dialog{margin:0;max-width:none}
+  .app-note{font-size:13px;color:#111;line-height:1.55}
+  .app-note p{margin:0 0 7px}
+  .app-note .np{margin-top:2px;background:#fff;padding:10px 12px;min-height:118px;white-space:pre-wrap;
+    font-family:var(--mono);font-size:12px;color:#000;
+    box-shadow:inset -1px -1px #fff,inset 1px 1px #808080,inset -2px -2px #dfdfdf,inset 2px 2px #0a0a0a}
+  .app-note .tlink{color:#0000c0;text-decoration:underline;cursor:pointer}
+  @media (max-width:880px){ .win-snap{width:calc(100vw - 32px) !important} }
 </style>
 </head>
 <body>
+
+<!-- ============ one-time boot screen ============ -->
+<div id="boot" aria-hidden="true">
+  <div class="b-logo">
+    <span class="b-flag"><i></i><i></i><i></i><i></i></span>
+    <span class="b-name">riva<small>computech</small></span>
+  </div>
+  <div class="b-bar"><i></i></div>
+  <div class="b-msg">Starting Riva Computech…</div>
+</div>
 
 <!-- ============ NAV ============ -->
 <header class="nav" id="nav">
@@ -456,7 +523,7 @@
       </div>
     </div>
 
-    <div class="term" role="img" aria-label="Windows Terminal running a PowerShell command">
+    <div class="term" aria-label="Interactive PowerShell terminal — type a command">
       <div class="term-bar">
         <span class="term-tab"><span class="ic">▣</span> PowerShell</span>
         <span class="term-new">+</span>
@@ -689,16 +756,21 @@
       <a href="#about" class="sm-item"><b>A</b>bout</a>
       <a href="#contact" class="sm-item"><b>C</b>ontact</a>
       <div class="sm-sep"></div>
+      <a href="#" class="sm-item" data-app="mycomputer">🖥&nbsp; My Computer</a>
+      <a href="#" class="sm-item" data-app="notepad">📝&nbsp; Services.txt</a>
+      <div class="sm-sep"></div>
       <a href="mailto:rivacomputech@gmail.com" class="sm-item">✉&nbsp; Email…</a>
       <a href="#contact" class="sm-item sm-run">▸&nbsp; Book assessment</a>
     </div>
   </div>
   <div class="taskbar">
     <button class="start" id="startBtn" aria-haspopup="true" aria-expanded="false"><span class="winflag classic"><i></i><i></i><i></i><i></i></span><span class="logo-word">Start</span></button>
+    <div id="taskbar-apps"></div>
     <span class="tasknote">© <span id="year"></span> Riva Computech — independent Microsoft 365 &amp; Azure help.</span>
     <span class="tray" id="clock">12:00 PM</span>
   </div>
 </footer>
+<div id="app-layer" class="era-95"></div>
 
 <script>
 (function(){
@@ -787,7 +859,7 @@
   var outs=Array.prototype.slice.call(document.querySelectorAll("#hero-out .out"));
   function revealOutputs(){
     outs.forEach(function(el,i){ setTimeout(function(){ el.classList.add("show"); }, reduce?0:220+i*260); });
-    if(!reduce){ setTimeout(function(){ caret.style.display="none"; }, 220+outs.length*260+400); } else { caret.style.display="none"; }
+    if(!reduce){ setTimeout(function(){ caret.style.display="none"; enableTerminal(); }, 220+outs.length*260+400); } else { caret.style.display="none"; enableTerminal(); }
   }
   if(reduce){ target.textContent=cmd; revealOutputs(); }
   else { var i=0;(function type(){ if(i<=cmd.length){ target.textContent=cmd.slice(0,i); i++; setTimeout(type,38+Math.random()*45); } else { setTimeout(revealOutputs,350); } })(); }
@@ -812,6 +884,127 @@
       }).catch(function(){ statusEl.className="err"; statusEl.textContent="✖ Network error. Please email rivacomputech@gmail.com."; })
       .finally(function(){ btn.disabled=false; btn.innerHTML=original; });
   });
+
+  /* ============ one-time boot screen ============ */
+  (function(){
+    var boot=document.getElementById("boot");
+    if(!boot) return;
+    if(document.documentElement.classList.contains("booted")){ boot.remove(); return; }
+    var msgs=["Starting Riva Computech…","Loading services…","Mounting Microsoft 365…","Ready."];
+    var mi=0, msg=boot.querySelector(".b-msg");
+    var iv=setInterval(function(){ mi++; if(msg&&msgs[mi]) msg.textContent=msgs[mi]; }, 520);
+    setTimeout(function(){
+      clearInterval(iv);
+      boot.classList.add("gone");
+      try{ sessionStorage.setItem("rc_booted","1"); }catch(e){}
+      boot.addEventListener("transitionend", function(){ if(boot.parentNode) boot.remove(); }, {once:true});
+      setTimeout(function(){ if(boot.parentNode) boot.remove(); }, 900);
+    }, 2100);
+  })();
+
+  /* ============ interactive hero terminal ============ */
+  var termReady=false;
+  function enableTerminal(){
+    if(termReady) return; termReady=true;
+    var body=document.querySelector(".term-body"); if(!body) return;
+    function esc(s){ return s.replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+    function add(html,cls){ var d=document.createElement("div"); d.className="term-out-line"+(cls?" "+cls:""); d.innerHTML=html; body.insertBefore(d,line); return d; }
+    function go(sel){ var el=document.querySelector(sel); if(el) el.scrollIntoView({behavior:reduce?"auto":"smooth"}); }
+    var CMD={
+      help:function(){ add("Available commands:"); add("&nbsp;&nbsp;<b>services</b>   what I help with"); add("&nbsp;&nbsp;<b>why</b>        why work with me"); add("&nbsp;&nbsp;<b>about</b>      about Devik"); add("&nbsp;&nbsp;<b>contact</b> / <b>book</b>   get in touch"); add("&nbsp;&nbsp;<b>whoami</b>     who runs Riva"); add("&nbsp;&nbsp;<b>clear</b>      clear the screen"); },
+      services:function(){ add('Opening services… <a class="tlink" data-go="#services">#services</a>'); go("#services"); },
+      why:function(){ add('Opening… <a class="tlink" data-go="#why">#why</a>'); go("#why"); },
+      about:function(){ add('Opening about… <a class="tlink" data-go="#about">#about</a>'); go("#about"); },
+      contact:function(){ add('Opening contact… <a class="tlink" data-go="#contact">#contact</a>'); go("#contact"); },
+      book:function(){ add("Let’s talk — taking you to the contact form…"); go("#contact"); },
+      whoami:function(){ add("Devik Patel — independent Microsoft 365, Azure &amp; infrastructure consultant. 1:1, direct."); },
+      ls:function(){ add("services   why   about   contact"); },
+      sudo:function(){ add("Nice try. 😄 Type <b>book</b> instead."); }
+    };
+    CMD.dir=CMD.ls;
+    function run(raw){
+      add('<span class="prompt">PS C:\\Riva\\&gt;</span> <span class="term-cmd">'+esc(raw)+'</span>');
+      var cmd=raw.trim().toLowerCase();
+      if(!cmd) return;
+      if(cmd==="clear"||cmd==="cls"){ Array.prototype.forEach.call(body.querySelectorAll(".term-out-line"),function(l){l.remove();}); return; }
+      (CMD[cmd]||function(){ add("'"+esc(raw)+"' is not recognized. Type <b>help</b> for commands."); })();
+    }
+    var line=document.createElement("div"); line.className="term-line";
+    line.innerHTML='<span class="prompt">PS C:\\Riva\\&gt;</span> <input id="term-input" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Type a command" />';
+    body.appendChild(line);
+    var input=line.querySelector("#term-input");
+    add("Type <b>help</b> to get started.","term-hint");
+    input.addEventListener("keydown", function(e){ if(e.key==="Enter"){ var v=input.value; input.value=""; run(v); body.appendChild(line); input.focus(); body.scrollTop=body.scrollHeight; } });
+    body.addEventListener("click", function(e){ var a=e.target.closest("[data-go]"); if(a){ e.preventDefault(); go(a.getAttribute("data-go")); return; } if(e.target.tagName!=="INPUT"){ input.focus(); } });
+  }
+
+  /* ============ window manager: drag / minimize / maximize / Aero-snap ============ */
+  var zTop=80;
+  function winFront(el){ zTop++; el.style.zIndex=zTop; }
+  function winClearSnap(w){ w.classList.remove("win-max","win-snap","snap-left","snap-right"); }
+  function winSnap(w,type){ w.style.left=""; w.style.top=""; winClearSnap(w); w.classList.remove("win-min");
+    if(type==="max") w.classList.add("win-max"); else if(type==="left") w.classList.add("win-snap","snap-left"); else if(type==="right") w.classList.add("win-snap","snap-right"); }
+  function winHandle(w){ return w.querySelector(".w10-bar")||w.querySelector(".title-bar")||w.querySelector(".dialog-header"); }
+  function winDraggable(w,h){
+    if(!h) return; h.classList.add("win-drag-handle");
+    var sx,sy,ox,oy,drag=false,moved=false;
+    h.addEventListener("pointerdown",function(e){
+      if(e.button!==0) return; if(e.target.closest("button,a,input,textarea,select")) return;
+      drag=true; moved=false; winFront(w);
+      if(!w.classList.contains("appwin") && getComputedStyle(w).position==="static") w.style.position="relative";
+      ox=parseFloat(w.style.left)||0; oy=parseFloat(w.style.top)||0; sx=e.clientX; sy=e.clientY;
+      try{ h.setPointerCapture(e.pointerId); }catch(_){}
+    });
+    h.addEventListener("pointermove",function(e){
+      if(!drag) return; var dx=e.clientX-sx, dy=e.clientY-sy;
+      if(!moved && Math.abs(dx)+Math.abs(dy)>3){ moved=true; w.classList.add("win-dragging"); winClearSnap(w); if(getComputedStyle(w).position==="static") w.style.position="relative"; }
+      if(moved){ w.style.left=(ox+dx)+"px"; w.style.top=(oy+dy)+"px"; }
+    });
+    function end(e){ if(!drag) return; drag=false; w.classList.remove("win-dragging"); if(!moved) return;
+      var vw=window.innerWidth;
+      if(e.clientY<=10) winSnap(w,"max"); else if(e.clientX<=12) winSnap(w,"left"); else if(e.clientX>=vw-12) winSnap(w,"right"); }
+    h.addEventListener("pointerup",end); h.addEventListener("pointercancel",end);
+    h.addEventListener("dblclick",function(e){ if(e.target.closest("button,a,input")) return; w.classList.contains("win-max")?winClearSnap(w):winSnap(w,"max"); });
+  }
+  function winControls(w){
+    var mn=w.querySelector('[aria-label="Minimize"]'), mx=w.querySelector('[aria-label="Maximize"]');
+    if(mn) mn.addEventListener("click",function(e){ e.preventDefault(); e.stopPropagation(); winClearSnap(w); w.classList.toggle("win-min"); });
+    if(mx) mx.addEventListener("click",function(e){ e.preventDefault(); e.stopPropagation(); w.classList.remove("win-min"); w.style.left=""; w.style.top=""; w.classList.contains("win-max")?winClearSnap(w):winSnap(w,"max"); });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".closable"),function(w){ var h=winHandle(w); if(h){ winDraggable(w,h); winControls(w); } });
+  document.addEventListener("pointerdown",function(e){ var w=e.target.closest(".appwin,.closable"); if(w) winFront(w); },true);
+
+  /* ============ Start-menu apps + taskbar ============ */
+  var appLayer=document.getElementById("app-layer"), taskApps=document.getElementById("taskbar-apps"), appOpen={}, appOffset=0;
+  var APPS={
+    notepad:{ title:"Services.txt — Notepad", label:"Services.txt", icon:"📝",
+      body:'<div class="app-note"><div class="np">RIVA COMPUTECH — SERVICES\n=========================\n\n• Microsoft 365 &amp; Azure — tenant setup,\n  Exchange, SharePoint &amp; OneDrive\n• Intune device management · Entra ID / AD\n• Migrations — email, tenant-to-tenant, data\n• Backup, disaster recovery &amp; continuity\n• Virtualization — VMware, Hyper-V &amp; Citrix\n• Networks, firewalls, VPNs &amp; security\n• PowerShell automation &amp; monitoring\n\n&gt; Book a free 30-min chat — see Contact.</div></div>' },
+    mycomputer:{ title:"My Computer", label:"My Computer", icon:"🖥",
+      body:'<div class="app-note"><p><b>Owner:</b> Devik Patel</p><p><b>Role:</b> Independent Microsoft 365, Azure &amp; infrastructure consultant</p><p><b>Education:</b> BSc Information Technology — Gujarat University (2004)</p><p><b>Focus:</b> M365 · Azure · virtualization · migrations · security</p><p><a class="tlink" data-go="#contact">▸ Book a free assessment</a></p></div>' }
+  };
+  function appOpenFn(id){
+    if(appOpen[id]){ appRestore(id); return; }
+    var a=APPS[id]; if(!a||!appLayer) return;
+    appOffset=(appOffset+24)%120;
+    var wrap=document.createElement("div"); wrap.className="appwin";
+    wrap.style.left=Math.max(12,Math.min(window.innerWidth-340,140+appOffset))+"px";
+    wrap.style.top=(108+appOffset)+"px";
+    wrap.innerHTML='<div class="dialog"><div class="dialog-header"><span class="t">'+a.title+'</span><div class="btn-group"><button class="btn" type="button" aria-label="Minimize" tabindex="-1">_</button><button class="btn appclose" type="button" aria-label="Close" tabindex="-1">✕</button></div></div><div class="dialog-body">'+a.body+'</div></div>';
+    appLayer.appendChild(wrap);
+    var tb=document.createElement("button"); tb.type="button"; tb.className="task-btn active"; tb.innerHTML="<span>"+a.icon+"</span> "+a.label;
+    taskApps.appendChild(tb);
+    appOpen[id]={el:wrap,tb:tb};
+    tb.addEventListener("click",function(){ wrap.classList.contains("min")?appRestore(id):appMin(id); });
+    wrap.querySelector(".appclose").addEventListener("click",function(){ appClose(id); });
+    wrap.querySelector('[aria-label="Minimize"]').addEventListener("click",function(){ appMin(id); });
+    wrap.addEventListener("click",function(e){ var g=e.target.closest("[data-go]"); if(g){ e.preventDefault(); var el=document.querySelector(g.getAttribute("data-go")); if(el) el.scrollIntoView({behavior:reduce?"auto":"smooth"}); } });
+    winDraggable(wrap, wrap.querySelector(".dialog-header"));
+    winFront(wrap);
+  }
+  function appMin(id){ var r=appOpen[id]; if(!r) return; r.el.classList.add("min"); r.tb.classList.remove("active"); }
+  function appRestore(id){ var r=appOpen[id]; if(!r) return; r.el.classList.remove("min"); r.tb.classList.add("active"); winFront(r.el); }
+  function appClose(id){ var r=appOpen[id]; if(!r) return; r.el.remove(); r.tb.remove(); delete appOpen[id]; }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-app]"),function(el){ el.addEventListener("click",function(e){ e.preventDefault(); appOpenFn(el.getAttribute("data-app")); }); });
 })();
 </script>
 </body>
