@@ -1,18 +1,30 @@
 # Riva Computech — website
 
 A single-page site for Riva Computech that scrolls through Windows history — each section is a
-different Windows era (11 → 10 → 7 → XP → 95), styled after the matching community CSS framework
-(w11CSS / win10css / 7.css / XP.css / 95CSS), with era-authentic loading animations.
-No build step, no framework — `index.html` **is** the site.
+different Windows era (11 → 10 → 7 → XP → 95), with era-authentic loading animations.
+No build step — `index.html` **is** the site.
+
+The Win7, XP and Win95 sections use the **real community CSS frameworks** (7.css, XP.css and 95CSS),
+vendored into `vendor/`. Win10 and Win11 have no drop-in component framework, so their chrome is
+hand-built (Win10 values taken from the win10css demo, Win11 from the w11CSS demo).
 
 ```
-index.html     ← the whole site (HTML + CSS + JS, self-contained)
+index.html     ← the whole site (HTML + CSS + JS)
+vendor/        ← the real Windows CSS frameworks, each scoped to its section so they don't clash:
+                 7.scoped.css (Win7 → .win7) · xp.scoped.css (XP → .era-xp) · 95.scoped.css (Win95 → .era-95)
+                 + the libraries' bundled fonts (MS Sans Serif, w95fa)
 404.html       ← Windows blue-screen-of-death 404 page
 favicon.svg    ← terminal-prompt favicon
 robots.txt     ← search-engine directives
 sitemap.xml    ← sitemap
 README.md      ← this file
 ```
+
+> **How the frameworks are vendored:** 7.css/XP.css/98.css are one family that all define the same
+> global classes (`.window`, `.title-bar`, …), so loading them together would clobber each other.
+> Each library is therefore scoped to its era (XP.css/95CSS via PostCSS `postcss-prefix-selector`;
+> 7.css ships a pre-scoped `.win7` build). Re-generate with the upstream npm packages if you bump
+> versions — see the `<link>` tags in `index.html` for the exact files.
 
 > ✅ **Wallpapers:** the Windows desktop backgrounds are now drawn entirely in **CSS**
 > (original gradients — XP sky+hill, Win7 glow, Win10 abstract, Win95 teal). No copyrighted
