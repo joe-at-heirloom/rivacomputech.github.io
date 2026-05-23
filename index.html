@@ -85,9 +85,10 @@
   .brand{display:flex;align-items:center;gap:11px;color:#13283f;flex:0 0 auto}
   .brand .logo-word{font-family:var(--logo);font-weight:600;font-size:22px;line-height:.85;letter-spacing:-.5px;color:#0e2238}
   .brand .logo-word small{display:block;font-size:9.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#6a7d96;margin-top:2px;font-family:var(--logo)}
-  .brand .brand-logo{display:flex;flex-direction:column;line-height:.8}
+  .brand .brand-logo{display:flex;flex-direction:column;align-items:stretch;line-height:.8}
   .brand .brand-logo img{height:34px;width:auto;display:block}
-  .brand .brand-logo small{font-family:var(--logo);font-size:9.5px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:#6a7d96;margin-top:5px;padding-left:3px}
+  .brand .brand-sub{display:flex;justify-content:space-between;width:100%;margin-top:5px;
+    font-family:var(--logo);font-size:9px;font-weight:600;text-transform:uppercase;color:#6a7d96}
   .nav-menu{display:flex;flex:1;align-items:center;justify-content:space-between;margin-left:44px}
   .nav-links{display:flex;align-items:center;gap:30px}
   .nav-links a{position:relative;color:#1f2d40;font-size:15px;font-weight:600;padding:6px 1px}
@@ -416,7 +417,7 @@
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="#top" aria-label="riva computech home">
-      <span class="brand-logo"><img src="logo.svg" alt="riva computech" width="63" height="34" /><small>computech</small></span>
+      <span class="brand-logo"><img src="logo.svg" alt="riva computech" width="63" height="34" /><span class="brand-sub" aria-hidden="true"><span>c</span><span>o</span><span>m</span><span>p</span><span>u</span><span>t</span><span>e</span><span>c</span><span>h</span></span></span>
     </a>
     <div class="nav-menu" id="nav-menu">
       <nav class="nav-links">
