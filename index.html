@@ -85,7 +85,9 @@
   .brand{display:flex;align-items:center;gap:11px;color:#13283f;flex:0 0 auto}
   .brand .logo-word{font-family:var(--logo);font-weight:600;font-size:22px;line-height:.85;letter-spacing:-.5px;color:#0e2238}
   .brand .logo-word small{display:block;font-size:9.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#6a7d96;margin-top:2px;font-family:var(--logo)}
-  .brand .brand-logo{height:36px;width:auto;display:block}
+  .brand .brand-logo{display:flex;flex-direction:column;line-height:.8}
+  .brand .brand-logo img{height:34px;width:auto;display:block}
+  .brand .brand-logo small{font-family:var(--logo);font-size:9.5px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:#6a7d96;margin-top:5px;padding-left:3px}
   .nav-menu{display:flex;flex:1;align-items:center;justify-content:space-between;margin-left:44px}
   .nav-links{display:flex;align-items:center;gap:30px}
   .nav-links a{position:relative;color:#1f2d40;font-size:15px;font-weight:600;padding:6px 1px}
@@ -340,14 +342,7 @@
   .era-10.revealed .tile:nth-child(3){animation-delay:.48s}
   @keyframes tilein{to{opacity:1;transform:none}}
 
-  /* (Win7) Start orb glow + windows open */
-  .intro-7{background:transparent !important;align-items:flex-end !important;justify-content:flex-start !important;padding:0 0 26px 26px}
-  .orb7{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;opacity:0;
-    background:radial-gradient(circle at 50% 32%,#d8edff,#4aa1e6 46%,#0a59a8 78%);
-    box-shadow:0 0 0 2px rgba(255,255,255,.55),0 0 22px 6px rgba(70,165,255,.7)}
-  .orb7 .winflag{width:22px;height:22px}
-  .era-7.playing .orb7{animation:orb7 1s ease forwards}
-  @keyframes orb7{0%{opacity:0;transform:scale(.7)}30%{opacity:1;transform:scale(1)}50%{box-shadow:0 0 0 2px #fff,0 0 30px 12px rgba(110,195,255,.95);transform:scale(1.1)}75%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.05)}}
+  /* (Win7) windows open */
   .js .era-7 .window{opacity:0;transform:scale(.93)}
   .era-7.revealed .window{animation:winopen .55s cubic-bezier(.2,.7,.3,1) forwards}
   .era-7.revealed .svc-grid .window:nth-child(2){animation-delay:.12s}
@@ -420,7 +415,7 @@
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="#top" aria-label="riva computech home">
-      <img class="brand-logo" src="logo.svg" alt="riva computech" width="67" height="36" />
+      <span class="brand-logo"><img src="logo.svg" alt="riva computech" width="63" height="34" /><small>computech</small></span>
     </a>
     <div class="nav-menu" id="nav-menu">
       <nav class="nav-links">
@@ -507,7 +502,6 @@
 
 <!-- ============ PHASE 3 · WINDOWS 7 · SERVICES ============ -->
 <section class="services era-7 win7 has-intro" id="services" data-intro="800">
-  <div class="intro intro-7" aria-hidden="true"><div class="orb7"><span class="winflag classic"><i></i><i></i><i></i><i></i></span></div></div>
   <div class="wrap">
     <div class="kicker reveal">Services</div>
     <h2 class="reveal">What I can help with.</h2>
