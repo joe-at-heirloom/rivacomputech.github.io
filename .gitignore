@@ -1,0 +1,12 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+
+# Tooling artifacts
+.playwright-mcp/
+*.log
+
+# Local screenshots
+*.png
+!og.png
