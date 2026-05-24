@@ -412,7 +412,7 @@
     .tasknote{display:none}
   }
   /* ===== technologies strip ===== */
-  .techstrip{min-height:auto;display:block;overflow:hidden;padding:48px 0 42px;background:#eef2f8;border-top:1px solid #dde6f1;border-bottom:1px solid #dde6f1;text-align:center}
+  .techstrip{min-height:auto;display:block;overflow:hidden;padding:48px 0 42px;background:#eef2f8;text-align:center}
   .ts-label{font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#6a7d96;margin:0 0 26px}
   .ts-list{list-style:none;margin:0 0 22px;padding:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:22px 46px}
   .ts-list li{display:inline-flex;align-items:center}
@@ -422,10 +422,11 @@
 
   /* ===== era wallpapers ===== */
   .era-11,.era-10,.era-7,.era-xp{background-repeat:no-repeat;background-position:center;background-size:cover}
-  .era-11{background-image:url(assets/wall-11.svg)}
-  .era-10{background-image:url(assets/wall-10.webp)}
-  .era-7{background-image:url(assets/wall-7.webp)}
-  .era-xp{background-image:url(assets/wall-xp.webp);background-position:center bottom}
+  /* each section's empty top/bottom edges fade to the neighbour's colour, so the seams blend (content is vertically centred, so no text sits in the fade zones) */
+  .era-11{background-image:linear-gradient(to bottom,rgba(238,243,251,0) 86%,#eef2f8 100%),url(assets/wall-11.svg)}
+  .era-10{background-image:linear-gradient(to bottom,#eef2f8 0%,rgba(238,242,248,0) 11%,rgba(10,28,52,0) 84%,#0a1c34 100%),url(assets/wall-10.webp)}
+  .era-7{background-image:linear-gradient(to bottom,#0a1c34 0%,rgba(10,28,52,0) 13%,rgba(58,127,192,0) 84%,#3a7fc0 100%),url(assets/wall-7.webp)}
+  .era-xp{background-image:linear-gradient(to bottom,#3a7fc0 0%,rgba(58,127,192,0) 13%,rgba(0,128,128,0) 80%,#008080 100%),url(assets/wall-xp.webp);background-position:center bottom}
   .era-11::before{opacity:.35}
   /* dark scrims so the section headings stay legible over the photo wallpapers */
   .era-10::before{display:block;opacity:1;background:linear-gradient(105deg,rgba(3,14,30,.8),rgba(3,14,30,.52) 34%,rgba(3,14,30,.12) 62%,rgba(3,14,30,0) 82%)}
