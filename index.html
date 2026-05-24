@@ -1043,6 +1043,18 @@
   function appRestore(id){ var r=appOpen[id]; if(!r) return; r.el.classList.remove("min"); r.tb.classList.add("active"); winFront(r.el); }
   function appClose(id){ var r=appOpen[id]; if(!r) return; r.el.remove(); r.tb.remove(); delete appOpen[id]; }
   Array.prototype.forEach.call(document.querySelectorAll("[data-app]"),function(el){ el.addEventListener("click",function(e){ e.preventDefault(); appOpenFn(el.getAttribute("data-app")); }); });
+
+  /* ============ easter egg: type "devik" anywhere → rickroll ============ */
+  (function(){
+    var seq="", word="devik";
+    document.addEventListener("keydown", function(e){
+      var el=e.target;
+      if(el && (el.tagName==="INPUT"||el.tagName==="TEXTAREA"||el.isContentEditable)) return; /* don't hijack form/terminal typing */
+      if(!e.key || e.key.length!==1) return;
+      seq=(seq+e.key.toLowerCase()).slice(-word.length);
+      if(seq===word){ seq=""; window.location.href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"; }
+    });
+  })();
 })();
 </script>
 </body>
