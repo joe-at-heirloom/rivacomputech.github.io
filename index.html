@@ -411,6 +411,17 @@
     .taskbar{flex-wrap:wrap;height:auto}
     .tasknote{display:none}
   }
+  /* ===== era wallpapers (original SVG look-alikes — swap for licensed JPGs anytime) ===== */
+  .era-11,.era-10,.era-7,.era-xp{background-repeat:no-repeat;background-position:center;background-size:cover}
+  .era-11{background-image:url(assets/wall-11.svg)}
+  .era-10{background-image:url(assets/wall-10.svg)}
+  .era-7{background-image:url(assets/wall-7.svg)}
+  .era-xp{background-image:url(assets/wall-xp.svg);background-position:center bottom}
+  .era-11::before{opacity:.35}
+  .era-10::before{opacity:.45}
+  .era-7::before{opacity:.5}
+  .era-xp::after{display:none}
+
   /* ===== one-time boot screen ===== */
   #boot{display:none}
   .js #boot{display:flex;position:fixed;inset:0;z-index:200;background:#05080f;
