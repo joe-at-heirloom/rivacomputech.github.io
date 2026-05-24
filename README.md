@@ -39,25 +39,23 @@ python3 -m http.server 8080
 # then open http://localhost:8080
 ```
 
-## Deploy to Cloudflare Pages
+## Deploy with GitHub Pages
 
-**Option A — direct upload (fastest)**
+The repo already includes a `CNAME` (`rivacomputech.com`) and `.nojekyll`. To go live:
 
-```bash
-npx wrangler pages deploy . --project-name rivacomputech
-```
+1. **Enable Pages:** repo **Settings → Pages → Build and deployment → Source: _Deploy from a
+   branch_ → Branch: `main` / `/ (root)`** → Save.
+2. **Point DNS** for the apex domain `rivacomputech.com` at GitHub Pages:
+   - `A` records → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+   - `AAAA` records → `2606:50c0:8000::153`, `…8001::153`, `…8002::153`, `…8003::153`
+   - `www` → `CNAME` → `joe-at-heirloom.github.io`
+   - If DNS is managed in **Cloudflare**, set those records **DNS-only (grey cloud)** so GitHub
+     can issue the TLS cert. (Proxying conflicts with Pages' certificate.)
+3. In **Settings → Pages**, confirm the custom domain shows `rivacomputech.com` and tick
+   **Enforce HTTPS** once the cert is issued (can take a few minutes to an hour).
 
-Or in the Cloudflare dashboard → **Workers & Pages → Create → Pages → Upload assets**,
-drag in this folder.
-
-**Option B — Git (recommended for ongoing edits)**
-
-1. Push this folder to a GitHub repo.
-2. Cloudflare dashboard → **Pages → Connect to Git** → pick the repo.
-3. Build settings: **Build command = _(leave empty)_**, **Output directory = `/`**.
-4. Every push to `main` auto-deploys.
-
-Then add the custom domain `rivacomputech.com` under the Pages project → **Custom domains**.
+Every push to `main` re-publishes automatically. Before DNS is ready you can preview at the
+project URL GitHub shows in Settings → Pages.
 
 ---
 
@@ -65,11 +63,12 @@ Then add the custom domain `rivacomputech.com` under the Pages project → **Cus
 
 These are marked with `TODO(Devik)` comments inside `index.html`:
 
-1. **Web3Forms access key (required for the contact form).**
-   - Sign up free at <https://web3forms.com> using `rivacomputech@gmail.com`.
-   - Copy the access key, then in `index.html` replace `YOUR_WEB3FORMS_ACCESS_KEY`
-     (search for it — it's a hidden `<input name="access_key">`).
-   - Until this is set, the form shows a friendly "not configured yet" message instead of sending.
+1. **Formspree form ID (required for the contact form).**
+   - Sign up free at <https://formspree.io> (use `rivacomputech@gmail.com`) and create a form.
+   - Formspree gives an endpoint like `https://formspree.io/f/abcdwxyz`. In `index.html`,
+     replace `YOUR_FORMSPREE_ID` in the form's `action="https://formspree.io/f/YOUR_FORMSPREE_ID"`.
+   - Until then, the form shows a friendly "not configured yet" message instead of sending.
+   - (The first real submission asks Devik to confirm the email once; then it just works.)
 
 2. **Phone number & service area** — used in the Contact section and the JSON-LD `areaServed`.
 
@@ -92,5 +91,5 @@ These are marked with `TODO(Devik)` comments inside `index.html`:
 
 - All animations respect `prefers-reduced-motion`.
 - Fonts (Cascadia Code + Inter) load from public CDNs with monospace/system fallbacks.
-- The contact form posts client-side to Web3Forms — no backend, no secrets in the repo
-  beyond the public access key (which is safe to expose; that's how Web3Forms works).
+- The contact form posts client-side to Formspree — no backend, and the form endpoint is a
+  public URL (safe to expose; that's how Formspree works). Falls back to the mailto link.

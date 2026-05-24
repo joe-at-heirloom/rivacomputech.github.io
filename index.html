@@ -809,12 +809,10 @@
             <p><b>Phone &amp; area</b><br>coming soon</p>
             <p style="opacity:.7;font-size:12.5px">No ticket queues. No hand-offs.</p>
           </div>
-          <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
-            <!-- TODO(Devik): replace with your real Web3Forms access key from https://web3forms.com -->
-            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
-            <input type="hidden" name="subject" value="New enquiry from rivacomputech.com" />
-            <input type="hidden" name="from_name" value="Riva Computech website" />
-            <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" />
+          <!-- TODO(Devik): create a form at https://formspree.io and replace YOUR_FORMSPREE_ID below (e.g. action="https://formspree.io/f/xyzabcd") -->
+          <form id="contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" novalidate>
+            <input type="hidden" name="_subject" value="New enquiry from rivacomputech.com" />
+            <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <div class="input-group"><label for="name">Name <span class="req">*</span></label><input id="name" name="name" type="text" required autocomplete="name" /></div>
             <div class="input-group"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" required autocomplete="email" /></div>
             <div class="input-group"><label for="topic">Subject</label><input id="topic" name="enquiry_subject" type="text" placeholder="Tenant migration / M365 setup / …" /></div>
@@ -973,18 +971,18 @@
   if(reduce||!("IntersectionObserver" in window)){ revs.forEach(function(el){ el.classList.add("in"); }); }
   else { var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } }); },{threshold:.12,rootMargin:"0px 0px -40px 0px"}); revs.forEach(function(el){ io.observe(el); }); }
 
-  /* contact form (Web3Forms) */
+  /* contact form (Formspree) */
   var form=document.getElementById("contact-form"), statusEl=document.getElementById("form-status"), btn=document.getElementById("submit-btn");
   form.addEventListener("submit", function(e){
     e.preventDefault(); statusEl.className=""; statusEl.textContent="";
     if(!form.checkValidity()){ statusEl.className="err"; statusEl.textContent="Please fill in the required fields."; form.reportValidity(); return; }
-    var key=form.querySelector('[name="access_key"]').value;
-    if(!key||key==="YOUR_WEB3FORMS_ACCESS_KEY"){ statusEl.className="err"; statusEl.textContent="Form not configured yet — add the Web3Forms key."; return; }
+    var action=form.getAttribute("action");
+    if(!action||action.indexOf("YOUR_FORMSPREE_ID")!==-1){ statusEl.className="err"; statusEl.textContent="Form not configured yet — add the Formspree form ID."; return; }
     var original=btn.innerHTML; btn.disabled=true; btn.innerHTML='Sending…'; statusEl.className=""; statusEl.textContent="Sending your message…";
-    fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Accept":"application/json"},body:new FormData(form)})
-      .then(function(r){return r.json();}).then(function(j){
-        if(j.success){ statusEl.className="ok"; statusEl.textContent="✔ Message sent — talk soon."; form.reset(); }
-        else { statusEl.className="err"; statusEl.textContent="✖ "+(j.message||"Something went wrong. Email rivacomputech@gmail.com."); }
+    fetch(action,{method:"POST",headers:{"Accept":"application/json"},body:new FormData(form)})
+      .then(function(r){ return r.json().then(function(j){ return {ok:r.ok,body:j}; }); }).then(function(res){
+        if(res.ok && res.body.ok!==false){ statusEl.className="ok"; statusEl.textContent="✔ Message sent — talk soon."; form.reset(); }
+        else { var m=(res.body.errors&&res.body.errors.map(function(x){return x.message;}).join(", "))||"Something went wrong. Email rivacomputech@gmail.com."; statusEl.className="err"; statusEl.textContent="✖ "+m; }
       }).catch(function(){ statusEl.className="err"; statusEl.textContent="✖ Network error. Please email rivacomputech@gmail.com."; })
       .finally(function(){ btn.disabled=false; btn.innerHTML=original; });
   });
