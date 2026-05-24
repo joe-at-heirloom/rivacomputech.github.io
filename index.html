@@ -10,13 +10,13 @@
 
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Riva Computech — Microsoft 365 &amp; Azure IT Consulting" />
-<meta property="og:description" content="From Windows 95 to Windows 11 — and every migration in between. Independent IT, direct." />
+<meta property="og:description" content="Independent Microsoft 365, Azure & infrastructure IT — direct, no ticket queues, no hand-offs." />
 <meta property="og:url" content="https://rivacomputech.com/" />
 <meta property="og:image" content="https://rivacomputech.com/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
 
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-<script>document.documentElement.classList.add('js')</script>
+<script>document.documentElement.classList.add('js');try{if(sessionStorage.getItem('rc_booted')||matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('booted');}catch(e){}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,9 +25,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cascadia-code@5.2.6/index.min.css" />
 <!-- Authentic Windows-era CSS frameworks, each scoped to its section so they don't clash:
      7.css (Win7 Aero) → .win7 · XP.css (Luna) → .era-xp · 95CSS (Win95) → .era-95 -->
-<link rel="stylesheet" href="/vendor/7.scoped.css" />
-<link rel="stylesheet" href="/vendor/xp.scoped.css" />
-<link rel="stylesheet" href="/vendor/95.scoped.css" />
+<link rel="stylesheet" href="vendor/7.scoped.css" />
+<link rel="stylesheet" href="vendor/xp.scoped.css" />
+<link rel="stylesheet" href="vendor/95.scoped.css" />
 
 <script type="application/ld+json">
 {
@@ -83,11 +83,12 @@
   header.nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 8px 26px -14px rgba(20,50,110,.28);border-color:rgba(13,40,80,.12)}
   .nav-inner{display:flex;align-items:center;height:70px;width:100%}
   .brand{display:flex;align-items:center;gap:11px;color:#13283f;flex:0 0 auto}
-  .brand-mark{width:34px;height:34px;border-radius:9px;display:block;overflow:hidden;flex:0 0 auto;
-    box-shadow:0 5px 14px -4px rgba(0,85,175,.6), inset 0 1px 0 rgba(255,255,255,.35)}
-  .brand-mark svg{display:block}
   .brand .logo-word{font-family:var(--logo);font-weight:600;font-size:22px;line-height:.85;letter-spacing:-.5px;color:#0e2238}
   .brand .logo-word small{display:block;font-size:9.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#6a7d96;margin-top:2px;font-family:var(--logo)}
+  .brand .brand-logo{display:flex;flex-direction:column;align-items:stretch;line-height:.8}
+  .brand .brand-logo img{height:34px;width:auto;display:block}
+  .brand .brand-sub{display:flex;justify-content:space-between;width:100%;margin-top:5px;
+    font-family:var(--logo);font-size:9px;font-weight:600;text-transform:uppercase;color:#6a7d96}
   .nav-menu{display:flex;flex:1;align-items:center;justify-content:space-between;margin-left:44px}
   .nav-links{display:flex;align-items:center;gap:30px}
   .nav-links a{position:relative;color:#1f2d40;font-size:15px;font-weight:600;padding:6px 1px}
@@ -111,6 +112,23 @@
   .btn.ghost{background:rgba(255,255,255,.75);color:#0067c0;border:1px solid #bcd4ec;box-shadow:0 2px 6px -2px rgba(0,60,130,.15)}
   .btn.ghost:hover{background:#fff;color:#005ba8;box-shadow:0 6px 16px -6px rgba(0,90,180,.3)}
   .nav .btn{padding:10px 18px;font-size:14px}
+  /* nav CTA morphs to match the era you're scrolled into */
+  header.nav .nav-right .btn{transition:filter .2s,transform .2s,box-shadow .25s,background .3s,border-color .3s,color .25s,border-radius .25s}
+  /* Win10 — hand-built (no library exists): flat square */
+  header.nav[data-era="10"] .nav-right .btn{background:#e1e1e1;color:#000;border:1px solid #adadad;border-radius:0;box-shadow:none}
+  header.nav[data-era="10"] .nav-right .btn:hover{background:#e5f1fb;border-color:#0078d7;color:#000;filter:none;box-shadow:none;transform:none}
+  /* Win7 — 7.css button (resolved values) */
+  header.nav[data-era="7"] .nav-right .btn{background:linear-gradient(#f2f2f2 45%,#ebebeb 45%,#cfcfcf);color:#222;border:1px solid #8e8f8f;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.8);font:9pt "Segoe UI","SegoeUI","Noto Sans",sans-serif;text-shadow:none}
+  header.nav[data-era="7"] .nav-right .btn:hover{border-color:#3c7fb1;color:#222;filter:none;transform:none}
+  header.nav[data-era="7"] .nav-right .btn:active{border-color:#6d91ab}
+  /* XP — XP.css button (beige bevel, amber hover) */
+  header.nav[data-era="xp"] .nav-right .btn{background:#ece9d8;color:#222;border:none;border-radius:0;font-family:"Pixelated MS Sans Serif",Arial,sans-serif;font-size:11px;font-weight:400;text-shadow:none;box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px grey,inset 2px 2px #dfdfdf}
+  header.nav[data-era="xp"] .nav-right .btn:hover{color:#222;filter:none;transform:none;box-shadow:inset -1px 1px #fff0cf,inset 1px 2px #fdd889,inset -2px 2px #fbc761,inset 2px -2px #e5a01a}
+  header.nav[data-era="xp"] .nav-right .btn:active{box-shadow:inset -1px -1px #fff,inset 1px 1px #0a0a0a,inset -2px -2px #dfdfdf,inset 2px 2px grey}
+  /* Win95 — 95CSS button (resolved values) */
+  header.nav[data-era="95"] .nav-right .btn{background:#c3c3c3;color:#000;border:none;border-radius:0;font-family:w95fa,"MS Sans Serif",sans-serif;font-weight:400;text-shadow:none;box-shadow:inset -2px -2px 0 #000,inset 2px 2px 0 #fff,inset -4px -4px 0 grey,inset 4px 4px 0 #dedede}
+  header.nav[data-era="95"] .nav-right .btn:hover{background:#c3c3c3;color:#000;filter:none;transform:none;box-shadow:inset -2px -2px 0 #000,inset 2px 2px 0 #fff,inset -4px -4px 0 grey,inset 4px 4px 0 #dedede}
+  header.nav[data-era="95"] .nav-right .btn:active{box-shadow:inset -2px -2px 0 #fff,inset 2px 2px 0 #000,inset -4px -4px 0 #dedede,inset 4px 4px 0 grey}
 
   /* ============================================================
      PHASE 1 — WINDOWS 11 (hero)
@@ -151,6 +169,13 @@
   .out.show{opacity:1;transform:none}
   .out .k{color:#73b3ff}
   .out .ok{color:#3ad1a0}
+  /* Win11 hero window chrome adopted from w11CSS (github.com/Laaouatni/w11CSS) */
+  .era-11 .term{background:rgba(0,0,0,.2);border:2px solid rgba(255,255,255,.37);border-radius:.5em;
+    backdrop-filter:blur(2em) saturate(1.4);-webkit-backdrop-filter:blur(2em) saturate(1.4);
+    box-shadow:0 30px 70px -22px rgba(15,40,90,.5)}
+  .era-11 .term-bar{background:#202020}
+  .era-11 .win11-ctrls span:hover{background:rgba(255,255,255,.1)}
+  .era-11 .win11-ctrls span.close:hover{background:rgb(255,0,25);color:#fff}
 
   /* ============================================================
      PHASE 2 — WINDOWS 10 (why / live tiles)
@@ -244,6 +269,7 @@
   /* The XP "About" window is rendered by the real XP.css (vendor/xp.scoped.css, scoped to .era-xp).
      These rules only lay out the content that sits inside its .window-body. */
   .era-xp .window{max-width:880px;margin:0 auto;box-shadow:0 26px 54px -18px rgba(0,30,80,.6)}
+  .era-xp .window-body{color:#1f1f1f}
   .era-xp .xp-h{font-size:clamp(18px,2.4vw,24px);font-weight:700;color:#0a3d91;margin:0 0 6px}
   .era-xp .xp-sub{margin:0 0 16px;color:#3a3a3a;font-size:13px}
   .era-xp [role=tabpanel]{margin-top:-2px;padding:18px 20px}
@@ -342,14 +368,7 @@
   .era-10.revealed .tile:nth-child(3){animation-delay:.48s}
   @keyframes tilein{to{opacity:1;transform:none}}
 
-  /* (Win7) Start orb glow + windows open */
-  .intro-7{background:transparent !important;align-items:flex-end !important;justify-content:flex-start !important;padding:0 0 26px 26px}
-  .orb7{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;opacity:0;
-    background:radial-gradient(circle at 50% 32%,#d8edff,#4aa1e6 46%,#0a59a8 78%);
-    box-shadow:0 0 0 2px rgba(255,255,255,.55),0 0 22px 6px rgba(70,165,255,.7)}
-  .orb7 .winflag{width:22px;height:22px}
-  .era-7.playing .orb7{animation:orb7 1s ease forwards}
-  @keyframes orb7{0%{opacity:0;transform:scale(.7)}30%{opacity:1;transform:scale(1)}50%{box-shadow:0 0 0 2px #fff,0 0 30px 12px rgba(110,195,255,.95);transform:scale(1.1)}75%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.05)}}
+  /* (Win7) windows open */
   .js .era-7 .window{opacity:0;transform:scale(.93)}
   .era-7.revealed .window{animation:winopen .55s cubic-bezier(.2,.7,.3,1) forwards}
   .era-7.revealed .svc-grid .window:nth-child(2){animation-delay:.12s}
@@ -381,12 +400,14 @@
     .js .era-10 .win10,.js .era-10 .tile,.js .era-7 .window{opacity:1 !important;transform:none !important;animation:none !important}
   }
 
-  /* ===== playful closable windows ===== */
+  /* ===== playful closable windows =====
+     One self-contained bounce (shrink away → pop back). After it ends we pin the
+     rested state with .poofed{animation:none} so the per-era entrance animation
+     (winopen / w10in) can't re-fire and double-bounce. */
   .close{cursor:pointer}
-  .closable.closing{animation:winclose .5s cubic-bezier(.4,0,.7,.2) forwards !important;pointer-events:none}
-  .closable.reopen{animation:winreopen .42s ease !important}
-  @keyframes winclose{0%{opacity:1;transform:none}55%{opacity:.5;transform:scale(.62) translateY(8px)}100%{opacity:0;transform:scale(.42) translateY(22px)}}
-  @keyframes winreopen{0%{opacity:0;transform:scale(.8) translateY(10px)}100%{opacity:1;transform:none}}
+  .closable.poof{animation:winbounce .9s cubic-bezier(.34,.18,.4,1) both !important;pointer-events:none;will-change:transform,opacity}
+  .closable.poofed{animation:none !important;opacity:1 !important;transform:none !important}
+  @keyframes winbounce{0%{opacity:1;transform:none}30%{opacity:.5;transform:scale(.62) translateY(8px)}50%{opacity:0;transform:scale(.42) translateY(22px)}68%{opacity:0;transform:scale(.82) translateY(10px)}100%{opacity:1;transform:none}}
 
   /* ===== reveal ===== */
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
@@ -397,7 +418,7 @@
   @media (max-width:880px){
     section{padding:64px 0}
     .hero-grid,.contact-grid{grid-template-columns:1fr;gap:30px}
-    .tiles,.svc-grid{grid-template-columns:1fr}
+    .era-10 .tiles,.svc-grid{grid-template-columns:1fr}
     .about-grid{grid-template-columns:1fr;gap:18px;text-align:center}
     .about-stats{justify-content:center}
     .nav-menu{display:none}
@@ -414,23 +435,127 @@
     .taskbar{flex-wrap:wrap;height:auto}
     .tasknote{display:none}
   }
+  /* ===== technologies strip ===== */
+  .techstrip{min-height:auto;display:block;overflow:hidden;padding:48px 0 72px;background:#eef2f8;text-align:center}
+  .ts-label{font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#6a7d96;margin:0 0 26px}
+  .ts-list{list-style:none;margin:0 0 22px;padding:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:22px 46px}
+  .ts-list li{display:inline-flex;align-items:center}
+  .ts-list img{height:30px;width:auto;max-width:152px;object-fit:contain;display:block;filter:grayscale(1);opacity:.6;transition:filter .2s ease,opacity .2s ease}
+  .ts-list li:hover img{filter:none;opacity:1}
+  .ts-note{font-size:11.5px;line-height:1.5;color:#7187a3;max-width:64ch;margin:0 auto}
+
+  /* ===== era wallpapers ===== */
+  .era-11,.era-10,.era-7,.era-xp{background-repeat:no-repeat;background-position:center;background-size:cover}
+  .era-11{background-image:url(assets/wall-11.svg)}
+  .era-10{background-image:url(assets/wall-10.webp)}
+  .era-7{background-image:url(assets/wall-7.webp)}
+  .era-xp{background-image:url(assets/wall-xp.webp);background-position:center bottom}
+  /* modern stacked-panel transitions: each section sits slightly over the previous with a rounded top + soft shadow */
+  .techstrip,.era-10,.era-7,.era-xp,.era-95{margin-top:-26px;border-top-left-radius:26px;border-top-right-radius:26px;box-shadow:0 -10px 34px -8px rgba(4,12,28,.45)}
+  .era-11::before{opacity:.35}
+  /* dark scrims so the section headings stay legible over the photo wallpapers */
+  .era-10::before{display:block;opacity:1;background:linear-gradient(105deg,rgba(3,14,30,.8),rgba(3,14,30,.52) 34%,rgba(3,14,30,.12) 62%,rgba(3,14,30,0) 82%)}
+  .era-7::before{display:block;opacity:1;background:linear-gradient(112deg,rgba(4,22,46,.74),rgba(4,22,46,.42) 38%,rgba(4,22,46,.05) 70%),linear-gradient(0deg,rgba(4,22,46,.5),transparent 24%)}
+  .era-xp::after{display:none}
+  .era-10 .kicker,.era-10 h2,.era-10 .sub,
+  .era-7 .kicker,.era-7 h2,.era-7 .sub,.era-7 .svc-extra{text-shadow:0 1px 12px rgba(0,10,28,.6),0 1px 3px rgba(0,10,28,.5)}
+
+  /* ===== one-time boot screen ===== */
+  #boot{display:none}
+  .js #boot{display:flex;position:fixed;inset:0;z-index:200;background:#05080f;
+    flex-direction:column;align-items:center;justify-content:center;gap:24px;color:#dfe6f0;font-family:var(--sans)}
+  .js.booted #boot{display:none}
+  #boot.gone{opacity:0;visibility:hidden;transition:opacity .6s ease,visibility .6s ease}
+  #boot .b-logo{display:flex;align-items:center;gap:14px}
+  #boot .b-flag{width:44px;height:44px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px}
+  #boot .b-flag i{display:block;border-radius:2px}
+  #boot .b-flag i:nth-child(1){background:#6bd3ff}#boot .b-flag i:nth-child(2){background:#2a8ae4}
+  #boot .b-flag i:nth-child(3){background:#2a8ae4}#boot .b-flag i:nth-child(4){background:#0067c0}
+  #boot .b-name{font-family:var(--logo);font-weight:600;font-size:30px;color:#fff;line-height:1}
+  #boot .b-name small{display:block;font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:#7e93b3;margin-top:5px}
+  #boot .b-bar{width:200px;height:14px;border:1px solid #25324d;border-radius:8px;background:#080d18;padding:2px;overflow:hidden}
+  #boot .b-bar i{display:block;height:100%;width:6%;border-radius:6px;background:linear-gradient(90deg,#2a8ae4,#6bd3ff);animation:bootfill 1.9s ease forwards}
+  #boot .b-msg{font-size:12px;color:#6c83a4;letter-spacing:.4px;min-height:1.1em}
+  @keyframes bootfill{0%{width:6%}55%{width:64%}100%{width:100%}}
+
+  /* ===== interactive hero terminal ===== */
+  .term-line{display:flex;align-items:baseline;gap:8px}
+  #term-input{flex:1;min-width:0;background:transparent;border:0;outline:0;padding:0;
+    font-family:var(--mono);font-size:14px;color:#e9d27a;caret-color:#e6e8ee}
+  .term-out-line{white-space:pre-wrap;margin-top:2px}
+  .term-cmd{color:#e9d27a}
+  .term-hint{color:#7e93b3}
+  .term-body .tlink{color:#73b3ff;text-decoration:underline;cursor:pointer}
+  .term-body b{color:#9ecbff;font-weight:600}
+
+  /* ===== desktop: drag / minimize / maximize / Aero-snap ===== */
+  .win-drag-handle{cursor:grab;touch-action:none}
+  .win-dragging{cursor:grabbing;z-index:90 !important}
+  .win-min > :not(.title-bar):not(.w10-bar):not(.dialog-header){display:none !important}
+  .win-max{position:fixed !important;inset:78px 16px 64px !important;left:auto;top:auto;
+    z-index:85 !important;width:auto !important;max-width:none !important;margin:0 !important;
+    opacity:1 !important;animation:none !important;overflow:auto}
+  .win-snap{position:fixed !important;top:78px !important;bottom:64px !important;z-index:85 !important;
+    width:calc(50vw - 22px) !important;max-width:none !important;margin:0 !important;opacity:1 !important;animation:none !important;overflow:auto}
+  .win-snap.snap-left{left:16px !important;right:auto !important}
+  .win-snap.snap-right{right:16px !important;left:auto !important}
+
+  /* ===== taskbar app buttons + floating apps ===== */
+  #taskbar-apps{display:flex;gap:4px;align-items:center;margin-left:6px}
+  .task-btn{font-family:var(--ms95);font-size:12.5px;color:#000;max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    padding:5px 10px;background:#c3c3c3;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+    box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf}
+  .task-btn.active{background:#bdbdbd;box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
+  #app-layer{position:fixed;inset:0;z-index:80;pointer-events:none;background:transparent !important}
+  .appwin{position:fixed;pointer-events:auto;width:min(420px,92vw);z-index:82}
+  .appwin.min{display:none}
+  .appwin .dialog{margin:0;max-width:none}
+  .app-note{font-size:13px;color:#111;line-height:1.55}
+  .app-note p{margin:0 0 7px}
+  .app-note .np{margin-top:2px;background:#fff;padding:10px 12px;min-height:118px;white-space:pre-wrap;
+    font-family:var(--mono);font-size:12px;color:#000;
+    box-shadow:inset -1px -1px #fff,inset 1px 1px #808080,inset -2px -2px #dfdfdf,inset 2px 2px #0a0a0a}
+  .app-note .tlink{color:#0000c0;text-decoration:underline;cursor:pointer}
+
+  /* ===== Konami easter egg: Windows 3.1 emulator modal ===== */
+  .emu-modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,18,38,.6);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+  .emu-modal.open{display:flex}
+  .emu-win{width:min(860px,96vw);background:#c3c3c3;padding:3px;font-family:var(--ms95);
+    box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf,0 36px 90px -22px rgba(0,0,0,.75)}
+  .emu-bar{display:flex;align-items:center;gap:8px;height:28px;padding:0 3px 0 9px;color:#fff;font-weight:700;font-size:13px;background:linear-gradient(90deg,#000080,#1084d0)}
+  .emu-bar .t{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .emu-close{width:24px;height:20px;display:grid;place-items:center;font-size:11px;font-weight:700;color:#000;cursor:pointer;background:#c3c3c3;border:none;
+    box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf}
+  .emu-close:active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
+  .emu-body{margin:3px 0 0;background:#000;width:100%;aspect-ratio:4/3;position:relative}
+  .emu-body iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+  .emu-hint{font-family:var(--ms95);font-size:11px;color:#222;padding:4px 6px 2px;text-align:center}
+  @media (max-width:880px){ .win-snap{width:calc(100vw - 32px) !important} }
+  @media (max-width:600px){
+    .era-11 .term{display:none}
+    .era-11 .lede{font-size:16.5px}
+    .hero-cta{gap:10px}
+    .hero-meta{gap:8px 16px;font-size:12.5px}
+  }
 </style>
 </head>
 <body>
 
+<!-- ============ one-time boot screen ============ -->
+<div id="boot" aria-hidden="true">
+  <div class="b-logo">
+    <span class="b-flag"><i></i><i></i><i></i><i></i></span>
+    <span class="b-name">riva<small>computech</small></span>
+  </div>
+  <div class="b-bar"><i></i></div>
+  <div class="b-msg">Starting Riva Computech…</div>
+</div>
+
 <!-- ============ NAV ============ -->
-<header class="nav" id="nav">
+<header class="nav" id="nav" data-era="11">
   <div class="wrap nav-inner">
     <a class="brand" href="#top" aria-label="riva computech home">
-      <span class="brand-mark" aria-hidden="true">
-        <svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg">
-          <defs><linearGradient id="bm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a8ae4"/><stop offset="1" stop-color="#0057ad"/></linearGradient></defs>
-          <rect width="34" height="34" rx="9" fill="url(#bm)"/>
-          <path d="M17 8.5 L23 19 L11 19 Z" fill="#fff"/>
-          <rect x="11" y="21" width="12" height="4.4" rx="2.2" fill="#fff" opacity=".92"/>
-        </svg>
-      </span>
-      <span class="logo-word">riva<small>computech</small></span>
+      <span class="brand-logo"><img src="logo.svg" alt="riva computech" width="63" height="34" /><span class="brand-sub" aria-hidden="true"><span>c</span><span>o</span><span>m</span><span>p</span><span>u</span><span>t</span><span>e</span><span>c</span><span>h</span></span></span>
     </a>
     <div class="nav-menu" id="nav-menu">
       <nav class="nav-links">
@@ -440,7 +565,7 @@
         <a href="#contact">Contact</a>
       </nav>
       <div class="nav-right">
-        <span class="nav-status"><span class="dot"></span>Available for new work</span>
+        <span class="nav-status"><span class="dot"></span>Open to select projects</span>
         <a class="btn" href="#contact">Book assessment <span class="arr">→</span></a>
       </div>
     </div>
@@ -453,21 +578,21 @@
 <section class="hero era-11">
   <div class="wrap hero-grid">
     <div>
-      <div class="kicker">Independent Microsoft 365 &amp; Azure consultant</div>
+      <div class="kicker">Riva Computech — Microsoft 365, Azure &amp; IT</div>
       <h1>The IT person who<br>actually <span class="accent">picks up the phone</span>.</h1>
-      <p class="lede">Practical Microsoft 365 &amp; Azure help, direct — no ticket queues, no hand-offs. I've worked with Windows from&nbsp;95 to&nbsp;11, and plenty of migrations in between.</p>
+      <p class="lede">Riva Computech provides senior Microsoft 365, Azure &amp; infrastructure support — direct, with no ticket queues or hand-offs. Coverage extends across evenings, weekends and holidays, so teams that span time zones never wait.</p>
       <div class="hero-cta">
         <a class="btn" href="#contact">Book a free 30-min chat</a>
-        <a class="btn ghost" href="#services">See what I help with</a>
+        <a class="btn ghost" href="#services">See what we help with</a>
       </div>
       <div class="hero-meta">
         <span><span class="ok">✓</span>Microsoft-first</span>
         <span><span class="ok">✓</span>Migrations &amp; backups</span>
-        <span><span class="ok">✓</span>Direct with me</span>
+        <span><span class="ok">✓</span>Senior, direct support</span>
       </div>
     </div>
 
-    <div class="term" role="img" aria-label="Windows Terminal running a PowerShell command">
+    <div class="term" aria-label="Interactive PowerShell terminal — type a command">
       <div class="term-bar">
         <span class="term-tab"><span class="ic">▣</span> PowerShell</span>
         <span class="term-new">+</span>
@@ -487,12 +612,27 @@
   </div>
 </section>
 
+<!-- ============ TECHNOLOGIES STRIP ============ -->
+<section class="techstrip" aria-label="Technologies I work with">
+  <div class="wrap">
+    <p class="ts-label">Technologies I work with</p>
+    <ul class="ts-list">
+      <li><img src="assets/logos/microsoft.svg" alt="Microsoft" /></li>
+      <li><img src="assets/logos/azure.svg" alt="Microsoft Azure" /></li>
+      <li><img src="assets/logos/windows.svg" alt="Windows" /></li>
+      <li><img src="assets/logos/vmware.svg" alt="VMware" /></li>
+      <li><img src="assets/logos/citrix.svg" alt="Citrix" /></li>
+    </ul>
+    <p class="ts-note">Product names and logos are trademarks of their respective owners. Riva Computech is independent and is not affiliated with or endorsed by them.</p>
+  </div>
+</section>
+
 <!-- ============ PHASE 2 · WINDOWS 10 · WHY ============ -->
 <section class="why era-10" id="why" data-intro="650">
   <div class="wrap">
     <div class="kicker reveal">Why Riva Computech</div>
     <h2 class="reveal">Personal IT, not a ticket number.</h2>
-    <p class="sub reveal">Big providers route you through ticket queues and whoever's free that day. With me, you get one familiar person who knows your setup — and owns the outcome.</p>
+    <p class="sub reveal">Big providers route you through ticket queues and whoever's free that day. With Riva Computech, you get a senior engineer who knows your setup — and owns the outcome.</p>
     <div class="win10 reveal closable">
       <div class="w10-bar">
         <span class="w10-title"><span class="w10-ico"><i></i><i></i><i></i><i></i></span> Why Riva Computech</span>
@@ -501,9 +641,9 @@
       <div class="w10-menubar"><button type="button">File</button><button type="button">Edit</button><button type="button">View</button><button type="button">Help</button></div>
       <div class="w10-body">
         <div class="tiles">
-          <div class="tile b1"><span class="tile-ico">⚡</span><h3>Talk to a real person</h3><p>You reach the person who actually does the work — every time, not a rotating queue.</p></div>
+          <div class="tile b1"><span class="tile-ico">⚡</span><h3>Talk to a real person</h3><p>You reach a senior engineer who knows your environment — every time, not a rotating queue.</p></div>
           <div class="tile b2"><span class="tile-ico">☁</span><h3>Microsoft, done right</h3><p>Hands-on with Microsoft 365, Azure, Exchange, Intune and Entra ID, day in and day out.</p></div>
-          <div class="tile b3"><span class="tile-ico">↗</span><h3>Set up to last</h3><p>Infrastructure that grows with you and stays out of your way.</p></div>
+          <div class="tile b3"><span class="tile-ico">🌐</span><h3>Cover when you need it</h3><p>Evenings, weekends and holidays too — handy when your team spans time zones.</p></div>
         </div>
         <div class="w10-foot">
           <a class="w10-btn" href="#contact">Book assessment</a>
@@ -517,7 +657,6 @@
 
 <!-- ============ PHASE 3 · WINDOWS 7 · SERVICES ============ -->
 <section class="services era-7 win7 has-intro" id="services" data-intro="800">
-  <div class="intro intro-7" aria-hidden="true"><div class="orb7"><span class="winflag classic"><i></i><i></i><i></i><i></i></span></div></div>
   <div class="wrap">
     <div class="kicker reveal">Services</div>
     <h2 class="reveal">What I can help with.</h2>
@@ -578,7 +717,7 @@
         </div>
       </article>
     </div>
-    <p class="svc-extra reveal"><span class="cmd">Automate-Tasks</span> The part I enjoy most: <b>PowerShell automation</b> — scripting the repetitive, breakable jobs so they run themselves, reliably.</p>
+    <p class="svc-extra reveal"><span class="cmd">Automate-Tasks</span> The part we enjoy most: <b>PowerShell automation</b> — scripting the repetitive, breakable jobs so they run themselves, reliably.</p>
   </div>
 </section>
 
@@ -611,20 +750,20 @@
         <article role="tabpanel" id="tab-about">
           <div class="about-grid">
             <div class="xp-user">
-              <!-- TODO(Devik): swap the initials tile for a real square photo: <img src="/devik.jpg" alt="Devik Patel"> -->
+              <!-- TODO(Devik): swap the initials tile for a real square photo: <img src="devik.jpg" alt="Devik Patel"> -->
               <div class="xp-avatar">DP</div>
               <div class="xp-uname">Devik Patel</div>
-              <div class="xp-urole">Owner &amp; Consultant</div>
+              <div class="xp-urole">Owner</div>
             </div>
             <div class="about-bio">
-              <p class="xp-h">Hi, I'm Devik — and you'll work with me directly.</p>
-              <p>Riva Computech is my independent practice. That's 10+ years of hands-on Microsoft 365, Azure and infrastructure work — and I do every job myself. No call centres, no hand-offs, no account managers; when you reach out, you get the person who actually does the work.</p>
+              <p class="xp-h">Hi, I'm Devik — the senior engineer behind Riva Computech, and the one you'll work with.</p>
+              <p>Riva Computech is a Microsoft 365, Azure and infrastructure practice. You get senior, hands-on work and a direct line — no call centres, no hand-offs, no account managers. With 10+ years across help desk, Windows Server, virtualization and cloud, we keep a focused client list and provide cover across evenings, weekends and holidays, which suits teams that span time zones.</p>
               <fieldset>
                 <legend>Track record</legend>
                 <div class="about-stats">
                   <div><b>10+</b><span>years hands-on IT</span></div>
-                  <div><b>1:1</b><span>direct with the owner</span></div>
-                  <div><b>M365&nbsp;+&nbsp;Azure</b><span>specialist focus</span></div>
+                  <div><b>1:1</b><span>direct senior support</span></div>
+                  <div><b>M365&nbsp;·&nbsp;Azure&nbsp;·&nbsp;Infra</b><span>specialist focus</span></div>
                 </div>
               </fieldset>
             </div>
@@ -632,13 +771,15 @@
         </article>
         <article role="tabpanel" id="tab-cred" hidden>
           <p class="xp-h">Background &amp; focus</p>
-          <p>I hold a BSc in Information Technology and have worked the full range — help desk, Windows Server administration, and cloud. Because it's just me, I keep a focused set of clients and stay flexible around your schedule, so things stay personal and the accountability sits squarely with one person.</p>
+          <p>BSc in Information Technology (Gujarat University, 2004), and hands-on across the full range — help desk, Windows Server administration, virtualization and cloud. Riva Computech keeps a focused client list and stays flexible around your schedule — evenings, weekends and holidays included — so support stays personal and accountable, even across time zones.</p>
           <ul class="tree-view">
-            <li>Microsoft 365 &amp; Exchange Online</li>
-            <li>Azure &amp; hybrid identity (Entra ID)</li>
+            <li>Microsoft 365, Exchange Online &amp; SharePoint</li>
+            <li>Azure &amp; hybrid identity — Entra ID, Active Directory, Group Policy</li>
+            <li>Virtualization — VMware, Hyper-V &amp; Citrix</li>
             <li>Intune device management</li>
-            <li>Migrations, backup &amp; continuity</li>
-            <li>PowerShell automation</li>
+            <li>Migrations, backup, disaster recovery &amp; continuity</li>
+            <li>Security — EDR / SIEM, email &amp; endpoint</li>
+            <li>PowerShell automation &amp; monitoring</li>
           </ul>
         </article>
       </div>
@@ -660,7 +801,7 @@
       </div>
       <div class="dialog-body">
         <h2 class="w95-h">Let's scope your project.</h2>
-        <p class="w95-sub">Tell me what you're running and what's giving you trouble — I'll give you a straight answer, usually within a business day.</p>
+        <p class="w95-sub">Tell us what you're running and what's giving you trouble — we'll give you a straight answer, usually within a business day.</p>
         <div class="contact-grid">
           <div class="w95-aside">
             <p><b>Email</b><br><a href="mailto:rivacomputech@gmail.com">rivacomputech@gmail.com</a></p>
@@ -697,16 +838,30 @@
       <a href="#about" class="sm-item"><b>A</b>bout</a>
       <a href="#contact" class="sm-item"><b>C</b>ontact</a>
       <div class="sm-sep"></div>
+      <a href="#" class="sm-item" data-app="mycomputer">🖥&nbsp; My Computer</a>
+      <a href="#" class="sm-item" data-app="notepad">📝&nbsp; Services.txt</a>
+      <div class="sm-sep"></div>
       <a href="mailto:rivacomputech@gmail.com" class="sm-item">✉&nbsp; Email…</a>
       <a href="#contact" class="sm-item sm-run">▸&nbsp; Book assessment</a>
     </div>
   </div>
   <div class="taskbar">
     <button class="start" id="startBtn" aria-haspopup="true" aria-expanded="false"><span class="winflag classic"><i></i><i></i><i></i><i></i></span><span class="logo-word">Start</span></button>
+    <div id="taskbar-apps"></div>
     <span class="tasknote">© <span id="year"></span> Riva Computech — independent Microsoft 365 &amp; Azure help.</span>
     <span class="tray" id="clock">12:00 PM</span>
   </div>
 </footer>
+<div id="app-layer" class="era-95"></div>
+
+<!-- Konami easter egg: Windows 3.1 emulator (embeds the Internet Archive's hosted emulator; nothing copyrighted is bundled) -->
+<div id="win31" class="emu-modal" aria-hidden="true">
+  <div class="emu-win" role="dialog" aria-label="Windows 3.1">
+    <div class="emu-bar"><span class="t">Windows 3.1 — Program Manager</span><button class="emu-close" type="button" aria-label="Close">✕</button></div>
+    <div class="emu-body"><iframe title="Windows 3.1 emulator" data-src="https://archive.org/embed/win3_stock" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
+    <div class="emu-hint">Emulated Windows 3.1 via the Internet Archive · press Esc to close</div>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -737,6 +892,17 @@
   var onScroll = function(){ nav.classList.toggle("scrolled", window.scrollY > 6); };
   onScroll(); window.addEventListener("scroll", onScroll, {passive:true});
 
+  /* nav CTA changes style per era as you scroll */
+  var eraSecs=[["era-11","11"],["era-10","10"],["era-7","7"],["era-xp","xp"],["era-95","95"]]
+    .map(function(p){return {el:document.querySelector("."+p[0]),era:p[1]};})
+    .filter(function(x){return x.el;});
+  function updNavEra(){
+    var center=window.innerHeight/2, found=null;
+    for(var i=0;i<eraSecs.length;i++){ var r=eraSecs[i].el.getBoundingClientRect(); if(r.top<=center && r.bottom>center){ found=eraSecs[i].era; } }
+    if(found && nav.getAttribute("data-era")!==found) nav.setAttribute("data-era",found);
+  }
+  updNavEra(); window.addEventListener("scroll",updNavEra,{passive:true}); window.addEventListener("resize",updNavEra,{passive:true});
+
   /* mobile menu */
   var menuBtn = document.getElementById("menu-btn"), navMenu = document.getElementById("nav-menu");
   menuBtn.addEventListener("click", function(){
@@ -759,17 +925,21 @@
   function tick(){ var d=new Date(),h=d.getHours(),m=d.getMinutes(),ap=h>=12?"PM":"AM"; h=h%12||12; clock.textContent=h+":"+(m<10?"0"+m:m)+" "+ap; }
   tick(); setInterval(tick, 15000);
 
-  /* playful closable windows: close X plays a non-destructive close, then respawns */
+  /* playful closable windows: close X plays a non-destructive bounce, then settles */
   document.addEventListener("click", function(e){
     var btn = e.target.closest(".close"); if(!btn) return;
     var win = btn.closest(".closable"); if(!win) return;
     e.preventDefault();
-    if(reduce || win.classList.contains("closing") || win.classList.contains("reopen")) return;
-    win.classList.add("closing");
-    setTimeout(function(){
-      win.classList.remove("closing"); win.classList.add("reopen");
-      setTimeout(function(){ win.classList.remove("reopen"); }, 440);
-    }, 520);
+    if(reduce || win.classList.contains("poof")) return;
+    win.classList.remove("poofed");
+    void win.offsetWidth; /* reflow so the animation restarts cleanly on repeat clicks */
+    win.classList.add("poof");
+    win.addEventListener("animationend", function done(ev){
+      if(ev.animationName !== "winbounce") return;
+      win.classList.remove("poof");
+      win.classList.add("poofed");
+      win.removeEventListener("animationend", done);
+    });
   });
 
   /* XP.css tabs (About window) — libraries ship no JS, so wire up panel switching */
@@ -791,7 +961,7 @@
   var outs=Array.prototype.slice.call(document.querySelectorAll("#hero-out .out"));
   function revealOutputs(){
     outs.forEach(function(el,i){ setTimeout(function(){ el.classList.add("show"); }, reduce?0:220+i*260); });
-    if(!reduce){ setTimeout(function(){ caret.style.display="none"; }, 220+outs.length*260+400); } else { caret.style.display="none"; }
+    if(!reduce){ setTimeout(function(){ caret.style.display="none"; enableTerminal(); }, 220+outs.length*260+400); } else { caret.style.display="none"; enableTerminal(); }
   }
   if(reduce){ target.textContent=cmd; revealOutputs(); }
   else { var i=0;(function type(){ if(i<=cmd.length){ target.textContent=cmd.slice(0,i); i++; setTimeout(type,38+Math.random()*45); } else { setTimeout(revealOutputs,350); } })(); }
@@ -816,6 +986,156 @@
       }).catch(function(){ statusEl.className="err"; statusEl.textContent="✖ Network error. Please email rivacomputech@gmail.com."; })
       .finally(function(){ btn.disabled=false; btn.innerHTML=original; });
   });
+
+  /* ============ one-time boot screen ============ */
+  (function(){
+    var boot=document.getElementById("boot");
+    if(!boot) return;
+    if(document.documentElement.classList.contains("booted")){ boot.remove(); return; }
+    var msgs=["Starting Riva Computech…","Loading services…","Mounting Microsoft 365…","Ready."];
+    var mi=0, msg=boot.querySelector(".b-msg");
+    var iv=setInterval(function(){ mi++; if(msg&&msgs[mi]) msg.textContent=msgs[mi]; }, 520);
+    setTimeout(function(){
+      clearInterval(iv);
+      boot.classList.add("gone");
+      try{ sessionStorage.setItem("rc_booted","1"); }catch(e){}
+      boot.addEventListener("transitionend", function(){ if(boot.parentNode) boot.remove(); }, {once:true});
+      setTimeout(function(){ if(boot.parentNode) boot.remove(); }, 900);
+    }, 2100);
+  })();
+
+  /* ============ interactive hero terminal ============ */
+  var termReady=false;
+  function enableTerminal(){
+    if(termReady) return; termReady=true;
+    var body=document.querySelector(".term-body"); if(!body) return;
+    function esc(s){ return s.replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+    function add(html,cls){ var d=document.createElement("div"); d.className="term-out-line"+(cls?" "+cls:""); d.innerHTML=html; body.insertBefore(d,line); return d; }
+    function go(sel){ var el=document.querySelector(sel); if(el) el.scrollIntoView({behavior:reduce?"auto":"smooth"}); }
+    var CMD={
+      help:function(){ add("Available commands:"); add("&nbsp;&nbsp;<b>services</b>   what we help with"); add("&nbsp;&nbsp;<b>why</b>        why work with us"); add("&nbsp;&nbsp;<b>about</b>      about Devik"); add("&nbsp;&nbsp;<b>contact</b> / <b>book</b>   get in touch"); add("&nbsp;&nbsp;<b>whoami</b>     who runs Riva"); add("&nbsp;&nbsp;<b>clear</b>      clear the screen"); },
+      services:function(){ add('Opening services… <a class="tlink" data-go="#services">#services</a>'); go("#services"); },
+      why:function(){ add('Opening… <a class="tlink" data-go="#why">#why</a>'); go("#why"); },
+      about:function(){ add('Opening about… <a class="tlink" data-go="#about">#about</a>'); go("#about"); },
+      contact:function(){ add('Opening contact… <a class="tlink" data-go="#contact">#contact</a>'); go("#contact"); },
+      book:function(){ add("Let’s talk — taking you to the contact form…"); go("#contact"); },
+      whoami:function(){ add("Devik Patel — independent Microsoft 365, Azure &amp; infrastructure consultant. 1:1, direct."); },
+      ls:function(){ add("services   why   about   contact"); },
+      sudo:function(){ add("Nice try. 😄 Type <b>book</b> instead."); }
+    };
+    CMD.dir=CMD.ls;
+    function run(raw){
+      add('<span class="prompt">PS C:\\Riva\\&gt;</span> <span class="term-cmd">'+esc(raw)+'</span>');
+      var cmd=raw.trim().toLowerCase();
+      if(!cmd) return;
+      if(cmd==="clear"||cmd==="cls"){ Array.prototype.forEach.call(body.querySelectorAll(".term-out-line"),function(l){l.remove();}); return; }
+      (CMD[cmd]||function(){ add("'"+esc(raw)+"' is not recognized. Type <b>help</b> for commands."); })();
+    }
+    var line=document.createElement("div"); line.className="term-line";
+    line.innerHTML='<span class="prompt">PS C:\\Riva\\&gt;</span> <input id="term-input" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Type a command" />';
+    body.appendChild(line);
+    var input=line.querySelector("#term-input");
+    add("Type <b>help</b> to get started.","term-hint");
+    input.addEventListener("keydown", function(e){ if(e.key==="Enter"){ var v=input.value; input.value=""; run(v); body.appendChild(line); input.focus(); body.scrollTop=body.scrollHeight; } });
+    body.addEventListener("click", function(e){ var a=e.target.closest("[data-go]"); if(a){ e.preventDefault(); go(a.getAttribute("data-go")); return; } if(e.target.tagName!=="INPUT"){ input.focus(); } });
+  }
+
+  /* ============ window manager: drag / minimize / maximize / Aero-snap ============ */
+  var zTop=80;
+  function winFront(el){ zTop++; el.style.zIndex=zTop; }
+  function winClearSnap(w){ w.classList.remove("win-max","win-snap","snap-left","snap-right"); }
+  function winSnap(w,type){ w.style.left=""; w.style.top=""; winClearSnap(w); w.classList.remove("win-min");
+    if(type==="max") w.classList.add("win-max"); else if(type==="left") w.classList.add("win-snap","snap-left"); else if(type==="right") w.classList.add("win-snap","snap-right"); }
+  function winHandle(w){ return w.querySelector(".w10-bar")||w.querySelector(".title-bar")||w.querySelector(".dialog-header"); }
+  function winDraggable(w,h){
+    if(!h) return; h.classList.add("win-drag-handle");
+    var sx,sy,ox,oy,drag=false,moved=false;
+    h.addEventListener("pointerdown",function(e){
+      if(e.button!==0) return; if(e.target.closest("button,a,input,textarea,select")) return;
+      drag=true; moved=false; winFront(w);
+      if(!w.classList.contains("appwin") && getComputedStyle(w).position==="static") w.style.position="relative";
+      ox=parseFloat(w.style.left)||0; oy=parseFloat(w.style.top)||0; sx=e.clientX; sy=e.clientY;
+      try{ h.setPointerCapture(e.pointerId); }catch(_){}
+    });
+    h.addEventListener("pointermove",function(e){
+      if(!drag) return; var dx=e.clientX-sx, dy=e.clientY-sy;
+      if(!moved && Math.abs(dx)+Math.abs(dy)>3){ moved=true; w.classList.add("win-dragging"); winClearSnap(w); if(getComputedStyle(w).position==="static") w.style.position="relative"; }
+      if(moved){ w.style.left=(ox+dx)+"px"; w.style.top=(oy+dy)+"px"; }
+    });
+    function end(e){ if(!drag) return; drag=false; w.classList.remove("win-dragging"); if(!moved) return;
+      var vw=window.innerWidth;
+      if(e.clientY<=10) winSnap(w,"max"); else if(e.clientX<=12) winSnap(w,"left"); else if(e.clientX>=vw-12) winSnap(w,"right"); }
+    h.addEventListener("pointerup",end); h.addEventListener("pointercancel",end);
+    h.addEventListener("dblclick",function(e){ if(e.target.closest("button,a,input")) return; w.classList.contains("win-max")?winClearSnap(w):winSnap(w,"max"); });
+  }
+  function winControls(w){
+    var mn=w.querySelector('[aria-label="Minimize"]'), mx=w.querySelector('[aria-label="Maximize"]');
+    if(mn) mn.addEventListener("click",function(e){ e.preventDefault(); e.stopPropagation(); winClearSnap(w); w.classList.toggle("win-min"); });
+    if(mx) mx.addEventListener("click",function(e){ e.preventDefault(); e.stopPropagation(); w.classList.remove("win-min"); w.style.left=""; w.style.top=""; w.classList.contains("win-max")?winClearSnap(w):winSnap(w,"max"); });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".closable"),function(w){ var h=winHandle(w); if(h){ winDraggable(w,h); winControls(w); } });
+  document.addEventListener("pointerdown",function(e){ var w=e.target.closest(".appwin,.closable"); if(w) winFront(w); },true);
+
+  /* ============ Start-menu apps + taskbar ============ */
+  var appLayer=document.getElementById("app-layer"), taskApps=document.getElementById("taskbar-apps"), appOpen={}, appOffset=0;
+  var APPS={
+    notepad:{ title:"Services.txt — Notepad", label:"Services.txt", icon:"📝",
+      body:'<div class="app-note"><div class="np">RIVA COMPUTECH — SERVICES\n=========================\n\n• Microsoft 365 &amp; Azure — tenant setup,\n  Exchange, SharePoint &amp; OneDrive\n• Intune device management · Entra ID / AD\n• Migrations — email, tenant-to-tenant, data\n• Backup, disaster recovery &amp; continuity\n• Virtualization — VMware, Hyper-V &amp; Citrix\n• Networks, firewalls, VPNs &amp; security\n• PowerShell automation &amp; monitoring\n\n&gt; Book a free 30-min chat — see Contact.</div></div>' },
+    mycomputer:{ title:"My Computer", label:"My Computer", icon:"🖥",
+      body:'<div class="app-note"><p><b>Owner:</b> Devik Patel</p><p><b>Role:</b> Independent Microsoft 365, Azure &amp; infrastructure consultant</p><p><b>Education:</b> BSc Information Technology — Gujarat University (2004)</p><p><b>Focus:</b> M365 · Azure · virtualization · migrations · security</p><p><a class="tlink" data-go="#contact">▸ Book a free assessment</a></p></div>' }
+  };
+  function appOpenFn(id){
+    if(appOpen[id]){ appRestore(id); return; }
+    var a=APPS[id]; if(!a||!appLayer) return;
+    appOffset=(appOffset+24)%120;
+    var wrap=document.createElement("div"); wrap.className="appwin";
+    wrap.style.left=Math.max(12,Math.min(window.innerWidth-340,140+appOffset))+"px";
+    wrap.style.top=(108+appOffset)+"px";
+    wrap.innerHTML='<div class="dialog"><div class="dialog-header"><span class="t">'+a.title+'</span><div class="btn-group"><button class="btn" type="button" aria-label="Minimize" tabindex="-1">_</button><button class="btn appclose" type="button" aria-label="Close" tabindex="-1">✕</button></div></div><div class="dialog-body">'+a.body+'</div></div>';
+    appLayer.appendChild(wrap);
+    var tb=document.createElement("button"); tb.type="button"; tb.className="task-btn active"; tb.innerHTML="<span>"+a.icon+"</span> "+a.label;
+    taskApps.appendChild(tb);
+    appOpen[id]={el:wrap,tb:tb};
+    tb.addEventListener("click",function(){ wrap.classList.contains("min")?appRestore(id):appMin(id); });
+    wrap.querySelector(".appclose").addEventListener("click",function(){ appClose(id); });
+    wrap.querySelector('[aria-label="Minimize"]').addEventListener("click",function(){ appMin(id); });
+    wrap.addEventListener("click",function(e){ var g=e.target.closest("[data-go]"); if(g){ e.preventDefault(); var el=document.querySelector(g.getAttribute("data-go")); if(el) el.scrollIntoView({behavior:reduce?"auto":"smooth"}); } });
+    winDraggable(wrap, wrap.querySelector(".dialog-header"));
+    winFront(wrap);
+  }
+  function appMin(id){ var r=appOpen[id]; if(!r) return; r.el.classList.add("min"); r.tb.classList.remove("active"); }
+  function appRestore(id){ var r=appOpen[id]; if(!r) return; r.el.classList.remove("min"); r.tb.classList.add("active"); winFront(r.el); }
+  function appClose(id){ var r=appOpen[id]; if(!r) return; r.el.remove(); r.tb.remove(); delete appOpen[id]; }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-app]"),function(el){ el.addEventListener("click",function(e){ e.preventDefault(); appOpenFn(el.getAttribute("data-app")); }); });
+
+  /* ============ easter egg: type "devik" anywhere → rickroll ============ */
+  (function(){
+    var seq="", word="devik";
+    document.addEventListener("keydown", function(e){
+      var el=e.target;
+      if(el && (el.tagName==="INPUT"||el.tagName==="TEXTAREA"||el.isContentEditable)) return; /* don't hijack form/terminal typing */
+      if(!e.key || e.key.length!==1) return;
+      seq=(seq+e.key.toLowerCase()).slice(-word.length);
+      if(seq===word){ seq=""; window.location.href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"; }
+    });
+  })();
+
+  /* ============ Konami code → Windows 3.1 emulator modal ============ */
+  (function(){
+    var modal=document.getElementById("win31"); if(!modal) return;
+    var frame=modal.querySelector("iframe"), closeBtn=modal.querySelector(".emu-close");
+    var code="arrowup,arrowup,arrowdown,arrowdown,arrowleft,arrowright,arrowleft,arrowright,b,a", buf=[];
+    function openEmu(){ if(!frame.getAttribute("src")) frame.setAttribute("src",frame.getAttribute("data-src")); modal.classList.add("open"); modal.setAttribute("aria-hidden","false"); }
+    function closeEmu(){ modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); frame.removeAttribute("src"); }
+    document.addEventListener("keydown", function(e){
+      if(!e.key) return;
+      if(e.key==="Escape" && modal.classList.contains("open")){ closeEmu(); return; }
+      buf.push(e.key.toLowerCase()); buf=buf.slice(-10);
+      if(buf.join(",")===code){ buf=[]; openEmu(); }
+    });
+    closeBtn.addEventListener("click", closeEmu);
+    modal.addEventListener("click", function(e){ if(e.target===modal) closeEmu(); });
+  })();
 })();
 </script>
 </body>
