@@ -516,6 +516,20 @@
     font-family:var(--mono);font-size:12px;color:#000;
     box-shadow:inset -1px -1px #fff,inset 1px 1px #808080,inset -2px -2px #dfdfdf,inset 2px 2px #0a0a0a}
   .app-note .tlink{color:#0000c0;text-decoration:underline;cursor:pointer}
+
+  /* ===== Konami easter egg: Windows 3.1 emulator modal ===== */
+  .emu-modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,18,38,.6);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+  .emu-modal.open{display:flex}
+  .emu-win{width:min(860px,96vw);background:#c3c3c3;padding:3px;font-family:var(--ms95);
+    box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf,0 36px 90px -22px rgba(0,0,0,.75)}
+  .emu-bar{display:flex;align-items:center;gap:8px;height:28px;padding:0 3px 0 9px;color:#fff;font-weight:700;font-size:13px;background:linear-gradient(90deg,#000080,#1084d0)}
+  .emu-bar .t{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .emu-close{width:24px;height:20px;display:grid;place-items:center;font-size:11px;font-weight:700;color:#000;cursor:pointer;background:#c3c3c3;border:none;
+    box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf}
+  .emu-close:active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
+  .emu-body{margin:3px 0 0;background:#000;width:100%;aspect-ratio:4/3;position:relative}
+  .emu-body iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+  .emu-hint{font-family:var(--ms95);font-size:11px;color:#222;padding:4px 6px 2px;text-align:center}
   @media (max-width:880px){ .win-snap{width:calc(100vw - 32px) !important} }
 </style>
 </head>
@@ -836,6 +850,15 @@
 </footer>
 <div id="app-layer" class="era-95"></div>
 
+<!-- Konami easter egg: Windows 3.1 emulator (embeds the Internet Archive's hosted emulator; nothing copyrighted is bundled) -->
+<div id="win31" class="emu-modal" aria-hidden="true">
+  <div class="emu-win" role="dialog" aria-label="Windows 3.1">
+    <div class="emu-bar"><span class="t">Windows 3.1 — Program Manager</span><button class="emu-close" type="button" aria-label="Close">✕</button></div>
+    <div class="emu-body"><iframe title="Windows 3.1 emulator" data-src="https://archive.org/embed/win3_stock" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
+    <div class="emu-hint">Emulated Windows 3.1 via the Internet Archive · press Esc to close</div>
+  </div>
+</div>
+
 <script>
 (function(){
   "use strict";
@@ -1091,6 +1114,23 @@
       seq=(seq+e.key.toLowerCase()).slice(-word.length);
       if(seq===word){ seq=""; window.location.href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"; }
     });
+  })();
+
+  /* ============ Konami code → Windows 3.1 emulator modal ============ */
+  (function(){
+    var modal=document.getElementById("win31"); if(!modal) return;
+    var frame=modal.querySelector("iframe"), closeBtn=modal.querySelector(".emu-close");
+    var code="arrowup,arrowup,arrowdown,arrowdown,arrowleft,arrowright,arrowleft,arrowright,b,a", buf=[];
+    function openEmu(){ if(!frame.getAttribute("src")) frame.setAttribute("src",frame.getAttribute("data-src")); modal.classList.add("open"); modal.setAttribute("aria-hidden","false"); }
+    function closeEmu(){ modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); frame.removeAttribute("src"); }
+    document.addEventListener("keydown", function(e){
+      if(!e.key) return;
+      if(e.key==="Escape" && modal.classList.contains("open")){ closeEmu(); return; }
+      buf.push(e.key.toLowerCase()); buf=buf.slice(-10);
+      if(buf.join(",")===code){ buf=[]; openEmu(); }
+    });
+    closeBtn.addEventListener("click", closeEmu);
+    modal.addEventListener("click", function(e){ if(e.target===modal) closeEmu(); });
   })();
 })();
 </script>
