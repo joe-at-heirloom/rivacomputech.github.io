@@ -114,15 +114,21 @@
   .nav .btn{padding:10px 18px;font-size:14px}
   /* nav CTA morphs to match the era you're scrolled into */
   header.nav .nav-right .btn{transition:filter .2s,transform .2s,box-shadow .25s,background .3s,border-color .3s,color .25s,border-radius .25s}
+  /* Win10 — hand-built (no library exists): flat square */
   header.nav[data-era="10"] .nav-right .btn{background:#e1e1e1;color:#000;border:1px solid #adadad;border-radius:0;box-shadow:none}
-  header.nav[data-era="10"] .nav-right .btn:hover{background:#e5f1fb;border-color:#0078d7;color:#000;filter:none;box-shadow:none}
-  header.nav[data-era="7"] .nav-right .btn{background:linear-gradient(#fbfdff,#eaf3fb 45%,#d3e7f8 46%,#e3eefb);color:#13385f;border:1px solid #84a6cd;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),0 1px 1px rgba(0,40,90,.15)}
-  header.nav[data-era="7"] .nav-right .btn:hover{background:linear-gradient(#eaf6fd,#bfe7fd 45%,#a7d9f5);border-color:#3c7fb1;color:#13385f;filter:none}
-  header.nav[data-era="xp"] .nav-right .btn{background:linear-gradient(180deg,#9cd167,#7ab63f 8%,#5f9e2e 50%,#4f8f28 90%,#5aa030);color:#fff;border:1px solid #3a6b1e;border-radius:9px;box-shadow:inset 0 1px 0 rgba(255,255,255,.45);text-shadow:0 -1px 0 rgba(0,0,0,.25)}
-  header.nav[data-era="xp"] .nav-right .btn:hover{filter:brightness(1.06)}
-  header.nav[data-era="95"] .nav-right .btn{background:#c3c3c3;color:#000;border:none;border-radius:0;font-family:var(--ms95);font-weight:700;box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;text-shadow:none}
-  header.nav[data-era="95"] .nav-right .btn:hover{background:#c3c3c3;color:#000;filter:none;box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf}
-  header.nav[data-era="95"] .nav-right .btn:active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
+  header.nav[data-era="10"] .nav-right .btn:hover{background:#e5f1fb;border-color:#0078d7;color:#000;filter:none;box-shadow:none;transform:none}
+  /* Win7 — 7.css button (resolved values) */
+  header.nav[data-era="7"] .nav-right .btn{background:linear-gradient(#f2f2f2 45%,#ebebeb 45%,#cfcfcf);color:#222;border:1px solid #8e8f8f;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.8);font:9pt "Segoe UI","SegoeUI","Noto Sans",sans-serif;text-shadow:none}
+  header.nav[data-era="7"] .nav-right .btn:hover{border-color:#3c7fb1;color:#222;filter:none;transform:none}
+  header.nav[data-era="7"] .nav-right .btn:active{border-color:#6d91ab}
+  /* XP — XP.css button (beige bevel, amber hover) */
+  header.nav[data-era="xp"] .nav-right .btn{background:#ece9d8;color:#222;border:none;border-radius:0;font-family:"Pixelated MS Sans Serif",Arial,sans-serif;font-size:11px;font-weight:400;text-shadow:none;box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px grey,inset 2px 2px #dfdfdf}
+  header.nav[data-era="xp"] .nav-right .btn:hover{color:#222;filter:none;transform:none;box-shadow:inset -1px 1px #fff0cf,inset 1px 2px #fdd889,inset -2px 2px #fbc761,inset 2px -2px #e5a01a}
+  header.nav[data-era="xp"] .nav-right .btn:active{box-shadow:inset -1px -1px #fff,inset 1px 1px #0a0a0a,inset -2px -2px #dfdfdf,inset 2px 2px grey}
+  /* Win95 — 95CSS button (resolved values) */
+  header.nav[data-era="95"] .nav-right .btn{background:#c3c3c3;color:#000;border:none;border-radius:0;font-family:w95fa,"MS Sans Serif",sans-serif;font-weight:400;text-shadow:none;box-shadow:inset -2px -2px 0 #000,inset 2px 2px 0 #fff,inset -4px -4px 0 grey,inset 4px 4px 0 #dedede}
+  header.nav[data-era="95"] .nav-right .btn:hover{background:#c3c3c3;color:#000;filter:none;transform:none;box-shadow:inset -2px -2px 0 #000,inset 2px 2px 0 #fff,inset -4px -4px 0 grey,inset 4px 4px 0 #dedede}
+  header.nav[data-era="95"] .nav-right .btn:active{box-shadow:inset -2px -2px 0 #fff,inset 2px 2px 0 #000,inset -4px -4px 0 #dedede,inset 4px 4px 0 grey}
 
   /* ============================================================
      PHASE 1 — WINDOWS 11 (hero)
