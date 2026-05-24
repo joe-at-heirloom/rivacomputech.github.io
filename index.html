@@ -427,8 +427,12 @@
   .era-7{background-image:url(assets/wall-7.webp)}
   .era-xp{background-image:url(assets/wall-xp.webp);background-position:center bottom}
   .era-11::before{opacity:.35}
-  .era-10::before,.era-7::before{display:none}
+  /* dark scrims so the section headings stay legible over the photo wallpapers */
+  .era-10::before{display:block;opacity:1;background:linear-gradient(105deg,rgba(3,14,30,.8),rgba(3,14,30,.52) 34%,rgba(3,14,30,.12) 62%,rgba(3,14,30,0) 82%)}
+  .era-7::before{display:block;opacity:1;background:linear-gradient(112deg,rgba(4,22,46,.74),rgba(4,22,46,.42) 38%,rgba(4,22,46,.05) 70%),linear-gradient(0deg,rgba(4,22,46,.5),transparent 24%)}
   .era-xp::after{display:none}
+  .era-10 .kicker,.era-10 h2,.era-10 .sub,
+  .era-7 .kicker,.era-7 h2,.era-7 .sub,.era-7 .svc-extra{text-shadow:0 1px 12px rgba(0,10,28,.6),0 1px 3px rgba(0,10,28,.5)}
 
   /* ===== one-time boot screen ===== */
   #boot{display:none}
