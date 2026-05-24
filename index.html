@@ -420,15 +420,14 @@
   .ts-list li:hover img{filter:none;opacity:1}
   .ts-note{font-size:11.5px;line-height:1.5;color:#7187a3;max-width:64ch;margin:0 auto}
 
-  /* ===== era wallpapers (original SVG look-alikes — swap for licensed JPGs anytime) ===== */
+  /* ===== era wallpapers ===== */
   .era-11,.era-10,.era-7,.era-xp{background-repeat:no-repeat;background-position:center;background-size:cover}
   .era-11{background-image:url(assets/wall-11.svg)}
-  .era-10{background-image:url(assets/wall-10.svg)}
-  .era-7{background-image:url(assets/wall-7.svg)}
-  .era-xp{background-image:url(assets/wall-xp.svg);background-position:center bottom}
+  .era-10{background-image:url(assets/wall-10.webp)}
+  .era-7{background-image:url(assets/wall-7.webp)}
+  .era-xp{background-image:url(assets/wall-xp.webp);background-position:center bottom}
   .era-11::before{opacity:.35}
-  .era-10::before{opacity:.45}
-  .era-7::before{opacity:.5}
+  .era-10::before,.era-7::before{display:none}
   .era-xp::after{display:none}
 
   /* ===== one-time boot screen ===== */
