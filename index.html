@@ -383,10 +383,6 @@
   .xpboot-name .ms{font-size:12px;opacity:.85;font-weight:400}
   .xpboot-name b{font-size:33px;font-weight:700;letter-spacing:.3px}
   .xpboot-name b span{color:#ff8c1a;font-style:italic;font-weight:800;font-size:21px;vertical-align:super;margin-left:3px}
-  .xpboot-bar{width:152px;height:18px;border:1px solid #6a6f9a;border-radius:10px;background:#08080f;overflow:hidden;padding:2px;box-shadow:inset 0 0 7px rgba(0,0,0,.85)}
-  .xpboot-blocks{display:flex;gap:5px;width:max-content;height:100%;animation:xpslide 1.05s linear infinite}
-  .xpboot-blocks i{width:11px;height:100%;border-radius:2px;background:linear-gradient(180deg,#a8c6ff,#1f49cf 60%,#0c2da0);box-shadow:0 0 6px #3f6bff}
-  @keyframes xpslide{0%{transform:translateX(-53px)}100%{transform:translateX(152px)}}
 
   /* (Win95) window-open zoom rectangle */
   .intro-95{background:#008080 !important}
@@ -537,6 +533,256 @@
     .hero-cta{gap:10px}
     .hero-meta{gap:8px 16px;font-size:12.5px}
   }
+
+  /* ══════════════════════════════════════════════════════════════════════════
+     ✦ WINDOWS 11 EVERYWHERE ✦
+     Every era now wears one coherent Fluent skin — Mica blooms, rounded acrylic
+     windows, Win11 caption buttons, Fluent cards + a little extra pizzazz.
+     Appended last on purpose: the !important rules here re-skin the vendored
+     7.css / XP.css / 95CSS chrome without editing those files.
+     ══════════════════════════════════════════════════════════════════════════ */
+  :root{
+    --w11-accent:#0067c0; --w11-accent2:#2a8ae4; --w11-accent-soft:rgba(0,103,192,.12);
+    --w11-mica:#eef2f9; --w11-card:rgba(251,252,254,.82); --w11-ink:#15273f;
+    --w11-line:rgba(8,32,72,.12);
+    --w11-shadow:0 22px 60px -20px rgba(13,40,90,.42), 0 4px 14px -6px rgba(13,40,90,.20);
+  }
+
+  /* ---- Mica wallpaper: one animated bloom, hue-shifted per section ---- */
+  .era-11,.era-10,.era-7,.era-xp,.era-95{
+    background:var(--w11-mica) !important;background-image:none !important;color:var(--w11-ink) !important;}
+  .era-11::before,.era-10::before,.era-7::before,.era-xp::before,.era-95::before{
+    content:"" !important;position:absolute !important;inset:-15% !important;z-index:0;
+    display:block !important;pointer-events:none;
+    background:
+      radial-gradient(34% 48% at 24% 28%, rgba(74,151,232,.40), transparent 70%),
+      radial-gradient(30% 42% at 80% 20%, rgba(124,92,224,.32), transparent 72%),
+      radial-gradient(44% 56% at 68% 86%, rgba(40,196,206,.32), transparent 72%),
+      radial-gradient(40% 50% at 12% 84%, rgba(120,170,255,.24), transparent 72%) !important;
+    opacity:1 !important;filter:blur(34px) saturate(1.2);
+    animation:bloomDrift 32s ease-in-out infinite alternate;}
+  .era-10::before{filter:blur(34px) saturate(1.25) hue-rotate(26deg)}
+  .era-7::before {filter:blur(34px) saturate(1.25) hue-rotate(-22deg)}
+  .era-xp::before{filter:blur(34px) saturate(1.30) hue-rotate(58deg)}
+  .era-95::before{filter:blur(34px) saturate(1.25) hue-rotate(-58deg)}
+  .era-xp::after{display:none !important}
+  .techstrip{background:#eef2f9 !important}
+  @keyframes bloomDrift{from{transform:translate3d(-1%,1%,0) scale(1)}to{transform:translate3d(3%,-3%,0) scale(1.1)}}
+  @media (prefers-reduced-motion: reduce){
+    .era-11::before,.era-10::before,.era-7::before,.era-xp::before,.era-95::before{animation:none}}
+
+  /* ---- headings now sit on light Mica ---- */
+  .era-10 .kicker,.era-7 .kicker{color:var(--w11-accent) !important}
+  .era-10 h2,.era-7 h2{color:#0e2238 !important;text-shadow:none !important}
+  .era-10 .sub,.era-7 .sub,.era-7 .svc-extra{color:#46597a !important;text-shadow:none !important}
+  .era-7 .svc-extra b{color:#0e2238 !important}
+  .era-7 .svc-extra .cmd{color:var(--w11-accent) !important;background:var(--w11-accent-soft) !important;border-color:rgba(0,103,192,.25) !important}
+
+  /* ---- shared Win11 window shell ---- */
+  .era-7 .window,.era-xp .window,.era-95 .dialog,.era-10 .win10{
+    border-radius:11px !important;border:1px solid var(--w11-line) !important;
+    background:var(--w11-card) !important;
+    -webkit-backdrop-filter:blur(22px) saturate(1.5);backdrop-filter:blur(22px) saturate(1.5);
+    box-shadow:var(--w11-shadow) !important;overflow:hidden;color:var(--w11-ink) !important;
+    transition:transform .25s ease, box-shadow .25s ease !important;}
+  .era-7 .window:hover:not(.win-max):not(.win-snap),
+  .era-xp .window:hover:not(.win-max):not(.win-snap),
+  .era-95 .dialog:hover:not(.win-max):not(.win-snap),
+  .era-10 .win10:hover:not(.win-max):not(.win-snap){
+    transform:translateY(-4px) !important;
+    box-shadow:0 30px 70px -20px rgba(13,40,90,.5), 0 0 0 1px rgba(0,103,192,.18) !important;}
+
+  /* ---- Win11 caption bar ---- */
+  .era-7 .title-bar,.era-xp .title-bar,.era-95 .dialog-header,.era-10 .w10-bar{
+    background:linear-gradient(180deg, rgba(252,253,255,.92), rgba(240,244,250,.92)) !important;
+    color:var(--w11-ink) !important;height:42px !important;min-height:42px !important;
+    display:flex !important;align-items:center !important;gap:8px;
+    padding:0 4px 0 14px !important;border-bottom:1px solid var(--w11-line) !important;
+    font-family:var(--sans) !important;font-weight:600 !important;font-size:13px !important;text-shadow:none !important;}
+  .era-7 .title-bar-text,.era-xp .title-bar-text,.era-95 .dialog-header .t,.era-10 .w10-title{
+    color:var(--w11-ink) !important;font-weight:600 !important;font-size:13px !important;
+    text-shadow:none !important;display:flex;align-items:center;gap:8px;padding:0 !important;font-family:var(--sans) !important;}
+  /* Win11 4-pane flag in the Win7 title bar */
+  .era-7 .title-bar-text .wf i{border-radius:1px !important}
+  .era-7 .title-bar-text .wf i:nth-child(1){background:#6bb6ff !important}
+  .era-7 .title-bar-text .wf i:nth-child(2){background:#3a93ed !important}
+  .era-7 .title-bar-text .wf i:nth-child(3){background:#2a8ae4 !important}
+  .era-7 .title-bar-text .wf i:nth-child(4){background:#0067c0 !important}
+  .era-10 .w10-ico i{background:var(--w11-accent) !important}
+
+  /* ---- Win11 caption buttons (─ ▢ ✕) ---- */
+  .w11-ctrls,.era-10 .w10-ctrls{margin-left:auto !important;display:flex !important;align-items:stretch;height:42px;list-style:none}
+  .w11-ctrls button,.era-10 .w10-ctrls button{
+    appearance:none;-webkit-appearance:none;border:0 !important;background:transparent !important;
+    width:46px !important;height:42px !important;min-width:46px;padding:0 !important;margin:0 !important;
+    display:grid !important;place-items:center !important;border-radius:0 !important;
+    font-family:var(--sans) !important;font-size:12px !important;font-weight:400 !important;
+    color:var(--w11-ink) !important;line-height:1 !important;cursor:default;box-shadow:none !important;
+    transition:background .15s, color .15s !important;}
+  .w11-ctrls button:before,.w11-ctrls button:after{content:none !important;display:none !important}
+  .w11-ctrls button:hover,.era-10 .w10-ctrls button:hover{background:rgba(8,32,72,.08) !important}
+  .w11-ctrls button.close:hover,.era-10 .w10-ctrls button.close:hover{background:#c4382b !important;color:#fff !important}
+
+  /* ---- Win10 “why” → Win11 Fluent cards ---- */
+  .era-10 .w10-menubar{display:none !important}
+  .era-10 .w10-body{padding:20px !important}
+  .era-10 .tiles{gap:14px !important}
+  .era-10 .tile,.era-10 .tile.b1,.era-10 .tile.b2,.era-10 .tile.b3{
+    border-radius:14px !important;background:rgba(255,255,255,.72) !important;
+    border:1px solid var(--w11-line) !important;color:var(--w11-ink) !important;
+    backdrop-filter:blur(8px);box-shadow:0 8px 22px -10px rgba(13,40,90,.28) !important;
+    min-height:172px;overflow:hidden;transition:transform .22s ease, box-shadow .22s ease !important;}
+  .era-10 .tile:hover{transform:translateY(-5px) !important;filter:none !important;
+    box-shadow:0 22px 44px -16px rgba(13,40,90,.45), 0 0 0 1px rgba(0,103,192,.2) !important;}
+  .era-10 .tile-ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;
+    font-size:24px;margin-bottom:auto;color:#fff;box-shadow:0 6px 14px -4px rgba(13,40,90,.45);}
+  .era-10 .tile.b1 .tile-ico{background:linear-gradient(135deg,#2a8ae4,#0067c0)}
+  .era-10 .tile.b2 .tile-ico{background:linear-gradient(135deg,#2bc4cf,#0a9aa6)}
+  .era-10 .tile.b3 .tile-ico{background:linear-gradient(135deg,#36c66f,#149a4e)}
+  .era-10 .tile h3{color:#0e2238 !important;font-weight:700}
+  .era-10 .tile p{color:#46597a !important}
+  .era-10 .w10-foot .lbl{color:#46597a !important}
+  .era-10 .w10-progress{height:6px !important;border-radius:4px;background:rgba(8,32,72,.12) !important;overflow:hidden}
+  .era-10 .w10-progress i{background:linear-gradient(90deg,#2a8ae4,#0067c0) !important;border-radius:4px}
+  .era-10 .w10-btn{background:linear-gradient(180deg,#2a8ae4,#0067c0) !important;color:#fff !important;border:0 !important;
+    border-radius:8px !important;padding:9px 18px !important;font-family:var(--sans) !important;font-weight:600 !important;
+    box-shadow:0 6px 16px -6px rgba(0,90,180,.6) !important;}
+  .era-10 .w10-btn:hover{filter:brightness(1.06) !important;border:0 !important}
+
+  /* ---- Win7 “services” windows → Win11 ---- */
+  .era-7 .window-body h3{color:var(--w11-accent) !important}
+  .era-7 .window-body .desc{color:#54667e !important}
+  .era-7 .aero-list li{color:#26384f !important}
+  .era-7 .window-body .w7-progress .lbl{color:#3a4d63 !important}
+  .era-7 [role=progressbar]{border-radius:5px !important;background:rgba(8,32,72,.12) !important;height:8px !important;overflow:hidden;border:0 !important;box-shadow:none !important;padding:0 !important}
+  .era-7 [role=progressbar] > div{background:linear-gradient(90deg,#2a8ae4,#0067c0) !important;border-radius:5px !important}
+
+  /* ---- WinXP “about” → Win11 ---- */
+  .era-xp{color:var(--w11-ink) !important}
+  .era-xp .window-body{color:var(--w11-ink) !important;background:transparent !important}
+  .era-xp .xp-h{color:#0e2238 !important}
+  .era-xp .xp-avatar{border-radius:14px !important;border:3px solid #fff !important;
+    background:linear-gradient(135deg,#2a8ae4,#0067c0) !important;box-shadow:0 10px 24px -8px rgba(0,90,180,.6) !important}
+  .era-xp .xp-uname{color:#0e2238 !important}
+  .era-xp .about-stats b{color:var(--w11-accent) !important}
+  .era-xp fieldset{border:1px solid var(--w11-line) !important;border-radius:10px !important;background:rgba(255,255,255,.5) !important}
+  .era-xp fieldset legend{color:#46597a !important;font-weight:700}
+  .era-xp menu[role=tablist]{display:inline-flex !important;gap:4px !important;list-style:none !important;
+    background:rgba(8,32,72,.06) !important;padding:4px !important;border:0 !important;border-radius:11px !important;margin:0 0 6px !important;position:static !important}
+  .era-xp menu[role=tablist] button{border:0 !important;background:transparent !important;border-radius:8px !important;
+    padding:7px 18px !important;font-family:var(--sans) !important;font-weight:600 !important;font-size:13px !important;
+    color:#46597a !important;box-shadow:none !important;position:static !important;margin:0 !important;min-height:0 !important}
+  .era-xp menu[role=tablist] button:hover{color:var(--w11-accent) !important;background:rgba(255,255,255,.5) !important}
+  .era-xp menu[role=tablist] button[aria-selected=true]{background:#fff !important;color:var(--w11-accent) !important;box-shadow:0 3px 8px -3px rgba(13,40,90,.3) !important}
+  .era-xp menu[role=tablist] button:before,.era-xp menu[role=tablist] button:after{content:none !important;display:none !important}
+  .era-xp [role=tabpanel]{background:transparent !important;border:0 !important;box-shadow:none !important;padding:18px 4px !important}
+  .era-xp .tree-view{background:rgba(255,255,255,.55) !important;border:1px solid var(--w11-line) !important;border-radius:10px !important;color:var(--w11-ink) !important}
+
+  /* ---- Win95 “contact” → Win11 form ---- */
+  .era-95{color:var(--w11-ink) !important}
+  .era-95 .dialog-body{padding:22px 24px 24px !important;background:transparent !important}
+  .era-95 .w95-h{color:#0e2238 !important}
+  .era-95 .w95-sub,.era-95 .w95-aside p{color:#46597a !important}
+  .era-95 .w95-aside a{color:var(--w11-accent) !important}
+  .era-95 .req{color:#c4382b !important}
+  .era-95 .input-group label{font-family:var(--sans) !important;font-weight:600 !important;font-size:13px !important;color:#46597a !important;margin-bottom:6px;display:block}
+  .era-95 input[type=text],.era-95 input[type=email],.era-95 textarea{
+    width:100% !important;border:1px solid var(--w11-line) !important;border-radius:7px !important;
+    background:#fff !important;box-shadow:none !important;padding:10px 12px !important;
+    font-family:var(--sans) !important;font-size:14px !important;color:var(--w11-ink) !important;
+    transition:border-color .15s, box-shadow .15s !important;}
+  .era-95 input:focus,.era-95 textarea:focus{outline:0 !important;border-color:var(--w11-accent) !important;
+    box-shadow:0 0 0 3px rgba(0,103,192,.18), inset 0 -2px 0 var(--w11-accent) !important;}
+  .era-95 #submit-btn{background:linear-gradient(180deg,#2a8ae4,#0067c0) !important;color:#fff !important;border:0 !important;
+    border-radius:9px !important;padding:11px 24px !important;font-family:var(--sans) !important;font-weight:600 !important;font-size:14px !important;
+    box-shadow:0 8px 18px -6px rgba(0,90,180,.6), inset 0 1px 0 rgba(255,255,255,.3) !important;transition:filter .15s, transform .15s !important;}
+  .era-95 #submit-btn:hover{filter:brightness(1.06) !important;transform:translateY(-1px)}
+  .era-95 #submit-btn:active{transform:translateY(0)}
+
+  /* ---- Start-menu apps inherit the Win11 dialog look ---- */
+  #app-layer .app-note,#app-layer .app-note p{color:var(--w11-ink) !important}
+  #app-layer .app-note .np{background:#fff !important;border:1px solid var(--w11-line) !important;border-radius:8px !important;box-shadow:none !important;color:var(--w11-ink) !important}
+  #app-layer .app-note .tlink,.term-body .tlink{color:var(--w11-accent) !important}
+  #app-layer .dialog:hover{transform:none !important}
+
+  /* ---- Nav: one Win11 CTA across every section (drop the per-era morphs) ---- */
+  header.nav[data-era] .nav-right .btn{background:linear-gradient(180deg,#2a8ae4,#0067c0) !important;color:#fff !important;border:0 !important;
+    border-radius:9px !important;font-family:var(--sans) !important;font-size:14px !important;font-weight:600 !important;
+    box-shadow:0 6px 16px -6px rgba(0,90,180,.6), inset 0 1px 0 rgba(255,255,255,.3) !important;text-shadow:none !important}
+  header.nav[data-era] .nav-right .btn:hover{filter:brightness(1.06) !important;transform:translateY(-1px) !important}
+
+  /* ---- pizzazz: a quick light-sheen sweep across the primary button ---- */
+  .btn:not(.ghost){position:relative;overflow:hidden}
+  .btn:not(.ghost)::after{content:"";position:absolute;top:0;left:-130%;width:55%;height:100%;
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-18deg);pointer-events:none}
+  .btn:not(.ghost):hover::after{animation:btnSheen .8s ease}
+  @keyframes btnSheen{from{left:-130%}to{left:150%}}
+  @media (prefers-reduced-motion: reduce){.btn:not(.ghost)::after{display:none}}
+
+  /* ---- Win11 taskbar footer (centered, acrylic) ---- */
+  footer{background:#0a1322 !important}
+  .taskbar{position:relative;background:rgba(243,246,251,.82) !important;
+    -webkit-backdrop-filter:blur(26px) saturate(1.6);backdrop-filter:blur(26px) saturate(1.6);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.6), 0 -1px 0 var(--w11-line) !important;
+    height:54px !important;display:flex !important;align-items:center !important;justify-content:center !important;gap:6px !important;padding:0 12px !important}
+  .start{background:transparent !important;box-shadow:none !important;border-radius:8px !important;padding:8px !important;gap:0 !important;transition:background .15s}
+  .start:hover{background:rgba(8,32,72,.08) !important}
+  .start:active,.start.active{background:rgba(0,103,192,.14) !important;box-shadow:none !important}
+  .start .logo-word{display:none !important}
+  .start .winflag{width:22px !important;height:22px !important;gap:2.5px !important}
+  .start .winflag i{border-radius:2px !important}
+  .start .winflag i:nth-child(1){background:#6bb6ff !important}
+  .start .winflag i:nth-child(2){background:#3a93ed !important}
+  .start .winflag i:nth-child(3){background:#2a8ae4 !important}
+  .start .winflag i:nth-child(4){background:#0067c0 !important}
+  #taskbar-apps{margin-left:0 !important}
+  .task-btn{font-family:var(--sans) !important;font-size:12.5px !important;color:var(--w11-ink) !important;
+    background:rgba(255,255,255,.55) !important;border:1px solid var(--w11-line) !important;border-radius:8px !important;
+    box-shadow:none !important;padding:7px 12px !important}
+  .task-btn.active{background:rgba(0,103,192,.14) !important;box-shadow:inset 0 -2px 0 var(--w11-accent) !important}
+  .tasknote{position:absolute;left:18px;font-family:var(--sans) !important;font-size:12px !important;color:#46597a !important;padding:0 !important}
+  .tray{position:absolute;right:12px;font-family:var(--sans) !important;font-size:12.5px !important;color:var(--w11-ink) !important;
+    background:transparent !important;box-shadow:none !important;border-radius:8px !important;padding:7px 12px !important}
+  .tray:hover{background:rgba(8,32,72,.08) !important}
+
+  /* ---- Win11 Start menu (rounded acrylic flyout, centered) ---- */
+  .startmenu{left:50% !important;right:auto !important;transform:translateX(-50%);bottom:62px !important;
+    width:min(440px,94vw) !important;background:rgba(243,246,251,.9) !important;
+    -webkit-backdrop-filter:blur(34px) saturate(1.6);backdrop-filter:blur(34px) saturate(1.6);
+    border:1px solid var(--w11-line) !important;border-radius:16px !important;
+    box-shadow:0 36px 90px -24px rgba(13,40,90,.55) !important;padding:16px !important;flex-direction:column !important;gap:2px}
+  .sm-banner{display:none !important}
+  .sm-items{padding:0 !important;gap:1px}
+  .sm-item{font-family:var(--sans) !important;font-size:14px !important;color:var(--w11-ink) !important;border-radius:8px !important;padding:11px 14px !important}
+  .sm-item b{text-decoration:none !important;font-weight:600 !important}
+  .sm-item:hover,.sm-item:focus-visible{background:var(--w11-accent-soft) !important;color:var(--w11-accent) !important;outline:none}
+  .sm-sep{height:1px !important;background:var(--w11-line) !important;box-shadow:none !important;margin:7px 6px !important}
+  .sm-run{background:rgba(0,103,192,.1) !important;color:var(--w11-accent) !important;font-weight:600 !important}
+
+  /* ---- Win11 boot splash + per-section intros ---- */
+  #boot .b-flag i:nth-child(1){background:#6bb6ff}
+  #boot .b-flag i:nth-child(2){background:#3a93ed}
+  #boot .b-flag i:nth-child(3){background:#2a8ae4}
+  #boot .b-flag i:nth-child(4){background:#0067c0}
+  .intro-xp,.intro-95{background:radial-gradient(120% 120% at 50% 0%, #122742, #0a1322 62%) !important}
+  .intro-xp .xpboot{gap:26px}
+  .intro-xp .xpboot-name{font-family:var(--sans) !important}
+  .intro-xp .xpboot-name .ms{opacity:.8}
+  .intro-xp .xpboot-name b span{color:#4cc2ff !important;font-style:normal !important;font-size:18px !important;font-weight:700 !important;vertical-align:baseline !important;margin-left:7px}
+  .intro-xp .winflag i{border-radius:2px}
+  .intro-xp .winflag i:nth-child(1){background:#6bb6ff !important}
+  .intro-xp .winflag i:nth-child(2){background:#3a93ed !important}
+  .intro-xp .winflag i:nth-child(3){background:#2a8ae4 !important}
+  .intro-xp .winflag i:nth-child(4){background:#0067c0 !important}
+  .w11-spinner{width:40px;height:40px;border-radius:50%;
+    background:conic-gradient(from 0deg, rgba(120,180,255,0), #6bb6ff 92%);
+    -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 4px), #000 0);
+    mask:radial-gradient(farthest-side, transparent calc(100% - 4px), #000 0);
+    animation:w11spin .9s linear infinite}
+  @keyframes w11spin{to{transform:rotate(360deg)}}
+  .zoomrect{border:0 !important;border-radius:12px !important;background:rgba(251,252,254,.92) !important;
+    box-shadow:0 30px 80px -24px rgba(0,0,0,.7), 0 0 0 1px rgba(0,103,192,.4) !important}
+  @media (prefers-reduced-motion: reduce){.w11-spinner{animation:none}}
 </style>
 </head>
 <body>
@@ -665,7 +911,7 @@
       <article class="window glass active is-bright reveal closable">
         <div class="title-bar">
           <div class="title-bar-text"><span class="wf"><i></i><i></i><i></i><i></i></span> Deploy-Microsoft365</div>
-          <div class="title-bar-controls"><button class="is-minimize" aria-label="Minimize"></button><button class="is-maximize" aria-label="Maximize"></button><button class="is-close close" aria-label="Close"></button></div>
+          <div class="w11-ctrls"><button aria-label="Minimize">&#9472;</button><button aria-label="Maximize">&#9633;</button><button class="close" aria-label="Close">&#10005;</button></div>
         </div>
         <div class="window-body">
           <h3>Microsoft 365 &amp; Azure</h3>
@@ -684,7 +930,7 @@
       <article class="window glass active is-bright reveal closable">
         <div class="title-bar">
           <div class="title-bar-text"><span class="wf"><i></i><i></i><i></i><i></i></span> Move-Tenant</div>
-          <div class="title-bar-controls"><button class="is-minimize" aria-label="Minimize"></button><button class="is-maximize" aria-label="Maximize"></button><button class="is-close close" aria-label="Close"></button></div>
+          <div class="w11-ctrls"><button aria-label="Minimize">&#9472;</button><button aria-label="Maximize">&#9633;</button><button class="close" aria-label="Close">&#10005;</button></div>
         </div>
         <div class="window-body">
           <h3>Migrations &amp; continuity</h3>
@@ -702,7 +948,7 @@
       <article class="window glass active is-bright reveal closable">
         <div class="title-bar">
           <div class="title-bar-text"><span class="wf"><i></i><i></i><i></i><i></i></span> Protect-Infrastructure</div>
-          <div class="title-bar-controls"><button class="is-minimize" aria-label="Minimize"></button><button class="is-maximize" aria-label="Maximize"></button><button class="is-close close" aria-label="Close"></button></div>
+          <div class="w11-ctrls"><button aria-label="Minimize">&#9472;</button><button aria-label="Maximize">&#9633;</button><button class="close" aria-label="Close">&#10005;</button></div>
         </div>
         <div class="window-body">
           <h3>Infrastructure &amp; network</h3>
@@ -726,20 +972,20 @@
   <div class="intro intro-xp" aria-hidden="true">
     <div class="xpboot">
       <div class="xpboot-brand">
-        <span class="winflag classic" style="width:28px;height:28px"><i></i><i></i><i></i><i></i></span>
-        <span class="xpboot-name"><span class="ms">Microsoft</span><b>Windows<span>xp</span></b></span>
+        <span class="winflag flat" style="width:30px;height:30px"><i></i><i></i><i></i><i></i></span>
+        <span class="xpboot-name"><span class="ms">Riva Computech</span><b>Windows<span>11</span></b></span>
       </div>
-      <div class="xpboot-bar"><div class="xpboot-blocks"><i></i><i></i><i></i></div></div>
+      <div class="w11-spinner" aria-hidden="true"></div>
     </div>
   </div>
   <div class="wrap">
     <div class="window reveal closable">
       <div class="title-bar active">
         <div class="title-bar-text">Riva Computech — About the owner</div>
-        <div class="title-bar-controls">
-          <button aria-label="Minimize"></button>
-          <button aria-label="Maximize"></button>
-          <button class="close" aria-label="Close"></button>
+        <div class="w11-ctrls">
+          <button aria-label="Minimize">&#9472;</button>
+          <button aria-label="Maximize">&#9633;</button>
+          <button class="close" aria-label="Close">&#10005;</button>
         </div>
       </div>
       <div class="window-body">
@@ -794,9 +1040,9 @@
     <div class="dialog reveal closable">
       <div class="dialog-header">
         <span class="t">Contact — Riva Computech</span>
-        <div class="btn-group">
-          <button class="btn" type="button" aria-label="Minimize" tabindex="-1">_</button>
-          <button class="btn close" type="button" aria-label="Close" tabindex="-1">✕</button>
+        <div class="w11-ctrls">
+          <button type="button" aria-label="Minimize" tabindex="-1">&#9472;</button>
+          <button class="close" type="button" aria-label="Close" tabindex="-1">&#10005;</button>
         </div>
       </div>
       <div class="dialog-body">
@@ -1091,7 +1337,7 @@
     var wrap=document.createElement("div"); wrap.className="appwin";
     wrap.style.left=Math.max(12,Math.min(window.innerWidth-340,140+appOffset))+"px";
     wrap.style.top=(108+appOffset)+"px";
-    wrap.innerHTML='<div class="dialog"><div class="dialog-header"><span class="t">'+a.title+'</span><div class="btn-group"><button class="btn" type="button" aria-label="Minimize" tabindex="-1">_</button><button class="btn appclose" type="button" aria-label="Close" tabindex="-1">✕</button></div></div><div class="dialog-body">'+a.body+'</div></div>';
+    wrap.innerHTML='<div class="dialog"><div class="dialog-header"><span class="t">'+a.title+'</span><div class="w11-ctrls"><button type="button" aria-label="Minimize" tabindex="-1">&#9472;</button><button class="appclose" type="button" aria-label="Close" tabindex="-1">&#10005;</button></div></div><div class="dialog-body">'+a.body+'</div></div>';
     appLayer.appendChild(wrap);
     var tb=document.createElement("button"); tb.type="button"; tb.className="task-btn active"; tb.innerHTML="<span>"+a.icon+"</span> "+a.label;
     taskApps.appendChild(tb);

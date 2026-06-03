@@ -1,17 +1,24 @@
 # Riva Computech — website
 
-A single-page site for Riva Computech that scrolls through Windows history — each section is a
-different Windows era (11 → 10 → 7 → XP → 95), with era-authentic loading animations.
-No build step — `index.html` **is** the site.
+A single-page site for Riva Computech, skinned head-to-toe in the **Windows 11 / Fluent**
+design language — Mica bloom wallpapers, rounded acrylic windows, Win11 caption buttons,
+Fluent cards, segmented tabs and a centered Win11 taskbar + Start menu. Each section is still
+a draggable "app window" (Hero → Why → Services → About → Contact) with per-section loading
+animations. No build step — `index.html` **is** the site.
 
-The Win7, XP and Win95 sections use the **real community CSS frameworks** (7.css, XP.css and 95CSS),
-vendored into `vendor/`. Win10 and Win11 have no drop-in component framework, so their chrome is
-hand-built (Win10 values taken from the win10css demo, Win11 from the w11CSS demo).
+> **History:** earlier versions of this site scrolled through Windows *history* — a different era
+> per section (11 → 10 → 7 → XP → 95). That multi-era look still lives in git history if you ever
+> want it back; the site now presents one consistent Windows 11 experience instead.
+
+Under the hood the Services / About / Contact windows are still built on the **real community CSS
+frameworks** (7.css, XP.css, 95CSS, vendored into `vendor/`) for their base structure, but a single
+appended **"Windows 11 everywhere"** CSS layer at the end of `index.html`'s `<style>` re-skins all of
+that vendored chrome to Fluent. Win10/Win11 chrome is hand-built.
 
 ```
-index.html     ← the whole site (HTML + CSS + JS)
-vendor/        ← the real Windows CSS frameworks, each scoped to its section so they don't clash:
-                 7.scoped.css (Win7 → .win7) · xp.scoped.css (XP → .era-xp) · 95.scoped.css (Win95 → .era-95)
+index.html     ← the whole site (HTML + CSS + JS) — see the "WINDOWS 11 EVERYWHERE" style block
+vendor/        ← the community Windows CSS frameworks, each scoped so they don't clash:
+                 7.scoped.css (→ .win7) · xp.scoped.css (→ .era-xp) · 95.scoped.css (→ .era-95)
                  + the libraries' bundled fonts (MS Sans Serif, w95fa)
 404.html       ← Windows blue-screen-of-death 404 page
 favicon.svg    ← terminal-prompt favicon
@@ -22,13 +29,16 @@ README.md      ← this file
 
 > **How the frameworks are vendored:** 7.css/XP.css/98.css are one family that all define the same
 > global classes (`.window`, `.title-bar`, …), so loading them together would clobber each other.
-> Each library is therefore scoped to its era (XP.css/95CSS via PostCSS `postcss-prefix-selector`;
+> Each library is therefore scoped to its section (XP.css/95CSS via PostCSS `postcss-prefix-selector`;
 > 7.css ships a pre-scoped `.win7` build). Re-generate with the upstream npm packages if you bump
-> versions — see the `<link>` tags in `index.html` for the exact files.
+> versions — see the `<link>` tags in `index.html` for the exact files. The Fluent re-skin sits in
+> the appended `:root{--w11-…}` + `✦ WINDOWS 11 EVERYWHERE ✦` block, which overrides the vendored
+> chrome with `!important` so the vendor files never need editing.
 
-> ✅ **Wallpapers:** the Windows desktop backgrounds are now drawn entirely in **CSS**
-> (original gradients — XP sky+hill, Win7 glow, Win10 abstract, Win95 teal). No copyrighted
-> Microsoft images are bundled, so it's safe for a public/commercial site.
+> ✅ **Wallpapers:** every section's background is a **Windows 11 "Bloom"-style Mica gradient**,
+> drawn entirely in **CSS** (one animated multi-radial bloom, hue-shifted per section) — no
+> copyrighted Microsoft images are bundled, so it's safe for a public/commercial site. (The unused
+> `assets/wall-*.webp` photo wallpapers from the old multi-era design are kept only for git history.)
 
 ## Preview locally
 
