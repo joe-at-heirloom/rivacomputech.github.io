@@ -350,56 +350,20 @@
   .tray{font-family:var(--ms95);font-size:12.5px;color:#000;padding:6px 12px;background:#c3c3c3;
     box-shadow:inset -1px -1px #fff,inset 1px 1px #808080,inset -2px -2px #dfdfdf,inset 2px 2px #0a0a0a}
 
-  /* ===== per-era loading intros ===== */
-  .intro{display:none}
-  .js .intro{display:flex;position:absolute;inset:0;z-index:6;align-items:center;justify-content:center;overflow:hidden}
-  .js .has-intro > .wrap{opacity:0}
-  .js .has-intro.revealed > .wrap{opacity:1;transition:opacity .55s ease .1s}
-  .js .has-intro.revealed .intro{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .55s ease,visibility .55s ease}
-
-  /* (Win10) Live Tile cascade */
-  .js .era-10 .win10{opacity:0;transform:translateY(14px) scale(.99)}
-  .era-10.revealed .win10{animation:w10in .5s ease forwards}
-  @keyframes w10in{to{opacity:1;transform:none}}
-  .js .era-10 .tile{opacity:0;transform:scale(.78)}
-  .era-10.revealed .tile{animation:tilein .42s cubic-bezier(.2,.85,.3,1) forwards}
-  .era-10.revealed .tile:nth-child(1){animation-delay:.24s}
-  .era-10.revealed .tile:nth-child(2){animation-delay:.36s}
-  .era-10.revealed .tile:nth-child(3){animation-delay:.48s}
-  @keyframes tilein{to{opacity:1;transform:none}}
-
-  /* (Win7) windows open */
-  .js .era-7 .window{opacity:0;transform:scale(.93)}
-  .era-7.revealed .window{animation:winopen .55s cubic-bezier(.2,.7,.3,1) forwards}
-  .era-7.revealed .svc-grid .window:nth-child(2){animation-delay:.12s}
-  .era-7.revealed .svc-grid .window:nth-child(3){animation-delay:.24s}
-  @keyframes winopen{to{opacity:1;transform:none}}
-
-  /* (WinXP) boot loading bar */
-  .intro-xp{background:#000 !important}
-  .xpboot{display:flex;flex-direction:column;align-items:center;gap:30px}
-  .xpboot-brand{display:flex;align-items:center;gap:13px}
-  .xpboot-name{display:flex;flex-direction:column;line-height:1.05;font-family:"Trebuchet MS",var(--tahoma);color:#fff}
-  .xpboot-name .ms{font-size:12px;opacity:.85;font-weight:400}
-  .xpboot-name b{font-size:33px;font-weight:700;letter-spacing:.3px}
-  .xpboot-name b span{color:#ff8c1a;font-style:italic;font-weight:800;font-size:21px;vertical-align:super;margin-left:3px}
-
-  /* (Win95) window-open zoom rectangle */
-  .intro-95{background:#008080 !important}
-  .zoomrect{width:130px;height:74px;border:2px solid rgba(255,255,255,.92);box-shadow:0 0 0 1px rgba(0,0,0,.35),inset 0 0 0 1px rgba(0,0,0,.2)}
-  .era-95.playing .zoomrect{animation:zoom95 .5s steps(4) forwards}
-  @keyframes zoom95{from{width:130px;height:74px}to{width:min(760px,86vw);height:74vh}}
-
-  @media (prefers-reduced-motion: reduce){
-    .intro{display:none !important}
-    .js .has-intro > .wrap{opacity:1 !important}
-    .js .era-10 .win10,.js .era-10 .tile,.js .era-7 .window{opacity:1 !important;transform:none !important;animation:none !important}
-  }
+  /* ===== unified Win11 window entrance =====
+     Every section animates its window in exactly the same way — a single
+     Fluent fade + rise + scale, like a Win11 app launching. (This replaces the
+     old four-different per-era intros: the Win10 tile cascade, the Win7
+     window-open, the full-screen XP boot splash and the Win95 zoom rectangle.)
+     All windows already carry .reveal, so the shared .reveal observer drives
+     them; .closable just adds the scale so it reads as a window opening. */
+  .reveal.closable{transform:translateY(26px) scale(.98)}
+  .reveal.closable.in{transform:none}
 
   /* ===== playful closable windows =====
      One self-contained bounce (shrink away → pop back). After it ends we pin the
-     rested state with .poofed{animation:none} so the per-era entrance animation
-     (winopen / w10in) can't re-fire and double-bounce. */
+     rested state with .poofed{animation:none} so the shared entrance can't
+     re-fire and double-bounce. */
   .close{cursor:pointer}
   .closable.poof{animation:winbounce .9s cubic-bezier(.34,.18,.4,1) both !important;pointer-events:none;will-change:transform,opacity}
   .closable.poofed{animation:none !important;opacity:1 !important;transform:none !important}
@@ -759,30 +723,11 @@
   .sm-sep{height:1px !important;background:var(--w11-line) !important;box-shadow:none !important;margin:7px 6px !important}
   .sm-run{background:rgba(0,103,192,.1) !important;color:var(--w11-accent) !important;font-weight:600 !important}
 
-  /* ---- Win11 boot splash + per-section intros ---- */
+  /* ---- one-time Win11 boot splash: blue 4-pane flag ---- */
   #boot .b-flag i:nth-child(1){background:#6bb6ff}
   #boot .b-flag i:nth-child(2){background:#3a93ed}
   #boot .b-flag i:nth-child(3){background:#2a8ae4}
   #boot .b-flag i:nth-child(4){background:#0067c0}
-  .intro-xp,.intro-95{background:radial-gradient(120% 120% at 50% 0%, #122742, #0a1322 62%) !important}
-  .intro-xp .xpboot{gap:26px}
-  .intro-xp .xpboot-name{font-family:var(--sans) !important}
-  .intro-xp .xpboot-name .ms{opacity:.8}
-  .intro-xp .xpboot-name b span{color:#4cc2ff !important;font-style:normal !important;font-size:18px !important;font-weight:700 !important;vertical-align:baseline !important;margin-left:7px}
-  .intro-xp .winflag i{border-radius:2px}
-  .intro-xp .winflag i:nth-child(1){background:#6bb6ff !important}
-  .intro-xp .winflag i:nth-child(2){background:#3a93ed !important}
-  .intro-xp .winflag i:nth-child(3){background:#2a8ae4 !important}
-  .intro-xp .winflag i:nth-child(4){background:#0067c0 !important}
-  .w11-spinner{width:40px;height:40px;border-radius:50%;
-    background:conic-gradient(from 0deg, rgba(120,180,255,0), #6bb6ff 92%);
-    -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 4px), #000 0);
-    mask:radial-gradient(farthest-side, transparent calc(100% - 4px), #000 0);
-    animation:w11spin .9s linear infinite}
-  @keyframes w11spin{to{transform:rotate(360deg)}}
-  .zoomrect{border:0 !important;border-radius:12px !important;background:rgba(251,252,254,.92) !important;
-    box-shadow:0 30px 80px -24px rgba(0,0,0,.7), 0 0 0 1px rgba(0,103,192,.4) !important}
-  @media (prefers-reduced-motion: reduce){.w11-spinner{animation:none}}
 
   /* ---- kill the leftover retro fonts (the vendored frameworks set w95fa /
          Pixelated MS Sans Serif / Arial on the section roots, so every bit of
@@ -925,7 +870,7 @@
 </section>
 
 <!-- ============ PHASE 2 · WINDOWS 10 · WHY ============ -->
-<section class="why era-10" id="why" data-intro="650">
+<section class="why era-10" id="why">
   <div class="wrap">
     <div class="kicker reveal">Why Riva Computech</div>
     <h2 class="reveal">Personal IT, not a ticket number.</h2>
@@ -953,7 +898,7 @@
 </section>
 
 <!-- ============ PHASE 3 · WINDOWS 7 · SERVICES ============ -->
-<section class="services era-7 win7 has-intro" id="services" data-intro="800">
+<section class="services era-7 win7" id="services">
   <div class="wrap">
     <div class="kicker reveal">Services</div>
     <h2 class="reveal">What I can help with.</h2>
@@ -1018,17 +963,8 @@
   </div>
 </section>
 
-<!-- ============ PHASE 4 · WINDOWS XP · CREDIBILITY ============ -->
-<section class="cred era-xp has-intro" id="about" data-intro="1700">
-  <div class="intro intro-xp" aria-hidden="true">
-    <div class="xpboot">
-      <div class="xpboot-brand">
-        <span class="winflag flat" style="width:30px;height:30px"><i></i><i></i><i></i><i></i></span>
-        <span class="xpboot-name"><span class="ms">Riva Computech</span><b>Windows<span>11</span></b></span>
-      </div>
-      <div class="w11-spinner" aria-hidden="true"></div>
-    </div>
-  </div>
+<!-- ============ PHASE 4 · ABOUT ============ -->
+<section class="cred era-xp" id="about">
   <div class="wrap">
     <div class="window reveal closable">
       <div class="title-bar active">
@@ -1084,9 +1020,8 @@
   </div>
 </section>
 
-<!-- ============ PHASE 5 · WINDOWS 95 · CONTACT ============ -->
-<section class="contact era-95 has-intro" id="contact" data-intro="950">
-  <div class="intro intro-95" aria-hidden="true"><div class="zoomrect"></div></div>
+<!-- ============ PHASE 5 · CONTACT ============ -->
+<section class="contact era-95" id="contact">
   <div class="wrap">
     <div class="dialog reveal closable">
       <div class="dialog-header">
@@ -1167,23 +1102,8 @@
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  /* per-era loading intros: play once when the section scrolls into view */
-  var introSecs = Array.prototype.slice.call(document.querySelectorAll("section[data-intro]"));
-  if(reduce || !("IntersectionObserver" in window)){
-    introSecs.forEach(function(s){ s.classList.add("playing","revealed"); });
-  } else {
-    var iio = new IntersectionObserver(function(es){
-      es.forEach(function(en){
-        if(en.isIntersecting){
-          var s = en.target; s.classList.add("playing");
-          var d = parseInt(s.getAttribute("data-intro"), 10) || 800;
-          setTimeout(function(){ s.classList.add("revealed"); }, d);
-          iio.unobserve(s);
-        }
-      });
-    }, {threshold:.35});
-    introSecs.forEach(function(s){ iio.observe(s); });
-  }
+  /* Window entrances are handled entirely by the shared .reveal observer below
+     (one Win11 fade+rise+scale for every section) — no per-era intro logic. */
 
   /* nav: scroll shadow */
   var nav = document.getElementById("nav");
