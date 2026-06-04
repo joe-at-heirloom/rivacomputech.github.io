@@ -57,7 +57,10 @@
   body{margin:0;font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;color:#13283f;background:#0a1726}
   a{text-decoration:none}
   a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid #1a73e8;outline-offset:2px;border-radius:2px}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;position:relative;z-index:2}
+  /* max-width caps the content at --maxw on desktop, but min(…,100%) also caps it
+     to the section width so the wrap (a flex item of the flex-column section)
+     can't blow past the viewport on narrow screens and clip its window. */
+  .wrap{max-width:min(var(--maxw),100%);min-width:0;margin:0 auto;padding:0 32px;position:relative;z-index:2}
   .mono{font-family:var(--mono)}
 
   /* ===== shared section frame ===== */
