@@ -592,9 +592,9 @@
   .era-10 .w10-body{padding:20px !important}
   .era-10 .tiles{gap:14px !important}
   .era-10 .tile,.era-10 .tile.b1,.era-10 .tile.b2,.era-10 .tile.b3{
-    border-radius:14px !important;background:rgba(255,255,255,.72) !important;
+    border-radius:14px !important;background:#f3f6fb !important;
     border:1px solid var(--w11-line) !important;color:var(--w11-ink) !important;
-    backdrop-filter:blur(8px);box-shadow:0 8px 22px -10px rgba(13,40,90,.28) !important;
+    box-shadow:0 8px 22px -10px rgba(13,40,90,.28) !important;
     min-height:172px;overflow:hidden;transition:transform .22s ease, box-shadow .22s ease !important;}
   .era-10 .tile:hover{transform:translateY(-5px) !important;filter:none !important;
     box-shadow:0 22px 44px -16px rgba(13,40,90,.45), 0 0 0 1px rgba(0,103,192,.2) !important;}
@@ -629,7 +629,7 @@
     background:linear-gradient(135deg,#2a8ae4,#0067c0) !important;box-shadow:0 10px 24px -8px rgba(0,90,180,.6) !important}
   .era-xp .xp-uname{color:#0e2238 !important}
   .era-xp .about-stats b{color:var(--w11-accent) !important}
-  .era-xp fieldset{border:1px solid var(--w11-line) !important;border-radius:10px !important;background:rgba(255,255,255,.5) !important}
+  .era-xp fieldset{border:1px solid var(--w11-line) !important;border-radius:10px !important;background:#f3f6fb !important}
   .era-xp fieldset legend{color:#46597a !important;font-weight:700}
   .era-xp menu[role=tablist]{display:inline-flex !important;gap:4px !important;list-style:none !important;
     background:rgba(8,32,72,.06) !important;padding:4px !important;border:0 !important;border-radius:11px !important;margin:0 0 6px !important;position:static !important}
@@ -640,7 +640,7 @@
   .era-xp menu[role=tablist] button[aria-selected=true]{background:#fff !important;color:var(--w11-accent) !important;box-shadow:0 3px 8px -3px rgba(13,40,90,.3) !important}
   .era-xp menu[role=tablist] button:before,.era-xp menu[role=tablist] button:after{content:none !important;display:none !important}
   .era-xp [role=tabpanel]{background:transparent !important;border:0 !important;box-shadow:none !important;padding:18px 4px !important}
-  .era-xp .tree-view{background:rgba(255,255,255,.55) !important;border:1px solid var(--w11-line) !important;border-radius:10px !important;color:var(--w11-ink) !important}
+  .era-xp .tree-view{background:#f3f6fb !important;border:1px solid var(--w11-line) !important;border-radius:10px !important;color:var(--w11-ink) !important}
 
   /* ---- Win95 “contact” → Win11 form ---- */
   .era-95{color:var(--w11-ink) !important}
@@ -742,7 +742,7 @@
   .era-7 .svc-extra .cmd{font-family:var(--mono) !important}
 
   /* ---- XP "user profile" tile → a clean Win11 account card ---- */
-  .era-xp .xp-user{background:rgba(255,255,255,.5);border:1px solid var(--w11-line);border-radius:14px;padding:18px 14px}
+  .era-xp .xp-user{background:#f3f6fb;border:1px solid var(--w11-line);border-radius:14px;padding:18px 14px}
   .era-xp .xp-uname{font-weight:700 !important;font-size:15px !important;margin-top:2px}
   .era-xp .xp-urole{color:#46597a !important;font-size:12px !important}
   .era-xp .about-bio p{color:#33455e !important;font-size:13.5px !important}
@@ -764,10 +764,10 @@
      (the parent window has overflow:hidden + 11px radius, so it clips corners) */
   .era-7 .title-bar,.era-xp .title-bar,.era-95 .dialog-header,.era-10 .w10-bar{
     border-radius:0 !important;box-shadow:none !important;border-left:0 !important;border-right:0 !important;border-top:0 !important;}
-  /* window bodies: drop the Aero dark inner border + white ring; sit on the
-     acrylic card with one shared padding so all four read the same */
+  /* window bodies: drop the Aero dark inner border + white ring; solid white
+     content area (like a real Win11 app) with one shared padding so all four read the same */
   .era-7 .window-body,.era-xp .window-body,.era-95 .dialog-body,.era-10 .w10-body{
-    background:transparent !important;border:0 !important;box-shadow:none !important;}
+    background:#fff !important;border:0 !important;box-shadow:none !important;}
   .era-7 .window-body{padding:18px 20px 20px !important}
   /* uniform title bars: hide the per-era app glyphs so every bar reads identically */
   .era-10 .w10-ico,.era-7 .title-bar-text .wf{display:none !important}
