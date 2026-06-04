@@ -507,7 +507,7 @@
      ══════════════════════════════════════════════════════════════════════════ */
   :root{
     --w11-accent:#0067c0; --w11-accent2:#2a8ae4; --w11-accent-soft:rgba(0,103,192,.12);
-    --w11-mica:#eef2f9; --w11-card:rgba(251,252,254,.82); --w11-ink:#15273f;
+    --w11-mica:#eef2f9; --w11-card:#fbfcfe; --w11-ink:#15273f;
     --w11-line:rgba(8,32,72,.12);
     --w11-shadow:0 22px 60px -20px rgba(13,40,90,.42), 0 4px 14px -6px rgba(13,40,90,.20);
   }
@@ -545,8 +545,7 @@
   /* ---- shared Win11 window shell ---- */
   .era-7 .window,.era-xp .window,.era-95 .dialog,.era-10 .win10{
     border-radius:11px !important;border:1px solid var(--w11-line) !important;
-    background:var(--w11-card) !important;
-    -webkit-backdrop-filter:blur(22px) saturate(1.5);backdrop-filter:blur(22px) saturate(1.5);
+    background:var(--w11-card) !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important;
     box-shadow:var(--w11-shadow) !important;overflow:hidden;color:var(--w11-ink) !important;
     transition:transform .25s ease, box-shadow .25s ease !important;}
   .era-7 .window:hover:not(.win-max):not(.win-snap),
@@ -558,7 +557,7 @@
 
   /* ---- Win11 caption bar ---- */
   .era-7 .title-bar,.era-xp .title-bar,.era-95 .dialog-header,.era-10 .w10-bar{
-    background:linear-gradient(180deg, rgba(252,253,255,.92), rgba(240,244,250,.92)) !important;
+    background:linear-gradient(180deg,#fbfdff,#eef3f9) !important;
     color:var(--w11-ink) !important;height:42px !important;min-height:42px !important;
     display:flex !important;align-items:center !important;gap:8px;
     padding:0 4px 0 14px !important;border-bottom:1px solid var(--w11-line) !important;
@@ -769,6 +768,19 @@
   .era-7 .window-body,.era-xp .window-body,.era-95 .dialog-body,.era-10 .w10-body{
     background:#fff !important;border:0 !important;box-shadow:none !important;}
   .era-7 .window-body{padding:18px 20px 20px !important}
+
+  /* ✦ THE REAL AERO FIX ✦ — the vendored window containers add PADDING and the
+     bodies add MARGIN, and that gap is exactly where the framework's own
+     background shows as a "border": Win7's Aero glass (drawn in :before/:after
+     pseudo-elements), XP's beige bevel, Win95's grey. Make the title bar + body
+     flush to the window edge so the ONLY frame is the shared Win11 border, and
+     delete Win7's glass pseudo-layers outright. */
+  .era-7 .window,.era-xp .window,.era-95 .dialog{padding:0 !important;gap:0 !important}
+  .era-7 .window-body,.era-xp .window-body,.era-95 .dialog-body{margin:0 !important}
+  .era-7 .window:before,.era-7 .window:after,
+  .era-7 .window.glass:before,.era-7 .window.glass:after{
+    content:none !important;display:none !important;background:none !important;
+    box-shadow:none !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important;}
   /* uniform title bars: hide the per-era app glyphs so every bar reads identically */
   .era-10 .w10-ico,.era-7 .title-bar-text .wf{display:none !important}
   /* belt-and-braces: no Aero edge glow / glass tint on the win7 window itself */
