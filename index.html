@@ -417,8 +417,9 @@
   .era-10::before{display:block;opacity:1;background:linear-gradient(105deg,rgba(3,14,30,.8),rgba(3,14,30,.52) 34%,rgba(3,14,30,.12) 62%,rgba(3,14,30,0) 82%)}
   .era-7::before{display:block;opacity:1;background:linear-gradient(112deg,rgba(4,22,46,.74),rgba(4,22,46,.42) 38%,rgba(4,22,46,.05) 70%),linear-gradient(0deg,rgba(4,22,46,.5),transparent 24%)}
   .era-xp::after{display:none}
+  /* (no photo wallpapers any more → no legibility scrim shadows on the headings) */
   .era-10 .kicker,.era-10 h2,.era-10 .sub,
-  .era-7 .kicker,.era-7 h2,.era-7 .sub,.era-7 .svc-extra{text-shadow:0 1px 12px rgba(0,10,28,.6),0 1px 3px rgba(0,10,28,.5)}
+  .era-7 .kicker,.era-7 h2,.era-7 .sub,.era-7 .svc-extra{text-shadow:none}
 
   /* ===== one-time boot screen ===== */
   #boot{display:none}
@@ -564,7 +565,9 @@
     font-family:var(--sans) !important;font-weight:600 !important;font-size:13px !important;text-shadow:none !important;}
   .era-7 .title-bar-text,.era-xp .title-bar-text,.era-95 .dialog-header .t,.era-10 .w10-title{
     color:var(--w11-ink) !important;font-weight:600 !important;font-size:13px !important;
-    text-shadow:none !important;display:flex;align-items:center;gap:8px;padding:0 !important;font-family:var(--sans) !important;}
+    text-shadow:none !important;display:block !important;flex:1 1 auto;min-width:0;
+    white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;
+    line-height:42px !important;padding:0 !important;font-family:var(--sans) !important;}
   /* Win11 4-pane flag in the Win7 title bar */
   .era-7 .title-bar-text .wf i{border-radius:1px !important}
   .era-7 .title-bar-text .wf i:nth-child(1){background:#6bb6ff !important}
