@@ -783,6 +783,32 @@
   .zoomrect{border:0 !important;border-radius:12px !important;background:rgba(251,252,254,.92) !important;
     box-shadow:0 30px 80px -24px rgba(0,0,0,.7), 0 0 0 1px rgba(0,103,192,.4) !important}
   @media (prefers-reduced-motion: reduce){.w11-spinner{animation:none}}
+
+  /* ---- kill the leftover retro fonts (the vendored frameworks set w95fa /
+         Pixelated MS Sans Serif / Arial on the section roots, so every bit of
+         text that wasn't re-skinned individually still inherited them) ---- */
+  .era-7 .window,.era-7 .window *,
+  .era-xp,.era-xp *,
+  .era-95,.era-95 *{font-family:var(--sans) !important}
+  .era-xp{font-size:14px !important;color:var(--w11-ink) !important;line-height:1.6 !important}
+  .era-95{font-size:14px !important;line-height:1.6 !important}
+  /* …but keep the deliberately monospaced bits monospaced */
+  #app-layer .app-note .np,.term-body,.term-body *,#term-input{font-family:var(--mono) !important}
+  .era-7 .svc-extra .cmd{font-family:var(--mono) !important}
+
+  /* ---- XP "user profile" tile → a clean Win11 account card ---- */
+  .era-xp .xp-user{background:rgba(255,255,255,.5);border:1px solid var(--w11-line);border-radius:14px;padding:18px 14px}
+  .era-xp .xp-uname{font-weight:700 !important;font-size:15px !important;margin-top:2px}
+  .era-xp .xp-urole{color:#46597a !important;font-size:12px !important}
+  .era-xp .about-bio p{color:#33455e !important;font-size:13.5px !important}
+  .era-xp .about-stats b{font-size:18px !important}
+  .era-xp .about-stats span{color:#46597a !important;font-size:11.5px !important}
+  .era-xp .tree-view li{color:#33455e !important}
+
+  /* ---- Win95 contact copy → Win11 type ---- */
+  .era-95 .w95-aside p b,.era-95 .w95-aside b{color:#0e2238 !important;font-weight:700 !important}
+  .era-95 .input-group label{letter-spacing:0 !important}
+  .era-95 #form-status{font-family:var(--sans) !important}
 </style>
 </head>
 <body>
