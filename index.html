@@ -809,6 +809,31 @@
   .era-95 .w95-aside p b,.era-95 .w95-aside b{color:#0e2238 !important;font-weight:700 !important}
   .era-95 .input-group label{letter-spacing:0 !important}
   .era-95 #form-status{font-family:var(--sans) !important}
+
+  /* ════════════════════════════════════════════════════════════════════════
+     ✦ FLATTEN EVERY WINDOW — make all five identical, kill all Aero/vendored
+       frames. (The window SHELL was re-skinned before, but the inner BODY +
+       title bar still carried the Aero dark border, white ring & glass glow.)
+     ════════════════════════════════════════════════════════════════════════ */
+  /* title bars: identical flat bar, no Aero inset glow, no leftover rounding
+     (the parent window has overflow:hidden + 11px radius, so it clips corners) */
+  .era-7 .title-bar,.era-xp .title-bar,.era-95 .dialog-header,.era-10 .w10-bar{
+    border-radius:0 !important;box-shadow:none !important;border-left:0 !important;border-right:0 !important;border-top:0 !important;}
+  /* window bodies: drop the Aero dark inner border + white ring; sit on the
+     acrylic card with one shared padding so all four read the same */
+  .era-7 .window-body,.era-xp .window-body,.era-95 .dialog-body,.era-10 .w10-body{
+    background:transparent !important;border:0 !important;box-shadow:none !important;}
+  .era-7 .window-body{padding:18px 20px 20px !important}
+  /* uniform title bars: hide the per-era app glyphs so every bar reads identically */
+  .era-10 .w10-ico,.era-7 .title-bar-text .wf{display:none !important}
+  /* belt-and-braces: no Aero edge glow / glass tint on the win7 window itself */
+  .era-7 .window,.era-7 .window.glass,.era-7 .window.active,.era-7 .window.is-bright{
+    box-shadow:var(--w11-shadow) !important;background:var(--w11-card) !important;border:1px solid var(--w11-line) !important;border-radius:11px !important;}
+  /* kill the Aero candy-stripe / shine on the win7 progress bars */
+  .era-7 [role=progressbar]:before,.era-7 [role=progressbar]:after,
+  .era-7 [role=progressbar] > div:before,.era-7 [role=progressbar] > div:after{
+    content:none !important;display:none !important;animation:none !important;background:none !important}
+  .era-7 [role=progressbar] > div{box-shadow:none !important}
 </style>
 </head>
 <body>
@@ -908,7 +933,7 @@
     <div class="win10 reveal closable">
       <div class="w10-bar">
         <span class="w10-title"><span class="w10-ico"><i></i><i></i><i></i><i></i></span> Why Riva Computech</span>
-        <div class="w10-ctrls"><button aria-label="Minimize">─</button><button aria-label="Maximize">▢</button><button class="close" aria-label="Close">✕</button></div>
+        <div class="w10-ctrls"><button aria-label="Minimize">&#9472;</button><button aria-label="Maximize">&#9633;</button><button class="close" aria-label="Close">&#10005;</button></div>
       </div>
       <div class="w10-menubar"><button type="button">File</button><button type="button">Edit</button><button type="button">View</button><button type="button">Help</button></div>
       <div class="w10-body">
@@ -1068,6 +1093,7 @@
         <span class="t">Contact — Riva Computech</span>
         <div class="w11-ctrls">
           <button type="button" aria-label="Minimize" tabindex="-1">&#9472;</button>
+          <button type="button" aria-label="Maximize" tabindex="-1">&#9633;</button>
           <button class="close" type="button" aria-label="Close" tabindex="-1">&#10005;</button>
         </div>
       </div>
@@ -1363,7 +1389,7 @@
     var wrap=document.createElement("div"); wrap.className="appwin";
     wrap.style.left=Math.max(12,Math.min(window.innerWidth-340,140+appOffset))+"px";
     wrap.style.top=(108+appOffset)+"px";
-    wrap.innerHTML='<div class="dialog"><div class="dialog-header"><span class="t">'+a.title+'</span><div class="w11-ctrls"><button type="button" aria-label="Minimize" tabindex="-1">&#9472;</button><button class="appclose" type="button" aria-label="Close" tabindex="-1">&#10005;</button></div></div><div class="dialog-body">'+a.body+'</div></div>';
+    wrap.innerHTML='<div class="dialog"><div class="dialog-header"><span class="t">'+a.title+'</span><div class="w11-ctrls"><button type="button" aria-label="Minimize" tabindex="-1">&#9472;</button><button type="button" aria-label="Maximize" tabindex="-1">&#9633;</button><button class="appclose" type="button" aria-label="Close" tabindex="-1">&#10005;</button></div></div><div class="dialog-body">'+a.body+'</div></div>';
     appLayer.appendChild(wrap);
     var tb=document.createElement("button"); tb.type="button"; tb.className="task-btn active"; tb.innerHTML="<span>"+a.icon+"</span> "+a.label;
     taskApps.appendChild(tb);
@@ -1371,6 +1397,7 @@
     tb.addEventListener("click",function(){ wrap.classList.contains("min")?appRestore(id):appMin(id); });
     wrap.querySelector(".appclose").addEventListener("click",function(){ appClose(id); });
     wrap.querySelector('[aria-label="Minimize"]').addEventListener("click",function(){ appMin(id); });
+    wrap.querySelector('[aria-label="Maximize"]').addEventListener("click",function(){ wrap.classList.contains("win-max")?winClearSnap(wrap):winSnap(wrap,"max"); });
     wrap.addEventListener("click",function(e){ var g=e.target.closest("[data-go]"); if(g){ e.preventDefault(); var el=document.querySelector(g.getAttribute("data-go")); if(el) el.scrollIntoView({behavior:reduce?"auto":"smooth"}); } });
     winDraggable(wrap, wrap.querySelector(".dialog-header"));
     winFront(wrap);
