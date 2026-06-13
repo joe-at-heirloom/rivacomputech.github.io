@@ -10,30 +10,21 @@ animations. No build step — `index.html` **is** the site.
 > per section (11 → 10 → 7 → XP → 95). That multi-era look still lives in git history if you ever
 > want it back; the site now presents one consistent Windows 11 experience instead.
 
-Under the hood the Services / About / Contact windows are still built on the **real community CSS
-frameworks** (7.css, XP.css, 95CSS, vendored into `vendor/`) for their base structure, but a single
-appended **"Windows 11 everywhere"** CSS layer at the end of `index.html`'s `<style>` re-skins all of
-that vendored chrome to Fluent. Win10/Win11 chrome is hand-built.
+All window chrome is defined by the site's own **"Windows 11 everywhere"** CSS layer at the end of
+`index.html`'s `<style>`. The retro community frameworks (7.css, XP.css, 95CSS) are **no longer
+loaded** — the markup keeps their class names (`.window`, `.title-bar`, `.dialog`, …) as structure,
+but every visual comes from the Win11 layer. The files stay in `vendor/` only for git history /
+potential rollback of the old multi-era design.
 
 ```
 index.html     ← the whole site (HTML + CSS + JS) — see the "WINDOWS 11 EVERYWHERE" style block
-vendor/        ← the community Windows CSS frameworks, each scoped so they don't clash:
-                 7.scoped.css (→ .win7) · xp.scoped.css (→ .era-xp) · 95.scoped.css (→ .era-95)
-                 + the libraries' bundled fonts (MS Sans Serif, w95fa)
+vendor/        ← (unused) the old retro Windows CSS frameworks + their fonts, kept for rollback only
 404.html       ← Windows blue-screen-of-death 404 page
 favicon.svg    ← terminal-prompt favicon
 robots.txt     ← search-engine directives
 sitemap.xml    ← sitemap
 README.md      ← this file
 ```
-
-> **How the frameworks are vendored:** 7.css/XP.css/98.css are one family that all define the same
-> global classes (`.window`, `.title-bar`, …), so loading them together would clobber each other.
-> Each library is therefore scoped to its section (XP.css/95CSS via PostCSS `postcss-prefix-selector`;
-> 7.css ships a pre-scoped `.win7` build). Re-generate with the upstream npm packages if you bump
-> versions — see the `<link>` tags in `index.html` for the exact files. The Fluent re-skin sits in
-> the appended `:root{--w11-…}` + `✦ WINDOWS 11 EVERYWHERE ✦` block, which overrides the vendored
-> chrome with `!important` so the vendor files never need editing.
 
 > ✅ **Wallpapers:** every section's background is a **Windows 11 "Bloom"-style Mica gradient**,
 > drawn entirely in **CSS** (one animated multi-radial bloom, hue-shifted per section) — no

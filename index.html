@@ -25,9 +25,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cascadia-code@5.2.6/index.min.css" />
 <!-- Authentic Windows-era CSS frameworks, each scoped to its section so they don't clash:
      7.css (Win7 Aero) → .win7 · XP.css (Luna) → .era-xp · 95CSS (Win95) → .era-95 -->
-<link rel="stylesheet" href="vendor/7.scoped.css" />
-<link rel="stylesheet" href="vendor/xp.scoped.css" />
-<link rel="stylesheet" href="vendor/95.scoped.css" />
+<!-- The retro Windows frameworks (7.css / XP.css / 95CSS) are no longer loaded:
+     the site is Windows 11 end-to-end and the "WINDOWS 11 EVERYWHERE" layer in
+     <style> defines all window chrome itself. The vendored files remain in
+     vendor/ only for git history / potential rollback. -->
 
 <script type="application/ld+json">
 {
@@ -115,23 +116,7 @@
   .btn.ghost{background:rgba(255,255,255,.75);color:#0067c0;border:1px solid #bcd4ec;box-shadow:0 2px 6px -2px rgba(0,60,130,.15)}
   .btn.ghost:hover{background:#fff;color:#005ba8;box-shadow:0 6px 16px -6px rgba(0,90,180,.3)}
   .nav .btn{padding:10px 18px;font-size:14px}
-  /* nav CTA morphs to match the era you're scrolled into */
-  header.nav .nav-right .btn{transition:filter .2s,transform .2s,box-shadow .25s,background .3s,border-color .3s,color .25s,border-radius .25s}
-  /* Win10 — hand-built (no library exists): flat square */
-  header.nav[data-era="10"] .nav-right .btn{background:#e1e1e1;color:#000;border:1px solid #adadad;border-radius:0;box-shadow:none}
-  header.nav[data-era="10"] .nav-right .btn:hover{background:#e5f1fb;border-color:#0078d7;color:#000;filter:none;box-shadow:none;transform:none}
-  /* Win7 — 7.css button (resolved values) */
-  header.nav[data-era="7"] .nav-right .btn{background:linear-gradient(#f2f2f2 45%,#ebebeb 45%,#cfcfcf);color:#222;border:1px solid #8e8f8f;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.8);font:9pt "Segoe UI","SegoeUI","Noto Sans",sans-serif;text-shadow:none}
-  header.nav[data-era="7"] .nav-right .btn:hover{border-color:#3c7fb1;color:#222;filter:none;transform:none}
-  header.nav[data-era="7"] .nav-right .btn:active{border-color:#6d91ab}
-  /* XP — XP.css button (beige bevel, amber hover) */
-  header.nav[data-era="xp"] .nav-right .btn{background:#ece9d8;color:#222;border:none;border-radius:0;font-family:"Pixelated MS Sans Serif",Arial,sans-serif;font-size:11px;font-weight:400;text-shadow:none;box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px grey,inset 2px 2px #dfdfdf}
-  header.nav[data-era="xp"] .nav-right .btn:hover{color:#222;filter:none;transform:none;box-shadow:inset -1px 1px #fff0cf,inset 1px 2px #fdd889,inset -2px 2px #fbc761,inset 2px -2px #e5a01a}
-  header.nav[data-era="xp"] .nav-right .btn:active{box-shadow:inset -1px -1px #fff,inset 1px 1px #0a0a0a,inset -2px -2px #dfdfdf,inset 2px 2px grey}
-  /* Win95 — 95CSS button (resolved values) */
-  header.nav[data-era="95"] .nav-right .btn{background:#c3c3c3;color:#000;border:none;border-radius:0;font-family:w95fa,"MS Sans Serif",sans-serif;font-weight:400;text-shadow:none;box-shadow:inset -2px -2px 0 #000,inset 2px 2px 0 #fff,inset -4px -4px 0 grey,inset 4px 4px 0 #dedede}
-  header.nav[data-era="95"] .nav-right .btn:hover{background:#c3c3c3;color:#000;filter:none;transform:none;box-shadow:inset -2px -2px 0 #000,inset 2px 2px 0 #fff,inset -4px -4px 0 grey,inset 4px 4px 0 #dedede}
-  header.nav[data-era="95"] .nav-right .btn:active{box-shadow:inset -2px -2px 0 #fff,inset 2px 2px 0 #000,inset -4px -4px 0 #dedede,inset 4px 4px 0 grey}
+  /* (the old per-era nav-CTA morphs are gone — one Win11 button everywhere) */
 
   /* ============================================================
      PHASE 1 — WINDOWS 11 (hero)
@@ -484,16 +469,17 @@
   /* ===== Konami easter egg: Windows 3.1 emulator modal ===== */
   .emu-modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,18,38,.6);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
   .emu-modal.open{display:flex}
-  .emu-win{width:min(860px,96vw);background:#c3c3c3;padding:3px;font-family:var(--ms95);
-    box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf,0 36px 90px -22px rgba(0,0,0,.75)}
-  .emu-bar{display:flex;align-items:center;gap:8px;height:28px;padding:0 3px 0 9px;color:#fff;font-weight:700;font-size:13px;background:linear-gradient(90deg,#000080,#1084d0)}
+  /* Win11 window chrome around the emulator — the Windows 3.1 inside the iframe is the easter egg */
+  .emu-win{width:min(860px,96vw);background:#fbfcfe;border:1px solid rgba(8,32,72,.12);border-radius:11px;overflow:hidden;
+    font-family:var(--sans);box-shadow:0 36px 90px -22px rgba(0,0,0,.6)}
+  .emu-bar{display:flex;align-items:center;gap:8px;height:42px;padding:0 4px 0 14px;color:#15273f;font-weight:600;font-size:13px;
+    background:linear-gradient(180deg,#fbfdff,#eef3f9);border-bottom:1px solid rgba(8,32,72,.12)}
   .emu-bar .t{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .emu-close{width:24px;height:20px;display:grid;place-items:center;font-size:11px;font-weight:700;color:#000;cursor:pointer;background:#c3c3c3;border:none;
-    box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf}
-  .emu-close:active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
-  .emu-body{margin:3px 0 0;background:#000;width:100%;aspect-ratio:4/3;position:relative}
+  .emu-close{width:46px;height:42px;display:grid;place-items:center;font-size:12px;color:#15273f;cursor:pointer;background:transparent;border:none;transition:background .15s,color .15s}
+  .emu-close:hover{background:#c4382b;color:#fff}
+  .emu-body{background:#000;width:100%;aspect-ratio:4/3;position:relative}
   .emu-body iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
-  .emu-hint{font-family:var(--ms95);font-size:11px;color:#222;padding:4px 6px 2px;text-align:center}
+  .emu-hint{font-family:var(--sans);font-size:11.5px;color:#46597a;padding:7px 6px;text-align:center}
   @media (max-width:880px){ .win-snap{width:calc(100vw - 32px) !important} }
   @media (max-width:600px){
     .era-11 .term{display:none}
@@ -624,7 +610,7 @@
   .era-7 .aero-list li{color:#26384f !important}
   .era-7 .window-body .w7-progress .lbl{color:#3a4d63 !important}
   .era-7 [role=progressbar]{border-radius:5px !important;background:rgba(8,32,72,.12) !important;height:8px !important;overflow:hidden;border:0 !important;box-shadow:none !important;padding:0 !important}
-  .era-7 [role=progressbar] > div{background:linear-gradient(90deg,#2a8ae4,#0067c0) !important;border-radius:5px !important}
+  .era-7 [role=progressbar] > div{background:linear-gradient(90deg,#2a8ae4,#0067c0) !important;border-radius:5px !important;height:100% !important}
 
   /* ---- WinXP “about” → Win11 ---- */
   .era-xp{color:var(--w11-ink) !important}
@@ -645,7 +631,9 @@
   .era-xp menu[role=tablist] button[aria-selected=true]{background:#fff !important;color:var(--w11-accent) !important;box-shadow:0 3px 8px -3px rgba(13,40,90,.3) !important}
   .era-xp menu[role=tablist] button:before,.era-xp menu[role=tablist] button:after{content:none !important;display:none !important}
   .era-xp [role=tabpanel]{background:transparent !important;border:0 !important;box-shadow:none !important;padding:18px 4px !important}
-  .era-xp .tree-view{background:#f3f6fb !important;border:1px solid var(--w11-line) !important;border-radius:10px !important;color:var(--w11-ink) !important}
+  .era-xp .tree-view{background:#f3f6fb !important;border:1px solid var(--w11-line) !important;border-radius:10px !important;color:var(--w11-ink) !important;
+    list-style:none !important;margin:0 !important;padding:12px 16px !important}
+  .era-xp .tree-view li{padding:4px 0}
 
   /* ---- Win95 “contact” → Win11 form ---- */
   .era-95{color:var(--w11-ink) !important}
@@ -669,6 +657,10 @@
   .era-95 #submit-btn:active{transform:translateY(0)}
 
   /* ---- Start-menu apps inherit the Win11 dialog look ---- */
+  /* #app-layer carries .era-95 (so app dialogs pick up the window skin), but it is a
+     FIXED full-viewport layer above the whole page — without this kill rule the
+     .era-95::before bloom wallpaper paints on top of every section as a green haze */
+  #app-layer::before,#app-layer::after{content:none !important;display:none !important}
   #app-layer .app-note,#app-layer .app-note p{color:var(--w11-ink) !important}
   #app-layer .app-note .np{background:#fff !important;border:1px solid var(--w11-line) !important;border-radius:8px !important;box-shadow:none !important;color:var(--w11-ink) !important}
   #app-layer .app-note .tlink,.term-body .tlink{color:var(--w11-accent) !important}
@@ -694,7 +686,7 @@
     -webkit-backdrop-filter:blur(26px) saturate(1.6);backdrop-filter:blur(26px) saturate(1.6);
     box-shadow:inset 0 1px 0 rgba(255,255,255,.6), 0 -1px 0 var(--w11-line) !important;
     height:54px !important;display:flex !important;align-items:center !important;justify-content:center !important;gap:6px !important;padding:0 12px !important}
-  .start{background:transparent !important;box-shadow:none !important;border-radius:8px !important;padding:8px !important;gap:0 !important;transition:background .15s}
+  .start{background:transparent !important;box-shadow:none !important;border-radius:8px !important;padding:8px !important;gap:0 !important;transition:background .15s;font-family:var(--sans) !important}
   .start:hover{background:rgba(8,32,72,.08) !important}
   .start:active,.start.active{background:rgba(0,103,192,.14) !important;box-shadow:none !important}
   .start .logo-word{display:none !important}
@@ -720,7 +712,8 @@
     -webkit-backdrop-filter:blur(34px) saturate(1.6);backdrop-filter:blur(34px) saturate(1.6);
     border:1px solid var(--w11-line) !important;border-radius:16px !important;
     box-shadow:0 36px 90px -24px rgba(13,40,90,.55) !important;padding:16px !important;flex-direction:column !important;gap:2px}
-  .sm-banner{display:none !important}
+  .sm-banner{display:none !important;font-family:var(--sans) !important}
+  .start .logo-word{font-family:var(--sans) !important}
   .sm-items{padding:0 !important;gap:1px}
   .sm-item{font-family:var(--sans) !important;font-size:14px !important;color:var(--w11-ink) !important;border-radius:8px !important;padding:11px 14px !important}
   .sm-item b{text-decoration:none !important;font-weight:600 !important}
