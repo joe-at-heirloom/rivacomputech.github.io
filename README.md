@@ -1,96 +1,79 @@
 # Riva Computech — website
 
-A single-page site for Riva Computech, skinned head-to-toe in the **Windows 11 / Fluent**
-design language — Mica bloom wallpapers, rounded acrylic windows, Win11 caption buttons,
-Fluent cards, segmented tabs and a centered Win11 taskbar + Start menu. Each section is still
-a draggable "app window" (Hero → Why → Services → About → Contact) with per-section loading
-animations. No build step — `index.html` **is** the site.
+**rivaOS:** a single-page site that *is* a Windows 11 desktop. The taskbar is the navigation,
+the hero is a working PowerShell terminal, and every section is introduced by the cmdlet that
+would fetch it (`Get-Service`, `Compare-Object`, `Test-ITHealth`, `Get-ADUser devik`…).
 
-> **History:** earlier versions of this site scrolled through Windows *history* — a different era
-> per section (11 → 10 → 7 → XP → 95). That multi-era look still lives in git history if you ever
-> want it back; the site now presents one consistent Windows 11 experience instead.
-
-All window chrome is defined by the site's own **"Windows 11 everywhere"** CSS layer at the end of
-`index.html`'s `<style>`. The retro community frameworks (7.css, XP.css, 95CSS) are **no longer
-loaded** — the markup keeps their class names (`.window`, `.title-bar`, `.dialog`, …) as structure,
-but every visual comes from the Win11 layer. The files stay in `vendor/` only for git history /
-potential rollback of the old multi-era design.
+No framework, no build step — `index.html` **is** the site (HTML + CSS + JS in one file).
 
 ```
-index.html     ← the whole site (HTML + CSS + JS) — see the "WINDOWS 11 EVERYWHERE" style block
-vendor/        ← (unused) the old retro Windows CSS frameworks + their fonts, kept for rollback only
-404.html       ← Windows blue-screen-of-death 404 page
+index.html     ← the whole site
+og.png         ← 1200×630 social preview (rendered from the hero)
+assets/logos/  ← technology logos for the "Hands-on with" strip
+logo.svg       ← the riva wordmark (also inlined in index.html as an SVG symbol)
+404.html       ← blue-screen-of-death 404 page
 favicon.svg    ← terminal-prompt favicon
-robots.txt     ← search-engine directives
-sitemap.xml    ← sitemap
-README.md      ← this file
+robots.txt · sitemap.xml
+vendor/, assets/wall-*  ← unused leftovers from the earlier multi-era design (safe to delete)
 ```
 
-> ✅ **Wallpapers:** every section's background is a **Windows 11 "Bloom"-style Mica gradient**,
-> drawn entirely in **CSS** (one animated multi-radial bloom, hue-shifted per section) — no
-> copyrighted Microsoft images are bundled, so it's safe for a public/commercial site. (The unused
-> `assets/wall-*.webp` photo wallpapers from the old multi-era design are kept only for git history.)
+## What's on the page
+
+| Section | What it does |
+| --- | --- |
+| **Hero / desktop** | Original "bloom" wallpaper (drawn in SVG, recolours for dark mode) + an interactive Windows Terminal. Try `help`, `Get-Service`, `Get-ADUser devik`, `Invoke-Migration`, `book`, `ls`, `cd about`, `exit`. Tab-completion and ↑/↓ history work. Drag it by the title bar; drag to the top edge to maximise. |
+| **Services** (`Get-Service`) | Six Fluent cards, each with its PowerShell-verb cmdlet. |
+| **Why** (`Compare-Object`) | Typical IT provider `<=` vs `=>` Riva Computech. |
+| **Automation** (`Invoke-Automation`) | A real, correct `Offboard-User.ps1` (Graph + Exchange Online) with syntax highlighting and a **Run** button that plays the output. |
+| **Health check** (`Test-ITHealth`) | Eight Settings-style toggles → live score ring + "fix these first". The CTA pre-fills the contact form with the results. Nothing leaves the browser. |
+| **About** (`Get-ADUser devik`) | Devik's profile and first-person bio. |
+| **Contact** (`Send-MailMessage`) | A mail-compose window posting to Formspree, with quick-subject chips. |
+
+**The shell:** a fixed Win11 taskbar (scroll-spy running indicators, tooltips), a Start menu with
+search (no match → "Ask Devik about '…'" pre-fills the form), power menu (Sleep → lock screen,
+Restart → replays the intro, Shut down → a joke), Quick Settings (dark mode, reduce motion, copy
+email) and a calendar flyout. Light/dark follows the OS until the visitor picks one.
+
+**Easter eggs:** Konami code → Windows 3.1 (Internet Archive emulator). Type `devik` anywhere → 🎵.
+
+The Start button uses the riva logo rather than the Windows logo, the wallpaper is original,
+and the footer carries a trademark disclaimer, so the site doesn't look affiliated with Microsoft.
 
 ## Preview locally
 
-Open `index.html` directly in a browser, or serve it:
-
 ```bash
 python3 -m http.server 8080
-# then open http://localhost:8080
 ```
 
-## Deploy with GitHub Pages
+Then open <http://localhost:8080>.
 
-The repo already includes a `CNAME` (`rivacomputech.com`) and `.nojekyll`. To go live:
+## Deploy (GitHub Pages)
 
-1. **Enable Pages:** repo **Settings → Pages → Build and deployment → Source: _Deploy from a
-   branch_ → Branch: `main` / `/ (root)`** → Save.
-2. **Point DNS** for the apex domain `rivacomputech.com` at GitHub Pages:
-   - `A` records → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - `AAAA` records → `2606:50c0:8000::153`, `…8001::153`, `…8002::153`, `…8003::153`
-   - `www` → `CNAME` → `joe-at-heirloom.github.io`
-   - If DNS is managed in **Cloudflare**, set those records **DNS-only (grey cloud)** so GitHub
-     can issue the TLS cert. (Proxying conflicts with Pages' certificate.)
-3. In **Settings → Pages**, confirm the custom domain shows `rivacomputech.com` and tick
-   **Enforce HTTPS** once the cert is issued (can take a few minutes to an hour).
+Repo **Settings → Pages → Deploy from a branch → `main` / root**. Every push to `main` republishes.
+For the custom domain, add a `CNAME` file containing `rivacomputech.com` (it was removed in
+`fa4c46e`) and point DNS at GitHub Pages: apex `A` records `185.199.108–111.153`, `www` →
+`CNAME` → `joe-at-heirloom.github.io`. If DNS is on Cloudflare, use DNS-only (grey cloud).
 
-Every push to `main` re-publishes automatically. Before DNS is ready you can preview at the
-project URL GitHub shows in Settings → Pages.
+## ⚠️ TODO before launch (from Devik)
 
----
+All marked `TODO(Devik)` in `index.html`:
 
-## ⚠️ TODO before launch (things to get from Devik)
+1. **Formspree ID.** Create a form at <https://formspree.io> (with `rivacomputech@gmail.com`) and
+   replace `YOUR_FORMSPREE_ID` in the form `action`. Until then, **Send opens the visitor's email
+   app with the message pre-filled**, so the form still works.
+2. **Phone number & service area.** Add them to the Contact "Phone" row and to the JSON-LD
+   (`telephone`, `areaServed`).
+3. **Photo.** Swap the `DP` initials in the About card for a square `devik.jpg`.
+4. **Bio check.** The About copy mentions that the business is named after his daughter. Confirm he's
+   happy to share that.
 
-These are marked with `TODO(Devik)` comments inside `index.html`:
-
-1. **Formspree form ID (required for the contact form).**
-   - Sign up free at <https://formspree.io> (use `rivacomputech@gmail.com`) and create a form.
-   - Formspree gives an endpoint like `https://formspree.io/f/abcdwxyz`. In `index.html`,
-     replace `YOUR_FORMSPREE_ID` in the form's `action="https://formspree.io/f/YOUR_FORMSPREE_ID"`.
-   - Until then, the form shows a friendly "not configured yet" message instead of sending.
-   - (The first real submission asks Devik to confirm the email once; then it just works.)
-
-2. **Phone number & service area** — used in the Contact section and the JSON-LD `areaServed`.
-
-3. **About the owner** (the Windows XP window) — Devik Patel, owner. Stats are honest:
-   `10+ years`, `1:1 direct with owner`, `M365 + Azure focus` (no Microsoft certifications,
-   so none are claimed). Optional: drop a square **photo** of Devik in (`devik.jpg`) and
-   replace the `DP` initials tile — see the `TODO(Devik)` comment in the `.xp-user` block.
-
-4. **Logo** — currently the `riva computech` wordmark approximated in the rounded **Fredoka**
-   font (a stand-in for your WIP logo). To use the real artwork: export it as `logo.svg`,
-   drop it in this folder, and replace the `.logo-word` spans in the nav and footer with
-   `<img src="/logo.svg" alt="riva computech" />`.
-
-5. **Social share image** — add `og.png` (1200×630) to this folder for nice link previews
-   (referenced in the `<meta property="og:image">` tag).
-
-6. *(Later)* **Testimonials** — gather 2–3 client quotes; a testimonials section can be added then.
+Honesty rules for copy: **10+ years**, **no Microsoft certifications** (none are claimed), and
+**no testimonials** until there are real ones.
 
 ## Notes
 
-- All animations respect `prefers-reduced-motion`.
-- Fonts (Cascadia Code + Inter) load from public CDNs with monospace/system fallbacks.
-- The contact form posts client-side to Formspree — no backend, and the form endpoint is a
-  public URL (safe to expose; that's how Formspree works). Falls back to the mailto link.
+- Fonts: Segoe UI Variable on Windows, SF on Apple, Inter elsewhere. Cascadia Code (Windows
+  Terminal's font) for anything monospaced.
+- Respects `prefers-reduced-motion` and `prefers-color-scheme`. Visitors can override both in
+  Quick Settings.
+- Formspree endpoints are public by design. The form has a `_gotcha` honeypot.
