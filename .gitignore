@@ -10,3 +10,4 @@ Thumbs.db
 # Local screenshots
 *.png
 !og.png
+!apple-touch-icon.png

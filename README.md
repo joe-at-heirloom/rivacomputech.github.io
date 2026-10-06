@@ -9,10 +9,11 @@ No framework, no build step — `index.html` **is** the site (HTML + CSS + JS in
 ```
 index.html     ← the whole site
 og.png         ← 1200×630 social preview (rendered from the hero)
+brand/         ← the riva logo files (see "Brand" below)
+logo.svg       ← copy of brand/riva-logo.svg (primary lockup)
+favicon.svg · apple-touch-icon.png ← the riva mark
 assets/logos/  ← technology logos for the "Hands-on with" strip
-logo.svg       ← the riva wordmark (also inlined in index.html as an SVG symbol)
 404.html       ← blue-screen-of-death 404 page
-favicon.svg    ← terminal-prompt favicon
 robots.txt · sitemap.xml
 vendor/, assets/wall-*  ← unused leftovers from the earlier multi-era design (safe to delete)
 ```
@@ -38,6 +39,25 @@ email) and a calendar flyout. Light/dark follows the OS until the visitor picks 
 
 The Start button uses the riva logo rather than the Windows logo, the wallpaper is original,
 and the footer carries a trademark disclaimer, so the site doesn't look affiliated with Microsoft.
+
+## Brand
+
+The logo is **"Prompt"**: a lowercase `r` followed by a blinking block cursor, like the PowerShell
+prompt Devik lives in.
+
+| File | Use |
+| --- | --- |
+| `brand/riva-logo.svg` | Primary lockup (mark + wordmark) on light backgrounds |
+| `brand/riva-logo-white.svg` | Reversed, for dark backgrounds |
+| `brand/riva-wordmark.svg` | Wordmark only (`riva▮` + COMPUTECH) |
+| `brand/riva-mark.svg` · `riva-mark-dark.svg` | App icon / favicon / avatar (dark variant has a lighter tile + edge) |
+
+Colours: tile `#0d1625` · cursor `#1e9bf0` · ink `#0b1b30` · COMPUTECH `#5c6b80` (on dark: tile
+`#1a2740`, COMPUTECH `#9fb0c6`). The wordmark is JetBrains Mono Bold converted to outlines (SIL
+Open Font License, which allows use in logos), so the files don't need the font installed. The site inlines the mark plus a **compact** wordmark (COMPUTECH set
+relatively larger so it stays legible at header size). The hero cursor blinks four times on load,
+then stays solid. Keep clear space of at least the cursor's width around the lockup, and don't use the
+wordmark without the mark below ~24px tall. Use the mark on its own instead.
 
 ## Preview locally
 

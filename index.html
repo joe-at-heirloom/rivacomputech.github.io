@@ -17,6 +17,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
 <!-- Theme + motion are decided before first paint so there's no flash. -->
 <script>
@@ -98,6 +99,8 @@ if(m==='reduce'||(m!=='full'&&matchMedia('(prefers-reduced-motion: reduce)').mat
   --field-hover:rgba(250,251,252,.95);
   --field-line:rgba(0,0,0,.45);
   --hover:rgba(10,30,60,.06);
+  /* logo */
+  --mk-tile:#0d1625; --mk-edge:#0d1625; --mk-fg:#fff; --mk-cur:#1e9bf0; --word-sub:#5c6b80;
   --press:rgba(10,30,60,.1);
   /* wallpaper */
   --w-bg1:#f6f9fd; --w-bg2:#dde8f6; --w-bg3:#c6d9f1;
@@ -140,6 +143,7 @@ if(m==='reduce'||(m!=='full'&&matchMedia('(prefers-reduced-motion: reduce)').mat
   --field-line:rgba(255,255,255,.55);
   --hover:rgba(255,255,255,.07);
   --press:rgba(255,255,255,.04);
+  --mk-tile:#1a2740; --mk-edge:#2c3d58; --word-sub:#9fb0c6;
   --w-bg1:#0d1628; --w-bg2:#0a1934; --w-bg3:#060f22;
   --p1:#0a3a8f; --p2:#1d6bd4; --p3:#52b0ff; --p4:#bfe5ff;
   --w-glow:rgba(40,120,255,.38);
@@ -159,7 +163,7 @@ if(m==='reduce'||(m!=='full'&&matchMedia('(prefers-reduced-motion: reduce)').mat
     --shadow-fly:0 0 0 1px rgba(255,255,255,.08),0 28px 60px -14px rgba(0,0,0,.7);
     --acrylic:rgba(28,32,39,.78); --acrylic-strong:rgba(32,36,44,.9);
     --win-bar:#1d2127; --win-body:#252a31; --field:rgba(255,255,255,.06); --field-hover:rgba(255,255,255,.085); --field-line:rgba(255,255,255,.55);
-    --hover:rgba(255,255,255,.07); --press:rgba(255,255,255,.04);
+    --hover:rgba(255,255,255,.07); --press:rgba(255,255,255,.04); --mk-tile:#1a2740; --mk-edge:#2c3d58; --word-sub:#9fb0c6;
     --w-bg1:#0d1628; --w-bg2:#0a1934; --w-bg3:#060f22; --p1:#0a3a8f; --p2:#1d6bd4; --p3:#52b0ff; --p4:#bfe5ff; --w-glow:rgba(40,120,255,.38);
   }
 }
@@ -294,9 +298,11 @@ textarea.field{resize:vertical;min-height:150px;line-height:1.55}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:linear-gradient(90deg,color-mix(in srgb,var(--w-bg1) 70%,transparent) 0%,color-mix(in srgb,var(--w-bg1) 35%,transparent) 30%,transparent 52%)}
 .hero-top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:28px}
-.brand{display:inline-flex;flex-direction:column;color:var(--accent);text-decoration:none;line-height:1}
-.brand .logo{height:36px;width:auto}
-.brand .sub{display:flex;justify-content:space-between;margin-top:6px;font:700 8.5px/1 var(--font);text-transform:uppercase;color:var(--text-3)}
+.brand{display:inline-flex;align-items:center;gap:13px;color:var(--text);text-decoration:none;line-height:1}
+.brand .bmark{width:46px;height:46px;flex:none}
+.brand .bword{height:44px;width:auto}
+.hero-brand{--blink:curblink}
+@keyframes curblink{50%{opacity:0}}
 .status{display:inline-flex;align-items:center;gap:9px;padding:7px 14px 7px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--stroke);
   font-size:13px;font-weight:600;color:var(--text-2);box-shadow:var(--shadow-card);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 .hero-top .status{display:none}
@@ -556,7 +562,8 @@ textarea.field{resize:vertical;min-height:150px;line-height:1.55}
 /* ===== FOOTER ===== */
 .foot{padding:72px 0 40px;border-top:1px solid var(--stroke)}
 .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
-.foot .brand .logo{height:30px}
+.foot .brand .bmark{width:38px;height:38px}
+.foot .brand .bword{height:36px}
 .foot p{margin:16px 0 0;max-width:34ch;color:var(--text-2);font-size:14.5px}
 .foot h4{font:600 12px/1 var(--font);text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);margin-bottom:14px}
 .foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
@@ -580,7 +587,7 @@ textarea.field{resize:vertical;min-height:150px;line-height:1.55}
 .tb-btn:active > *{transform:scale(.88);transition:transform .1s}
 .tb-btn .app-ico{--s:25px}
 .tb-btn .i{width:21px;height:21px}
-.tb-start .logo{width:40px;height:auto;color:var(--accent)}
+.tb-start .bmark{width:26px;height:26px}
 .tb-app::after{content:"";position:absolute;left:50%;bottom:2px;width:6px;height:3px;margin-left:-3px;border-radius:3px;background:var(--text-3);opacity:.8;transition:width .25s var(--ease),margin .25s var(--ease),background-color .2s}
 .tb-app.active::after{width:16px;margin-left:-8px;background:var(--accent);opacity:1}
 .tb-app.active{background:var(--hover)}
@@ -663,7 +670,7 @@ textarea.field{resize:vertical;min-height:150px;line-height:1.55}
 .toast.in{transform:none}
 .toast.out{opacity:0;transform:translateX(30%)}
 .toast-app{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-2);margin-bottom:10px}
-.toast-app .logo{width:22px;height:auto;color:var(--accent)}
+.toast-app .bmark{width:18px;height:18px}
 .toast b{display:block;font-size:14px;font-weight:650}
 .toast p{margin:3px 0 0;font-size:13px;color:var(--text-2)}
 .toast-x{position:absolute;right:8px;top:8px;width:30px;height:30px;border:0;border-radius:4px;background:none;color:var(--text-2);display:grid;place-items:center;cursor:pointer}
@@ -681,7 +688,7 @@ textarea.field{resize:vertical;min-height:150px;line-height:1.55}
 .lock-date{margin-top:10px;font:500 clamp(18px,2vw,24px)/1.2 var(--font-display);text-shadow:0 1px 14px rgba(0,20,60,.35)}
 .lock-card{margin-top:auto;margin-bottom:12vh;display:flex;align-items:center;gap:16px;padding:16px 22px;border-radius:12px;background:rgba(255,255,255,.14);
   border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);max-width:calc(100vw - 40px)}
-.lock-card .logo{width:62px;height:auto;color:#fff}
+.lock-card .bmark{width:44px;height:44px;flex:none;--mk-tile:#0d1625;--mk-edge:rgba(255,255,255,.25)}
 .lock-card b{display:block;font-size:15px}
 .lock-card small{font-size:13px;opacity:.85}
 .lock-hint{position:absolute;bottom:4vh;font-size:13px;opacity:.75}
@@ -802,8 +809,10 @@ textarea.field{resize:vertical;min-height:150px;line-height:1.55}
 <!-- ════════ SVG sprite: logo, wallpaper, icons ════════ -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
-    <!-- riva logo (logo.svg), filled with currentColor -->
-    <g id="rivaG" fill="currentColor"><path d="M722.25 147.57A90.71 90.71 0 0 1 631.54 238.28A90.71 90.71 0 0 1 540.83 147.57A90.71 90.71 0 0 1 631.54 56.86A90.71 90.71 0 0 1 722.25 147.57Z"/><path d="M523.85 528.5Q517.49 518.73 511.87 511.2Q508.59 506.81 503.22 500.9C495.37 492.28 491.18 487.36 483.61 480.51C463.05 461.92 438.81 445.48 411.98 437.53Q405.59 435.63 397.5 435.19A1.16 1.13 -22 0 1 396.79 434.9L396.57 434.71A0.73 0.69 65 0 0 396.14 434.54Q389.83 434.23 383.5 434.82C366.67 436.39 349.98 440.69 336.07 448.33Q302.31 466.88 282.86 497.54Q265 525.69 264.98 560.03Q264.88 739.94 264.95 854.75A1.07 1.06 90 0 1 263.89 855.82L85.98 855.82A0.73 0.72 90 0 1 85.26 855.09Q85.56 746.83 85.38 568.26C85.37 563.08 85.62 556.04 85.67 551.25Q85.68 549.97 86.12 549.23A1.12 1.1 61.6 0 0 86.27 548.71Q86.72 532.73 87.06 529Q88.07 518.11 91.57 498.51Q95.8 474.81 107.35 445.57Q113.77 429.34 124.27 411.18C143.77 377.46 170.62 347.73 201.06 323.56Q236.25 295.63 278.17 279.2Q282.69 277.43 296.99 272.68C304.89 270.05 312.89 268.28 319.82 266.59Q327.78 264.65 336.17 263.33A0.08 0.05 -32.7 0 0 336.22 263.21Q336.15 263.19 336.15 263.13A0.16 0.09 85.5 0 1 336.23 262.97L350.57 261.55A2.27 2.2 -55.3 0 0 351.08 261.45Q354.27 260.39 359.5 260.08Q360.7 260.01 361.69 259.16A1.37 1.34 -64.6 0 1 362.56 258.84Q373.08 258.78 382.66 258.29C395.75 257.61 412.12 258.13 423.8 258.89A0.56 0.55 -15.3 0 1 424.21 259.12C425.45 260.79 428.1 259.8 430 259.93Q435.86 260.31 441.97 260.91A1.17 1.12 68.9 0 1 442.65 261.23L443.13 261.7A1.25 1.23 70.1 0 0 443.84 262.04L448.43 262.63A0.08 0.08 0 0 1 448.5 262.73Q448.48 262.82 448.43 262.97A0.06 0.06 0 0 0 448.48 263.05Q465.62 265.41 483.55 270.76Q502.95 276.54 520.8 288.53Q522.67 289.78 523.38 290.84A1.75 1.64 -68.2 0 1 523.65 291.53L524.14 294.74A24.6 24.13 -48.8 0 1 524.39 299.09Q524.22 304.73 524.28 307Q524.82 325.77 524.83 348C524.86 397.78 525.23 446.11 524.53 494.44Q524.23 514.97 524.43 528.33A0.32 0.31 28.3 0 1 523.85 528.5Z"/><path d="M540.35 852.73Q539.48 850.84 539.48 850Q539.39 833.2 539.47 818.24Q539.48 814.98 540.63 812.55A1.12 1.1 -33.2 0 0 540.73 812.09L541.07 271.46A1.28 1.28 0 0 1 542.35 270.18L722.37 270.18A0.56 0.56 0 0 1 722.93 270.74Q722.51 339.08 722.75 440C722.76 444.2 722.09 449.04 722.18 453.33Q722.55 471.95 722.55 476.25Q722.59 545.04 722.73 575.5Q722.8 589.58 722.46 606.5C722.3 614.13 722.74 624.05 722.74 632.83Q722.79 679.35 722.78 812.01Q722.78 829.6 723 849.51Q723.02 851.52 722.59 852.84A1.57 1.56 8.9 0 1 721.1 853.92L542.2 853.92A2.03 2.03 0 0 1 540.35 852.73Z"/><path d="M860.63 867.08Q860.16 867.1 859.38 866.42A1.55 1.52 -20.8 0 0 858.51 866.04Q848.83 865.02 841.07 863.62Q839.44 863.33 818.38 858.88Q815.04 858.17 800.33 853.54C778.83 846.78 757.95 837.21 739.59 825.67A0.95 0.95 0 0 1 739.14 824.86Q739.11 783.81 739.12 579.75Q739.12 578.1 739.5 576.61A0.32 0.32 0 0 1 740.1 576.55Q740.8 578.03 741.95 579.6C759.89 604.19 780.94 626.37 804.14 649.21Q821.93 666.74 833.41 674.02Q856.75 688.82 884.51 693.16A0.37 0.36 82.5 0 1 884.79 693.38Q884.97 693.77 885.44 693.64Q885.72 693.57 886.08 693.6C899.85 694.78 914.2 695.14 928.37 693.93A4.22 4.19 32.2 0 0 929.4 693.7Q933.92 692.12 937.93 692.04A6.28 6.13 -52 0 0 939.41 691.84C959.9 686.65 978.05 675.92 994.31 661.93Q1002.86 654.58 1006.78 650.65C1023.52 633.86 1032.71 613.14 1036.06 589.75Q1037.14 582.2 1037.26 571.34Q1037.41 559.01 1037.5 547.13Q1037.78 510.59 1037.54 317.25Q1037.51 291.5 1037.49 271.04A0.86 0.85 -90 0 1 1038.34 270.18L1220.54 270.18A0.62 0.62 0 0 1 1221.16 270.81C1221.05 287.23 1221.34 301.01 1221.34 317.42Q1221.36 530.62 1221.3 560C1221.27 577.58 1219.12 595.03 1215.85 613.07C1203.68 680.2 1171.08 740.83 1120.62 786.87Q1110.31 796.27 1095.45 807.67Q1076.18 822.45 1050.5 836.49Q1016.26 855.2 977.54 862.2A3.9 3.77 27.5 0 0 976.6 862.48Q973.9 863.67 973 863.64Q969.43 863.5 966.73 864.84A2.15 2.02 -59.7 0 1 966.02 865.05Q959.59 865.81 952.33 866.08Q951.53 866.11 951.25 866.48Q951.01 866.79 950.96 866.85A1.38 1.37 -71 0 1 950.04 867.3C944.24 867.79 939.62 868.53 937.13 867.65A0.56 0.56 0 0 1 936.82 866.89Q936.94 866.64 936.93 866.53A0.51 0.5 87.6 0 0 936.49 866.12L933.77 865.85A0.73 0.72 2.9 0 0 932.97 866.57L932.97 867.33A0.65 0.65 0 0 1 932.34 867.98L927.02 868.09A0.56 0.55 -5.8 0 0 926.48 868.74Q926.48 868.76 926.54 868.89A0.41 0.41 0 0 1 926.18 869.46Q906.08 870.53 885.76 869.32A0.16 0.16 0 0 1 885.61 869.14L885.61 869.13A0.3 0.29 -82.8 0 1 885.95 868.86Q886.64 868.97 887 868.64A0.3 0.3 0 0 0 886.81 868.11Q874.38 867.94 871.8 867.98C868.51 868.02 863.84 866.95 860.63 867.08Z"/><path d="M1375.72 271.15Q1376.88 271.95 1378.29 271.93Q1388.47 271.77 1394.75 273.48Q1397.21 274.15 1398.5 274.23Q1403.09 274.52 1414.76 276.86C1424.91 278.89 1436.31 281.49 1445.96 284.56Q1475.92 294.08 1499.23 306.56C1543.29 330.14 1582.86 364.2 1611.8 405.18Q1646.85 454.81 1657.71 514.4Q1658.83 520.58 1659.07 523.59C1659.4 527.78 1660.54 531.35 1660.88 535.85Q1662.83 562.04 1662.83 570.5Q1662.79 743.83 1662.89 869.35A0.61 0.61 0 0 1 1662.28 869.96L1481.44 869.96A0.6 0.59 90 0 1 1480.85 869.36Q1480.78 776.96 1480.82 574Q1480.83 566.96 1480.28 559.5Q1477.13 516.05 1446.46 485.3C1426.22 465.01 1401.23 451.57 1373.27 447.4Q1372.99 447.36 1372.92 447.04A0.45 0.45 0 0 0 1372.52 446.69Q1352.79 445.09 1337.24 446.04Q1329.42 446.52 1318.85 448.94C1294.22 454.57 1271.53 468.45 1254.07 486.67C1252.08 488.75 1251.01 491.07 1249.1 492.41A0.27 0.27 0 0 1 1248.67 492.19L1248.67 287.38A1.46 1.46 0 0 1 1249.65 286Q1252.55 285.01 1254.28 284.54Q1275.29 278.96 1284.52 277.05Q1293.22 275.26 1308.77 273.47Q1310.92 273.22 1311.69 273.04C1313.28 272.66 1314.43 273.14 1316.08 272.59Q1318.59 271.77 1322.82 271.85A0.75 0.75 0 0 0 1323.35 271.63L1323.57 271.41A1.27 1.27 0 0 1 1324.39 271.04Q1349.13 269.21 1374.97 270.9A1.47 1.47 0 0 1 1375.72 271.15Z"/><path d="M1381.17 867.3Q1380.47 867.63 1376 867.75Q1348.59 868.45 1319.5 867.68Q1316.93 867.61 1313.96 866.98A0.29 0.27 3.1 0 1 1313.73 866.74L1313.71 866.47A0.41 0.4 87.5 0 0 1313.32 866.11Q1308 865.97 1304.81 865.3Q1299.23 864.13 1297.71 864.23Q1297.58 864.24 1292.9 863.74Q1290.64 863.5 1288.17 862.93C1281.03 861.25 1272.44 859.53 1266.88 858.07Q1216.53 844.78 1175.22 816.71Q1159.94 806.32 1153.67 801.2Q1152.5 800.23 1149.56 797.79A0.66 0.66 0 0 1 1149.52 796.82Q1206.4 739.88 1231.12 663.17Q1236.1 647.72 1238.95 635.31A0.71 0.71 0 0 1 1240.28 635.14Q1241.29 637.16 1242.05 638.22C1260.81 664.68 1289.82 684.76 1321.98 691.44Q1348.67 696.99 1377.37 691.77Q1418.27 684.33 1446.89 653.23Q1452.27 647.39 1453.77 644.67A0.41 0.41 0 0 1 1454.44 644.59Q1455.11 645.32 1455.11 647.01Q1455.08 698.85 1455.14 849.01Q1455.14 851.32 1453.49 851.51Q1451.72 851.72 1451.65 851.74Q1439.27 855.4 1433.37 857.11Q1426.68 859.06 1410.36 862.34A4.31 3.98 25.5 0 0 1409.46 862.62Q1406.79 863.79 1405.24 863.83Q1398.11 864.01 1390.66 865.45Q1386.25 866.3 1380.08 866.35A0.25 0.25 0 0 0 1379.97 866.83Q1380.29 866.99 1381.09 866.98A0.17 0.17 0 0 1 1381.17 867.3Z"/></g>
+    <!-- riva logo — "Prompt": a lowercase r and a block cursor. Colours come from --mk-* tokens;
+         the wordmark is JetBrains Mono Bold, outlined (OFL), so no font is needed. Source files: brand/ -->
+    <g id="rivaMarkG"><rect x=".5" y=".5" width="63" height="63" rx="14.5" style="fill:var(--mk-tile);stroke:var(--mk-edge)"/><g transform="translate(-1 -3)"><path d="M21 45V27M21 33c0-4.5 3.5-7.5 9-7.5h3" stroke-width="6" stroke-linecap="round" fill="none" style="stroke:var(--mk-fg)"/><rect x="39" y="37" width="9" height="11" rx="1.5" style="fill:var(--mk-cur)"/></g></g>
+    <g id="rivaWordG"><path fill="currentColor" d="M6.2 0V-36.3H13.99V-29.37H16.04L13.6 -25.15Q13.6 -31.02 16.24 -33.99Q18.88 -36.96 24.02 -36.96Q29.9 -36.96 33.26 -33.33Q36.63 -29.7 36.63 -23.3V-20.66H27.98V-22.7Q27.98 -26.2 26.17 -28.12Q24.35 -30.03 21.19 -30.03Q17.95 -30.03 16.2 -28.12Q14.45 -26.2 14.45 -22.7V0ZM43.3 0V-7.52H55.97V-28.84H44.95V-36.3H63.89V-7.52H75.11V0ZM59.27 -42.37Q56.76 -42.37 55.31 -43.66Q53.86 -44.95 53.86 -47.12Q53.86 -49.3 55.31 -50.59Q56.76 -51.88 59.27 -51.88Q61.78 -51.88 63.23 -50.59Q64.68 -49.3 64.68 -47.12Q64.68 -44.95 63.23 -43.66Q61.78 -42.37 59.27 -42.37ZM91.08 0 79.13 -36.3H87.58L94.51 -14.26Q95.11 -12.28 95.67 -10.16Q96.23 -8.05 96.49 -6.8Q96.82 -8.05 97.35 -10.16Q97.88 -12.28 98.41 -14.19L105.2 -36.3H113.59L101.71 0ZM130.61 0.66Q125 0.66 121.77 -2.31Q118.54 -5.28 118.54 -10.3Q118.54 -15.64 122.1 -18.55Q125.66 -21.45 132.2 -21.45H141.24V-24.55Q141.24 -27.19 139.52 -28.68Q137.81 -30.16 134.84 -30.16Q132.13 -30.16 130.35 -28.97Q128.57 -27.79 128.24 -25.74H120.19Q120.78 -30.89 124.81 -33.92Q128.83 -36.96 135.1 -36.96Q141.77 -36.96 145.63 -33.63Q149.49 -30.29 149.49 -24.62V0H141.5V-6.34H140.18L141.5 -8.12Q141.5 -4.09 138.53 -1.72Q135.56 0.66 130.61 0.66ZM133.32 -5.54Q136.82 -5.54 139.03 -7.33Q141.24 -9.11 141.24 -11.95V-16.37H132.33Q129.82 -16.37 128.3 -14.92Q126.79 -13.46 126.79 -11.09Q126.79 -8.51 128.53 -7.03Q130.28 -5.54 133.32 -5.54Z"/><rect x="160.44" y="-36" width="26" height="36" rx="3" style="fill:var(--mk-cur);animation:var(--blink,none) 1.1s steps(1) .9s 4"/><path style="fill:var(--word-sub)" d="M10.38 35.68Q9.12 35.68 8.18 35.2Q7.23 34.73 6.72 33.85Q6.2 32.98 6.2 31.79V26.07Q6.2 24.86 6.72 24Q7.23 23.13 8.18 22.66Q9.12 22.18 10.38 22.18Q11.66 22.18 12.59 22.66Q13.51 23.13 14.03 24Q14.56 24.86 14.56 26.07H12.29Q12.29 25.13 11.79 24.65Q11.3 24.16 10.38 24.16Q9.46 24.16 8.96 24.65Q8.45 25.13 8.45 26.05V31.79Q8.45 32.71 8.96 33.2Q9.46 33.7 10.38 33.7Q11.3 33.7 11.79 33.2Q12.29 32.71 12.29 31.79H14.56Q14.56 32.96 14.03 33.84Q13.51 34.73 12.59 35.2Q11.66 35.68 10.38 35.68ZM27.23 35.68Q25.97 35.68 25.04 35.2Q24.11 34.73 23.62 33.85Q23.12 32.98 23.12 31.79V26.07Q23.12 24.88 23.62 24.01Q24.11 23.13 25.04 22.66Q25.97 22.18 27.23 22.18Q28.51 22.18 29.42 22.66Q30.34 23.13 30.84 24.01Q31.33 24.88 31.33 26.05V31.79Q31.33 32.98 30.84 33.85Q30.34 34.73 29.42 35.2Q28.51 35.68 27.23 35.68ZM27.23 33.7Q28.15 33.7 28.61 33.2Q29.08 32.71 29.08 31.79V26.07Q29.08 25.13 28.61 24.65Q28.15 24.16 27.23 24.16Q26.31 24.16 25.84 24.65Q25.37 25.13 25.37 26.07V31.79Q25.37 32.71 25.85 33.2Q26.33 33.7 27.23 33.7ZM39.76 35.5V22.36H42.42L43.7 26.54Q43.9 27.17 44.02 27.69Q44.15 28.21 44.18 28.44Q44.22 28.21 44.35 27.69Q44.47 27.17 44.65 26.54L45.88 22.36H48.54V35.5H46.43V31.41Q46.43 30.51 46.49 29.45Q46.54 28.39 46.61 27.33Q46.69 26.27 46.78 25.31Q46.88 24.36 46.96 23.64L45.19 29.85H43.14L41.32 23.64Q41.41 24.32 41.5 25.25Q41.59 26.18 41.67 27.23Q41.75 28.28 41.81 29.36Q41.86 30.44 41.86 31.41V35.5ZM57.05 35.5V22.36H61.43Q62.74 22.36 63.72 22.86Q64.7 23.37 65.24 24.28Q65.78 25.19 65.78 26.41Q65.78 27.62 65.23 28.53Q64.69 29.45 63.71 29.96Q62.74 30.46 61.43 30.46H59.3V35.5ZM59.3 28.43H61.43Q62.36 28.43 62.93 27.88Q63.5 27.33 63.5 26.41Q63.5 25.47 62.93 24.93Q62.36 24.39 61.43 24.39H59.3ZM77.99 35.68Q76.06 35.68 74.97 34.63Q73.88 33.57 73.88 31.76V22.36H76.15V31.74Q76.15 32.67 76.62 33.2Q77.09 33.72 77.99 33.72Q78.87 33.72 79.35 33.2Q79.82 32.67 79.82 31.74V22.36H82.09V31.76Q82.09 33.57 81.01 34.63Q79.93 35.68 77.99 35.68ZM93.77 35.5V24.45H90.34V22.36H99.48V24.45H96.04V35.5ZM108.01 35.5V22.36H115.9V24.32H110.23V27.74H115.27V29.69H110.23V33.54H115.9V35.5ZM128.82 35.68Q127.56 35.68 126.62 35.2Q125.67 34.73 125.16 33.85Q124.64 32.98 124.64 31.79V26.07Q124.64 24.86 125.16 24Q125.67 23.13 126.62 22.66Q127.56 22.18 128.82 22.18Q130.1 22.18 131.02 22.66Q131.95 23.13 132.47 24Q133 24.86 133 26.07H130.73Q130.73 25.13 130.23 24.65Q129.74 24.16 128.82 24.16Q127.9 24.16 127.4 24.65Q126.89 25.13 126.89 26.05V31.79Q126.89 32.71 127.4 33.2Q127.9 33.7 128.82 33.7Q129.74 33.7 130.23 33.2Q130.73 32.71 130.73 31.79H133Q133 32.96 132.47 33.84Q131.95 34.73 131.02 35.2Q130.1 35.68 128.82 35.68ZM141.65 35.5V22.36H143.9V27.63H147.43V22.36H149.68V35.5H147.43V29.72H143.9V35.5Z"/></g>
 
     <!-- wallpaper gradients (colours come from theme tokens) -->
     <linearGradient id="wbg" x1="0" y1="0" x2="1" y2="1">
@@ -917,9 +926,8 @@ textarea.field{resize:vertical;min-height:150px;line-height:1.55}
 <section class="hero" id="home" aria-label="Introduction">
   <svg class="wall" aria-hidden="true" focusable="false"><use href="#wall" width="100%" height="100%"/></svg>
   <header class="wrap hero-top">
-    <a class="brand boot-in" href="#home" aria-label="Riva Computech — home">
-      <svg class="logo" viewBox="85 57 1578 813" role="img" aria-label="riva"><use href="#rivaG"/></svg>
-      <span class="sub" aria-hidden="true"><span>c</span><span>o</span><span>m</span><span>p</span><span>u</span><span>t</span><span>e</span><span>c</span><span>h</span></span>
+    <a class="brand hero-brand boot-in" href="#home" aria-label="riva computech — home">
+      <svg class="bmark" viewBox="0 0 64 64" aria-hidden="true"><use href="#rivaMarkG"/></svg><svg class="bword" viewBox="6.2 -51.88 180.24 87.56" aria-hidden="true"><use href="#rivaWordG"/></svg>
     </a>
     <span class="status boot-in" style="--d:80"><span class="dot"></span><span>Open to <span class="long">select </span>projects</span></span>
   </header>
@@ -1321,8 +1329,7 @@ Write-Host "✔ $User offboarded." -ForegroundColor Green</code></pre>
     <div class="foot-grid">
       <div>
         <a class="brand" href="#home" aria-label="Riva Computech — back to top">
-          <svg class="logo" viewBox="85 57 1578 813" aria-hidden="true"><use href="#rivaG"/></svg>
-          <span class="sub" aria-hidden="true"><span>c</span><span>o</span><span>m</span><span>p</span><span>u</span><span>t</span><span>e</span><span>c</span><span>h</span></span>
+          <svg class="bmark" viewBox="0 0 64 64" aria-hidden="true"><use href="#rivaMarkG"/></svg><svg class="bword" viewBox="6.2 -51.88 180.24 87.56" aria-hidden="true"><use href="#rivaWordG"/></svg>
         </a>
         <p>Senior Microsoft 365, Azure &amp; infrastructure help — direct from the engineer doing the work.</p>
       </div>
@@ -1347,7 +1354,7 @@ Write-Host "✔ $User offboarded." -ForegroundColor Green</code></pre>
   <div class="tb-left"><span class="tb-status"><span class="dot"></span>Open to select projects</span></div>
   <div class="tb-mid">
     <button class="tb-btn tb-start" id="start-btn" type="button" data-fly="start" aria-label="Start" aria-haspopup="dialog" aria-expanded="false" data-tip="Start">
-      <svg class="logo" viewBox="85 57 1578 813" aria-hidden="true"><use href="#rivaG"/></svg>
+      <svg class="bmark" viewBox="0 0 64 64" aria-hidden="true"><use href="#rivaMarkG"/></svg>
     </button>
     <button class="tb-btn tb-search" id="search-btn" type="button" data-fly="start" aria-label="Search" data-tip="Search"><svg class="i"><use href="#i-search"/></svg></button>
     <a class="tb-btn tb-app" href="#home" data-sec="home" id="tb-term" aria-label="Terminal" data-tip="Terminal"><span class="app-ico ai-term"><svg class="i"><use href="#i-terminal"/></svg></span></a>
@@ -1436,7 +1443,7 @@ Write-Host "✔ $User offboarded." -ForegroundColor Green</code></pre>
   <svg class="wall" aria-hidden="true" focusable="false"><use href="#wall" width="100%" height="100%"/></svg>
   <div class="lock-time" id="lock-time">12:00</div>
   <div class="lock-date" id="lock-date"></div>
-  <div class="lock-card"><svg class="logo" viewBox="85 57 1578 813" aria-hidden="true"><use href="#rivaG"/></svg><span><b>Senior Microsoft 365, Azure &amp; infrastructure help</b><small>Still available — evenings, weekends &amp; holidays.</small></span></div>
+  <div class="lock-card"><svg class="bmark" viewBox="0 0 64 64" aria-hidden="true"><use href="#rivaMarkG"/></svg><span><b>Senior Microsoft 365, Azure &amp; infrastructure help</b><small>Still available — evenings, weekends &amp; holidays.</small></span></div>
   <div class="lock-hint">Click or press any key to unlock</div>
 </div>
 <div class="restart" id="restart" hidden><div class="spin" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><span>Restarting</span></div>
@@ -1463,7 +1470,7 @@ function go(target){var el=typeof target==="string"?$(target):target; if(el) el.
 function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
 function stored(k){try{return localStorage.getItem(k)}catch(e){return null}}
 var EMAIL="rivacomputech@gmail.com";
-var LOGO='<svg class="logo" viewBox="85 57 1578 813" aria-hidden="true"><use href="#rivaG"/></svg>';
+var LOGO='<svg class="bmark" viewBox="0 0 64 64" aria-hidden="true"><use href="#rivaMarkG"/></svg>';
 $("#year").textContent=new Date().getFullYear();
 
 /* ───────── toasts ───────── */
