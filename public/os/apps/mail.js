@@ -94,7 +94,7 @@ export default function mail(win, args) {
       <div class="m-msg"><textarea class="field" name="message" required aria-label="Message" placeholder="What are you running, and what's giving you trouble?"></textarea></div>
       <div class="m-foot"><span class="m-status" role="status" aria-live="polite"></span><button class="btn accent lg" type="submit">${glyph("send")}<span>Send</span></button></div>
     </form>
-    <div class="m-sent" hidden><div class="tick">${glyph("check")}</div><h3>Message sent</h3><p>Thanks — Devik will reply within one business day, usually sooner. A copy is in Documents › Sent.</p><button class="btn" type="button" id="m-again">Write another</button></div>
+    <div class="m-sent" hidden><div class="tick">${glyph("check")}</div><h3>Message sent</h3><p>Devik usually replies within one business day.</p><p style="font-size:12.5px">A copy is in Documents › Sent.</p><button class="btn" type="button" id="m-again">Write another</button></div>
   </div>`;
   win.body.append(wrap);
   const form = $("form", wrap), F = n => form.elements[n], status = $(".m-status", wrap), sendB = $("[type=submit]", form);
@@ -171,7 +171,6 @@ export default function mail(win, args) {
     form.hidden = true; $(".m-sent", wrap).hidden = false;
     track("generate_lead", { method: how });
     sound("chime");
-    os.notify({ title: "Message sent", body: "Devik usually replies within one business day.", app: "mail", silent: true });
   }
   prefill(args);
   return { onArgs: prefill };

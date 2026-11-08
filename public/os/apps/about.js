@@ -16,7 +16,10 @@ injectCSS("about", `
 .sign{display:flex;align-items:center;gap:12px;margin:22px 0}
 .sign b{display:block}
 .sign small{color:var(--text-2)}
+.ab > *{min-width:0}
 @media (max-width:760px){.ab{grid-template-columns:1fr}}
+:root.compact .adout{font-size:11px;padding:12px}
+:root.compact .ab-copy p,:root.compact .ab-copy p:first-of-type{font-size:15px}
 :root.compact .ab{grid-template-columns:1fr}
 `);
 

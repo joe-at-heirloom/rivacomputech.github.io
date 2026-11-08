@@ -26,7 +26,9 @@ public/                     ← everything the browser downloads (Workers Static
     apps/*.js               ← one module per app, loaded on first launch
     os.css                  ← Fluent design tokens + shell styles (apps carry their own CSS)
   404.html                  ← blue-screen 404
+  og.png                    ← share image (source: tools/og.html)
   brand/ · assets/logos/ · og.png · favicon.svg · robots.txt · sitemap.xml · _headers
+tools/og.html               ← source for the share image
 src/worker.js               ← the Worker: /api/ping, /api/system, /api/version, /api/weather, /api/contact
 wrangler.jsonc              ← Cloudflare config
 ```
@@ -114,6 +116,13 @@ input, blocks cross-site posts, rate-limits to 5 messages a minute per visitor, 
 The widgets' weather comes from **MET Norway** (free, including commercial use, CC BY 4.0; credited in
 the widget). The Worker rounds the visitor's approximate Cloudflare location to ~10 km, caches each area
 for 30 minutes, and stores nothing. The User-Agent identifies the site, as MET Norway's terms require.
+
+## Share image
+
+`public/og.png` (1200×630) is rendered from `tools/og.html`. To change it, edit that page, serve the repo
+root (`python3 -m http.server 8090`), open `http://localhost:8090/tools/og.html` at 1200×630 and screenshot it.
+Then bump `?v=` on the `og:image` / `twitter:image` URLs in `public/index.html` so LinkedIn, Slack and others
+fetch the new image instead of a cached one.
 
 ## Editing the content
 

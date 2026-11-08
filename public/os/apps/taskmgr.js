@@ -113,7 +113,7 @@ export default function taskmgr(win) {
       const s = await system();
       const sub = { cpu: `${navigator.hardwareConcurrency || "?"} logical processors`, mem: performance.memory ? "JavaScript heap" : "Estimated from page size", fps: "Display refresh as seen by rivaOS", net: s ? `Cloudflare ${s.colo}` : "Worker not running" }[metric];
       big.innerHTML = `<h3>${l}<small>${esc(sub)}</small></h3><div class="gl"><span>% utilization over 60 seconds</span><span id="tm-max"></span></div><canvas style="--c:${c}"></canvas><div class="tm-stats" id="tm-stats"></div>
-        <p class="tm-note">Measured live in your browser: CPU is the share of time the page's main thread was busy, memory is ${performance.memory ? "the JavaScript heap" : "estimated"}, and latency is a round trip to the Cloudflare edge that served rivaOS.</p>`;
+        <p class="tm-note">Measured live in this browser.</p>`;
     }
     $("canvas", big).style.setProperty("--c", c); draw($("canvas", big), H[metric], c, mx);
     $("#tm-max", big).textContent = mx ? (metric === "cpu" ? "100%" : mx + " fps") : f(Math.max(...H[metric], 0) * 1.2);

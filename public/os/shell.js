@@ -48,22 +48,25 @@ export async function initShell() {
   applyWallpaper(); bus.on("settings", e => { if (!e.key || e.key === "theme" || e.key === "wallpaper") applyWallpaper(); if (e.key === "pinned") renderTaskbar(); if (e.key === "iconSize" || e.key === "showIcons") renderIcons(); if (e.key === "clock24") tick(true); if (e.key === "tbWidgets" || e.key === "tbSearch") tbPrefs(); });
   initDesktop(); initTaskbar(); initStart(); initQS(); initNC(); initWidgets(); initKeys();
   tick(true); setInterval(tick, 1000);
-  bus.on("fs-error", () => notify({ title: "Storage is full", body: "rivaOS couldn't save a change. Free up space in Settings → Privacy & storage." }));
+  bus.on("fs-error", () => notify({ title: "Storage is full", body: "Free up space in Settings." }));
 
   // first windows: a deep link wins, otherwise Welcome (+ Terminal on big screens)
   const routed = location.hash && openRoute(location.hash);
   if (!routed && settings.get("showWelcome") !== false) {
     const a = wm.workArea(), wide = !wm.compact && a.w >= 1240 && a.h >= 640;
-    const wel = await launch("welcome", wide ? { window: { x: Math.round(a.w * .06), y: Math.round(Math.max(16, a.h * .07)), w: Math.min(820, Math.round(a.w * .5)), h: Math.min(620, a.h - 40) } } : {});
+    // On wide screens Welcome and Terminal sit side by side, never overlapping.
+    const gap = Math.round(Math.max(24, a.w * .04)), tw = Math.min(620, Math.max(540, Math.round(a.w * .36))), th = Math.min(440, a.h - 120);
+    const left = 100;   // clear of the desktop icon column
+    const ww = Math.min(820, a.w - tw - gap * 2 - left);
+    const wel = await launch("welcome", wide ? { window: { x: left, y: Math.round(Math.max(16, a.h * .07)), w: ww, h: Math.min(620, a.h - 40) } } : {});
     if (wide) {
-      const tw = Math.min(620, Math.round(a.w * .38)), th = Math.min(440, a.h - 120);
-      await launch("terminal", { intro: true, window: { x: Math.round(a.w - tw - a.w * .05), y: Math.round(a.h - th - Math.max(24, a.h * .08)), w: tw, h: th } });
+      await launch("terminal", { intro: true, window: { x: a.w - tw - gap, y: Math.round(a.h - th - Math.max(24, a.h * .08)), w: tw, h: th } });
       wel?.focus();
     }
   }
   addEventListener("hashchange", () => openRoute(location.hash));
   hideBoot();
-  if (!store.get("tipShown") && !wm.compact) setTimeout(() => { store.set("tipShown", 1); notify({ title: "Welcome to rivaOS", body: "Everything here works: drag windows to the screen edges, right-click the desktop, or type help in Terminal.", app: "welcome", actions: [{ label: "Book a free chat", run: () => launch("mail") }] }); }, 5000);
+  if (!store.get("tipShown") && !wm.compact) setTimeout(() => { store.set("tipShown", 1); notify({ title: "Welcome to rivaOS", body: "Everything here works. Try dragging a window to the screen edge.", app: "welcome", actions: [{ label: "Book a free chat", run: () => launch("mail") }] }); }, 5000);
 }
 function hideBoot() {
   const b = $("#boot"); if (!b) return;
@@ -190,7 +193,7 @@ function initDesktop() {
       const before = new Set(fs.ls(fs.DESKTOP).map(n => n.path));
       const n = await importFiles(e.dataTransfer.files, it?.dropDir || fs.DESKTOP);
       if (n && !it?.dropDir) { const nw = fs.ls(fs.DESKTOP).find(x => !before.has(x.path)); if (nw) setPos(nw.path.toLowerCase(), cell); renderIcons(); }
-      if (n) notify({ title: `Copied ${n} item${n > 1 ? "s" : ""}`, body: "Saved in this browser, inside rivaOS.", app: "explorer", silent: true });
+      if (n) notify({ title: `Copied ${n} item${n > 1 ? "s" : ""} to the desktop`, app: "explorer", silent: true });
       return;
     }
     let data; try { data = JSON.parse(e.dataTransfer.getData(DND)); } catch { return; }
@@ -447,7 +450,7 @@ function closeFly() {
 let stView = "home";
 function initStart() {
   const s = $("#start");
-  s.innerHTML = `<div class="st-search">${glyph("search")}<input class="field" id="st-q" type="search" placeholder="Search for apps, services, settings and files" aria-label="Search" autocomplete="off" spellcheck="false" /></div>
+  s.innerHTML = `<div class="st-search">${glyph("search")}<input class="field" id="st-q" type="search" placeholder="Search apps, settings and files" aria-label="Search" autocomplete="off" spellcheck="false" /></div>
     <div class="st-body" id="st-body"></div>
     <div class="st-foot"><button class="st-user" type="button" id="st-user"><span class="av">${glyph("user")}</span>Guest</button>
     <button class="ibtn" type="button" id="st-power" aria-label="Power" data-tip="Power">${glyph("power")}</button></div>`;
@@ -543,7 +546,7 @@ function initQS() {
   navigator.getBattery?.().then(b => { battery = b; const u = () => { if (flyOpen?.id === "qs") renderQS(); $("#tb-qs").dataset.tip = `Battery: ${Math.round(b.level * 100)}%${b.charging ? " (charging)" : ""}`; }; b.addEventListener("levelchange", u); b.addEventListener("chargingchange", u); u(); }).catch(() => {});
   $("#qs").addEventListener("click", e => {
     const t = e.target.closest("[data-qs]"); if (!t) return; const k = t.dataset.qs;
-    if (k === "wifi") notify({ title: navigator.onLine ? "You're online" : "You're offline", body: navigator.onLine ? "Connected through Cloudflare's network. rivaOS can't switch off your real Wi-Fi from a web page." : "rivaOS keeps working offline; sending messages needs a connection.", app: "settings", silent: true });
+    if (k === "wifi") notify({ title: navigator.onLine ? "You're online" : "You're offline", body: navigator.onLine ? "" : "Sending messages needs a connection.", app: "settings", silent: true });
     if (k === "theme") SEARCH_ACTS.theme();
     if (k === "night") SEARCH_ACTS.night();
     if (k === "dnd") settings.set("dnd", !settings.get("dnd"));
@@ -640,9 +643,9 @@ const TIPS = [
   "Hover a window's maximize button to see snap layouts.",
   "Right-click the Start button for a quick-access menu.",
   "In Terminal, type <span class=\"kbd\">ls</span>, <span class=\"kbd\">cd</span> and <span class=\"kbd\">notepad notes.txt</span>, just like PowerShell.",
-  "Drop files from your computer onto the desktop to copy them into rivaOS.",
+  "Drop files onto the desktop to copy them in.",
   "Press <span class=\"kbd\">Ctrl</span> + <span class=\"kbd\">Esc</span> to open Start, <span class=\"kbd\">Ctrl</span> + <span class=\"kbd\">Shift</span> + <span class=\"kbd\">Esc</span> for Task Manager.",
-  "Your files live only in this browser. Nothing is uploaded unless you send a message."
+  "Your files stay in this browser."
 ];
 function initWidgets() { loadWeather(); }
 async function loadWeather() {
@@ -661,7 +664,7 @@ async function renderWidgets() {
     <div class="wg-grid">
       <div class="wg wg-weather" id="wg-wx"><h4>${glyph("weather")}Weather</h4><div class="spin" style="border-color:rgba(255,255,255,.3);border-top-color:#fff"></div></div>
       <div class="wg wg-riva"><h4>${appIcon("welcome", 16)}Riva Computech</h4><span class="pill"><span class="dot"></span>${esc(STATUS)}</span>
-        <p>Senior Microsoft 365, Azure &amp; infrastructure help. No ticket queues, no hand-offs.</p>
+        <p>Senior Microsoft 365, Azure &amp; infrastructure help.</p>
         <div class="btns"><button class="btn accent" type="button" data-w="mail">Book a free chat</button><button class="btn" type="button" data-w="health">Health check</button></div></div>
       <div class="wg wg-edge" id="wg-edge"><h4>${glyph("globe")}Served from the edge</h4><div class="spin"></div></div>
       <div class="wg wg-tip"><h4>${glyph("sparkle")}Tip</h4><p>${TIPS[Math.floor(Math.random() * TIPS.length)]}</p></div>
@@ -675,14 +678,14 @@ async function renderWidgets() {
       const [g, l] = WX(w.code);
       box.innerHTML = `<h4>${glyph("weather")}${esc(w.city || "Your area")}</h4><div class="big">${glyph(g)}<b>${Math.round(w.temp)}°${w.unit}</b></div><div class="sub">${esc(l)} · H ${Math.round(w.hi)}° L ${Math.round(w.lo)}°</div>
         <div class="days">${(w.days || []).slice(1, 5).map(x => `<div>${new Date(x.date + "T12:00").toLocaleDateString([], { weekday: "short" })}${glyph(WX(x.code)[0])}${Math.round(x.hi)}°</div>`).join("")}</div><span class="credit">Data: MET Norway</span>`;
-    } else box.innerHTML = `<h4>${glyph("weather")}Weather</h4><p style="margin:0;font-size:13px;opacity:.9">Weather isn't available right now. When it is, it uses Cloudflare's approximate idea of your city. Nothing is stored.</p>`;
+    } else box.innerHTML = `<h4>${glyph("weather")}Weather</h4><p style="margin:0;font-size:13px;opacity:.9">Weather isn't available right now.</p>`;
   }
   const eb = $("#wg-edge");
   try {
     const t0 = performance.now(); const s = await system(); await api("ping"); const rtt = Math.round(performance.now() - t0) / 2 | 0;
     if (!s) throw 0;
     if (eb) eb.innerHTML = `<h4>${glyph("globe")}Served from the edge</h4><b>${esc(s.colo || "—")}</b><small>Cloudflare data centre ${s.coloCity ? "near " + esc(s.coloCity) : ""}<br>Round trip ≈ ${rtt} ms · ${esc(s.httpProtocol || "")}</small>`;
-  } catch { if (eb) eb.innerHTML = `<h4>${glyph("globe")}Served from the edge</h4><small>Running without the Cloudflare Worker (static preview). Deploy with <span class="kbd">npm run deploy</span> to light this up.</small>`; }
+  } catch { if (eb) eb.innerHTML = `<h4>${glyph("globe")}Served from the edge</h4><small>Unavailable right now.</small>`; }
 }
 
 /* ═════════════ lock, restart, shut down ═════════════ */

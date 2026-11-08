@@ -82,7 +82,7 @@ export default async function notepad(win, args) {
       "-",
       { label: "Cut", kbd: "Ctrl+X", icon: glyph("cut"), run: () => { ta.focus(); document.execCommand("cut"); } },
       { label: "Copy", kbd: "Ctrl+C", icon: glyph("copy"), run: () => { ta.focus(); document.execCommand("copy"); } },
-      { label: "Paste", kbd: "Ctrl+V", icon: glyph("paste"), run: async () => { try { const t = await navigator.clipboard.readText(); ta.focus(); ta.setRangeText(t, ta.selectionStart, ta.selectionEnd, "end"); ta.dispatchEvent(new Event("input")); } catch { os.notify({ title: "Paste", body: "Press Ctrl+V to paste. Your browser blocked clipboard access from the menu.", app: "notepad", silent: true }); } } },
+      { label: "Paste", kbd: "Ctrl+V", icon: glyph("paste"), run: async () => { try { const t = await navigator.clipboard.readText(); ta.focus(); ta.setRangeText(t, ta.selectionStart, ta.selectionEnd, "end"); ta.dispatchEvent(new Event("input")); } catch { os.notify({ title: "Press Ctrl+V to paste", app: "notepad", silent: true }); } } },
       "-",
       { label: "Find", kbd: "Ctrl+F", icon: glyph("search"), run: openFind },
       { label: "Select all", kbd: "Ctrl+A", run: () => { ta.focus(); ta.select(); } },

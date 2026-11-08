@@ -342,7 +342,8 @@ export function createShell({ host, cwd = fs.RIVA, onExit, onClear }) {
     "get-service": c => {
       const a = c.bind({ params: ["name"], pos: [0] }), q = a.name ? new RegExp("^" + String(a.name).replace(/\*/g, ".*") + "$", "i") : null;
       c.fmt(""); c.fmt("Status   Name                      DisplayName", { cls: "c-h" }); c.fmt("------   ----                      -----------", { cls: "c-h" });
-      svcRows().filter(([n, cm]) => !q || q.test(n) || q.test(cm) || q.test("Riva")).forEach(([n, cm]) => c.emit(`Running  ${pad(cm, 26)}${n}`, { key: n.toLowerCase(), data: n, html: `<span class="c-g">Running</span>  ${esc(pad(cm, 26))}<a class="t-link" data-app="services">${esc(n)}</a>` }));
+      const cell = (k, v) => k === "Status" ? `<span class="c-g">${esc(v)}</span>` : k === "DisplayName" ? `<a class="t-link" data-app="services">${esc(v.trimEnd())}</a>${" ".repeat(v.length - v.trimEnd().length)}` : esc(v);
+      svcRows().filter(([n, cm]) => !q || q.test(n) || q.test(cm) || q.test("Riva")).forEach(([n, cm]) => c.emit(`Running  ${pad(cm, 26)}${n}`, { key: n.toLowerCase(), data: n, obj: { Status: "Running", Name: cm, DisplayName: n }, cell, html: `<span class="c-g">Running</span>  ${esc(pad(cm, 26))}<a class="t-link" data-app="services">${esc(n)}</a>` }));
       c.fmt("");
     },
     "get-aduser": c => {
@@ -466,7 +467,20 @@ export function createShell({ host, cwd = fs.RIVA, onExit, onClear }) {
       const rec = (dir, pre) => { const k = fs.ls(dir).filter(n => a.f || n.type === "dir"); k.forEach((n, i) => { const last = i === k.length - 1; c.emit(pre + (last ? "└───" : "├───") + n.name); if (n.type === "dir") rec(n.path, pre + (last ? "    " : "│   ")); }); };
       rec(root, ""); c.fmt("");
     },
-    "select-object": c => { const a = c.bind({ params: ["first", "last", "skip", "property"], pos: [3] }); const { head, data } = textFilters(c.input); let d = data; if (a.skip) d = d.slice(+a.skip); if (a.first != null) d = d.slice(0, +a.first); if (a.last != null) d = d.slice(-a.last); [...head, ...d].forEach(r => c.emit(r.text, r)); },
+    "select-object": c => {
+      const a = c.bind({ params: ["first", "last", "skip", "property"] }); const { head, data } = textFilters(c.input); let d = data;
+      if (a.skip) d = d.slice(+a.skip); if (a.first != null) d = d.slice(0, +a.first); if (a.last != null) d = d.slice(-a.last);
+      const props = [a.property, ...a._].filter(x => x != null && x !== true).join(",").split(",").map(s => s.trim()).filter(Boolean);
+      const keys = d[0]?.obj ? Object.keys(d[0].obj) : [], cols = props.map(p => keys.find(k => k.toLowerCase() === p.toLowerCase())).filter(Boolean);
+      if (cols.length) {   // pick columns, like Select-Object -Property
+        const w = cols.map(k => Math.max(k.length, ...d.map(r => String(r.obj[k]).length)) + 2), last = cols.length - 1;
+        const row = f => cols.map((k, i) => i === last ? f(k) : pad(f(k), w[i])).join("");
+        c.fmt(""); c.fmt(row(k => k), { cls: "c-h" }); c.fmt(row(k => "-".repeat(k.length)), { cls: "c-h" });
+        d.forEach(r => c.emit(row(k => String(r.obj[k])), { key: r.key, data: r.data, obj: r.obj, cell: r.cell, html: r.cell ? cols.map((k, i) => r.cell(k, i === last ? String(r.obj[k]) : pad(r.obj[k], w[i]))).join("") : undefined }));
+        c.fmt(""); return;
+      }
+      [...head, ...d].forEach(r => c.emit(r.text, r));
+    },
     "sort-object": c => { const a = c.bind({ params: ["property"], switches: ["descending", "unique"], pos: [0] }); const { head, data } = textFilters(c.input); let d = [...data].sort((x, y) => String(x.key ?? x.text).localeCompare(String(y.key ?? y.text), undefined, { numeric: true })); if (a.descending) d.reverse(); if (a.unique) d = d.filter((r, i) => !i || r.text !== d[i - 1].text); [...head, ...d].forEach(r => c.emit(r.text, r)); },
     "select-string": async c => {
       const a = c.bind({ params: ["pattern", "path"], switches: ["simplematch", "casesensitive"], pos: [0, 1] }); if (a.pattern == null) throw new PSError("Missing a pattern. Try: cat README.txt | sls Riva");

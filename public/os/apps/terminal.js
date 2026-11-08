@@ -124,7 +124,7 @@ export default function terminal(win, args) {
     if (!reduced()) { await sleep(900); for (let i = 1; i <= cmd.length; i++) { if (t.closed) return; tgt.innerHTML = hlPS(cmd.slice(0, i), true); await sleep(24 + Math.random() * 46); } await sleep(320); }
     else tgt.innerHTML = hlPS(cmd, true);
     $(".t-caret", line)?.remove(); tgt.innerHTML = hlPS(cmd, true);
-    await t.sh.exec("Get-Service");
+    await t.sh.exec(cmd);
     t.host.line('<span class="c-gr"># Try: help · book · Get-ADUser devik · Invoke-Migration · ls</span>');
     t.body.append(t.row);
     if (os.wm.active === win) t.input.focus({ preventScroll: true });

@@ -60,6 +60,12 @@ injectCSS("explorer", `
 .ex-empty{padding:40px 10px;text-align:center;color:var(--text-2);font-size:13px}
 .ex-marq{position:absolute;border:1px solid var(--accent);background:color-mix(in srgb,var(--accent) 18%,transparent);pointer-events:none}
 :root.compact .ex-main .navpane{display:none}
+:root.compact .cmdbar{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+:root.compact .cmdbar .btn.subtle span{display:none}
+:root.compact .cmdbar .sep{margin:0 2px}
+:root.compact .ex-addr [aria-label=Forward],:root.compact .ex-addr [aria-label=Refresh]{display:none}
+:root.compact .ex-view{padding:6px 6px 16px}
+:root.compact .ex-grid{--cell:92px;--cellh:104px;--ico:48px}
 :root.compact .ex-search{width:120px}
 @media (max-width:640px){.ex-search{width:110px}}
 `);
@@ -154,7 +160,7 @@ export default function explorer(win, args) {
     if (c === "empty") emptyBin();
     if (c === "restore") (sel.size ? selPaths() : fs.ls(fs.TRASH).map(n => n.path)).forEach(p => fs.restore(p));
   });
-  upload.addEventListener("change", async () => { const n = await importFiles(upload.files, cwd); upload.value = ""; if (n) os.notify({ title: `Copied ${n} file${n > 1 ? "s" : ""}`, body: "Saved in this browser, inside rivaOS.", app: "explorer", silent: true }); });
+  upload.addEventListener("change", async () => { const n = await importFiles(upload.files, cwd); upload.value = ""; if (n) os.notify({ title: `Copied ${n} file${n > 1 ? "s" : ""}`, app: "explorer", silent: true }); });
   const newItems = () => [{ label: "Folder", icon: glyph("folder"), run: () => create("folder") }, "-", { label: "Text Document", icon: glyph("doc"), run: () => create("text") }, { label: "PowerShell Script", icon: glyph("terminal"), run: () => create("ps1") }];
   const sortItems = () => [["name", "Name"], ["mtime", "Date modified"], ["type", "Type"], ["size", "Size"]].map(([k, l]) => ({ label: l, checked: sort.k === k, run: () => setSort(k, sort.k === k ? -sort.d : 1) })).concat(["-", { label: "Ascending", checked: sort.d === 1, run: () => setSort(sort.k, 1) }, { label: "Descending", checked: sort.d === -1, run: () => setSort(sort.k, -1) }]);
   const viewItems = () => [["large", "Large icons"], ["grid", "Medium icons"], ["details", "Details"]].map(([k, l]) => ({ label: l, checked: view === k, run: () => { view = k; store.set("ex:view", k); renderItems(); } }));
@@ -210,8 +216,8 @@ export default function explorer(win, args) {
       html += `<div class="ex-h" style="margin-top:22px">Folders</div>` + list([fs.DESKTOP, fs.DOCS, fs.PICS, fs.DL, fs.RIVA].map(p => fs.stat(p)));
       navigator.storage?.estimate?.().then(est => { const q = $("#ex-q", pane), t = $("#ex-qt", pane); if (q && est.quota) { q.style.width = Math.max(1, est.usage / est.quota * 100) + "%"; t.textContent = `${fmtBytes(est.quota - est.usage)} free of ${fmtBytes(est.quota)} · browser storage`; } });
     } else {
-      if (lower(cwd).startsWith(lower(fs.RIVA))) html += `<div class="ex-info">${glyph("lock")}<span>This folder is read-only: it's built from Riva Computech's site content. Copy files elsewhere to edit them.</span></div>`;
-      if (inTrash() && fs.ls(fs.TRASH).length) html += `<div class="ex-info">${glyph("info")}<span>Items here can be restored to where they came from.</span></div>`;
+      if (lower(cwd).startsWith(lower(fs.RIVA))) html += `<div class="ex-info">${glyph("lock")}<span>Read-only. Copy files elsewhere to edit them.</span></div>`;
+      if (inTrash() && fs.ls(fs.TRASH).length) html += `<div class="ex-info">${glyph("info")}<span>Right-click an item to restore it.</span></div>`;
       let nodes;
       if (query) { nodes = []; const q = query.toLowerCase(); fs.walk(cwd, n => { if (n.path !== cwd && fs.displayName(n).toLowerCase().includes(q)) nodes.push(n); }); }
       else nodes = fs.ls(cwd);
@@ -337,7 +343,7 @@ export default function explorer(win, args) {
     zone.addEventListener("drop", async e => {
       e.preventDefault(); $$(".drop", win.body).forEach(x => x.classList.remove("drop"));
       const dd = dropDir(e.target); if (!dd) return;
-      if (e.dataTransfer.files?.length && !e.dataTransfer.types.includes(DND)) { const n = await importFiles(e.dataTransfer.files, dd); if (n) os.notify({ title: `Copied ${n} file${n > 1 ? "s" : ""}`, body: "Saved in this browser, inside rivaOS.", app: "explorer", silent: true }); return; }
+      if (e.dataTransfer.files?.length && !e.dataTransfer.types.includes(DND)) { const n = await importFiles(e.dataTransfer.files, dd); if (n) os.notify({ title: `Copied ${n} file${n > 1 ? "s" : ""}`, app: "explorer", silent: true }); return; }
       let data; try { data = JSON.parse(e.dataTransfer.getData(DND)); } catch { return; }
       const paths = data.paths.filter(p => lower(p) !== lower(dd));
       await os.fileops.drop(paths, dd, { copy: e.ctrlKey });

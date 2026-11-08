@@ -50,7 +50,7 @@ export default function health(win) {
       <h3 id="hc-t">Let's see where you stand</h3><p id="hc-p">Switch on each item that's true for your business today.</p>
       <div class="hc-fixes" hidden><h4>Fix these first</h4><ol></ol></div>
       <button class="btn accent lg" type="button" id="hc-cta">${glyph("chat")}Talk it through with Devik</button>
-      <p class="hc-note">${glyph("lock")}<span>Runs entirely in your browser — nothing is sent unless you choose to share it. A quick self-check, not a full audit.</span></p>
+      <p class="hc-note">${glyph("lock")}<span>Private: runs in your browser. A quick self-check, not an audit.</span></p>
     </aside>
     <div class="hc-list"><p class="kicker"><b>PS&gt;</b> Test-ITHealth</p><h2>How healthy is your setup?</h2><p>Eight quick checks covering the gaps that cause the most pain.</p>
       ${HEALTH.map((q, i) => `<label class="row hc-row"><span class="hc-ico">${glyph(q.glyph)}</span><span class="row-t"><b>${esc(q.t)}</b><small>${esc(q.s)}</small></span><span class="tgl"><input type="checkbox" role="switch" data-i="${i}" ${saved.includes(i) ? "checked" : ""} aria-label="${esc(q.t)}"></span></label>`).join("")}

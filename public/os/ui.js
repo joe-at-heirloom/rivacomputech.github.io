@@ -156,7 +156,7 @@ export function openWith(path) {
   const choices = ["notepad", "code", "photos", "browser"];
   const body = h("div", null, h("p", null, `How do you want to open ${fs.displayName(n)}?`),
     h("div", { style: { display: "flex", flexDirection: "column", gap: "4px" } }, choices.map(a => h("button", { class: "row", type: "button", style: { minHeight: "48px" }, html: appIcon(a, 24) + `<span class="row-t"><b>${esc(APPS[a].name)}</b></span>`, onclick: () => { win?.close(true); os.openPath(path, { with: a }); } })),
-      h("button", { class: "row", type: "button", style: { minHeight: "48px" }, html: glyph("download") + `<span class="row-t"><b>Download to this device</b><small>Save a real copy outside rivaOS</small></span>`, onclick: () => { win?.close(true); download(path); } })));
+      h("button", { class: "row", type: "button", style: { minHeight: "48px" }, html: glyph("download") + `<span class="row-t"><b>Download</b></span>`, onclick: () => { win?.close(true); download(path); } })));
   let win;
   os.wm.dialog({ title: "Open with", icon: sysIcon, body, buttons: [{ label: "Cancel", value: null }], onOpen: w => { win = w; } });
 }
@@ -182,7 +182,7 @@ const TEXTISH = /\.(txt|md|ps1|json|csv|log|ini|html?|css|js|xml|svg|url)$/i;
 export async function importFiles(files, dir) {
   let n = 0;
   for (const f of files) {
-    if (f.size > 25 * 1024 * 1024) { os.notify?.({ title: "File too large", body: `${f.name} is over 25 MB. rivaOS keeps files in your browser, so big ones are skipped.` }); continue; }
+    if (f.size > 25 * 1024 * 1024) { os.notify?.({ title: "File too large", body: `${f.name} is over 25 MB.` }); continue; }
     try {
       const data = TEXTISH.test(f.name) || f.type.startsWith("text/") ? await f.text() : f;
       fs.write(fs.unique(dir, f.name.replace(/[<>:"/\\|?*]/g, "_")), data, { mime: f.type || fs.mimeOf(f.name) }); n++;

@@ -18,6 +18,8 @@ injectCSS("paint", `
 .pt-stage canvas{margin:auto;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.18);touch-action:none;cursor:crosshair;image-rendering:auto;flex:none}
 .pt-menu{border:0;background:transparent;padding:4px 10px;border-radius:var(--r-ctl);font-size:13px}
 .pt-menu:hover{background:var(--subtle-hover)}
+:root.compact .pt-stage{padding:12px}
+:root.compact .pt-tools{padding:6px 8px;gap:2px}
 `);
 
 export const winOpts = { w: 1000, h: 680, minW: 480, minH: 360 };
@@ -137,7 +139,8 @@ export default async function paint(win, args) {
     if (k === "z") { e.preventDefault(); $('[data-x="undo"]', tools).click(); } if (k === "y") { e.preventDefault(); $('[data-x="redo"]', tools).click(); }
     if (k === "s") { e.preventDefault(); save(e.shiftKey); }
   });
-  blank(); setTool("brush");
+  // a new canvas fits the window (phones included), up to 960 × 560
+  blank(Math.max(240, Math.min(960, stage.clientWidth - 48)), Math.max(200, Math.min(560, stage.clientHeight - 48))); setTool("brush");
   if (args.path) await load(fs.resolve(args.path));
   return { onClose: guard };
 }

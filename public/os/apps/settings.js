@@ -24,7 +24,7 @@ injectCSS("settings", `
 .wall-pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;padding:16px 18px;border:1px solid var(--stroke);border-top:0;border-radius:0 0 var(--r-card) var(--r-card);background:var(--card);margin-top:-4px}
 .wall-pick button{aspect-ratio:16/10;border-radius:6px;border:2px solid transparent;background:center/cover no-repeat;padding:0;position:relative;box-shadow:0 0 0 1px var(--stroke)}
 .wall-pick button.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--mica) inset}
-.wall-pick button span{position:absolute;left:6px;bottom:5px;font-size:11px;color:#fff;text-shadow:0 1px 3px #000}
+.wall-pick button span{position:absolute;left:5px;bottom:5px;font-size:11px;color:#fff;background:rgba(0,0,0,.5);padding:1px 6px;border-radius:4px}
 .wall-pick .browse{display:grid;place-items:center;background:var(--ctl);color:var(--text);font-size:12px;gap:4px;align-content:center}
 .wall-prev{width:100%;max-width:420px;aspect-ratio:16/9;border-radius:10px;background:center/cover;margin:0 0 18px;box-shadow:0 0 0 1px var(--stroke),0 8px 24px -12px rgba(0,0,0,.4);position:relative;overflow:hidden}
 .wall-prev::after{content:"";position:absolute;left:0;right:0;bottom:0;height:9%;background:var(--taskbar)}
@@ -46,7 +46,15 @@ injectCSS("settings", `
 :root.compact .st-nav .st-me{display:none}
 :root.compact .st-nav .navi{width:auto;white-space:nowrap;flex:none}
 :root.compact .st-page{padding:16px 16px 30px;border-radius:0;border-left:0}
-:root.compact .kv{grid-template-columns:1fr}
+:root.compact .kv{grid-template-columns:1fr;gap:2px 0}
+:root.compact .kv dd{margin-bottom:8px}
+:root.compact .st-page .row{flex-wrap:wrap;row-gap:10px}
+:root.compact .st-page .row .row-t{flex:1 1 50%}
+:root.compact .st-page .row select.field{flex:1 1 100%;margin-left:36px}
+:root.compact .st-page h2{font-size:24px;margin-bottom:16px}
+:root.compact .st-hero{padding:16px;gap:14px}
+:root.compact .st-hero .ico{width:52px;height:52px}
+:root.compact .wall-pick{grid-template-columns:repeat(2,1fr);padding:12px}
 `);
 
 export const winOpts = { w: 1040, h: 700, minW: 360, minH: 360 };
@@ -71,15 +79,15 @@ export default function settingsApp(win, args) {
     system: () => `<h2>System</h2>
       <div class="st-hero"><span class="ico">${glyph("desktop")}</span><span><b>RIVAOS-${esc(settings.get("deviceId"))}</b><small>rivaOS ${VERSION} · ${esc(uaName())}</small></span></div>
       <h3>Display</h3>
-      ${select("theme", "Mode", "Choose light or dark, or follow your device", "moon", [["auto", "Use my device setting"], ["light", "Light"], ["dark", "Dark"]])}
+      ${select("theme", "Mode", "", "moon", [["auto", "Use my device setting"], ["light", "Light"], ["dark", "Dark"]])}
       ${range("brightness", "Brightness", "Dims rivaOS, not your screen", "sun", 30, 100, settings.get("brightness"), "%")}
-      ${toggle("nightlight", "Night light", "Warmer colours to go easy on your eyes at night", "nightlight")}
+      ${toggle("nightlight", "Night light", "Warmer colours at night", "nightlight")}
       <h3>Sound & notifications</h3>
       ${range("volume", "Volume", "Notification chimes and clicks", "volume", 0, 100)}
-      ${toggle("dnd", "Do not disturb", "Notifications go straight to the notification centre", "bell-off")}
+      ${toggle("dnd", "Do not disturb", "Hide pop-up notifications", "bell-off")}
       <h3>More</h3>
       ${link("privacy", "Storage", "How much space your files use", "disk")}
-      ${link("about", "About", "Device specs and where rivaOS is served from", "info")}`,
+      ${link("about", "About", "Device specs and edge location", "info")}`,
     about: () => `<h2>System › About</h2>
       <div class="st-hero"><span class="ico">${glyph("desktop")}</span><span><b>RIVAOS-${esc(settings.get("deviceId"))}</b><small>rivaOS ${VERSION}</small></span><button class="btn" type="button" id="st-copy" style="margin-left:auto">${glyph("copy")}Copy</button></div>
       <h3>Device specifications</h3><dl class="kv" id="st-dev">${kv(device())}</dl>
@@ -89,18 +97,18 @@ export default function settingsApp(win, args) {
       const wp = settings.get("wallpaper"), t = settings.theme(), file = String(wp).startsWith("file:");
       return `<h2>Personalization</h2>
       <div class="wall-prev" style="background-image:url(&quot;${file ? fs.url(wp.slice(5)) : wallpaperURL(wp, t)}&quot;)"><i></i></div>
-      <div class="row">${glyph("image")}<span class="row-t"><b>Background</b><small>Pick a wallpaper, or use one of your pictures</small></span></div>
+      <div class="row">${glyph("image")}<span class="row-t"><b>Background</b></span></div>
       <div class="wall-pick">${WALLPAPERS.map(w => `<button type="button" class="${wp === w.id ? "on" : ""}" data-wall="${w.id}" style="background-image:url(&quot;${wallpaperURL(w.id, t)}&quot;)" aria-label="${w.name}"><span>${w.name}</span></button>`).join("")}
         <button type="button" class="browse ${file ? "on" : ""}" data-wall="browse">${glyph("folder")}Browse photos</button></div>
       <h3>Colors</h3>
-      ${select("theme", "Choose your mode", "Light, dark, or follow your device", "moon", [["auto", "Use my device setting"], ["light", "Light"], ["dark", "Dark"]])}
+      ${select("theme", "Mode", "", "moon", [["auto", "Use my device setting"], ["light", "Light"], ["dark", "Dark"]])}
       ${toggle("transparency", "Transparency effects", "Frosted-glass taskbar, Start and menus", "layers")}
       <div class="row">${glyph("palette")}<span class="row-t"><b>Accent color</b><small>${esc(ACCENTS[settings.get("accent")]?.name || "")}</small></span></div>
       <div class="swatches">${Object.entries(ACCENTS).map(([k, a]) => `<button type="button" data-accent="${k}" class="${settings.get("accent") === k ? "on" : ""}" style="background:${t === "dark" ? a.d : a.l}" aria-label="${a.name}" data-tip="${a.name}"></button>`).join("")}</div>
       <h3>Taskbar</h3>
       ${select("tbAlign", "Taskbar alignment", "", "desktop", [["center", "Center"], ["left", "Left"]])}
-      ${toggle("tbWidgets", "Widgets", "Weather and Riva news on the left of the taskbar", "weather")}
-      ${toggle("tbSearch", "Search", "The search box on the taskbar", "search")}
+      ${toggle("tbWidgets", "Widgets", "Weather on the taskbar", "weather")}
+      ${toggle("tbSearch", "Search box", "", "search")}
       <h3>Start & desktop</h3>
       ${toggle("showRecent", "Show recently opened items in Start", "", "clock")}
       ${select("iconSize", "Desktop icon size", "", "grid", [["small", "Small"], ["medium", "Medium"], ["large", "Large"]])}
@@ -111,15 +119,15 @@ export default function settingsApp(win, args) {
       return `<div class="row">${appIcon(id, 32)}<span class="row-t"><b>${esc(APPS[id].name)}</b><small>${esc(APPS[id].desc || "")}</small></span><button class="btn subtle" type="button" data-pin="${id}">${glyph("pin")}${pinned ? "Unpin" : "Pin"}</button><button class="btn" type="button" data-open="${id}">Open</button></div>`;
     }).join(""),
     accounts: () => `<h2>Accounts</h2>
-      <div class="st-hero"><span class="ico">${glyph("user")}</span><span><b>Guest</b><small>Local account · Administrator of this browser tab</small></span></div>
+      <div class="st-hero"><span class="ico">${glyph("user")}</span><span><b>Guest</b><small>Local account</small></span></div>
       <h3>Sign-in options</h3>
-      <div class="row">${glyph("lock")}<span class="row-t"><b>Password</b><small>None. rivaOS is a website, so your files are protected by your browser profile.</small></span></div>
-      <div class="row">${glyph("id")}<span class="row-t"><b>Work or school account</b><small>Need Microsoft 365 sign-in, MFA or Conditional Access set up for your business? That's Riva Computech's day job.</small></span><button class="btn" type="button" data-open="mail">Ask Devik</button></div>`,
+      <div class="row">${glyph("lock")}<span class="row-t"><b>Password</b><small>None needed</small></span></div>
+      <div class="row">${glyph("id")}<span class="row-t"><b>Work or school account</b><small>Setting up MFA for your business?</small></span><button class="btn" type="button" data-open="mail">Ask Devik</button></div>`,
     time: () => `<h2>Time & language</h2>
       <div class="row">${glyph("clock")}<span class="row-t"><b>Current time</b><small id="st-now"></small></span></div>
       <div class="row">${glyph("globe")}<span class="row-t"><b>Time zone</b><small>${esc(Intl.DateTimeFormat().resolvedOptions().timeZone)} (from your device)</small></span></div>
-      ${toggle("clock24", "24-hour clock", "Shown on the taskbar and lock screen", "clock")}
-      <div class="row">${glyph("textsize")}<span class="row-t"><b>Language</b><small>${esc(navigator.language)} · rivaOS is in English</small></span></div>`,
+      ${toggle("clock24", "24-hour clock", "", "clock")}
+      <div class="row">${glyph("textsize")}<span class="row-t"><b>Language</b><small>${esc(navigator.language)}</small></span></div>`,
     accessibility: () => {
       const rm = document.documentElement.classList.contains("rm");
       return `<h2>Accessibility</h2>
@@ -135,18 +143,18 @@ export default function settingsApp(win, args) {
       return `<h2>Privacy & storage</h2>
       <div class="st-hero"><span class="ico">${glyph("disk")}</span><span style="flex:1"><b>${fmtBytes(u.bytes)} used</b><small id="st-quota">${u.files} files · ${fs.persistent() ? "kept in this browser (IndexedDB)" : "this visit only (private browsing)"}</small><div class="st-bar"><i id="st-qbar" style="width:1%"></i></div></span></div>
       <h3>Your data</h3>
-      <div class="row">${glyph("lock")}<span class="row-t"><b>Files stay on this device</b><small>Everything you create in rivaOS lives in this browser. Nothing is uploaded, except messages you choose to send through Contact.</small></span></div>
-      <div class="row">${glyph("activity")}<span class="row-t"><b>Analytics</b><small>This site uses Google Analytics to count visits and which apps get opened. No file contents or messages are included.</small></span></div>
-      <div class="row">${glyph("globe")}<span class="row-t"><b>Location</b><small>Weather uses Cloudflare's approximate idea of your city from the network. It isn't stored.</small></span></div>
+      <div class="row">${glyph("lock")}<span class="row-t"><b>Files stay on this device</b><small>Everything you create stays in this browser.</small></span></div>
+      <div class="row">${glyph("activity")}<span class="row-t"><b>Analytics</b><small>Google Analytics counts visits and app opens. Never your files.</small></span></div>
+      <div class="row">${glyph("globe")}<span class="row-t"><b>Location</b><small>Weather uses your approximate city. Not stored.</small></span></div>
       <h3>Reset</h3>
-      <div class="row">${glyph("trash")}<span class="row-t"><b>Reset rivaOS</b><small>Deletes your files and settings in this browser, then restarts.</small></span><button class="btn danger" type="button" id="st-reset">Reset</button></div>`;
+      <div class="row">${glyph("trash")}<span class="row-t"><b>Reset rivaOS</b><small>Deletes your files and settings here</small></span><button class="btn danger" type="button" id="st-reset">Reset</button></div>`;
     },
     update: () => `<h2>rivaOS Update</h2>
-      <div class="st-hero"><span class="ico">${glyph("update")}</span><span style="flex:1"><b id="up-t">You're up to date</b><small id="up-s">rivaOS ${VERSION}${""} · updates arrive automatically with every deploy to Cloudflare</small></span><button class="btn accent" type="button" id="up-chk">Check for updates</button></div>
+      <div class="st-hero"><span class="ico">${glyph("update")}</span><span style="flex:1"><b id="up-t">You're up to date</b><small id="up-s">rivaOS ${VERSION} · updates arrive automatically</small></span><button class="btn accent" type="button" id="up-chk">Check for updates</button></div>
       <h3>More options</h3>
-      <dl class="kv" id="up-kv"><dt>Version</dt><dd>${VERSION}</dd><dt>Deployment</dt><dd id="up-dep">—</dd><dt>Channel</dt><dd>Cloudflare Workers · global edge</dd></dl>
+      <dl class="kv" id="up-kv"><dt>Version</dt><dd>${VERSION}</dd><dt>Deployment</dt><dd id="up-dep">—</dd><dt>Channel</dt><dd>Cloudflare Workers</dd></dl>
       <h3>What's new</h3>
-      <div class="row">${glyph("sparkle")}<span class="row-t"><b>rivaOS ${VERSION}</b><small>The Riva Computech site is now a full desktop: windows that snap, a real file system, PowerShell, Paint, Notepad and more — served from Cloudflare's edge.</small></span></div>`
+      <div class="row">${glyph("sparkle")}<span class="row-t"><b>rivaOS ${VERSION}</b><small>A full desktop in your browser, served from Cloudflare's edge.</small></span></div>`
   };
   const device = () => [["Device name", "RIVAOS-" + settings.get("deviceId")], ["Processor", (navigator.hardwareConcurrency || "?") + " logical processors"], ["Installed RAM", navigator.deviceMemory ? navigator.deviceMemory + " GB (as reported by your browser)" : "Not reported by this browser"],
     ["Display", `${screen.width} × ${screen.height} at ${devicePixelRatio}× scale`], ["Browser", uaName()], ["Language", navigator.language], ["Storage", fs.persistent() ? "IndexedDB" : "Memory only"]];
@@ -164,7 +172,7 @@ export default function settingsApp(win, args) {
       $("#st-copy", page).addEventListener("click", () => copyText(device().map(r => r.join(": ")).join("\n")).then(ok => ok && os.notify({ title: "Copied", body: "Device specifications are on your clipboard.", app: "settings", silent: true })));
       const s = await system(), box = $("#st-edge", page); if (!box) return;
       box.innerHTML = s ? kv([["Cloudflare data centre", s.colo + (s.coloCity ? ` (${s.coloCity})` : "")], ["Your approximate location", [s.city, s.region, s.country].filter(Boolean).join(", ") || "—"], ["Network", s.asOrganization || "—"], ["Protocol", [s.httpProtocol, s.tlsVersion].filter(Boolean).join(" · ") || "—"], ["Ray ID", s.ray || "—"]])
-        : kv([["Status", "Static preview: the Cloudflare Worker isn't running here, so there's no edge to report."]]);
+        : kv([["Status", "Unavailable right now"]]);
     },
     time: () => { const f = () => { const el = $("#st-now", page); if (el) el.textContent = new Date().toLocaleString([], { dateStyle: "full", timeStyle: "medium" }); }; f(); const t = setInterval(() => { if (!$("#st-now", page)) clearInterval(t); else f(); }, 1000); },
     accessibility: () => $("#st-anim", page).addEventListener("change", e => { settings.set("motion", e.target.checked ? "full" : "reduce"); show("accessibility"); }),

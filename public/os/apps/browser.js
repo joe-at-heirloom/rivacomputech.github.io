@@ -51,7 +51,7 @@ export default function browser(win, args) {
     s.innerHTML = `<div class="logo"><svg class="bmark" viewBox="0 0 64 64" aria-hidden="true"><use href="#rivaMarkG"/></svg><b>riva</b></div>
       <form class="br-q">${glyph("search")}<input class="field" name="q" placeholder="Search the web" aria-label="Search the web" autocomplete="off"></form>
       <div class="br-tiles">${TILES.map((t, i) => `<button class="br-tile" type="button" data-i="${i}"><span class="fav" ${t.c ? `style="color:${t.c}"` : ""}>${t.app ? appIcon(t.app, 30) : esc(t.l)}</span>${esc(t.t)}</button>`).join("")}</div>
-      <p class="br-note">Searches open in a new tab. Lots of websites don't allow being shown inside another page, so if one stays blank, use ${glyph("external", "i xs")} to open it in a real tab.</p>`;
+      <p class="br-note">Searches open in a new tab.</p>`;
     s.querySelector("form").addEventListener("submit", e => { e.preventDefault(); const q = e.target.q.value.trim(); if (q) window.open("https://duckduckgo.com/?q=" + encodeURIComponent(q), "_blank", "noopener"); });
     s.addEventListener("click", e => { const b = e.target.closest("[data-i]"); if (!b) return; const t = TILES[+b.dataset.i]; t.app ? os.launch(t.app) : nav(t.url); });
     return s;
@@ -75,7 +75,7 @@ export default function browser(win, args) {
     let host = u; try { host = new URL(u).hostname; } catch {}
     win.setTitle(host + " — Browser");
     info.hidden = false;
-    info.innerHTML = `${glyph("info")}<span>If ${esc(host)} stays blank, it doesn't allow being shown inside other pages.</span><button class="btn" type="button">${glyph("external")}Open in new tab</button>`;
+    info.innerHTML = `${glyph("info")}<span>Blank page? ${esc(host)} may block embedding.</span><button class="btn" type="button">${glyph("external")}Open in new tab</button>`;
     info.querySelector("button").onclick = () => window.open(u, "_blank", "noopener");
     const f = h("iframe", { src: u, title: host, referrerpolicy: "strict-origin-when-cross-origin", sandbox: "allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox", loading: "eager" });
     main.append(f);

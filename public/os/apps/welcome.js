@@ -41,13 +41,13 @@ export default function welcome(win) {
     </section>
 
     <h3 class="sec-t">Explore</h3>
-    <p class="sec-s">This whole site is a working desktop. Every tile opens a real app.</p>
+    <p class="sec-s">Every tile opens a real app.</p>
     <div class="tiles">
-      ${[["services", "Services", "Microsoft 365, Azure, migrations, backup, security and infrastructure."],
-         ["health", "IT health check", "Eight quick checks and a score. Runs in your browser."],
-         ["code", "Automation", "A real PowerShell offboarding script you can run.", { path: "C:\\Riva\\Scripts\\Offboard-User.ps1" }],
+      ${[["services", "Services", "Microsoft 365, Azure, migrations and more."],
+         ["health", "IT health check", "Eight quick checks, one score."],
+         ["code", "Automation", "A real script you can run.", { path: "C:\\Riva\\Scripts\\Offboard-User.ps1" }],
          ["about", "About Devik", "The senior engineer you'll actually work with."],
-         ["mail", "Contact", "Tell us what's going on. Straight answers, usually within a day."],
+         ["mail", "Contact", "Straight answers, usually within a day."],
          ["terminal", "Terminal", "Type help. Yes, it's PowerShell."]]
         .map(([id, t, s, a]) => `<button class="tile" type="button" data-go="${id}"${a ? ` data-args='${esc(JSON.stringify(a))}'` : ""}>${appIcon(id, 36)}<span><b>${esc(t)}</b><small>${esc(s)}</small></span></button>`).join("")}
     </div>
