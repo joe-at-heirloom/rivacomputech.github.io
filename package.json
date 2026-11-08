@@ -1,0 +1,15 @@
+{
+  "name": "rivaos",
+  "version": "26.11.0",
+  "private": true,
+  "description": "rivaOS: Riva Computech's website, a Windows 11-style desktop that runs in the browser, served by Cloudflare Workers.",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "check": "wrangler deploy --dry-run --outdir .wrangler/dry-run"
+  },
+  "devDependencies": {
+    "wrangler": "^4.158.0"
+  }
+}

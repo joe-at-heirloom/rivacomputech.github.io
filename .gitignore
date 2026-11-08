@@ -3,11 +3,17 @@
 Thumbs.db
 *.swp
 
+# Node / Cloudflare tooling
+node_modules/
+.wrangler/
+.dev.vars*
+!.dev.vars.example
+
 # Tooling artifacts
 .playwright-mcp/
 *.log
 
 # Local screenshots
 *.png
-!og.png
-!apple-touch-icon.png
+!public/og.png
+!public/apple-touch-icon.png

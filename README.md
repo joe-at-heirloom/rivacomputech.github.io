@@ -1,99 +1,149 @@
-# Riva Computech — website
+# Riva Computech: rivaOS
 
-**rivaOS:** a single-page site that *is* a Windows 11 desktop. The taskbar is the navigation,
-the hero is a working PowerShell terminal, and every section is introduced by the cmdlet that
-would fetch it (`Get-Service`, `Compare-Object`, `Test-ITHealth`, `Get-ADUser devik`…).
+**rivacomputech.com is a working operating system.** rivaOS is a Windows 11-style desktop that runs in
+the browser: windows that drag, resize and snap, a taskbar and Start menu, a real (browser-stored) file
+system, a PowerShell terminal, and around 15 apps. Riva Computech's services, IT health check, profile
+and contact form are apps inside it.
 
-No framework, no build step — `index.html` **is** the site (HTML + CSS + JS in one file).
+It runs on **Cloudflare Workers**: static files are served from Cloudflare's edge, and a small Worker
+adds the parts a static site can't do (edge info, weather, a backup contact endpoint).
+
+No framework and no build step: native ES modules, served as-is.
 
 ```
-index.html     ← the whole site
-og.png         ← 1200×630 social preview (rendered from the hero)
-brand/         ← the riva logo files (see "Brand" below)
-logo.svg       ← copy of brand/riva-logo.svg (primary lockup)
-favicon.svg · apple-touch-icon.png ← the riva mark
-assets/logos/  ← technology logos for the "Hands-on with" strip
-404.html       ← blue-screen-of-death 404 page
-robots.txt · sitemap.xml
-vendor/, assets/wall-*  ← unused leftovers from the earlier multi-era design (safe to delete)
+public/                     ← everything the browser downloads (Workers Static Assets)
+  index.html                ← boot screen, SEO/no-JS fallback, SVG sprite (logo + icons)
+  os/
+    main.js                 ← boot: mounts the file system, starts the shell
+    core.js                 ← helpers, settings, event bus, contact details, Formspree endpoint
+    content.js              ← ALL of Riva Computech's copy (services, bio, health checks…)
+    shell.js                ← desktop, taskbar, Start, Quick Settings, notifications, widgets, lock/power
+    wm.js                   ← window manager: drag, resize, snap, snap layouts, dialogs
+    fs.js                   ← virtual C:\ drive in IndexedDB (+ read-only C:\Riva built from content.js)
+    ps.js                   ← the PowerShell interpreter (Terminal + Script Editor)
+    ui.js                   ← menus, tooltips, dialogs, file picker, Properties, import/download
+    apps.js · icons.js · wallpapers.js
+    apps/*.js               ← one module per app, loaded on first launch
+    os.css                  ← Fluent design tokens + shell styles (apps carry their own CSS)
+  404.html                  ← blue-screen 404
+  brand/ · assets/logos/ · og.png · favicon.svg · robots.txt · sitemap.xml · _headers
+src/worker.js               ← the Worker: /api/ping, /api/system, /api/version, /api/weather, /api/contact
+wrangler.jsonc              ← Cloudflare config
 ```
 
-## What's on the page
+## Apps
 
-| Section | What it does |
+| App | What it does |
 | --- | --- |
-| **Hero / desktop** | Original "bloom" wallpaper (drawn in SVG, recolours for dark mode) + an interactive Windows Terminal. Try `help`, `Get-Service`, `Get-ADUser devik`, `Invoke-Migration`, `book`, `ls`, `cd about`, `exit`. Tab-completion and ↑/↓ history work. Drag it by the title bar; drag to the top edge to maximise. |
-| **Services** (`Get-Service`) | Six Fluent cards, each with its PowerShell-verb cmdlet. |
-| **Why** (`Compare-Object`) | Typical IT provider `<=` vs `=>` Riva Computech. |
-| **Automation** (`Invoke-Automation`) | A real, correct `Offboard-User.ps1` (Graph + Exchange Online) with syntax highlighting and a **Run** button that plays the output. |
-| **Health check** (`Test-ITHealth`) | Eight Settings-style toggles → live score ring + "fix these first". The CTA pre-fills the contact form with the results. Nothing leaves the browser. |
-| **About** (`Get-ADUser devik`) | Devik's profile and first-person bio. |
-| **Contact** (`Send-MailMessage`) | A mail-compose window posting to Formspree, with quick-subject chips. |
+| **Welcome** | The pitch: headline, "Book a free 30-min chat", tiles into everything else. Opens at start-up. |
+| **Riva Services** | The six services (plus *Ask about this*), **Why Riva** (`Compare-Object`), **How it works**. |
+| **Health Check** | Eight toggles → score ring → "fix these first" → pre-filled message to Devik. Nothing is sent. |
+| **About Devik** | Profile, `Get-ADUser devik` card, bio. |
+| **Contact** | Mail compose → Formspree. Email/phone with copy and tap-to-call. Keeps a copy in *Documents › Sent*. |
+| **Terminal** | Tabs + a real little PowerShell: files, pipes, `>` redirection, variables, `if`/`foreach`, scripts. |
+| **Script Editor** | Highlighted `.ps1` editor with **Run**. `C:\Riva\Scripts\Offboard-User.ps1` runs against a simulated tenant. |
+| **File Explorer** | Home / This PC, breadcrumbs, search, grid & details, cut/copy/paste, rename, Recycle Bin, drag & drop, upload/download. |
+| **Notepad · Paint · Photos · Calculator** | The classics, saving into the virtual file system. |
+| **Browser** | Address bar + start page. Sites that refuse embedding get an "open in new tab" button. |
+| **Settings** | Light/dark/auto, accent colours, wallpapers (or your own picture), taskbar, text size, motion, storage & reset, rivaOS Update, About (shows the Cloudflare data centre that served you). |
+| **Task Manager** | Open windows as processes (End task), live CPU / memory / frame-rate / edge-latency graphs. |
 
-**The shell:** a fixed Win11 taskbar (scroll-spy running indicators, tooltips), a Start menu with
-search (no match → "Ask Devik about '…'" pre-fills the form), power menu (Sleep → lock screen,
-Restart → replays the intro, Shut down → a joke), Quick Settings (dark mode, reduce motion, copy
-email) and a calendar flyout. Light/dark follows the OS until the visitor picks one.
+**The shell:** snap by dragging to edges or corners, snap layouts on the maximize button, Start with
+search across apps, services, settings and files (no match → *Ask Devik about "…"*), right-click menus
+everywhere, Quick Settings (dark mode, night light, Do not disturb, brightness, volume), notification
+centre and calendar, widgets (weather, edge info, status), lock screen, restart and shut down. Keyboard:
+<kbd>Ctrl</kbd>+<kbd>Esc</kbd> or a tap of <kbd>⊞</kbd>/<kbd>⌘</kbd> for Start, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd> for Task Manager.
 
-**Easter eggs:** Konami code → Windows 3.1 (Internet Archive emulator). Type `devik` anywhere → 🎵.
+**Links still work:** `/#services`, `/#why`, `/#automation`, `/#health`, `/#about`, `/#contact`, `/#svc-m365`…
+open the matching app, and the address bar follows the focused app so links can be shared.
 
-The Start button uses the riva logo rather than the Windows logo, the wallpaper is original,
-and the footer carries a trademark disclaimer, so the site doesn't look affiliated with Microsoft.
+**Phones:** below ~760px wide, windows open full-screen and the taskbar becomes a scrolling app switcher.
 
-## Brand
+**Privacy:** files live only in the visitor's browser (IndexedDB). Settings → Privacy & storage explains
+this and has a reset button.
 
-The logo is **"Prompt"**: a lowercase `r` followed by a blinking block cursor, like the PowerShell
-prompt Devik lives in.
-
-| File | Use |
-| --- | --- |
-| `brand/riva-logo.svg` | Primary lockup (mark + wordmark) on light backgrounds |
-| `brand/riva-logo-white.svg` | Reversed, for dark backgrounds |
-| `brand/riva-wordmark.svg` | Wordmark only (`riva▮` + COMPUTECH) |
-| `brand/riva-mark.svg` · `riva-mark-dark.svg` | App icon / favicon / avatar (dark variant has a lighter tile + edge) |
-
-Colours: tile `#0d1625` · cursor `#1e9bf0` · ink `#0b1b30` · COMPUTECH `#5c6b80` (on dark: tile
-`#1a2740`, COMPUTECH `#9fb0c6`). The wordmark is JetBrains Mono Bold converted to outlines (SIL
-Open Font License, which allows use in logos), so the files don't need the font installed. The site inlines the mark plus a **compact** wordmark (COMPUTECH set
-relatively larger so it stays legible at header size). The hero cursor blinks four times on load,
-then stays solid. Keep clear space of at least the cursor's width around the lockup, and don't use the
-wordmark without the mark below ~24px tall. Use the mark on its own instead.
-
-## Preview locally
+## Run it locally
 
 ```bash
-python3 -m http.server 8080
+npm install
+npm run dev          # http://localhost:8787 — the full thing, Worker included
 ```
 
-Then open <http://localhost:8080>.
+A plain static server works too (`python3 -m http.server -d public 8080`). Edge info and weather then
+show as unavailable, and the contact form still works through Formspree.
 
-## Deploy (GitHub Pages)
+## Deploy to Cloudflare
 
-Repo **Settings → Pages → Deploy from a branch → `main` / root**. Every push to `main` republishes.
-For the custom domain, add a `CNAME` file containing `rivacomputech.com` (it was removed in
-`fa4c46e`) and point DNS at GitHub Pages: apex `A` records `185.199.108–111.153`, `www` →
-`CNAME` → `joe-at-heirloom.github.io`. If DNS is on Cloudflare, use DNS-only (grey cloud).
+**Easiest: connect the repo (deploys on every push).** Cloudflare dashboard → *Workers & Pages* →
+*Create* → *Import a repository* → pick this repo. Leave the build command empty; the deploy command
+is `npx wrangler deploy`. Set the production branch to `main`.
 
-## ⚠️ TODO before launch (from Devik)
+**Or from your machine:**
 
-All marked `TODO(Devik)` in `index.html`:
+```bash
+npx wrangler login
+npm run deploy
+```
 
-1. **Formspree ID.** Create a form at <https://formspree.io> (with `rivacomputech@gmail.com`) and
-   replace `YOUR_FORMSPREE_ID` in the form `action`. Until then, **Send opens the visitor's email
-   app with the message pre-filled**, so the form still works.
-2. **Phone number & service area.** Add them to the Contact "Phone" row and to the JSON-LD
-   (`telephone`, `areaServed`).
-3. **Photo.** Swap the `DP` initials in the About card for a square `devik.jpg`.
-4. **Bio check.** The About copy mentions that the business is named after his daughter. Confirm he's
-   happy to share that.
+Either way the site is live at `https://rivaos.<your-subdomain>.workers.dev`.
+
+**Custom domain (`rivacomputech.com`).** Add the domain to Cloudflare (change the nameservers at
+your registrar), then either uncomment `routes` in `wrangler.jsonc` and redeploy, or go to the Worker →
+*Settings* → *Domains & Routes* → *Add* → *Custom domain* for `rivacomputech.com` and `www.rivacomputech.com`.
+Cloudflare creates the DNS records and certificate. Then delete the old GitHub Pages `A`/`CNAME`
+records and turn off GitHub Pages (repo *Settings → Pages*). This repo no longer deploys to Pages:
+the site lives in `public/`.
+
+## The contact form
+
+Messages go to **Formspree** (`https://formspree.io/f/xvkkjper`, set in `public/os/core.js` → `FORMSPREE`),
+which forwards them to rivacomputech@gmail.com. In the Formspree dashboard it's worth turning on
+*Restrict to domain* (`rivacomputech.com`) once the domain is live. The form has a `_gotcha` honeypot.
+
+If Formspree can't be reached, the app tries the Worker's `/api/contact`, then opens the visitor's own
+email app with the message filled in, so an enquiry is never lost.
+
+**Optional: Cloudflare-native email instead of (or as well as) Formspree.** Once the domain is on Cloudflare:
+enable *Email Routing*, verify rivacomputech@gmail.com as a destination, then uncomment `send_email` in
+`wrangler.jsonc` and deploy. `CONTACT_FROM` must be an address on the domain. To also keep every message
+in Workers KV: `npx wrangler kv namespace create INBOX` and uncomment `kv_namespaces`. The Worker validates
+input, blocks cross-site posts, rate-limits to 5 messages a minute per visitor, and strips header injection.
+
+## Weather
+
+The widgets' weather comes from **MET Norway** (free, including commercial use, CC BY 4.0; credited in
+the widget). The Worker rounds the visitor's approximate Cloudflare location to ~10 km, caches each area
+for 30 minutes, and stores nothing. The User-Agent identifies the site, as MET Norway's terms require.
+
+## Editing the content
+
+All copy lives in **`public/os/content.js`**: tagline, services, comparison, steps, health checks, profile
+and bio. The Welcome, Services, Health Check, About and Contact apps, the read-only `C:\Riva` folder and
+the terminal (`Get-Service`, `Get-ADUser devik`) all read from it. Email and phone live in `public/os/core.js`.
 
 Honesty rules for copy: **10+ years**, **no Microsoft certifications** (none are claimed), and
 **no testimonials** until there are real ones.
 
-## Notes
+## ⚠️ TODO (from Devik)
 
-- Fonts: Segoe UI Variable on Windows, SF on Apple, Inter elsewhere. Cascadia Code (Windows
-  Terminal's font) for anything monospaced.
-- Respects `prefers-reduced-motion` and `prefers-color-scheme`. Visitors can override both in
-  Quick Settings.
-- Formspree endpoints are public by design. The form has a `_gotcha` honeypot.
+1. **Service area.** Add `areaServed` to the JSON-LD in `public/index.html`.
+2. **Photo.** Swap the `DP` initials in the About app (`public/os/apps/about.js`) for a square photo.
+
+## Brand
+
+The logo is **"Prompt"**: a lowercase `r` followed by a blinking block cursor, like the PowerShell
+prompt Devik lives in. It's also the Start button and the boot screen.
+
+| File | Use |
+| --- | --- |
+| `public/brand/riva-logo.svg` | Primary lockup (mark + wordmark) on light backgrounds |
+| `public/brand/riva-logo-white.svg` | Reversed, for dark backgrounds |
+| `public/brand/riva-wordmark.svg` | Wordmark only (`riva▮` + COMPUTECH) |
+| `public/brand/riva-mark.svg` · `riva-mark-dark.svg` | App icon / favicon / avatar |
+
+Colours: tile `#0d1625` · cursor `#1e9bf0` · ink `#0b1b30` · COMPUTECH `#5c6b80` (on dark: tile
+`#1a2740`, COMPUTECH `#9fb0c6`). The wordmark is JetBrains Mono Bold converted to outlines (SIL Open
+Font License, which allows use in logos).
+
+rivaOS is an original design: the wallpapers, icons and artwork are drawn for this site, the Start button
+is the riva logo, and the Welcome app carries a trademark disclaimer, so it doesn't look affiliated with Microsoft.
