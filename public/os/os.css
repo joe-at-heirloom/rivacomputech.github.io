@@ -40,7 +40,7 @@
   --shadow-fly:0 0 0 1px rgba(0,0,0,.08),0 24px 52px -10px rgba(0,0,0,.26);
   --ok:#0f7b0f; --warn:#9d5d00; --bad:#c42b1c;
   --close:#c42b1c;
-  --mk-tile:#0d1625; --mk-edge:#0d1625; --mk-fg:#fff; --mk-cur:#1e9bf0; --word-sub:#5c6b80;
+  --logo:#0067c0;
   --desk-sel:rgba(255,255,255,.22); --desk-sel-edge:rgba(255,255,255,.42);
   --scroll:rgba(0,0,0,.28);
   --text-scale:1;
@@ -68,7 +68,7 @@
   --shadow-win-in:0 0 0 1px rgba(255,255,255,.06),0 16px 32px -12px rgba(0,0,0,.45);
   --shadow-fly:0 0 0 1px rgba(255,255,255,.08),0 24px 52px -10px rgba(0,0,0,.6);
   --ok:#6ccb5f; --warn:#fce100; --bad:#ff99a4;
-  --mk-tile:#1a2740; --mk-edge:#2c3d58; --word-sub:#9fb0c6;
+  --logo:#3d9bf0;
   --scroll:rgba(255,255,255,.3);
 }
 :root.no-transparency{--acrylic:var(--acrylic-2);--taskbar:var(--mica)}
@@ -89,7 +89,7 @@ h1,h2,h3,h4{font-family:var(--font-display);margin:0;font-weight:600;letter-spac
 .i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .i.sm{width:16px;height:16px}
 .i.xs{width:12px;height:12px}
-.bmark{width:24px;height:24px;flex:none}
+.bmark,.bword{flex:none;width:auto;height:24px;color:var(--logo)}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:10px;border:3px solid transparent;background-clip:content-box}
 ::-webkit-scrollbar-thumb:hover{border-width:2px}
@@ -189,8 +189,7 @@ a.row{color:inherit;text-decoration:none}
 /* ───────────── 3 · boot / lock / power ───────────── */
 .boot{position:fixed;inset:0;z-index:30010;background:#000;display:grid;place-items:center;align-content:center;gap:56px;transition:opacity .45s}
 .boot.out{opacity:0;pointer-events:none}
-.boot-logo{width:84px;height:84px;--mk-tile:#0d1625;--mk-edge:#24344f;--mk-fg:#fff;--mk-cur:#1e9bf0}
-.boot-logo rect:last-child{animation:blink 1.06s steps(1) infinite}
+.boot-logo{width:150px;height:auto;color:#1f86e0}
 @keyframes blink{50%{opacity:0}}
 .boot-spin{position:relative;width:34px;height:34px}
 .boot-spin i{position:absolute;inset:0;animation:orbit 3.6s infinite}
@@ -353,7 +352,7 @@ a.row{color:inherit;text-decoration:none}
 .tbb.app.active::after{width:16px;margin-left:-8px;background:var(--accent)}
 .tbb.app.attn{animation:attn 1s 3}
 @keyframes attn{50%{background:color-mix(in srgb,var(--accent) 35%,transparent)}}
-.tb-start .bmark{width:24px;height:24px}
+.tb-start .bmark{height:14px}
 .tb-search{gap:8px;padding:0 14px 0 10px;border-radius:999px;background:var(--ctl);box-shadow:inset 0 0 0 1px var(--stroke);min-width:0;width:220px;justify-content:flex-start;color:var(--text-2);font-size:13px}
 .tb-search:hover{background:var(--ctl-hover)}
 .tb-search .i{width:16px;height:16px;color:var(--text)}

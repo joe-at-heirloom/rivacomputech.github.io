@@ -140,19 +140,18 @@ Honesty rules for copy: **10+ years**, **no Microsoft certifications** (none are
 
 ## Brand
 
-The logo is **"Prompt"**: a lowercase `r` followed by a blinking block cursor, like the PowerShell
-prompt Devik lives in. It's also the Start button and the boot screen.
+The logo is the **riva wordmark**: rounded, connected letters in brand blue **`#0067c0`**. Where the
+full name is needed, "COMPUTECH" is set in small, widely spaced capitals underneath. It's the Start
+button, the boot screen, the Welcome header and the share image.
 
 | File | Use |
 | --- | --- |
-| `public/brand/riva-logo.svg` | Primary lockup (mark + wordmark) on light backgrounds |
-| `public/brand/riva-logo-white.svg` | Reversed, for dark backgrounds |
-| `public/brand/riva-wordmark.svg` | Wordmark only (`riva▮` + COMPUTECH) |
-| `public/brand/riva-mark.svg` · `riva-mark-dark.svg` | App icon / favicon / avatar |
+| `public/brand/riva-logo.svg` (= `public/logo.svg`) | The wordmark, brand blue, for light backgrounds |
+| `public/brand/riva-logo-white.svg` | White, for dark or photo backgrounds |
+| `public/brand/riva-icon.svg` | Square app icon: white wordmark on a blue tile (favicon, home-screen icon) |
 
-Colours: tile `#0d1625` · cursor `#1e9bf0` · ink `#0b1b30` · COMPUTECH `#5c6b80` (on dark: tile
-`#1a2740`, COMPUTECH `#9fb0c6`). The wordmark is JetBrains Mono Bold converted to outlines (SIL Open
-Font License, which allows use in logos).
+In the site, the wordmark is one SVG symbol (`#rivaLogo` in `public/index.html`) coloured by the
+`--logo` token: `#0067c0` in light mode, `#3d9bf0` in dark mode so it stays readable.
 
 rivaOS is an original design: the wallpapers, icons and artwork are drawn for this site, the Start button
 is the riva logo, and the Welcome app carries a trademark disclaimer, so it doesn't look affiliated with Microsoft.

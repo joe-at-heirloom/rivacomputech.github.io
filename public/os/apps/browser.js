@@ -1,6 +1,6 @@
 /* Browser: a small web browser. Many sites refuse to be shown inside other pages (X-Frame-Options /
    CSP frame-ancestors) and a browser can't detect that, so every page offers "Open in a new tab". */
-import { h, $, esc, glyph, injectCSS, os } from "../core.js";
+import { h, $, esc, glyph, injectCSS, os, WORDMARK } from "../core.js";
 import * as fs from "../fs.js";
 import { appIcon } from "../icons.js";
 
@@ -14,9 +14,8 @@ injectCSS("browser", `
 .br-info .i{width:14px;height:14px;flex:none}
 .br-info .btn{min-height:26px;padding:2px 10px;font-size:12px;margin-left:auto}
 .br-start{position:absolute;inset:0;overflow:auto;background:var(--layer-2);color:var(--text);display:flex;flex-direction:column;align-items:center;padding:8vh 24px 40px}
-.br-start .logo{display:flex;align-items:center;gap:12px;margin-bottom:26px;color:var(--text)}
-.br-start .logo .bmark{width:48px;height:48px}
-.br-start .logo b{font:600 26px var(--font-display)}
+.br-start .logo{margin-bottom:28px}
+.br-start .logo .bword{height:52px}
 .br-q{width:min(560px,100%);position:relative}
 .br-q .field{height:44px;border-radius:999px;padding-left:44px;font-size:15px;box-shadow:0 4px 16px -8px rgba(0,0,0,.3)}
 .br-q .i{position:absolute;left:16px;top:14px;width:16px;height:16px;color:var(--text-2)}
@@ -48,7 +47,7 @@ export default function browser(win, args) {
 
   function start() {
     const s = h("div", { class: "br-start" });
-    s.innerHTML = `<div class="logo"><svg class="bmark" viewBox="0 0 64 64" aria-hidden="true"><use href="#rivaMarkG"/></svg><b>riva</b></div>
+    s.innerHTML = `<div class="logo">${WORDMARK}</div>
       <form class="br-q">${glyph("search")}<input class="field" name="q" placeholder="Search the web" aria-label="Search the web" autocomplete="off"></form>
       <div class="br-tiles">${TILES.map((t, i) => `<button class="br-tile" type="button" data-i="${i}"><span class="fav" ${t.c ? `style="color:${t.c}"` : ""}>${t.app ? appIcon(t.app, 30) : esc(t.l)}</span>${esc(t.t)}</button>`).join("")}</div>
       <p class="br-note">Searches open in a new tab.</p>`;

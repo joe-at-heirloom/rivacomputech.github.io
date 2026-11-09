@@ -33,8 +33,9 @@ export function h(tag, attrs, ...kids) {
 }
 
 export const glyph = (name, cls = "i") => `<svg class="${cls}" aria-hidden="true"><use href="#i-${name}"/></svg>`;
-export const LOGO = '<svg class="bmark" viewBox="0 0 64 64" aria-hidden="true"><use href="#rivaMarkG"/></svg>';
-export const WORDMARK = '<svg class="bword" viewBox="6.2 -51.88 180.24 87.56" aria-hidden="true"><use href="#rivaWordG"/></svg>';
+/** The riva wordmark (brand blue via --logo). LOGO is the small one on the Start button. */
+export const WORDMARK = '<svg class="bword" viewBox="0 0 1579 815" aria-hidden="true"><use href="#rivaLogo" width="1579" height="815"/></svg>';
+export const LOGO = '<svg class="bmark" viewBox="0 0 1579 815" aria-hidden="true"><use href="#rivaLogo" width="1579" height="815"/></svg>';
 
 const injected = new Set();
 export function injectCSS(id, css) {
