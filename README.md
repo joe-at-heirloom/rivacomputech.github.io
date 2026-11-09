@@ -29,6 +29,7 @@ public/                     ← everything the browser downloads (Workers Static
   og.png                    ← share image (source: tools/og.html)
   brand/ · assets/logos/ · og.png · favicon.svg · robots.txt · sitemap.xml · _headers
 tools/og.html               ← source for the share image
+print/business-card/        ← business card: print PDF, editable SVGs, preview (not deployed)
 src/worker.js               ← the Worker: /api/ping, /api/system, /api/version, /api/weather, /api/contact
 wrangler.jsonc              ← Cloudflare config
 ```
@@ -149,6 +150,10 @@ button, the boot screen, the Welcome header and the share image.
 | `public/brand/riva-logo.svg` (= `public/logo.svg`) | The wordmark, brand blue, for light backgrounds |
 | `public/brand/riva-logo-white.svg` | White, for dark or photo backgrounds |
 | `public/brand/riva-icon.svg` | Square app icon: white wordmark on a blue tile (favicon, home-screen icon) |
+| `public/brand/riva-computech-logo.svg` · `-white.svg` | Full lockup: wordmark + COMPUTECH (outlined, no font needed) |
+
+**Business card:** `print/business-card/` has the print-ready PDF (3.5 × 2 in, 1/8 in bleed), editable
+SVGs for both sides, and a preview. See its README for print and editing notes.
 
 In the site, the wordmark is one SVG symbol (`#rivaLogo` in `public/index.html`) coloured by the
 `--logo` token: `#0067c0` in light mode, `#3d9bf0` in dark mode so it stays readable.

@@ -17,3 +17,4 @@ node_modules/
 *.png
 !public/og.png
 !public/apple-touch-icon.png
+!print/business-card/riva-business-card-preview.png
