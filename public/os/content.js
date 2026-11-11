@@ -4,7 +4,9 @@
 
 import { EMAIL, PHONE } from "./core.js";
 
-export const TAGLINE = "The IT person who actually picks up the phone.";
+/** The slogan, as its two sentences (the second is the highlighted one). */
+export const SLOGAN = ["You mind your business.", "We'll mind your computers."];
+export const TAGLINE = SLOGAN.join(" ");
 export const LEDE = "Senior Microsoft 365, Azure and infrastructure support — direct from the engineer who does the work. No ticket queues, no hand-offs, and cover across evenings, weekends and holidays.";
 export const STATUS = "Open to select projects";
 export const HOURS = "Weekdays, evenings, weekends & holidays";

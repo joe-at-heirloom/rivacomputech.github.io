@@ -1,7 +1,7 @@
 /* Welcome: Riva Computech at a glance. The first window every visitor sees. */
 import { h, $, esc, glyph, injectCSS, os, WORDMARK, settings } from "../core.js";
 import { appIcon } from "../icons.js";
-import { TAGLINE, LEDE, STATUS } from "../content.js";
+import { SLOGAN, LEDE, STATUS } from "../content.js";
 import "./common.js";
 
 injectCSS("welcome", `
@@ -11,11 +11,11 @@ injectCSS("welcome", `
 .wel-brand{display:flex;flex-direction:column;align-items:flex-start;gap:7px}
 .wel-brand .bword{height:44px}
 .wel-sub{font:600 10px/1 var(--font);letter-spacing:.3em;text-transform:uppercase;color:var(--text-2);padding-left:1px}
-.wel-hero .ph{font-size:clamp(28px,4vw,42px);max-width:16ch}
+.wel-hero .ph{font-size:clamp(26px,3vw,36px)}
 .wel-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:18px}
 .wel-foot label{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2)}
 :root.compact .wel-hero{padding:20px 18px;border-radius:10px}
-:root.compact .wel-hero .ph{font-size:28px}
+:root.compact .wel-hero .ph{font-size:26px}
 :root.compact .wel-top{margin-bottom:18px}
 :root.compact .wel-brand .bword{height:36px}
 :root.compact .wel-sub{font-size:8.5px}
@@ -31,7 +31,7 @@ export default function welcome(win) {
       <div class="wel-top"><span class="wel-brand">${WORDMARK}<span class="wel-sub" aria-hidden="true">Computech</span><span class="sr-only">Riva Computech</span></span>
         <span class="pill"><span class="dot"></span>${esc(STATUS)}</span></div>
       <p class="kicker">Microsoft 365 · Azure · Infrastructure</p>
-      <h2 class="ph">${esc(TAGLINE).replace("picks up the phone.", '<span class="hl">picks up the phone.</span>')}</h2>
+      <h2 class="ph">${esc(SLOGAN[0])}<br><span class="hl">${esc(SLOGAN[1])}</span></h2>
       <p class="lede">${esc(LEDE)}</p>
       <div class="cta">
         <button class="btn accent lg" type="button" data-go="mail">${glyph("chat")}Book a free 30-min chat</button>
@@ -62,7 +62,7 @@ export default function welcome(win) {
 
     <div class="wel-foot">
       <label><input type="checkbox" id="wel-start" ${settings.get("showWelcome") === false ? "" : "checked"}> Show Welcome when rivaOS starts</label>
-      <a class="legal" style="margin:0" href="/">Prefer a simple page? Open the simple site</a>
+      <a class="legal" style="margin:0" href="/">Back to the main site</a>
     </div>
     <p class="legal">Microsoft, Microsoft 365, Azure, Windows, Intune, VMware and Citrix are trademarks of their respective owners. Riva Computech is independent and not affiliated with or endorsed by them. © ${new Date().getFullYear()} Riva Computech.</p>
   </div>`;

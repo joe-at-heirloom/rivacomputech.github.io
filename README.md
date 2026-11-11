@@ -2,36 +2,39 @@
 
 **rivacomputech.com has two faces:**
 
-- **The simple site (`/`)** is the home page: one page in large print, with plain words and big buttons,
-  made for people who are not comfortable with computers. Call and email are always one tap away.
+- **The home page (`/`)** is one simple, centred page in plain words: what Riva does, why, who Devik is,
+  and how to get in touch. Clean and modern, and deliberately uncomplicated.
 - **rivaOS (`/desktop/`)** is the interactive version: a Windows 11-style desktop that runs in the
   browser, with windows, a file system, a PowerShell terminal and around 15 apps. It's linked from the
-  simple site's footer for anyone curious.
+  home page's footer for anyone curious.
 
 It runs on **Cloudflare Workers**: static files are served from Cloudflare's edge, and a small Worker
 adds the parts a static site can't do (edge info, weather, a backup contact endpoint).
 
-No framework and no build step: plain HTML for the simple site, native ES modules for rivaOS.
+No framework and no build step: plain HTML for the home page, native ES modules for rivaOS.
 
-## The simple site
+## The home page
 
 `public/index.html` is the whole thing: HTML, CSS and a few lines of script in one file.
 
-- **Readable by default:** 19px text, high contrast, one column, no animations, no menus to discover.
-- **Text size buttons** (A A A) at the top go up to 24px and remember the choice.
-- **Plain words:** "Sign-ins and passwords", not "Azure & identity". No jargon and no in-jokes.
-- **Big targets:** every button is at least 48px tall; on phones a Call / Message bar stays on screen.
-- **A forgiving form:** name, a phone number *or* an email, and a message, with friendly error messages.
+- **Simple, not dumbed down:** one page, centred layout, plain words ("Sign-ins and access", not
+  "Azure & identity"), no jargon, no menus to discover, nothing that moves.
+- **Slogan:** "You mind your business. We'll mind your computers."
+- **Everything is centred:** hero, the "We work with" logo row (each logo sized by eye so they carry the
+  same weight), service cards, steps, and the footer.
+- **Readable:** Inter at 18px, strong contrast, buttons at least 48px tall. A small text-size control in
+  the footer goes up to 22px and remembers the choice.
+- **A forgiving form:** name, a phone number *or* an email, and a message, with clear error messages.
   It posts to Formspree and works with JavaScript turned off.
 - **Old links still work:** `/#services`, `/#why`, `/#about` and `/#contact` jump to those sections;
   `/#health` and `/#automation` open the matching app in rivaOS.
 
 To change the wording, edit `public/index.html` directly. (rivaOS has its own copy in
-`public/os/content.js`; if a service or the bio changes, update both.)
+`public/os/content.js`, including the slogan; if a service or the bio changes, update both.)
 
 ```
 public/                     ← everything the browser downloads (Workers Static Assets)
-  index.html                ← the simple site (home page)
+  index.html                ← the home page
   desktop/index.html        ← rivaOS: boot screen, no-JS fallback, SVG sprite (logo + icons)
   os/
     main.js                 ← boot: mounts the file system, starts the shell
@@ -91,7 +94,7 @@ this and has a reset button.
 
 ```bash
 npm install
-npm run dev          # http://localhost:8787 (simple site) and /desktop/ (rivaOS), Worker included
+npm run dev          # http://localhost:8787 (home page) and /desktop/ (rivaOS), Worker included
 ```
 
 A plain static server works too (`python3 -m http.server -d public 8080`). Edge info and weather then
@@ -149,7 +152,7 @@ fetch the new image instead of a cached one.
 
 ## Editing the content
 
-The simple site's wording is in **`public/index.html`**. rivaOS's copy lives in **`public/os/content.js`**:
+The home page's wording is in **`public/index.html`**. rivaOS's copy lives in **`public/os/content.js`**:
 tagline, services, comparison, steps, health checks, profile and bio. The Welcome, Services, Health Check, About and Contact apps, the read-only `C:\Riva` folder and
 the terminal (`Get-Service`, `Get-ADUser devik`) all read from it. Email and phone live in `public/os/core.js`.
 
@@ -159,12 +162,14 @@ Honesty rules for copy: **10+ years**, **no Microsoft certifications** (none are
 ## ⚠️ TODO (from Devik)
 
 1. **Service area.** Add `areaServed` to the JSON-LD in `public/index.html`.
-2. **Photo.** Swap the `DP` initials for a square photo, in the simple site's About section
+2. **Photo.** Swap the `DP` initials for a square photo, in the home page's About section
    (`public/index.html`) and in rivaOS's About app (`public/os/apps/about.js`).
 3. **Phone numbers.** The website shows (313) 405-7164; the business card shows (734) 765-9182.
    Confirm that's intended, or pick one.
 
 ## Brand
+
+**Slogan:** *You mind your business. We'll mind your computers.*
 
 The logo is the **riva wordmark**: rounded, connected letters in brand blue **`#0067c0`**. Where the
 full name is needed, "COMPUTECH" is set in small, widely spaced capitals underneath. It's the Start
