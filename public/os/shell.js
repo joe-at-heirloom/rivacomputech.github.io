@@ -515,10 +515,10 @@ const SEARCH_ACTS = {
 };
 const SETTINGS_INDEX = [
   ["Dark mode", "Switch light / dark", "moon", "act:theme", "dark light theme mode night"],
-  ["Night light", "Warmer colours", "nightlight", "act:night", "night light warm blue filter"],
+  ["Night light", "Warmer colors", "nightlight", "act:night", "night light warm blue filter"],
   ["Reduce motion", "Accessibility", "motion", "act:motion", "motion animation reduce accessibility"],
   ["Change the wallpaper", "Personalization", "image", "settings:personalization", "wallpaper background desktop picture personalize"],
-  ["Accent colour", "Personalization", "palette", "settings:personalization", "accent color colour"],
+  ["Accent color", "Personalization", "palette", "settings:personalization", "accent color colour"],
   ["About this PC", "System", "info", "settings:about", "about pc system device specs version cloudflare edge"],
   ["Storage & reset", "Privacy & storage", "disk", "settings:privacy", "storage reset clear data privacy"],
   ["Copy Devik's email", "rivacomputech@gmail.com", "copy", "act:copy", "email copy address"],
@@ -664,7 +664,7 @@ async function renderWidgets() {
     <div class="wg-grid">
       <div class="wg wg-weather" id="wg-wx"><h4>${glyph("weather")}Weather</h4><div class="spin" style="border-color:rgba(255,255,255,.3);border-top-color:#fff"></div></div>
       <div class="wg wg-riva"><h4>${appIcon("welcome", 16)}Riva Computech</h4><span class="pill"><span class="dot"></span>${esc(STATUS)}</span>
-        <p>Senior Microsoft 365, Azure &amp; infrastructure help.</p>
+        <p>Microsoft 365, Azure &amp; infrastructure help for small businesses.</p>
         <div class="btns"><button class="btn accent" type="button" data-w="mail">Book a free chat</button><button class="btn" type="button" data-w="health">Health check</button></div></div>
       <div class="wg wg-edge" id="wg-edge"><h4>${glyph("globe")}Served from the edge</h4><div class="spin"></div></div>
       <div class="wg wg-tip"><h4>${glyph("sparkle")}Tip</h4><p>${TIPS[Math.floor(Math.random() * TIPS.length)]}</p></div>
@@ -684,7 +684,7 @@ async function renderWidgets() {
   try {
     const t0 = performance.now(); const s = await system(); await api("ping"); const rtt = Math.round(performance.now() - t0) / 2 | 0;
     if (!s) throw 0;
-    if (eb) eb.innerHTML = `<h4>${glyph("globe")}Served from the edge</h4><b>${esc(s.colo || "—")}</b><small>Cloudflare data centre ${s.coloCity ? "near " + esc(s.coloCity) : ""}<br>Round trip ≈ ${rtt} ms · ${esc(s.httpProtocol || "")}</small>`;
+    if (eb) eb.innerHTML = `<h4>${glyph("globe")}Served from the edge</h4><b>${esc(s.colo || "—")}</b><small>Cloudflare data center ${s.coloCity ? "near " + esc(s.coloCity) : ""}<br>Round trip ≈ ${rtt} ms · ${esc(s.httpProtocol || "")}</small>`;
   } catch { if (eb) eb.innerHTML = `<h4>${glyph("globe")}Served from the edge</h4><small>Unavailable right now.</small>`; }
 }
 

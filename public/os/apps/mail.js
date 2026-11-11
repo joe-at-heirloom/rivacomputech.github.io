@@ -142,7 +142,7 @@ export default function mail(win, args) {
       if (err.status === 400) { set(err.body?.error || "Please check the form and try again.", "bad"); sendB.disabled = false; return; }
       // 3. Nothing else worked: hand off to the visitor's email app.
       const body = `${d.message}\n\n— ${d.name} <${d.email}>`;
-      location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(d.subject || "New enquiry from rivacomputech.com")}&body=${encodeURIComponent(body)}`;
+      location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(d.subject || "New inquiry from rivacomputech.com")}&body=${encodeURIComponent(body)}`;
       set("Opening your email app… If nothing happens, email " + EMAIL + " directly.", "ok");
       sendB.disabled = false;
       track("contact_mailto", {});
@@ -155,7 +155,7 @@ export default function mail(win, args) {
       const r = await fetch(FORMSPREE, {
         method: "POST", signal: ctl.signal,
         headers: { accept: "application/json", "content-type": "application/json" },
-        body: JSON.stringify({ name: d.name, email: d.email, subject: d.subject, message: d.message, _subject: `Riva enquiry: ${d.subject || d.name}`, _gotcha: d.company_website })
+        body: JSON.stringify({ name: d.name, email: d.email, subject: d.subject, message: d.message, _subject: `Riva inquiry: ${d.subject || d.name}`, _gotcha: d.company_website })
       });
       let body = {}; try { body = await r.json(); } catch {}
       return { ok: r.ok, status: r.status, error: body.errors?.map(e => e.message).join(" ") };

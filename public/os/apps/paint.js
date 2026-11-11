@@ -24,7 +24,7 @@ injectCSS("paint", `
 
 export const winOpts = { w: 1000, h: 680, minW: 480, minH: 360 };
 const PAL = ["#000000", "#7f7f7f", "#880015", "#ed1c24", "#ff7f27", "#fff200", "#22b14c", "#00a2e8", "#3f48cc", "#a349a4", "#ffffff", "#c3c3c3", "#b97a57", "#ffaec9", "#ffc90e", "#efe4b0", "#b5e61d", "#99d9ea", "#7092be", "#c8bfe7"];
-const TOOLS = [["pencil", "pencil", "Pencil"], ["brush", "brush", "Brush"], ["eraser", "eraser", "Eraser"], ["fill", "bucket", "Fill"], ["pick", "palette", "Colour picker"], ["line", "line", "Line"], ["rect", "rect", "Rectangle"], ["ellipse", "ellipse", "Ellipse"]];
+const TOOLS = [["pencil", "pencil", "Pencil"], ["brush", "brush", "Brush"], ["eraser", "eraser", "Eraser"], ["fill", "bucket", "Fill"], ["pick", "palette", "Color picker"], ["line", "line", "Line"], ["rect", "rect", "Rectangle"], ["ellipse", "ellipse", "Ellipse"]];
 
 export default async function paint(win, args) {
   let tool = "brush", color = "#1e9bf0", size = 6, path = null, dirty = false;
@@ -33,8 +33,8 @@ export default async function paint(win, args) {
   tools.innerHTML = `<button class="pt-menu" type="button" data-m="file">File</button><span class="sep"></span>
     ${TOOLS.map(([id, g, l]) => `<button class="ibtn" type="button" data-t="${id}" aria-label="${l}" data-tip="${l}">${glyph(g)}</button>`).join("")}<span class="sep"></span>
     <span class="pt-size">Size <input class="slider" type="range" min="1" max="60" value="${size}" aria-label="Brush size" style="--p:${size / 60 * 100}%"><b>${size}</b></span><span class="sep"></span>
-    <span class="pt-cur" data-tip="Edit colour" style="background:${color}"><input type="color" value="${color}" aria-label="Colour"></span>
-    <div class="pt-pal">${PAL.map(c => `<button type="button" data-c="${c}" style="background:${c}" aria-label="Colour ${c}"></button>`).join("")}</div><span class="sep"></span>
+    <span class="pt-cur" data-tip="Edit color" style="background:${color}"><input type="color" value="${color}" aria-label="Color"></span>
+    <div class="pt-pal">${PAL.map(c => `<button type="button" data-c="${c}" style="background:${c}" aria-label="Color ${c}"></button>`).join("")}</div><span class="sep"></span>
     <button class="ibtn" type="button" data-x="undo" aria-label="Undo" data-tip="Undo (Ctrl+Z)">${glyph("undo")}</button><button class="ibtn" type="button" data-x="redo" aria-label="Redo" data-tip="Redo (Ctrl+Y)">${glyph("redo")}</button>
     <button class="ibtn" type="button" data-x="clear" aria-label="Clear canvas" data-tip="Clear canvas">${glyph("trash")}</button>`;
   const cv = h("canvas", { "aria-label": "Drawing canvas" }), ctx = cv.getContext("2d", { willReadFrequently: true });

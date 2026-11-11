@@ -1,3 +1,5 @@
+# Everyone is welcome, including search engines and AI assistants.
+# A plain-text summary of the site for AI tools is at /llms.txt
 User-agent: *
 Allow: /
 

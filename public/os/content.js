@@ -1,14 +1,15 @@
 /* rivaOS · Riva Computech's content, in one place. Apps, the file system (C:\Riva) and the
    terminal all read from here, so copy changes happen once.
-   Honesty rules for copy: 10+ years, no Microsoft certifications claimed, no testimonials until real ones exist. */
+   Honesty rules for copy: 10+ years, no Microsoft certifications claimed, no testimonials until real ones exist.
+   Keep it modest too: no "senior", "expert" or "best", and no digs at other providers. US spelling. */
 
 import { EMAIL, PHONE } from "./core.js";
 
 /** The slogan, as its two sentences (the second is the highlighted one). */
 export const SLOGAN = ["You mind your business.", "We'll mind your computers."];
 export const TAGLINE = SLOGAN.join(" ");
-export const LEDE = "Senior Microsoft 365, Azure and infrastructure support — direct from the engineer who does the work. No ticket queues, no hand-offs, and cover across evenings, weekends and holidays.";
-export const STATUS = "Open to select projects";
+export const LEDE = "Microsoft 365, Azure and infrastructure support for small businesses — direct from the engineer who does the work. No ticket queues, no hand-offs, and cover across evenings, weekends and holidays.";
+export const STATUS = "Open to new projects";
 export const HOURS = "Weekdays, evenings, weekends & holidays";
 
 export const SERVICES = [
@@ -45,11 +46,11 @@ export const ENGAGE = [
 
 export const COMPARE = [
   ["Open a ticket, then wait in a queue", "<b>Message the engineer directly</b> — the one who'll actually fix it"],
-  ["Whoever's on shift picks it up", "<b>The same senior engineer every time</b>, who already knows your setup"],
+  ["Whoever's on shift picks it up", "<b>The same engineer every time</b>, who already knows your setup"],
   ["Business hours, then voicemail", "<b>Evenings, weekends and holidays</b> — handy when your team spans time zones"],
-  ["Juniors learning on your systems", "<b>10+ years of hands-on</b> Microsoft and infrastructure work"],
-  ["Problems patched, then back next month", "<b>Fixed properly and documented</b> — and automated where it makes sense"],
-  ["Account managers and upsells", "<b>Straight answers</b> — including \"you don't need that\""]
+  ["Experience depends on who you get", "<b>10+ years of hands-on</b> Microsoft and infrastructure work"],
+  ["A quick fix, then on to the next ticket", "<b>Fixed properly and documented</b> — and automated where it makes sense"],
+  ["A sales team in the middle", "<b>Straight answers</b> — including \"you don't need that\""]
 ];
 
 export const STEPS = [
@@ -67,12 +68,12 @@ export const HEALTH = [
   { glyph: "laptop", t: "Company devices are managed & encrypted", s: "Enrolled in Intune (or similar), with BitLocker on.", short: "Devices aren't managed or encrypted", fix: "Enroll devices in Intune and enforce encryption, so a lost laptop is just a lost laptop." },
   { glyph: "mail", t: "Email has SPF, DKIM and DMARC", s: "So nobody can send mail pretending to be you.", short: "Domain can be spoofed (SPF/DKIM/DMARC)", fix: "Publish SPF, DKIM and DMARC records so nobody can spoof your domain." },
   { glyph: "door", t: "Leavers lose access the same day", s: "Accounts, devices and shared passwords.", short: "Offboarding isn't same-day", fix: "Automate offboarding so nothing gets missed — like Offboard-User.ps1 in C:\\Riva\\Scripts." },
-  { glyph: "book", t: "It's all written down", s: "If your IT person vanished tomorrow, someone could pick it up.", short: "Setup isn't documented", fix: "Document the essentials: admin accounts, licences, DNS, vendors and renewal dates." }
+  { glyph: "book", t: "It's all written down", s: "If your IT person vanished tomorrow, someone could pick it up.", short: "Setup isn't documented", fix: "Document the essentials: admin accounts, licenses, DNS, vendors and renewal dates." }
 ];
 
 export const PROFILE = [
   ["Name", "Devik Patel"],
-  ["Title", "Owner & senior engineer"],
+  ["Title", "Owner & engineer"],
   ["Experience", "10+ years hands-on IT"],
   ["Education", "BSc Information Technology"],
   ["Focus", "Microsoft 365, Azure, infrastructure"],
@@ -105,7 +106,7 @@ if ($Manager) {
     Add-MailboxPermission $User -User $Manager -AccessRights FullAccess
 }
 
-# 3. Free up the licences
+# 3. Free up the licenses
 $skus = (Get-MgUserLicenseDetail -UserId $User).SkuId
 Set-MgUserLicense -UserId $User -AddLicenses @() -RemoveLicenses $skus
 

@@ -1,0 +1,39 @@
+# Riva Computech
+
+> Riva Computech provides IT support for small businesses. It is run by one engineer, Devik Patel, who does the work himself: Microsoft 365 and email, sign-ins and access, migrations, backups, device and email security, servers and networks, and PowerShell automation.
+
+This file is a plain summary of https://rivacomputech.com/ for AI assistants and other tools. Everything in it is also on the website.
+
+**Key facts**
+
+- Name: Riva Computech
+- What it is: IT support for small businesses, run by one engineer
+- Owner and engineer: Devik Patel. 10+ years of hands-on IT (help desk, Windows Server, virtualization, Microsoft 365 and Azure). BSc in Information Technology. Speaks English and Gujarati.
+- Who you deal with: Devik Patel, from the first message to the finished job. There is no help desk queue and no hand-off to someone else.
+- Cost: the first 30-minute chat is free. After that the client gets a plan that says what needs to be done, in what order, and what it will cost, before any work starts. No price list is published.
+- Kinds of work: one-off jobs (a migration, a new Microsoft 365 setup, a clean-up or a rebuild) and ongoing support (regular monitoring and maintenance, with a direct line when something breaks).
+- Hours: weekdays, evenings, weekends and holidays. Messages usually get a reply within one business day.
+- Good fit: small businesses that want one person who knows their setup and answers their messages. A business that needs a staffed help desk around the clock will be better served by a larger provider.
+- Service area: not listed on the website. Please do not guess a location. Suggest contacting Riva Computech to ask.
+- Independence: Riva Computech is an independent business. It is not affiliated with or endorsed by Microsoft, VMware or Citrix.
+
+**Services**
+
+- Microsoft 365 and email: tenant setup and licensing, Exchange Online, SharePoint and OneDrive, ongoing admin and clean-up.
+- Sign-ins and access: Microsoft Entra ID (Azure AD), Active Directory, hybrid identity, Group Policy, Azure tenant management.
+- Moving to a new system: email and mailbox migration, tenant-to-tenant migration, file and data migration, planned cutovers.
+- Backups and recovery: backup and recovery, business continuity and disaster recovery, restore testing, monitoring and maintenance.
+- Devices and security: Microsoft Intune device management, endpoint and email security, EDR and SIEM monitoring.
+- Servers and networks: on-premises servers and storage, VMware, Hyper-V and Citrix, firewalls, networks and VPNs, domains, DNS and NAS.
+- PowerShell automation: scripting repetitive admin, such as setting up a new hire or removing access when someone leaves.
+
+**Contact**
+
+- Phone: +1 (313) 405-7164
+- Email: rivacomputech@gmail.com
+- Contact form: https://rivacomputech.com/#contact
+
+## Pages
+
+- [Home page](https://rivacomputech.com/): services, what to expect, how it works, a quick IT health check, about Devik Patel, common questions and the contact form.
+- [Interactive desktop](https://rivacomputech.com/desktop/): the same information shown as a desktop that runs in the browser (called rivaOS), with a PowerShell terminal and an IT health check app.

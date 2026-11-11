@@ -9,7 +9,7 @@ export const APPS = {
   welcome:    { name: "Welcome", w: 860, h: 620, single: true, desc: "Riva Computech at a glance", keys: "home start intro riva computech hello" },
   services:   { name: "Riva Services", short: "Services", w: 1020, h: 700, single: true, desc: "What we look after", keys: "services help support offer microsoft 365 azure migration backup security infrastructure compare why" },
   health:     { name: "Health Check", w: 980, h: 660, single: true, desc: "8 questions · about a minute", keys: "health check audit assessment score security quiz test" },
-  about:      { name: "About Devik", w: 920, h: 640, single: true, desc: "Owner & senior engineer", keys: "about devik patel owner who experience gujarati team" },
+  about:      { name: "About Devik", w: 920, h: 640, single: true, desc: "Owner & engineer", keys: "about devik patel owner who experience gujarati team" },
   mail:       { name: "Contact", w: 940, h: 680, single: true, desc: "Book a free 30-min chat", keys: "contact book call email chat quote price pricing phone hire mail message" },
   terminal:   { name: "Terminal", w: 780, h: 500, minW: 380, desc: "PowerShell", keys: "powershell shell console cli command prompt cmd" },
   explorer:   { name: "File Explorer", short: "Explorer", w: 980, h: 620, minW: 420, desc: "Browse your files", keys: "files folders documents explorer finder" },

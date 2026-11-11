@@ -67,7 +67,7 @@ export default function services(win, args) {
     why: () => `<div class="page-in">
       <p class="kicker"><b>PS&gt;</b> Compare-Object</p>
       <h2 class="ph">Personal IT, not a ticket number.</h2>
-      <p class="lede">Bigger providers route you through queues and whoever's free that day. With Riva Computech you get a senior engineer who knows your setup — and owns the outcome.</p>
+      <p class="lede">Bigger providers often work through ticket queues and whoever is on shift. With Riva Computech you get one engineer who knows your setup — and sees the job through.</p>
       <div class="cmp"><div class="cmp-cap"><span style="opacity:.7">PS C:\\Riva&gt;</span> <span class="tk-fn">Compare-Object</span> <span class="tk-va">$TypicalProvider</span> <span class="tk-va">$RivaComputech</span></div>
         <div class="cmp-grid"><div class="cmp-h them"><code>&lt;=</code>Typical IT provider</div><div class="cmp-h us"><code>=&gt;</code>Riva Computech</div>
         ${COMPARE.map(([a, b]) => `<div class="cmp-c them">${glyph("x")}<span>${esc(a)}</span></div><div class="cmp-c us">${glyph("check")}<span>${b}</span></div>`).join("")}</div></div>

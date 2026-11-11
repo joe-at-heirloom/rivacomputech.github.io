@@ -2,8 +2,9 @@
 
 **rivacomputech.com has two faces:**
 
-- **The home page (`/`)** is one simple, centred page in plain words: what Riva does, why, who Devik is,
-  and how to get in touch. Clean and modern, and deliberately uncomplicated.
+- **The home page (`/`)** is one simple, centred page in plain words: what Riva does, what to expect,
+  who Devik is, answers to common questions, and how to get in touch. Clean, modest and deliberately
+  uncomplicated.
 - **rivaOS (`/desktop/`)** is the interactive version: a Windows 11-style desktop that runs in the
   browser, with windows, a file system, a PowerShell terminal and around 15 apps. It's linked from the
   home page's footer for anyone curious.
@@ -17,20 +18,70 @@ No framework and no build step: plain HTML for the home page, native ES modules 
 
 `public/index.html` is the whole thing: HTML, CSS and a few lines of script in one file.
 
-- **Simple, not dumbed down:** one page, centred layout, plain words ("Sign-ins and access", not
-  "Azure & identity"), no jargon, no menus to discover, nothing that moves.
-- **Slogan:** "You mind your business. We'll mind your computers."
-- **Everything is centred:** hero, the "We work with" logo row (each logo sized by eye so they carry the
+- **Plain words first, technical terms second:** each service has an everyday name and one plain
+  sentence ("Sign-ins and access: one sign-in per person…"), then an *Includes* line with the terms
+  people and search engines look for (Microsoft Entra ID, Active Directory, Intune…).
+- **Slogan:** "You mind your business. We'll mind your computers." The page's `<h1>` is the plain
+  description, "IT support for small businesses" (the small pill at the top); the slogan is the big line
+  under it.
+- **Sections, in order:** services · common reasons people get in touch · what to expect · how it works ·
+  a quick IT health check · about Devik · questions people ask · get in touch.
+- **Health check:** eight checkboxes with a running count and a "good place to start" tip. *Ask Devik
+  about my result* copies the result into the message box. Nothing is sent until the visitor presses
+  *Send message*.
+- **Questions people ask:** eleven short answers in a native accordion, so it works without JavaScript.
+- **Everything is centred:** hero, the "Works with" logo row (each logo sized by eye so they carry the
   same weight), service cards, steps, and the footer.
 - **Readable:** Inter at 18px, strong contrast, buttons at least 48px tall. A small text-size control in
   the footer goes up to 22px and remembers the choice.
 - **A forgiving form:** name, a phone number *or* an email, and a message, with clear error messages.
   It posts to Formspree and works with JavaScript turned off.
-- **Old links still work:** `/#services`, `/#why`, `/#about` and `/#contact` jump to those sections;
-  `/#health` and `/#automation` open the matching app in rivaOS.
+- **Old links still work:** `/#services`, `/#why`, `/#how`, `/#about`, `/#health` and `/#contact` jump to
+  those sections; `/#automation` and `/#terminal` open the matching app in rivaOS.
 
 To change the wording, edit `public/index.html` directly. (rivaOS has its own copy in
-`public/os/content.js`, including the slogan; if a service or the bio changes, update both.)
+`public/os/content.js`, including the slogan; if a service or the bio changes, update both, and
+`public/llms.txt` too.)
+
+### How the copy is written
+
+- **Modest.** No "senior", "expert", "best" or "leading", no digs at other providers, and no promises
+  the business can't keep. Say what is done and let the reader judge.
+- **True today.** 10+ years of experience, no Microsoft certifications claimed, no testimonials until
+  there are real ones, no prices or response-time guarantees, and no location until the service area
+  is confirmed.
+- **Plain, and in US spelling.** Short sentences. Name the business and the person ("Riva Computech",
+  "Devik Patel") rather than "we", so a sentence still makes sense when it is quoted on its own.
+
+## Search engines and AI assistants
+
+The page is written to be found, and to be quoted accurately when someone asks an AI assistant about
+the business.
+
+- **Title, description and headings** describe the business in the words people search for
+  ("small business IT support", "Microsoft 365", the service names).
+- **Structured data** (the JSON-LD block in `<head>`) describes the business, Devik, the services and
+  the questions. ⚠️ The questions appear twice, once in the page and once in the JSON-LD, and the two
+  must match word for word. If you edit a question or an answer, edit both.
+- **`public/llms.txt`** is a plain-text summary of the business for AI tools. Keep it in step with
+  the page.
+- **`public/robots.txt`** lets everyone in, AI crawlers included, and **`public/sitemap.xml`** lists
+  both pages. Update `<lastmod>` there when the content changes.
+- **Sources.** The two outside facts on the page link to where they come from: Microsoft Research for
+  the MFA figure, and Microsoft's "shared responsibility" page for the backup answer.
+
+Once the site is live on `rivacomputech.com`:
+
+1. Add the site to [Google Search Console](https://search.google.com/search-console) and
+   [Bing Webmaster Tools](https://www.bing.com/webmasters), and submit
+   `https://rivacomputech.com/sitemap.xml` in both. (Bing also supplies Microsoft Copilot's answers.)
+2. In the Cloudflare dashboard, open **Security → Settings**, filter by **Bot traffic**, and open
+   **AI Crawler and Agent access policies**. Leave *Search* and *Agents* on **Allow (do not block)**,
+   which is the default for a new domain. If either is set to block, AI assistants can't read the site.
+   *Training* is a separate choice.
+3. When the service area is settled, add it to the page, to the JSON-LD and to `llms.txt`, and set up
+   a Google Business Profile. Local searches ("IT support near me") depend on that more than on
+   anything in this repo.
 
 ```
 public/                     ← everything the browser downloads (Workers Static Assets)
@@ -50,7 +101,8 @@ public/                     ← everything the browser downloads (Workers Static
     os.css                  ← Fluent design tokens + shell styles (apps carry their own CSS)
   404.html                  ← plain "page not found"
   og.png                    ← share image (source: tools/og.html)
-  brand/ · assets/logos/ · og.png · favicon.svg · robots.txt · sitemap.xml · _headers
+  llms.txt                  ← plain-text summary of the business for AI assistants
+  brand/ · assets/logos/ · favicon.svg · robots.txt · sitemap.xml · _headers
 tools/og.html               ← source for the share image
 print/business-card/        ← business card: print PDF, editable SVGs, preview (not deployed)
 src/worker.js               ← the Worker: /api/ping, /api/system, /api/version, /api/weather, /api/contact
@@ -63,7 +115,7 @@ wrangler.jsonc              ← Cloudflare config
 
 | App | What it does |
 | --- | --- |
-| **Welcome** | The pitch: headline, "Book a free 30-min chat", tiles into everything else. Opens at start-up. |
+| **Welcome** | The introduction: slogan, "Book a free 30-min chat", tiles into everything else. Opens at start-up. |
 | **Riva Services** | The six services (plus *Ask about this*), **Why Riva** (`Compare-Object`), **How it works**. |
 | **Health Check** | Eight toggles → score ring → "fix these first" → pre-filled message to Devik. Nothing is sent. |
 | **About Devik** | Profile, `Get-ADUser devik` card, bio. |
@@ -157,15 +209,23 @@ tagline, services, comparison, steps, health checks, profile and bio. The Welcom
 the terminal (`Get-Service`, `Get-ADUser devik`) all read from it. Email and phone live in `public/os/core.js`.
 
 Honesty rules for copy: **10+ years**, **no Microsoft certifications** (none are claimed), and
-**no testimonials** until there are real ones.
+**no testimonials** until there are real ones. See *How the copy is written* above for the rest.
 
 ## ⚠️ TODO (from Devik)
 
-1. **Service area.** Add `areaServed` to the JSON-LD in `public/index.html`.
-2. **Photo.** Swap the `DP` initials for a square photo, in the home page's About section
+1. **Service area.** The site doesn't say where Riva works. Once that's settled, say it on the page
+   (the hero and a question in *Questions people ask*), in the JSON-LD in `public/index.html`
+   (change `Organization` to `ProfessionalService` and add `areaServed` and/or `address`) and in
+   `public/llms.txt`.
+2. **Remote or on site.** The page doesn't say whether the work is done remotely, on site or both.
+   It's one of the first things people ask, so it deserves a line in *Questions people ask*.
+3. **Photo.** Swap the `DP` initials for a square photo, in the home page's About section
    (`public/index.html`) and in rivaOS's About app (`public/os/apps/about.js`).
-3. **Phone numbers.** The website shows (313) 405-7164; the business card shows (734) 765-9182.
+4. **Phone numbers.** The website shows (313) 405-7164; the business card shows (734) 765-9182.
    Confirm that's intended, or pick one.
+5. **Read the answers.** *Questions people ask* speaks for Devik. He should read it once, in
+   particular "Is Riva Computech the right fit for my business?", and change anything that isn't
+   how he'd put it.
 
 ## Brand
 

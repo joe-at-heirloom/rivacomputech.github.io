@@ -515,7 +515,7 @@ export function createShell({ host, cwd = fs.RIVA, onExit, onClear }) {
       c.emit(""); c.emit("rivaOS IP Configuration"); c.emit(""); c.emit("Ethernet adapter Cloudflare:"); c.emit("");
       c.emit("   Connection-specific DNS Suffix  . : " + location.hostname);
       c.emit("   Public IP Address . . . . . . . . : " + (s?.ip || "unknown (static preview)"));
-      c.emit("   Edge data centre. . . . . . . . . : " + (s?.colo || "—"));
+      c.emit("   Edge data center. . . . . . . . . : " + (s?.colo || "—"));
       c.emit("   Approximate location. . . . . . . : " + (s ? [s.city, s.country].filter(Boolean).join(", ") || "—" : "—"));
       c.emit("");
     },
@@ -561,7 +561,7 @@ export function createShell({ host, cwd = fs.RIVA, onExit, onClear }) {
       "set-mailbox": step((a, w) => `Mailbox for ${w} converted to ${a.type || "Shared"}`, 700),
       "add-mailboxpermission": step((a) => `Full access granted to ${String(a.user || "manager").split("@")[0]}`, 500),
       "get-mguserlicensedetail": async c => { await sleep(300); ["c42b9cae-ea4f-4ab7-9717-81576235ccac", "f30db892-07e9-47e9-837c-80727f46fd3d"].forEach(id => c.emit(id, { data: id })); },
-      "set-mguserlicense": step((a) => `Licences removed (${[].concat(a.removelicenses || []).flatMap(x => String(x).split(/[\s,]+/)).filter(Boolean).length || 0})`, 600),
+      "set-mguserlicense": step((a) => `Licenses removed (${[].concat(a.removelicenses || []).flatMap(x => String(x).split(/[\s,]+/)).filter(Boolean).length || 0})`, 600),
       "disconnect-mggraph": step("Disconnected from Microsoft Graph", 200)
     };
   }

@@ -81,7 +81,7 @@ export default function settingsApp(win, args) {
       <h3>Display</h3>
       ${select("theme", "Mode", "", "moon", [["auto", "Use my device setting"], ["light", "Light"], ["dark", "Dark"]])}
       ${range("brightness", "Brightness", "Dims rivaOS, not your screen", "sun", 30, 100, settings.get("brightness"), "%")}
-      ${toggle("nightlight", "Night light", "Warmer colours at night", "nightlight")}
+      ${toggle("nightlight", "Night light", "Warmer colors at night", "nightlight")}
       <h3>Sound & notifications</h3>
       ${range("volume", "Volume", "Notification chimes and clicks", "volume", 0, 100)}
       ${toggle("dnd", "Do not disturb", "Hide pop-up notifications", "bell-off")}
@@ -171,7 +171,7 @@ export default function settingsApp(win, args) {
     about: async () => {
       $("#st-copy", page).addEventListener("click", () => copyText(device().map(r => r.join(": ")).join("\n")).then(ok => ok && os.notify({ title: "Copied", body: "Device specifications are on your clipboard.", app: "settings", silent: true })));
       const s = await system(), box = $("#st-edge", page); if (!box) return;
-      box.innerHTML = s ? kv([["Cloudflare data centre", s.colo + (s.coloCity ? ` (${s.coloCity})` : "")], ["Your approximate location", [s.city, s.region, s.country].filter(Boolean).join(", ") || "—"], ["Network", s.asOrganization || "—"], ["Protocol", [s.httpProtocol, s.tlsVersion].filter(Boolean).join(" · ") || "—"], ["Ray ID", s.ray || "—"]])
+      box.innerHTML = s ? kv([["Cloudflare data center", s.colo + (s.coloCity ? ` (${s.coloCity})` : "")], ["Your approximate location", [s.city, s.region, s.country].filter(Boolean).join(", ") || "—"], ["Network", s.asOrganization || "—"], ["Protocol", [s.httpProtocol, s.tlsVersion].filter(Boolean).join(" · ") || "—"], ["Ray ID", s.ray || "—"]])
         : kv([["Status", "Unavailable right now"]]);
     },
     time: () => { const f = () => { const el = $("#st-now", page); if (el) el.textContent = new Date().toLocaleString([], { dateStyle: "full", timeStyle: "medium" }); }; f(); const t = setInterval(() => { if (!$("#st-now", page)) clearInterval(t); else f(); }, 1000); },

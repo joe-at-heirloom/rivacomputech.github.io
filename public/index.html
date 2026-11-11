@@ -11,15 +11,15 @@
   gtag('config', 'G-9PCY0YE3SE');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Riva Computech — IT support for small businesses</title>
-<meta name="description" content="You mind your business. We'll mind your computers. IT support for small businesses: email and Microsoft 365, backups, security, servers and networks, direct from the engineer who does the work." />
+<title>Small Business IT Support &amp; Microsoft 365 Help | Riva Computech</title>
+<meta name="description" content="IT support for small businesses, from one engineer who does the work himself. Microsoft 365, email, backups, security and networks. Free 30-minute first chat." />
 <meta name="theme-color" content="#ffffff" />
 <link rel="canonical" href="https://rivacomputech.com/" />
 
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Riva Computech" />
 <meta property="og:title" content="Riva Computech — You mind your business. We'll mind your computers." />
-<meta property="og:description" content="IT support for small businesses, direct from the engineer who does the work." />
+<meta property="og:description" content="IT support for small businesses: Microsoft 365, email, backups, security and networks, from the engineer who does the work." />
 <meta property="og:url" content="https://rivacomputech.com/" />
 <meta property="og:image" content="https://rivacomputech.com/og.png?v=4" />
 <meta property="og:image:width" content="1200" />
@@ -32,13 +32,17 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
 <!--
-  The home page: one simple, centred page in plain words. No framework, no build step, and it
+  The home page: one simple, centered page in plain words. No framework, no build step, and it
   works with JavaScript turned off. The interactive desktop (rivaOS) lives at /desktop/.
+
+  Copy rules: plain words, US spelling, modest claims, and nothing that isn't true today. 10+ years of
+  experience, no Microsoft certifications claimed, no testimonials until there are real ones, and no
+  location until Devik confirms the service area. A short summary for AI assistants lives in /llms.txt.
 -->
 <script>
 // Remember the visitor's text size, and keep old links to desktop-only sections working.
 (function(){try{var t=localStorage.getItem('riva-text');if(t)document.documentElement.setAttribute('data-text',t)}catch(e){}
-function go(){var h=location.hash.slice(1).toLowerCase();if(/^(health|automation|terminal|settings|files)$/.test(h))location.replace('/desktop/#'+h)}
+function go(){var h=location.hash.slice(1).toLowerCase();if(/^(automation|terminal|settings|files)$/.test(h))location.replace('/desktop/#'+h)}
 go();addEventListener('hashchange',go);})();
 </script>
 
@@ -46,23 +50,89 @@ go();addEventListener('hashchange',go);})();
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" />
 
+<!-- Structured data for search engines and AI assistants. The FAQ text here must match the
+     "Questions people ask" section word for word: if you change one, change the other.
+     TODO(Devik): once the service area is confirmed, change "Organization" to "ProfessionalService"
+     and add "address" and/or "areaServed" to it. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "Riva Computech",
-  "slogan": "You mind your business. We'll mind your computers.",
-  "description": "IT support for small businesses: Microsoft 365 and email, sign-ins and access, moving to new systems, backups, security, servers and networks.",
-  "email": "rivacomputech@gmail.com",
-  "telephone": "+1-313-405-7164",
-  "url": "https://rivacomputech.com/",
-  "image": "https://rivacomputech.com/og.png?v=4",
-  "logo": "https://rivacomputech.com/logo.svg",
-  "founder": { "@type": "Person", "name": "Devik Patel", "jobTitle": "Owner" },
-  "knowsAbout": ["Microsoft 365","Microsoft Azure","Exchange Online","SharePoint","Microsoft Intune","Microsoft Entra ID","Active Directory","Data migration","Backup and disaster recovery","PowerShell","Windows Server","VMware","Hyper-V","Citrix"]
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://rivacomputech.com/#website",
+      "url": "https://rivacomputech.com/",
+      "name": "Riva Computech",
+      "inLanguage": "en-US",
+      "publisher": { "@id": "https://rivacomputech.com/#business" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://rivacomputech.com/#business",
+      "name": "Riva Computech",
+      "url": "https://rivacomputech.com/",
+      "slogan": "You mind your business. We'll mind your computers.",
+      "description": "Riva Computech provides IT support for small businesses: Microsoft 365 and email, sign-ins and access, moving to new systems, backups, device and email security, servers and networks, and PowerShell automation. It is run by one engineer, Devik Patel.",
+      "email": "rivacomputech@gmail.com",
+      "telephone": "+1-313-405-7164",
+      "image": "https://rivacomputech.com/og.png?v=4",
+      "logo": "https://rivacomputech.com/logo.svg",
+      "founder": { "@id": "https://rivacomputech.com/#devik" },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "telephone": "+1-313-405-7164",
+        "email": "rivacomputech@gmail.com",
+        "availableLanguage": ["English", "Gujarati"]
+      },
+      "knowsAbout": ["Microsoft 365", "Microsoft Azure", "Exchange Online", "SharePoint", "OneDrive", "Microsoft Intune", "Microsoft Entra ID", "Active Directory", "Email migration", "Tenant-to-tenant migration", "Backup and disaster recovery", "Endpoint security", "PowerShell", "Windows Server", "VMware", "Hyper-V", "Citrix"],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "IT services for small businesses",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Microsoft 365 and email", "description": "Tenant setup and licensing, Exchange Online, SharePoint and OneDrive, ongoing admin and clean-up." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sign-ins and access", "description": "Microsoft Entra ID (Azure AD), Active Directory, hybrid identity, Group Policy, Azure tenant management." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Moving to a new system", "description": "Email and mailbox migration, tenant-to-tenant migration, file and data migration, planned cutovers." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Backups and recovery", "description": "Backup and recovery, business continuity and disaster recovery, restore testing, monitoring and maintenance." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Devices and security", "description": "Microsoft Intune device management, endpoint and email security, EDR and SIEM monitoring." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Servers and networks", "description": "On-premises servers and storage, VMware, Hyper-V and Citrix, firewalls, networks and VPNs, domains, DNS and NAS." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "PowerShell automation", "description": "Scripting repetitive admin, such as setting up a new hire or removing access when someone leaves." } }
+        ]
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://rivacomputech.com/#devik",
+      "name": "Devik Patel",
+      "jobTitle": "Owner and engineer",
+      "worksFor": { "@id": "https://rivacomputech.com/#business" },
+      "knowsLanguage": ["English", "Gujarati"],
+      "knowsAbout": ["Microsoft 365", "Microsoft Azure", "IT infrastructure"]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://rivacomputech.com/#faq",
+      "url": "https://rivacomputech.com/",
+      "inLanguage": "en-US",
+      "isPartOf": { "@id": "https://rivacomputech.com/#website" },
+      "about": { "@id": "https://rivacomputech.com/#business" },
+      "mainEntity": [
+        { "@type": "Question", "name": "What does Riva Computech do?", "acceptedAnswer": { "@type": "Answer", "text": "Riva Computech provides IT support for small businesses. That covers Microsoft 365 and email, sign-ins and access, moving to new systems, backups, device and email security, servers and networks, and PowerShell automation." } },
+        { "@type": "Question", "name": "Who will I deal with?", "acceptedAnswer": { "@type": "Answer", "text": "Devik Patel, the owner. He scopes the job, does the work and answers your messages. There is no help desk queue and no hand-off to someone else." } },
+        { "@type": "Question", "name": "What does it cost?", "acceptedAnswer": { "@type": "Answer", "text": "The first 30-minute chat is free. After that you get a plan that says what needs to be done, in what order, and what it will cost, before any work starts." } },
+        { "@type": "Question", "name": "When is Riva Computech available?", "acceptedAnswer": { "@type": "Answer", "text": "Weekdays, evenings, weekends and holidays. Messages usually get a reply within one business day." } },
+        { "@type": "Question", "name": "Do you take one-off jobs, or only ongoing support?", "acceptedAnswer": { "@type": "Answer", "text": "Both. A one-off job might be a migration, a new Microsoft 365 setup, a clean-up or a rebuild. Ongoing support means regular monitoring and maintenance, with a direct line when something breaks." } },
+        { "@type": "Question", "name": "Is Riva Computech the right fit for my business?", "acceptedAnswer": { "@type": "Answer", "text": "It suits small businesses that want one person who knows their setup and answers their messages. If you need a staffed help desk around the clock, a larger provider will suit you better." } },
+        { "@type": "Question", "name": "Which technologies do you work with?", "acceptedAnswer": { "@type": "Answer", "text": "Mostly Microsoft: Microsoft 365, Exchange Online, SharePoint, OneDrive, Intune, Entra ID, Active Directory, Azure and Windows Server. Also VMware, Hyper-V and Citrix, plus firewalls, VPNs, DNS and NAS storage." } },
+        { "@type": "Question", "name": "Is Riva Computech part of Microsoft?", "acceptedAnswer": { "@type": "Answer", "text": "No. Riva Computech is an independent business. It is not affiliated with or endorsed by Microsoft, VMware or Citrix." } },
+        { "@type": "Question", "name": "Does Microsoft back up my Microsoft 365 data?", "acceptedAnswer": { "@type": "Answer", "text": "Only up to a point. Microsoft keeps the service running and holds deleted items for a limited time. Getting older data back, or recovering after a ransomware attack, is largely up to you. A separate backup of mail, OneDrive and SharePoint covers that gap." } },
+        { "@type": "Question", "name": "What is MFA, and do I need it?", "acceptedAnswer": { "@type": "Answer", "text": "MFA (multi-factor authentication) means signing in with a second step, such as a code on your phone, as well as your password. A 2023 Microsoft study found that it reduced the risk of an account being compromised by more than 99%. It is worth turning on for every account, including admins." } },
+        { "@type": "Question", "name": "What is a Microsoft 365 tenant?", "acceptedAnswer": { "@type": "Answer", "text": "A tenant is your organization's own Microsoft 365 account: its users, email, files and settings. A tenant-to-tenant migration moves all of that from one tenant to another, for example after a merger." } }
+      ]
+    }
+  ]
 }
 </script>
-<!-- TODO(Devik): once known, add "areaServed" to the JSON-LD above. -->
 
 <style>
 /* Sizes are in rem, so the text-size buttons in the footer scale the whole page. */
@@ -80,7 +150,7 @@ h2{font-size:clamp(1.6rem,3.4vw,2.15rem)}
 h3{font-size:1.1rem;font-weight:700;letter-spacing:-.01em}
 p{margin:0 0 1rem}
 .wrap{max-width:66rem;margin:0 auto;padding:0 1.25rem}
-.lead{font-size:1.1rem;color:#4a5868;max-width:38rem;margin-left:auto;margin-right:auto;text-wrap:pretty}
+.lead{font-size:1.1rem;color:#4a5868;max-width:38rem;margin-left:auto;margin-right:auto;text-wrap:balance}
 .head{text-align:center;margin-bottom:2.4rem}
 .head .lead{margin-top:.7rem;margin-bottom:0}
 .skip{position:absolute;left:-999rem;top:0;background:#0b1b30;color:#fff;padding:.7rem 1.1rem;z-index:10;font-weight:600;border-radius:0 0 .5rem 0}
@@ -99,18 +169,19 @@ p{margin:0 0 1rem}
 .top{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.1rem 0}
 .logo{display:inline-flex}
 .logo img{display:block;height:3.2rem;width:auto}
-.nav{display:flex;align-items:center;gap:1.8rem}
+.nav{display:flex;align-items:center;gap:1.7rem}
+.nav a{white-space:nowrap}
 .nav a:not(.btn){color:#26323f;font-weight:500;text-decoration:none;padding:.4rem 0}
 .nav a:not(.btn):hover{color:#0067c0}
 
-/* hero */
+/* hero: the h1 says what this is (small, for search engines and screen readers); the slogan is the big line */
 .hero{position:relative;overflow:hidden;text-align:center;background:linear-gradient(180deg,#fff 0%,#eef5fc 100%);padding:3.2rem 0 13rem}
 .hero .wrap{position:relative;z-index:1}
-.kicker{display:inline-block;font-size:.85rem;font-weight:600;color:#005bab;background:#e3effb;padding:.3rem .95rem;border-radius:99rem;margin-bottom:1.3rem}
-.hero h1{font-size:clamp(2.1rem,5.8vw,3.7rem);letter-spacing:-.035em;line-height:1.08;margin-bottom:1.3rem}
-.hero h1 span{display:block}
-.hero h1 .hl{color:#0067c0}
-.hero .lead{margin-bottom:1.9rem}
+.hero h1{display:inline-block;font-size:.85rem;font-weight:600;letter-spacing:0;line-height:1.6;color:#005bab;background:#e3effb;padding:.3rem .95rem;border-radius:99rem;margin-bottom:1.3rem}
+.slogan{font-size:clamp(2.1rem,5.8vw,3.7rem);font-weight:800;letter-spacing:-.035em;line-height:1.08;color:#0b1b30;margin:0 0 1.3rem;text-wrap:balance}
+.slogan span{display:block}
+.slogan .hl{color:#0067c0}
+.hero .lead{margin-bottom:1.9rem;max-width:40rem}
 .actions{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center}
 .promise{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:.45rem 1.7rem;margin:1.7rem 0 0;padding:0;font-size:.95rem;font-weight:500;color:#33404f}
 .promise li{display:flex;align-items:center;gap:.45rem}
@@ -132,12 +203,20 @@ p{margin:0 0 1rem}
 section{padding:4.6rem 0;scroll-margin-top:1rem}
 .band{background:#f6f9fc}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin:0;padding:0;list-style:none}
-.card{text-align:center;border:.06rem solid #dfe6ee;border-radius:1.1rem;padding:1.9rem 1.4rem;background:#fff;box-shadow:0 .06rem .15rem rgba(11,27,48,.05)}
+.card{display:flex;flex-direction:column;text-align:center;border:.06rem solid #dfe6ee;border-radius:1.1rem;padding:1.9rem 1.4rem 1.5rem;background:#fff;box-shadow:0 .06rem .15rem rgba(11,27,48,.05)}
 .badge{width:3.2rem;height:3.2rem;border-radius:.9rem;background:#e3effb;color:#0067c0;display:grid;place-items:center;margin:0 auto 1rem;flex:none}
 .badge .ico{width:1.6rem;height:1.6rem}
 .card h3{margin-bottom:.45rem}
 .card p{margin:0;color:#4a5868;font-size:.97rem}
-.also{text-align:center;max-width:42rem;margin:1.8rem auto 0;color:#4a5868}
+.card .inc{margin-top:auto;padding-top:1.1rem;font-size:.84rem;line-height:1.55;color:#56657a}
+.card .inc::before{content:"";display:block;width:2rem;height:.06rem;background:#cfd9e4;margin:0 auto .9rem}
+.card .inc b{color:#33404f;font-weight:600}
+.also{text-align:center;max-width:44rem;margin:1.8rem auto 0;color:#4a5868;text-wrap:balance}
+
+.reasons{list-style:none;margin:0 auto;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;max-width:56rem}
+.reasons li{display:flex;gap:.8rem;align-items:flex-start;background:#fff;border:.06rem solid #dfe6ee;border-radius:.9rem;padding:1rem 1.15rem}
+.reasons .ico{color:#0067c0;margin-top:.15rem}
+.after{text-align:center;margin:1.8rem 0 0}
 
 .why{list-style:none;margin:0 auto;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem 2.6rem;max-width:54rem}
 .why li{display:flex;gap:.85rem;align-items:flex-start}
@@ -152,11 +231,39 @@ section{padding:4.6rem 0;scroll-margin-top:1rem}
 .steps b{display:block;color:#0b1b30;margin-bottom:.25rem}
 .steps .t{color:#4a5868;font-size:.97rem}
 
-.about{max-width:46rem;margin:0 auto;display:flex;gap:2rem;align-items:center;border:.06rem solid #dfe6ee;border-radius:1.3rem;padding:2rem 2.2rem;background:#fff;box-shadow:0 .06rem .15rem rgba(11,27,48,.05)}
+/* health check */
+.check{list-style:none;margin:0 auto;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;max-width:56rem}
+.check label{display:flex;gap:.9rem;align-items:flex-start;height:100%;padding:1rem 1.15rem;border:.06rem solid #dfe6ee;border-radius:.9rem;background:#fff;cursor:pointer}
+.check input{flex:none;width:1.4rem;height:1.4rem;margin:.12rem 0 0;accent-color:#0067c0;cursor:pointer}
+.check b{display:block;color:#0b1b30;font-weight:700}
+.check .t{color:#4a5868;font-size:.93rem}
+.check label:has(input:checked){border-color:#7fb3e6;background:#f1f7fd}
+.score{text-align:center;margin:1.8rem auto 0;max-width:38rem}
+.score b{display:block;font-size:1.35rem;font-weight:800;letter-spacing:-.02em;color:#0b1b30}
+.score span{display:block;color:#4a5868;text-wrap:balance}
+.score .btn{margin-top:1.1rem}
+.note{font-size:.85rem;color:#56657a;text-align:center;margin:1.1rem auto 0;max-width:38rem;text-wrap:balance}
+
+.about{max-width:48rem;margin:0 auto;display:flex;gap:2rem;align-items:flex-start;border:.06rem solid #dfe6ee;border-radius:1.3rem;padding:2rem 2.2rem;background:#fff;box-shadow:0 .06rem .15rem rgba(11,27,48,.05)}
 .avatar{width:7rem;height:7rem;border-radius:50%;background:linear-gradient(140deg,#2b8be6,#0057b0);color:#fff;display:grid;place-items:center;font-size:2.2rem;font-weight:800;letter-spacing:-.02em;flex:none}
 .about p{color:#33404f}
 .about .first{font-size:1.1rem;color:#0b1b30;font-weight:600}
-.about .name{margin:0;color:#56657a;font-size:.95rem}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:.4rem 1.3rem;margin:1.3rem 0 0;padding-top:1.2rem;border-top:.06rem solid #e6ecf2;font-size:.95rem;text-align:left}
+.facts dt{color:#56657a}
+.facts dd{margin:0;color:#0b1b30;font-weight:600}
+.nw{white-space:nowrap}
+
+/* questions: a plain accordion (native <details>, so it works without JavaScript) */
+.faq{display:grid;gap:.7rem;max-width:46rem;margin:0 auto}
+.faq details{border:.06rem solid #dfe6ee;border-radius:.9rem;background:#fff}
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.2rem;cursor:pointer;list-style:none;border-radius:.9rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:hover h3{color:#0067c0}
+.faq summary h3{font-size:1.05rem;line-height:1.35;text-wrap:pretty}
+.faq summary::after{content:"";flex:none;width:.55rem;height:.55rem;margin:-.25rem .3rem 0 0;border-right:.14rem solid #0067c0;border-bottom:.14rem solid #0067c0;transform:rotate(45deg);transition:transform .15s}
+.faq details[open] summary::after{transform:rotate(-135deg);margin-top:.25rem}
+.faq details p{margin:0;padding:0 1.2rem 1.1rem;color:#4a5868}
+.faq details .src{font-size:.85rem;color:#56657a;margin-top:-.55rem}
 
 /* contact */
 .contact{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:1.4rem;max-width:58rem;margin:0 auto;align-items:start}
@@ -169,10 +276,10 @@ section{padding:4.6rem 0;scroll-margin-top:1rem}
 form{border:.06rem solid #dfe6ee;border-radius:1.1rem;padding:1.7rem;background:#fff;box-shadow:0 .06rem .15rem rgba(11,27,48,.05)}
 form h3{font-size:1.25rem;margin-bottom:.3rem}
 .hint{color:#56657a;font-size:.93rem;margin:0}
-label{display:block;font-weight:600;font-size:.93rem;color:#0b1b30;margin:1rem 0 .35rem}
-input,textarea{display:block;width:100%;font:inherit;color:#0b1b30;background:#fff;border:.07rem solid #8494a6;border-radius:.6rem;padding:.65rem .85rem;min-height:3rem}
-textarea{min-height:8rem;resize:vertical}
-input:focus,textarea:focus{outline:.17rem solid #0067c0;outline-offset:.06rem;border-color:#0067c0}
+form label{display:block;font-weight:600;font-size:.93rem;color:#0b1b30;margin:1rem 0 .35rem}
+form input,form textarea{display:block;width:100%;font:inherit;color:#0b1b30;background:#fff;border:.07rem solid #8494a6;border-radius:.6rem;padding:.65rem .85rem;min-height:3rem}
+form textarea{min-height:8rem;resize:vertical}
+form input:focus,form textarea:focus{outline:.17rem solid #0067c0;outline-offset:.06rem;border-color:#0067c0}
 .hp{position:absolute;left:-999rem}
 form .btn{margin-top:1.3rem;width:100%}
 .status{margin:1rem 0 0;font-weight:600;font-size:.95rem}
@@ -196,12 +303,13 @@ footer .small{color:#9fb0c6;font-size:.84rem}
 @media (max-width:58rem){
   .cards{grid-template-columns:repeat(2,1fr)}
   .steps{grid-template-columns:repeat(2,1fr);max-width:36rem}
+  .nav{gap:1.2rem}
 }
 @media (max-width:50rem){
   .contact{grid-template-columns:1fr;max-width:34rem}
-  .why{grid-template-columns:1fr;max-width:30rem}
+  .why,.reasons,.check{grid-template-columns:1fr;max-width:34rem}
 }
-@media (max-width:42rem){
+@media (max-width:46rem){
   .top{justify-content:center;padding:.9rem 0}
   .nav{display:none}
   .logo img{height:2.9rem}
@@ -211,11 +319,16 @@ footer .small{color:#9fb0c6;font-size:.84rem}
   .cards{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr;max-width:22rem}
   .actions .btn{width:100%}
-  .about{flex-direction:column;text-align:center;padding:1.7rem 1.3rem;gap:1.2rem}
+  .about{flex-direction:column;align-items:center;text-align:center;padding:1.7rem 1.3rem;gap:1.2rem}
   .works ul{gap:1rem 2rem}
 }
+/* The text-size buttons make the menu wider, but media queries can't see that, so at the two larger
+   sizes the menu folds away a little earlier. */
+@media (max-width:51rem){html[data-text="l"] .top{justify-content:center}html[data-text="l"] .nav{display:none}}
+@media (max-width:60rem){html[data-text="xl"] .nav{gap:1.2rem}}
+@media (max-width:57rem){html[data-text="xl"] .top{justify-content:center}html[data-text="xl"] .nav{display:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-@media print{.nav,.textsize,form,.bloom{display:none}}
+@media print{.nav,.textsize,form,.bloom,.score .btn{display:none}}
 </style>
 </head>
 <body>
@@ -226,8 +339,9 @@ footer .small{color:#9fb0c6;font-size:.84rem}
     <a class="logo" href="/" aria-label="Riva Computech, home"><img src="/brand/riva-computech-logo.svg" alt="Riva Computech" width="117" height="80" /></a>
     <nav class="nav" aria-label="On this page">
       <a href="#services">Services</a>
-      <a href="#why">Why Riva</a>
+      <a href="#health">Health check</a>
       <a href="#about">About</a>
+      <a href="#faq">Questions</a>
       <a class="btn" href="#contact">Get in touch</a>
     </nav>
   </header>
@@ -237,9 +351,9 @@ footer .small{color:#9fb0c6;font-size:.84rem}
 
 <div class="hero">
   <div class="wrap">
-    <p class="kicker">IT support for small businesses</p>
-    <h1><span>You mind your business.</span> <span class="hl">We'll mind your computers.</span></h1>
-    <p class="lead">Riva Computech looks after your email, files and computers, so you can get on with your work. You deal directly with Devik, the engineer who does the job.</p>
+    <h1>IT support for small businesses</h1>
+    <p class="slogan"><span>You mind your business.</span> <span class="hl">We'll mind your computers.</span></p>
+    <p class="lead">Riva Computech is run by one engineer, Devik Patel. He sets up and looks after Microsoft 365, email, backups, security and networks for small businesses, and you deal with him directly.</p>
     <div class="actions">
       <a class="btn lg" href="#contact">Book a free chat</a>
       <a class="btn lg alt" href="tel:+13134057164" data-track="call_hero"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.3a10 10 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z"/></svg>(313) 405-7164</a>
@@ -247,10 +361,10 @@ footer .small{color:#9fb0c6;font-size:.84rem}
     <ul class="promise">
       <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Free 30-minute first chat</li>
       <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Evenings and weekends too</li>
-      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>10+ years of experience</li>
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>10+ years of hands-on experience</li>
     </ul>
   </div>
-  <!-- the riva "bloom": a fan of petals rising from the bottom centre (decorative) -->
+  <!-- the riva "bloom": a fan of petals rising from the bottom center (decorative) -->
   <svg class="bloom" viewBox="-640 -560 1280 560" aria-hidden="true" focusable="false">
     <defs><path id="petal" d="M0 0C64-118 196-292 158-498C92-470 18-398-22-300C-58-206-42-84 0 0Z"/></defs>
     <g fill="#bcd8f5" opacity=".55">
@@ -266,7 +380,7 @@ footer .small{color:#9fb0c6;font-size:.84rem}
 
 <div class="works">
   <div class="wrap">
-    <p>We work with</p>
+    <p>Works with</p>
     <ul>
       <li><img class="ms" src="/assets/logos/microsoft.svg" alt="Microsoft" width="512" height="110" /></li>
       <li><span class="mark"><img src="/assets/logos/azure.svg" alt="" width="256" height="242" />Azure</span></li>
@@ -280,73 +394,152 @@ footer .small{color:#9fb0c6;font-size:.84rem}
 <section id="services" aria-labelledby="h-services">
   <div class="wrap">
     <div class="head">
-      <h2 id="h-services">What we can help with</h2>
-      <p class="lead">Everyday IT for small businesses, as a one-off project or ongoing support.</p>
+      <h2 id="h-services">IT services for small businesses</h2>
+      <p class="lead">The day-to-day work that keeps your email, files and computers running. Bring a single job, or ask for ongoing support.</p>
     </div>
     <ul class="cards">
       <li class="card" id="svc-m365"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M4 7.5l8 5.5 8-5.5"/></svg></div>
-        <h3>Email and Microsoft 365</h3><p>Work email, Teams, Word, Excel and shared files, set up properly and kept tidy and secure.</p></li>
+        <h3>Microsoft 365 and email</h3><p>Work email, Teams, Word, Excel and shared files, set up properly and kept in order.</p>
+        <p class="inc"><b>Includes:</b> tenant setup and licensing, Exchange Online, SharePoint and OneDrive, ongoing admin and clean-up.</p></li>
       <li class="card" id="svc-azure"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg></div>
-        <h3>Sign-ins and access</h3><p>One secure sign-in per person, with the right access. Handled quickly when someone joins, leaves or gets locked out.</p></li>
+        <h3>Sign-ins and access</h3><p>One sign-in per person, with access to the right things, in the cloud and in the office.</p>
+        <p class="inc"><b>Includes:</b> Microsoft Entra ID (Azure AD), Active Directory, hybrid identity, Group Policy, Azure tenant management.</p></li>
       <li class="card" id="svc-migrate"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/></svg></div>
-        <h3>Moving to a new system</h3><p>Changing email provider or moving your files? Planned carefully, so nothing is lost and work carries on.</p></li>
+        <h3>Moving to a new system</h3><p>Changing email provider, combining two Microsoft 365 accounts or moving files, planned step by step to keep disruption small.</p>
+        <p class="inc"><b>Includes:</b> email and mailbox migration, tenant-to-tenant migration, file and data migration, planned cutovers.</p></li>
       <li class="card" id="svc-backup"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="2.7"/><path d="M5 6v6c0 1.5 3.1 2.7 7 2.7s7-1.2 7-2.7V6M5 12v6c0 1.5 3.1 2.7 7 2.7s7-1.2 7-2.7v-6"/></svg></div>
-        <h3>Backups</h3><p>Safe copies of your email and files, tested so we know they can be restored on a bad day.</p></li>
+        <h3>Backups and recovery</h3><p>Copies of your email and files kept somewhere separate, and tested, so you know they can be restored.</p>
+        <p class="inc"><b>Includes:</b> backup and recovery, business continuity and disaster recovery, restore testing, monitoring and maintenance.</p></li>
       <li class="card" id="svc-security"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l7 2.6v5.4c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V6.1z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg></div>
-        <h3>Security</h3><p>Computers, phones and email protected from scams and viruses, with a watchful eye on anything suspicious.</p></li>
+        <h3>Devices and security</h3><p>Laptops and phones managed from one place, email filtered for scams, and unusual activity watched for.</p>
+        <p class="inc"><b>Includes:</b> Microsoft Intune device management, endpoint and email security, EDR and SIEM monitoring.</p></li>
       <li class="card" id="svc-infra"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="6.5" rx="2"/><rect x="4" y="13.5" width="16" height="6.5" rx="2"/><path d="M7.5 7.25h1M7.5 16.75h1M12 7.25h4.5M12 16.75h4.5"/></svg></div>
-        <h3>Servers and networks</h3><p>Office servers, networks and secure remote access, set up properly and kept running.</p></li>
+        <h3>Servers and networks</h3><p>The servers, storage and network equipment in your office, set up and kept running.</p>
+        <p class="inc"><b>Includes:</b> on-premises servers and storage, VMware, Hyper-V and Citrix, firewalls, networks and VPNs, domains, DNS and NAS.</p></li>
     </ul>
-    <p class="also"><b>And we save you time.</b> Repetitive computer jobs can be automated, so they're done the same way every time.</p>
+    <p class="also"><b>Automation, too.</b> Repetitive admin, such as setting up a new hire or removing access when someone leaves, can be scripted in PowerShell so it's done the same way every time.</p>
   </div>
 </section>
 
-<section id="why" class="band" aria-labelledby="h-why">
+<section id="help" class="band" aria-labelledby="h-help">
   <div class="wrap">
-    <div class="head"><h2 id="h-why">Why Riva Computech</h2></div>
+    <div class="head">
+      <h2 id="h-help">Common reasons people get in touch</h2>
+      <p class="lead">If one of these sounds familiar, it's a good place to start.</p>
+    </div>
+    <ul class="reasons">
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Someone is joining or leaving, and their accounts need to be set up or shut off.</span></li>
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>You're moving email or files to Microsoft 365, or from one account to another.</span></li>
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Nobody is sure whether the backups work, or whether there are any.</span></li>
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>A laptop was lost or stolen, and it had company data on it.</span></li>
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>A suspicious email got through, or an account was broken into.</span></li>
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>The office server or network keeps going down, and nobody knows why.</span></li>
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>The same manual admin jobs take up hours every month.</span></li>
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>The person who set everything up has left, and nothing is written down.</span></li>
+    </ul>
+    <p class="after"><a class="btn" href="#contact">Tell Devik what's going on</a></p>
+  </div>
+</section>
+
+<section id="why" aria-labelledby="h-why">
+  <div class="wrap">
+    <div class="head"><h2 id="h-why">What to expect</h2></div>
     <ul class="why">
-      <li><span class="tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span><b>You deal with a real person</b><span class="t">Message or call Devik directly. He's the one who fixes it.</span></span></li>
-      <li><span class="tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span><b>The same engineer every time</b><span class="t">Devik already knows your setup, so you never explain it twice.</span></span></li>
-      <li><span class="tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span><b>Here when you need us</b><span class="t">Evenings, weekends and holidays too.</span></span></li>
-      <li><span class="tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span><b>10+ years of experience</b><span class="t">Hands-on work with Microsoft systems, servers and networks.</span></span></li>
-      <li><span class="tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span><b>Honest advice</b><span class="t">Straight answers, including “you don't need that.”</span></span></li>
-      <li><span class="tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span><b>Fixed properly</b><span class="t">Problems are solved and documented, not patched until next month.</span></span></li>
+      <li><span class="tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span><b>One person, start to finish</b><span class="t">Devik scopes the job, does the work and answers your messages.</span></span></li>
+      <li><span class="tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span><b>Someone who knows your setup</b><span class="t">The same engineer every time, so you don't have to explain things twice.</span></span></li>
+      <li><span class="tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span><b>Flexible hours</b><span class="t">Weekdays, evenings, weekends and holidays.</span></span></li>
+      <li><span class="tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span><b>10+ years of hands-on work</b><span class="t">Help desk, Windows Server, virtualization and, these days, a lot of Microsoft 365 and Azure.</span></span></li>
+      <li><span class="tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span><b>Straight answers</b><span class="t">Including “you don't need that.”</span></span></li>
+      <li><span class="tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span><b>Things written down</b><span class="t">What was changed and why, so anyone can pick it up later.</span></span></li>
     </ul>
   </div>
 </section>
 
-<section id="how" aria-labelledby="h-how">
+<section id="how" class="band" aria-labelledby="h-how">
   <div class="wrap">
     <div class="head"><h2 id="h-how">How it works</h2></div>
     <ol class="steps">
-      <li><b>Get in touch</b><span class="t">A couple of lines about what you need is plenty.</span></li>
-      <li><b>Free 30-minute chat</b><span class="t">We talk through your setup and what's bugging you.</span></li>
-      <li><b>A clear plan and price</b><span class="t">What needs doing, and what it costs, before any work starts.</span></li>
-      <li><b>The work gets done</b><span class="t">By Devik, the same person you spoke to.</span></li>
+      <li><b>Send a message</b><span class="t">A couple of lines about what you need is plenty.</span></li>
+      <li><b>Free 30-minute chat</b><span class="t">Talk through your setup and what's bugging you.</span></li>
+      <li><b>A clear plan</b><span class="t">What needs to be done, in what order, and what it will cost.</span></li>
+      <li><b>The work gets done</b><span class="t">By Devik, the person you spoke to.</span></li>
     </ol>
+  </div>
+</section>
+
+<section id="health" aria-labelledby="h-health">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="h-health">A quick IT health check</h2>
+      <p class="lead">Eight things worth having in place. Check the boxes that are true for your business today.</p>
+    </div>
+    <ul class="check">
+      <li><label><input type="checkbox" data-short="Two-step sign-in (MFA) isn't on for every account" data-fix="turn on two-step sign-in (MFA) for every account, admins first." /><span><b>Two-step sign-in (MFA) is on for every account</b><span class="t">Including admins and any shared logins. It stops most account break-ins.</span></span></label></li>
+      <li><label><input type="checkbox" data-short="No separate backup of Microsoft 365" data-fix="add a separate backup for your Microsoft 365 mail, OneDrive and SharePoint." /><span><b>Microsoft 365 is backed up separately</b><span class="t">Mail, OneDrive and SharePoint, not just the recycle bin.</span></span></label></li>
+      <li><label><input type="checkbox" data-short="Restores haven't been tested lately" data-fix="restore one file and one mailbox from your backup, to prove it works." /><span><b>A restore has been tested recently</b><span class="t">In the last six months, and it worked.</span></span></label></li>
+      <li><label><input type="checkbox" data-short="Admin accounts aren't separate" data-fix="give admins a separate admin account, and keep the number of admins small." /><span><b>Admin accounts are separate, and few</b><span class="t">Day-to-day logins don't have admin rights.</span></span></label></li>
+      <li><label><input type="checkbox" data-short="Devices aren't managed or encrypted" data-fix="enroll company laptops and phones in a device manager such as Intune, and turn on encryption." /><span><b>Company devices are managed and encrypted</b><span class="t">So a lost laptop is only a lost laptop.</span></span></label></li>
+      <li><label><input type="checkbox" data-short="Email is missing SPF, DKIM or DMARC" data-fix="publish SPF, DKIM and DMARC records for your email domain." /><span><b>Email has SPF, DKIM and DMARC</b><span class="t">Three settings that make it hard for others to send email as you.</span></span></label></li>
+      <li><label><input type="checkbox" data-short="Access doesn't end the day someone leaves" data-fix="write a short checklist for when someone leaves, so nothing is missed." /><span><b>Access ends the day someone leaves</b><span class="t">Accounts, devices and shared passwords.</span></span></label></li>
+      <li><label><input type="checkbox" data-short="The setup isn't written down" data-fix="write down the essentials: admin accounts, licenses, DNS, vendors and renewal dates." /><span><b>It's all written down</b><span class="t">If your IT person vanished tomorrow, someone else could pick it up.</span></span></label></li>
+    </ul>
+    <div class="score" id="score" hidden aria-live="polite">
+      <b id="score-n">0 of 8 in place</b>
+      <span id="score-tip">Check the boxes that are true today.</span>
+      <button class="btn alt" type="button" id="score-ask">Ask Devik about my result</button>
+    </div>
+    <p class="note">A quick self-check, not a full audit. Nothing you check is sent anywhere unless you choose to send it.</p>
   </div>
 </section>
 
 <section id="about" class="band" aria-labelledby="h-about">
   <div class="wrap">
-    <div class="head"><h2 id="h-about">About Devik</h2></div>
+    <div class="head"><h2 id="h-about">About Devik Patel</h2></div>
     <div class="about">
       <!-- TODO(Devik): swap the initials for a real photo: <img class="avatar" src="/devik.jpg" alt="Devik Patel" width="126" height="126"> -->
       <div class="avatar" aria-hidden="true">DP</div>
       <div>
-        <p class="first">Hi, I'm Devik Patel. I own Riva Computech, and I'm the person you'll actually work with.</p>
-        <p>I've spent more than ten years looking after IT for businesses. I keep a small client list on purpose, so I know each setup well and you can always reach me.</p>
-        <p class="name">Devik Patel · Owner, Riva Computech</p>
+        <p class="first">Hi, I'm Devik. I own Riva Computech and do the work myself, so I'm the person you'll deal with.</p>
+        <p>I've spent more than ten years in hands-on IT: help desk, Windows Server, virtualization and, these days, a lot of Microsoft 365 and Azure. I keep my client list small on purpose, so I know each setup well.</p>
+        <p style="margin:0">If a job has to be done twice, I'll probably write a script for it.</p>
+        <dl class="facts">
+          <dt>Role</dt><dd>Owner and engineer</dd>
+          <dt>Experience</dt><dd>10+ years of <span class="nw">hands-on IT</span></dd>
+          <dt>Education</dt><dd>BSc in Information Technology</dd>
+          <dt>Focus</dt><dd>Microsoft 365, Azure and infrastructure</dd>
+          <dt>Languages</dt><dd>English and Gujarati</dd>
+        </dl>
       </div>
     </div>
   </div>
 </section>
 
-<section id="contact" aria-labelledby="h-contact">
+<section id="faq" aria-labelledby="h-faq">
+  <div class="wrap">
+    <div class="head"><h2 id="h-faq">Questions people ask</h2></div>
+    <!-- If you change a question or answer here, change it in the JSON-LD block in <head> too. -->
+    <div class="faq">
+      <details open><summary><h3>What does Riva Computech do?</h3></summary><p>Riva Computech provides IT support for small businesses. That covers Microsoft 365 and email, sign-ins and access, moving to new systems, backups, device and email security, servers and networks, and PowerShell automation.</p></details>
+      <details><summary><h3>Who will I deal with?</h3></summary><p>Devik Patel, the owner. He scopes the job, does the work and answers your messages. There is no help desk queue and no hand-off to someone else.</p></details>
+      <details><summary><h3>What does it cost?</h3></summary><p>The first 30-minute chat is free. After that you get a plan that says what needs to be done, in what order, and what it will cost, before any work starts.</p></details>
+      <details><summary><h3>When is Riva Computech available?</h3></summary><p>Weekdays, evenings, weekends and holidays. Messages usually get a reply within one business day.</p></details>
+      <details><summary><h3>Do you take one-off jobs, or only ongoing support?</h3></summary><p>Both. A one-off job might be a migration, a new Microsoft 365 setup, a clean-up or a rebuild. Ongoing support means regular monitoring and maintenance, with a direct line when something breaks.</p></details>
+      <details><summary><h3>Is Riva Computech the right fit for my business?</h3></summary><p>It suits small businesses that want one person who knows their setup and answers their messages. If you need a staffed help desk around the clock, a larger provider will suit you better.</p></details>
+      <details><summary><h3>Which technologies do you work with?</h3></summary><p>Mostly Microsoft: Microsoft 365, Exchange Online, SharePoint, OneDrive, Intune, Entra ID, Active Directory, Azure and Windows Server. Also VMware, Hyper-V and Citrix, plus firewalls, VPNs, DNS and NAS storage.</p></details>
+      <details><summary><h3>Is Riva Computech part of Microsoft?</h3></summary><p>No. Riva Computech is an independent business. It is not affiliated with or endorsed by Microsoft, VMware or Citrix.</p></details>
+      <details><summary><h3>Does Microsoft back up my Microsoft 365 data?</h3></summary><p>Only up to a point. Microsoft keeps the service running and holds deleted items for a limited time. Getting older data back, or recovering after a ransomware attack, is largely up to you. A separate backup of mail, OneDrive and SharePoint covers that gap.</p><p class="src">Microsoft calls this split <a href="https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility">shared responsibility</a>.</p></details>
+      <details><summary><h3>What is MFA, and do I need it?</h3></summary><p>MFA (multi-factor authentication) means signing in with a second step, such as a code on your phone, as well as your password. A 2023 Microsoft study found that it reduced the risk of an account being compromised by more than 99%. It is worth turning on for every account, including admins.</p><p class="src">Source: <a href="https://www.microsoft.com/en-us/research/publication/how-effective-is-multifactor-authentication-at-deterring-cyberattacks/">Microsoft Research, May 2023</a>.</p></details>
+      <details><summary><h3>What is a Microsoft 365 tenant?</h3></summary><p>A tenant is your organization's own Microsoft 365 account: its users, email, files and settings. A tenant-to-tenant migration moves all of that from one tenant to another, for example after a merger.</p></details>
+    </div>
+    <p class="after">Something else? <a href="#contact">Ask Devik</a>.</p>
+  </div>
+</section>
+
+<section id="contact" class="band" aria-labelledby="h-contact">
   <div class="wrap">
     <div class="head">
       <h2 id="h-contact">Get in touch</h2>
-      <p class="lead">Send a message, call or email. Devik replies personally, usually within one business day.</p>
+      <p class="lead">Send a message, call or email. Devik replies himself, usually within one business day.</p>
     </div>
     <div class="contact">
       <ul class="ways">
@@ -370,14 +563,14 @@ footer .small{color:#9fb0c6;font-size:.84rem}
           <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" />
           <label for="f-email">Email</label>
           <input id="f-email" name="email" type="email" autocomplete="email" />
-          <label for="f-msg">How can we help?</label>
+          <label for="f-msg">What do you need help with?</label>
           <textarea id="f-msg" name="message" rows="4" required></textarea>
           <button class="btn lg" type="submit">Send message</button>
           <p class="status" id="status" role="alert"></p>
         </form>
         <div class="thanks" id="thanks" hidden tabindex="-1">
           <h3>Thanks. Your message has been sent.</h3>
-          <p style="margin:0">Devik will get back to you soon, usually within one business day. If it's urgent, call <a href="tel:+13134057164">(313) 405-7164</a>.</p>
+          <p style="margin:0">Devik will reply soon, usually within one business day. If it's urgent, call <a href="tel:+13134057164">(313) 405-7164</a>.</p>
         </div>
       </div>
     </div>
@@ -391,6 +584,7 @@ footer .small{color:#9fb0c6;font-size:.84rem}
     <a class="logo" href="/" aria-label="Riva Computech, back to the top"><img src="/brand/riva-computech-logo-white.svg" alt="Riva Computech" width="95" height="65" /></a>
     <p>You mind your business. We'll mind your computers.</p>
     <p><a href="tel:+13134057164">(313) 405-7164</a> · <a href="mailto:rivacomputech@gmail.com">rivacomputech@gmail.com</a></p>
+    <p class="small">Riva Computech provides IT support for small businesses: Microsoft 365, email, backups, security, servers and networks.</p>
     <p class="small">© <span id="year">2026</span> Riva Computech. Microsoft, Microsoft 365, Azure, Windows, VMware and Citrix are trademarks of their owners. Riva Computech is independent and not affiliated with them.</p>
     <p class="small">Curious? <a href="/desktop/">Try our interactive desktop</a>.</p>
     <div class="textsize" role="group" aria-label="Text size">
@@ -415,12 +609,42 @@ footer .small{color:#9fb0c6;font-size:.84rem}
     try{v?localStorage.setItem('riva-text',v):localStorage.removeItem('riva-text')}catch(e){} mark()})});
   mark();
 
+  // When the page is printed, open every question so the answers print too.
+  addEventListener('beforeprint',function(){[].forEach.call(d.querySelectorAll('.faq details'),function(x){x.open=true})});
+
   // Count calls and emails (anonymous totals only).
   d.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-track]');if(a&&window.gtag)gtag('event',a.getAttribute('data-track'))});
 
+  var form=d.getElementById('form'), status=d.getElementById('status'), thanks=d.getElementById('thanks'),
+      send=form.querySelector('button[type=submit]');
+
+  // Health check: count the boxes, suggest where to start, and offer to put the result into the message
+  // box. Nothing is sent until the visitor presses "Send message" themselves.
+  var boxes=[].slice.call(d.querySelectorAll('.check input')), touched=false;
+  function tally(){
+    var gaps=boxes.filter(function(b){return !b.checked}), n=boxes.length-gaps.length;
+    if(n)touched=true;
+    d.getElementById('score-n').textContent=n+' of '+boxes.length+' in place';
+    d.getElementById('score-tip').textContent=!touched?'Check the boxes that are true today.'
+      :gaps.length?'A good place to start: '+gaps[0].getAttribute('data-fix')
+      :'All eight are in place. Nice work.';
+    return gaps;
+  }
+  boxes.forEach(function(b){b.addEventListener('change',function(){touched=true;tally()})});
+  addEventListener('pageshow',tally);
+  d.getElementById('score').hidden=false; tally();
+  d.getElementById('score-ask').addEventListener('click',function(){
+    var gaps=tally(), n=boxes.length-gaps.length;
+    form.hidden=false; thanks.hidden=true; send.disabled=false; status.textContent=''; status.className='status';
+    form.elements.message.value='I did the IT health check on your site: '+n+' of '+boxes.length+' in place.'
+      +(gaps.length?'\nNot in place yet:\n'+gaps.map(function(b){return '- '+b.getAttribute('data-short')}).join('\n'):'')+'\n\n';
+    form.scrollIntoView();
+    form.elements.name.focus({preventScroll:true});
+    if(window.gtag)gtag('event','health_check_ask',{score:n});
+  });
+
   // The form works without this script (it posts to Formspree). With it, the visitor stays on the page
   // and gets clear messages.
-  var form=d.getElementById('form'), status=d.getElementById('status'), thanks=d.getElementById('thanks');
   form.noValidate=true;
   function say(msg){status.textContent=msg;status.className='status bad'}
   form.addEventListener('submit',function(e){
@@ -429,11 +653,11 @@ footer .small{color:#9fb0c6;font-size:.84rem}
     if(!name){say('Please add your name.');f.name.focus();return}
     if(!phone&&!email){say('Please add a phone number or an email, so Devik can reply.');f.phone.focus();return}
     if(email&&!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){say("That email address doesn't look right. Please check it.");f.email.focus();return}
-    if(!msg){say('Please tell us how we can help.');f.message.focus();return}
-    var btn=form.querySelector('button[type=submit]'); btn.disabled=true; status.className='status'; status.textContent='Sending…';
+    if(!msg){say('Please say what you need help with.');f.message.focus();return}
+    send.disabled=true; status.className='status'; status.textContent='Sending…';
     fetch(form.action,{method:'POST',headers:{Accept:'application/json'},body:new FormData(form)})
       .then(function(r){ if(!r.ok) throw new Error('send failed'); form.hidden=true; thanks.hidden=false; thanks.focus(); if(window.gtag)gtag('event','generate_lead',{method:'home_form'}) })
-      .catch(function(){ btn.disabled=false; say("Sorry, that didn't send. Please call (313) 405-7164 or email rivacomputech@gmail.com.") });
+      .catch(function(){ send.disabled=false; say("Sorry, that didn't send. Please call (313) 405-7164 or email rivacomputech@gmail.com.") });
   });
 })();
 </script>

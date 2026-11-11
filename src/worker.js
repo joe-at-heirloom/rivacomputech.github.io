@@ -172,11 +172,11 @@ async function contact(request, env) {
   if (env.MAILER) {
     const from = env.CONTACT_FROM, to = env.CONTACT_TO;
     const text = [
-      "New enquiry from rivacomputech.com (rivaOS)", "",
+      "New inquiry from rivacomputech.com (rivaOS)", "",
       `Name:    ${name}`, `Email:   ${email}`, `Subject: ${subject || "(none)"}`, `From:    ${[cf.city, cf.country].filter(Boolean).join(", ") || "unknown"} (via Cloudflare)`,
       "", "Message", "-------", message, "", `Reply to this email to answer ${name} directly.`
     ].join("\n");
-    await env.MAILER.send(new EmailMessage(from, to, mime({ from, to, name, email, subject: `Riva enquiry: ${subject || name}`, text })));
+    await env.MAILER.send(new EmailMessage(from, to, mime({ from, to, name, email, subject: `Riva inquiry: ${subject || name}`, text })));
     delivered = true;
   }
   if (!delivered) return json({ error: "Email isn't set up on this deployment yet.", fallback: "mailto" }, 503);

@@ -46,7 +46,7 @@ export default function welcome(win) {
       ${[["services", "Services", "Microsoft 365, Azure, migrations and more."],
          ["health", "IT health check", "Eight quick checks, one score."],
          ["code", "Automation", "A real script you can run.", { path: "C:\\Riva\\Scripts\\Offboard-User.ps1" }],
-         ["about", "About Devik", "The senior engineer you'll actually work with."],
+         ["about", "About Devik", "The engineer you'll actually work with."],
          ["mail", "Contact", "Straight answers, usually within a day."],
          ["terminal", "Terminal", "Type help. Yes, it's PowerShell."]]
         .map(([id, t, s, a]) => `<button class="tile" type="button" data-go="${id}"${a ? ` data-args='${esc(JSON.stringify(a))}'` : ""}>${appIcon(id, 36)}<span><b>${esc(t)}</b><small>${esc(s)}</small></span></button>`).join("")}
