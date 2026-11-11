@@ -62,7 +62,7 @@ export default function welcome(win) {
 
     <div class="wel-foot">
       <label><input type="checkbox" id="wel-start" ${settings.get("showWelcome") === false ? "" : "checked"}> Show Welcome when rivaOS starts</label>
-      <span class="legal" style="margin:0">rivaOS is an original design by Riva Computech.</span>
+      <a class="legal" style="margin:0" href="/">Prefer a simple page? Open the simple site</a>
     </div>
     <p class="legal">Microsoft, Microsoft 365, Azure, Windows, Intune, VMware and Citrix are trademarks of their respective owners. Riva Computech is independent and not affiliated with or endorsed by them. © ${new Date().getFullYear()} Riva Computech.</p>
   </div>`;

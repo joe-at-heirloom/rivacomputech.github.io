@@ -1,18 +1,38 @@
-# Riva Computech: rivaOS
+# Riva Computech: website
 
-**rivacomputech.com is a working operating system.** rivaOS is a Windows 11-style desktop that runs in
-the browser: windows that drag, resize and snap, a taskbar and Start menu, a real (browser-stored) file
-system, a PowerShell terminal, and around 15 apps. Riva Computech's services, IT health check, profile
-and contact form are apps inside it.
+**rivacomputech.com has two faces:**
+
+- **The simple site (`/`)** is the home page: one page in large print, with plain words and big buttons,
+  made for people who are not comfortable with computers. Call and email are always one tap away.
+- **rivaOS (`/desktop/`)** is the interactive version: a Windows 11-style desktop that runs in the
+  browser, with windows, a file system, a PowerShell terminal and around 15 apps. It's linked from the
+  simple site's footer for anyone curious.
 
 It runs on **Cloudflare Workers**: static files are served from Cloudflare's edge, and a small Worker
 adds the parts a static site can't do (edge info, weather, a backup contact endpoint).
 
-No framework and no build step: native ES modules, served as-is.
+No framework and no build step: plain HTML for the simple site, native ES modules for rivaOS.
+
+## The simple site
+
+`public/index.html` is the whole thing: HTML, CSS and a few lines of script in one file.
+
+- **Readable by default:** 19px text, high contrast, one column, no animations, no menus to discover.
+- **Text size buttons** (A A A) at the top go up to 24px and remember the choice.
+- **Plain words:** "Sign-ins and passwords", not "Azure & identity". No jargon and no in-jokes.
+- **Big targets:** every button is at least 48px tall; on phones a Call / Message bar stays on screen.
+- **A forgiving form:** name, a phone number *or* an email, and a message, with friendly error messages.
+  It posts to Formspree and works with JavaScript turned off.
+- **Old links still work:** `/#services`, `/#why`, `/#about` and `/#contact` jump to those sections;
+  `/#health` and `/#automation` open the matching app in rivaOS.
+
+To change the wording, edit `public/index.html` directly. (rivaOS has its own copy in
+`public/os/content.js`; if a service or the bio changes, update both.)
 
 ```
 public/                     ← everything the browser downloads (Workers Static Assets)
-  index.html                ← boot screen, SEO/no-JS fallback, SVG sprite (logo + icons)
+  index.html                ← the simple site (home page)
+  desktop/index.html        ← rivaOS: boot screen, no-JS fallback, SVG sprite (logo + icons)
   os/
     main.js                 ← boot: mounts the file system, starts the shell
     core.js                 ← helpers, settings, event bus, contact details, Formspree endpoint
@@ -25,7 +45,7 @@ public/                     ← everything the browser downloads (Workers Static
     apps.js · icons.js · wallpapers.js
     apps/*.js               ← one module per app, loaded on first launch
     os.css                  ← Fluent design tokens + shell styles (apps carry their own CSS)
-  404.html                  ← blue-screen 404
+  404.html                  ← plain "page not found"
   og.png                    ← share image (source: tools/og.html)
   brand/ · assets/logos/ · og.png · favicon.svg · robots.txt · sitemap.xml · _headers
 tools/og.html               ← source for the share image
@@ -34,7 +54,9 @@ src/worker.js               ← the Worker: /api/ping, /api/system, /api/version
 wrangler.jsonc              ← Cloudflare config
 ```
 
-## Apps
+## rivaOS (`/desktop/`)
+
+### Apps
 
 | App | What it does |
 | --- | --- |
@@ -57,7 +79,7 @@ everywhere, Quick Settings (dark mode, night light, Do not disturb, brightness, 
 centre and calendar, widgets (weather, edge info, status), lock screen, restart and shut down. Keyboard:
 <kbd>Ctrl</kbd>+<kbd>Esc</kbd> or a tap of <kbd>⊞</kbd>/<kbd>⌘</kbd> for Start, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd> for Task Manager.
 
-**Links still work:** `/#services`, `/#why`, `/#automation`, `/#health`, `/#about`, `/#contact`, `/#svc-m365`…
+**Deep links:** `/desktop/#services`, `#why`, `#automation`, `#health`, `#about`, `#contact`, `#svc-m365`…
 open the matching app, and the address bar follows the focused app so links can be shared.
 
 **Phones:** below ~760px wide, windows open full-screen and the taskbar becomes a scrolling app switcher.
@@ -69,7 +91,7 @@ this and has a reset button.
 
 ```bash
 npm install
-npm run dev          # http://localhost:8787 — the full thing, Worker included
+npm run dev          # http://localhost:8787 (simple site) and /desktop/ (rivaOS), Worker included
 ```
 
 A plain static server works too (`python3 -m http.server -d public 8080`). Edge info and weather then
@@ -127,8 +149,8 @@ fetch the new image instead of a cached one.
 
 ## Editing the content
 
-All copy lives in **`public/os/content.js`**: tagline, services, comparison, steps, health checks, profile
-and bio. The Welcome, Services, Health Check, About and Contact apps, the read-only `C:\Riva` folder and
+The simple site's wording is in **`public/index.html`**. rivaOS's copy lives in **`public/os/content.js`**:
+tagline, services, comparison, steps, health checks, profile and bio. The Welcome, Services, Health Check, About and Contact apps, the read-only `C:\Riva` folder and
 the terminal (`Get-Service`, `Get-ADUser devik`) all read from it. Email and phone live in `public/os/core.js`.
 
 Honesty rules for copy: **10+ years**, **no Microsoft certifications** (none are claimed), and
@@ -137,7 +159,10 @@ Honesty rules for copy: **10+ years**, **no Microsoft certifications** (none are
 ## ⚠️ TODO (from Devik)
 
 1. **Service area.** Add `areaServed` to the JSON-LD in `public/index.html`.
-2. **Photo.** Swap the `DP` initials in the About app (`public/os/apps/about.js`) for a square photo.
+2. **Photo.** Swap the `DP` initials for a square photo, in the simple site's About section
+   (`public/index.html`) and in rivaOS's About app (`public/os/apps/about.js`).
+3. **Phone numbers.** The website shows (313) 405-7164; the business card shows (734) 765-9182.
+   Confirm that's intended, or pick one.
 
 ## Brand
 

@@ -122,7 +122,7 @@ def front():
 
 def back():
     x0 = 2 * B + 6
-    rows = (("phone", "+1 (313) 405-7164"), ("mail", "rivacomputech@gmail.com"), ("web", "rivacomputech.com"))
+    rows = (("phone", "+1 (734) 765-9182"), ("mail", "rivacomputech@gmail.com"), ("web", "rivacomputech.com"))
     lw = 46; lh = lw * WH / WW
     out = (head("Riva Computech business card, back") +
            '<g id="artwork" inkscape:groupmode="layer" inkscape:label="Artwork">\n'

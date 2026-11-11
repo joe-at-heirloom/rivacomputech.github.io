@@ -25,7 +25,11 @@ pip install fonttools
 python3 print/business-card/build.py path/to/inter-latin-600-normal.woff
 INTER_DIR=path/to/inter-files node print/business-card/make-pdf.cjs   # needs Playwright
 python3 print/business-card/set-boxes.py                              # needs pypdf
+python3 print/business-card/make-preview.py                           # needs Pillow + pdftoppm
 ```
+
+To change the details on the card (name, phone, email), edit the `rows` and text lines in `build.py` and
+run the four commands above, so the SVGs, PDF and preview all stay in step.
 
 `build.py` also writes the full logo lockups, `public/brand/riva-computech-logo.svg` and
 `riva-computech-logo-white.svg` (wordmark + COMPUTECH as outlines, so they need no font).

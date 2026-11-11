@@ -10,16 +10,16 @@
   gtag('js', new Date());
   gtag('config', 'G-9PCY0YE3SE');
 </script>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
-<title>Riva Computech — Microsoft 365, Azure &amp; IT Consulting</title>
-<meta name="description" content="Senior Microsoft 365, Azure and infrastructure help, direct from the engineer who does the work. Migrations, backup &amp; recovery, security and PowerShell automation — no ticket queues, no hand-offs." />
-<meta name="theme-color" content="#0d1625" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Riva Computech — Friendly IT help for small businesses</title>
+<meta name="description" content="Friendly, expert IT help for small businesses: email and Microsoft 365, backups, security and computers. Talk directly to Devik, the engineer who does the work. Call (313) 405-7164." />
+<meta name="theme-color" content="#0067c0" />
 <link rel="canonical" href="https://rivacomputech.com/" />
 
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Riva Computech" />
 <meta property="og:title" content="Riva Computech — the IT person who actually picks up the phone" />
-<meta property="og:description" content="Senior Microsoft 365, Azure &amp; infrastructure help — direct, no ticket queues, no hand-offs." />
+<meta property="og:description" content="Friendly IT help for small businesses. Talk directly to the engineer who does the work." />
 <meta property="og:url" content="https://rivacomputech.com/" />
 <meta property="og:image" content="https://rivacomputech.com/og.png?v=3" />
 <meta property="og:image:width" content="1200" />
@@ -31,30 +31,24 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-<!-- Theme + motion are decided before first paint so there's no flash. -->
+<!--
+  The simple site: one page, large print, plain words, big buttons. Built for people who are not
+  comfortable with computers. No framework, no web fonts, and it works with JavaScript turned off.
+  The interactive desktop (rivaOS) lives at /desktop/.
+-->
 <script>
-(function(){var r=document.documentElement,s={};r.classList.add('js');
-try{s=JSON.parse(localStorage.getItem('rivaos:settings')||'{}')||{}}catch(e){}
-var t=s.theme;if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
-r.setAttribute('data-theme',t);
-if(s.motion==='reduce'||(s.motion!=='full'&&matchMedia('(prefers-reduced-motion: reduce)').matches))r.classList.add('rm');})();
+// Remember the visitor's text size, and keep old links to desktop-only sections working.
+(function(){try{var t=localStorage.getItem('riva-text');if(t)document.documentElement.setAttribute('data-text',t)}catch(e){}
+function go(){var h=location.hash.slice(1).toLowerCase();if(/^(health|automation|terminal|settings|files)$/.test(h))location.replace('/desktop/#'+h)}
+go();addEventListener('hashchange',go);})();
 </script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-<!-- Segoe UI Variable is used on Windows, SF on Apple; Inter covers everyone else. Cascadia Code = Windows Terminal's font. -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cascadia-code@5.3.0/index.min.css" />
-<link rel="stylesheet" href="/os/os.css" />
-<link rel="modulepreload" href="/os/main.js" />
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "name": "Riva Computech",
-  "description": "Senior Microsoft 365, Azure and infrastructure IT consulting: tenant setup, migrations, backup & recovery, security and PowerShell automation.",
+  "description": "IT help for small businesses: Microsoft 365 and email, sign-ins and passwords, moving to new systems, backups, security, servers and networks.",
   "email": "rivacomputech@gmail.com",
   "telephone": "+1-313-405-7164",
   "url": "https://rivacomputech.com/",
@@ -65,161 +59,344 @@ if(s.motion==='reduce'||(s.motion!=='full'&&matchMedia('(prefers-reduced-motion:
 }
 </script>
 <!-- TODO(Devik): once known, add "areaServed" to the JSON-LD above. -->
+
+<style>
+/* Sizes are in rem, so the "Text size" buttons scale the whole page. */
+html{font-size:118.75%;color-scheme:light;-webkit-text-size-adjust:100%}      /* 19px */
+html[data-text="l"]{font-size:131.25%}                                          /* 21px */
+html[data-text="xl"]{font-size:150%}                                            /* 24px */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.6;color:#1a1a1a;background:#fff}
+img,svg{max-width:100%}
+a{color:#00539c;text-decoration-thickness:.09em;text-underline-offset:.18em}
+a:hover{color:#003a6e}
+:focus-visible{outline:.22rem solid #ffbf47;outline-offset:.15rem;border-radius:.3rem}
+h1,h2,h3{line-height:1.2;margin:0;color:#0b1b30}
+h2{font-size:1.9rem;margin-bottom:.6rem}
+h3{font-size:1.25rem}
+p{margin:0 0 1rem}
+.wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem}
+.lead{font-size:1.15rem;color:#333;max-width:40rem}
+.skip{position:absolute;left:-999rem;top:0;background:#0b1b30;color:#fff;padding:.8rem 1.2rem;z-index:10;font-weight:700}
+.skip:focus{left:.5rem;top:.5rem}
+.ico{width:1.5rem;height:1.5rem;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* buttons: big, obvious, easy to hit */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:3.4rem;padding:.7rem 1.5rem;border-radius:.7rem;border:.14rem solid #0067c0;
+  background:#0067c0;color:#fff;font:inherit;font-size:1.15rem;font-weight:700;text-decoration:none;cursor:pointer;text-align:center}
+.btn:hover{background:#00539c;border-color:#00539c;color:#fff}
+.btn.alt{background:#fff;color:#00539c}
+.btn.alt:hover{background:#eef5fc;color:#003a6e}
+
+/* top of page */
+.textsize{display:flex;justify-content:flex-end;align-items:center;gap:.5rem;padding:.5rem 0;font-size:.9rem;color:#333}
+.textsize button{min-width:2.6rem;min-height:2.6rem;border:.12rem solid #6b7785;border-radius:.5rem;background:#fff;color:#1a1a1a;font:inherit;font-weight:700;cursor:pointer;line-height:1}
+.textsize button:nth-of-type(2){font-size:1.2em}
+.textsize button:nth-of-type(3){font-size:1.45em}
+.textsize button[aria-pressed="true"]{background:#0b1b30;border-color:#0b1b30;color:#fff}
+.bar{border-bottom:.08rem solid #d6dde6;background:#fff}
+.top{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.4rem 0 1rem;flex-wrap:wrap}
+.logo{display:inline-flex}
+.logo img{display:block;height:4.2rem;width:auto}
+.menu{display:flex;flex-wrap:wrap;gap:.5rem;padding:0 0 1rem;margin:0;list-style:none}
+.menu a{display:inline-flex;align-items:center;min-height:2.9rem;padding:.4rem 1.1rem;border-radius:.6rem;background:#eef5fc;font-weight:700;text-decoration:none}
+.menu a:hover{background:#dcebf9}
+
+/* sections */
+section{padding:3.2rem 0;scroll-margin-top:1rem}
+section + section{border-top:.08rem solid #e3e8ee}
+.hero{background:#eef5fc;padding:3.4rem 0 3.6rem}
+.hero .kicker{font-weight:700;color:#00539c;margin-bottom:.6rem}
+.hero h1{font-size:clamp(2.1rem,6vw,3.1rem);max-width:19ch;margin-bottom:1rem}
+.hero h1 em{font-style:normal;color:#0067c0}
+.hero .lead{margin-bottom:1.6rem}
+.actions{display:flex;flex-wrap:wrap;gap:.8rem}
+.promise{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;margin:1.6rem 0 0;padding:0;font-weight:600;color:#1f3a1f}
+.promise li,.why li{display:flex;gap:.6rem;align-items:flex-start}
+.promise .ico,.why .ico{color:#0f7b0f;margin-top:.15rem;stroke-width:2.6}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:1rem;margin:1.6rem 0 0;padding:0;list-style:none}
+.card{border:.12rem solid #cfd8e3;border-radius:1rem;padding:1.4rem;background:#fff}
+.card .badge{width:3.2rem;height:3.2rem;border-radius:.8rem;background:#0067c0;color:#fff;display:grid;place-items:center;margin-bottom:.9rem}
+.card .badge .ico{width:1.8rem;height:1.8rem}
+.card h3{margin-bottom:.4rem}
+.card p{margin:0;color:#333}
+.also{margin-top:1.4rem;padding:1.1rem 1.4rem;border-radius:1rem;background:#f4f6f9;max-width:none}
+.works{margin-top:2rem}
+.works p{font-weight:700;margin-bottom:.8rem}
+.works ul{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 2.2rem;margin:0;padding:0;list-style:none}
+.works img{height:1.7rem;width:auto;display:block}
+.works .citrix{display:flex;align-items:center;gap:.4rem;font-weight:700;font-size:1.3rem;color:#444}
+
+.why{list-style:none;margin:1.4rem 0 0;padding:0;display:grid;gap:1.1rem;max-width:46rem}
+.why b{display:block;font-size:1.15rem;color:#0b1b30}
+.steps{margin:1.4rem 0 0;padding:0;list-style:none;counter-reset:s;display:grid;gap:1.1rem;max-width:46rem}
+.steps li{counter-increment:s;display:flex;gap:1rem;align-items:flex-start}
+.steps li::before{content:counter(s);flex:none;width:2.7rem;height:2.7rem;border-radius:50%;background:#0067c0;color:#fff;font-weight:700;font-size:1.25rem;display:grid;place-items:center}
+.steps b{display:block;font-size:1.15rem;color:#0b1b30}
+
+.about{display:flex;gap:1.6rem;align-items:flex-start;flex-wrap:wrap}
+.avatar{width:6.5rem;height:6.5rem;border-radius:50%;background:#0067c0;color:#fff;display:grid;place-items:center;font-size:2.2rem;font-weight:700;flex:none}
+.about .who{flex:1 1 20rem;max-width:40rem}
+.about .sign{font-weight:700;margin:0}
+
+/* contact */
+.ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,21rem),1fr));gap:1rem;margin:1.6rem 0 2.4rem;padding:0;list-style:none;max-width:52rem}
+.way.wide{grid-column:1/-1}
+.way{border:.12rem solid #cfd8e3;border-radius:1rem;padding:1.3rem 1.4rem;display:flex;flex-direction:column;gap:.3rem}
+.way .label{display:flex;align-items:center;gap:.6rem;font-weight:700;color:#00539c}
+.way .big{font-size:1.4rem;font-weight:700;color:#0b1b30;overflow-wrap:break-word;line-height:1.3}
+.way .big a{color:inherit;text-decoration:none}
+.way .btn{margin-top:.7rem}
+form{max-width:40rem;border:.12rem solid #cfd8e3;border-radius:1rem;padding:1.6rem;background:#f8fafc}
+form h3{font-size:1.5rem;margin-bottom:.3rem}
+label{display:block;font-weight:700;margin:1.1rem 0 .35rem}
+.hint{font-weight:400;color:#444}
+input,textarea{display:block;width:100%;font:inherit;color:#1a1a1a;background:#fff;border:.12rem solid #5c6b80;border-radius:.6rem;padding:.75rem .9rem;min-height:3.2rem}
+textarea{min-height:9rem;resize:vertical}
+input:focus,textarea:focus{outline:.22rem solid #ffbf47;outline-offset:0;border-color:#0b1b30}
+.hp{position:absolute;left:-999rem}
+form .btn{margin-top:1.4rem;width:100%}
+.status{margin:1rem 0 0;font-weight:700}
+.status:empty{display:none}
+.status.bad{color:#a4161a;background:#fdecec;border-left:.3rem solid #a4161a;padding:.8rem 1rem;border-radius:.4rem}
+.thanks{max-width:40rem;border:.14rem solid #0f7b0f;border-radius:1rem;padding:1.6rem;background:#f0f9f0}
+.thanks h3{font-size:1.5rem;color:#0b4d0b;margin-bottom:.4rem}
+[hidden]{display:none!important}
+
+footer{background:#0b1b30;color:#e6ebf2;padding:2.4rem 0 2.6rem;font-size:.95rem}
+footer a{color:#fff}
+footer .logo img{height:3.4rem}
+footer p{margin:.9rem 0 0;max-width:46rem}
+footer .small{color:#b9c4d2;font-size:.85rem}
+
+/* phones: a Call / Message bar that is always within reach */
+.callbar{display:none}
+@media (max-width:40rem){
+  body{padding-bottom:4.6rem}
+  .top .btn{display:none}
+  .top{padding-bottom:.7rem}
+  .menu{display:grid;grid-template-columns:1fr 1fr}
+  .menu a{display:flex;justify-content:center;text-align:center;padding:.4rem .5rem}
+  .logo img{height:3.4rem}
+  .hero{padding:2.4rem 0 2.6rem}
+  section{padding:2.4rem 0}
+  .actions .btn{width:100%}
+  .callbar{display:flex;gap:.5rem;position:fixed;left:0;right:0;bottom:0;z-index:5;padding:.5rem .6rem calc(.5rem + env(safe-area-inset-bottom));background:#fff;border-top:.08rem solid #cfd8e3;box-shadow:0 -.2rem .8rem rgba(0,0,0,.12)}
+  .callbar .btn{flex:1;min-height:3.2rem;padding:.4rem .6rem;font-size:1.05rem}
+}
+@media print{.callbar,.textsize,.menu,form{display:none}body{padding:0}}
+</style>
 </head>
 <body>
-<h1 class="sr-only">Riva Computech: senior Microsoft 365, Azure &amp; infrastructure IT help</h1>
-<p class="sr-only">This site is rivaOS, a desktop that runs in your browser. Use the taskbar or the Start menu to open Services, the IT health check, About Devik and Contact.</p>
+<a class="skip" href="#main">Skip to main content</a>
 
-<noscript>
-  <main class="nojs">
-    <h2>Riva Computech</h2>
-    <p><b>The IT person who actually picks up the phone.</b> Senior Microsoft 365, Azure and infrastructure support, direct from the engineer who does the work. No ticket queues, no hand-offs, and cover across evenings, weekends and holidays.</p>
-    <h3>Services</h3>
-    <ul>
-      <li><b>Microsoft 365</b>: tenant setup &amp; licensing, Exchange Online, SharePoint &amp; OneDrive, ongoing admin.</li>
-      <li><b>Azure &amp; identity</b>: Azure tenant management, Entra ID &amp; Active Directory, hybrid identity, Group Policy.</li>
-      <li><b>Migrations</b>: email &amp; mailbox, tenant-to-tenant, file &amp; data, minimal-disruption cutovers.</li>
-      <li><b>Backup &amp; continuity</b>: backup &amp; recovery, BC/DR, restore testing, proactive monitoring.</li>
-      <li><b>Devices &amp; security</b>: Intune device management, endpoint &amp; email security, EDR / SIEM monitoring.</li>
-      <li><b>Infrastructure &amp; network</b>: servers &amp; storage, VMware, Hyper-V &amp; Citrix, firewalls &amp; VPNs, DNS &amp; NAS.</li>
-      <li><b>PowerShell automation</b>: repetitive admin, scripted so it's done the same way every time.</li>
-    </ul>
-    <h3>About</h3>
-    <p>Devik Patel, owner and senior engineer, with 10+ years of hands-on IT: help desk, Windows Server, virtualization and, these days, a lot of Microsoft 365 and Azure.</p>
-    <h3>Contact</h3>
-    <p>Email <a href="mailto:rivacomputech@gmail.com">rivacomputech@gmail.com</a> · Phone <a href="tel:+13134057164">+1 (313) 405-7164</a><br />Weekdays, evenings, weekends &amp; holidays.</p>
-    <p><small>Turn on JavaScript to use the full rivaOS desktop.</small></p>
-  </main>
-</noscript>
-
-<!-- ════════ SVG sprite: logo + icons ════════ -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <defs>
-    <!-- riva logo: the riva wordmark (rivaLogo, coloured with CSS `color`) and the square app icon
-         built from it (rivaMarkG). Source files: /brand -->
-    <symbol id="rivaLogo" viewBox="85 56 1579 815"><g fill="currentColor"><path d="M 722.25 147.57 A 90.71 90.71 0.0 0 1 631.54 238.28 A 90.71 90.71 0.0 0 1 540.83 147.57 A 90.71 90.71 0.0 0 1 631.54 56.86 A 90.71 90.71 0.0 0 1 722.25 147.57 Z"/><path d="M 523.85 528.50 Q 517.49 518.73 511.87 511.20 Q 508.59 506.81 503.22 500.90 C 495.37 492.28 491.18 487.36 483.61 480.51 C 463.05 461.92 438.81 445.48 411.98 437.53 Q 405.59 435.63 397.50 435.19 A 1.16 1.13 -22.0 0 1 396.79 434.90 L 396.57 434.71 A 0.73 0.69 65.0 0 0 396.14 434.54 Q 389.83 434.23 383.50 434.82 C 366.67 436.39 349.98 440.69 336.07 448.33 Q 302.31 466.88 282.86 497.54 Q 265.00 525.69 264.98 560.03 Q 264.88 739.94 264.95 854.75 A 1.07 1.06 90.0 0 1 263.89 855.82 L 85.98 855.82 A 0.73 0.72 90.0 0 1 85.26 855.09 Q 85.56 746.83 85.38 568.26 C 85.37 563.08 85.62 556.04 85.67 551.25 Q 85.68 549.97 86.12 549.23 A 1.12 1.10 61.6 0 0 86.27 548.71 Q 86.72 532.73 87.06 529.00 Q 88.07 518.11 91.57 498.51 Q 95.80 474.81 107.35 445.57 Q 113.77 429.34 124.27 411.18 C 143.77 377.46 170.62 347.73 201.06 323.56 Q 236.25 295.63 278.17 279.20 Q 282.69 277.43 296.99 272.68 C 304.89 270.05 312.89 268.28 319.82 266.59 Q 327.78 264.65 336.17 263.33 A 0.08 0.05 -32.7 0 0 336.22 263.21 Q 336.15 263.19 336.15 263.13 A 0.16 0.09 85.5 0 1 336.23 262.97 L 350.57 261.55 A 2.27 2.20 -55.3 0 0 351.08 261.45 Q 354.27 260.39 359.50 260.08 Q 360.70 260.01 361.69 259.16 A 1.37 1.34 -64.6 0 1 362.56 258.84 Q 373.08 258.78 382.66 258.29 C 395.75 257.61 412.12 258.13 423.80 258.89 A 0.56 0.55 -15.3 0 1 424.21 259.12 C 425.45 260.79 428.10 259.80 430.00 259.93 Q 435.86 260.31 441.97 260.91 A 1.17 1.12 68.9 0 1 442.65 261.23 L 443.13 261.70 A 1.25 1.23 70.1 0 0 443.84 262.04 L 448.43 262.63 A 0.08 0.08 0.0 0 1 448.50 262.73 Q 448.48 262.82 448.43 262.97 A 0.06 0.06 0.0 0 0 448.48 263.05 Q 465.62 265.41 483.55 270.76 Q 502.95 276.54 520.80 288.53 Q 522.67 289.78 523.38 290.84 A 1.75 1.64 -68.2 0 1 523.65 291.53 L 524.14 294.74 A 24.60 24.13 -48.8 0 1 524.39 299.09 Q 524.22 304.73 524.28 307.00 Q 524.82 325.77 524.83 348.00 C 524.86 397.78 525.23 446.11 524.53 494.44 Q 524.23 514.97 524.43 528.33 A 0.32 0.31 28.3 0 1 523.85 528.50 Z"/><path d="M 540.35 852.73 Q 539.48 850.84 539.48 850.00 Q 539.39 833.20 539.47 818.24 Q 539.48 814.98 540.63 812.55 A 1.12 1.10 -33.2 0 0 540.73 812.09 L 541.07 271.46 A 1.28 1.28 0.0 0 1 542.35 270.18 L 722.37 270.18 A 0.56 0.56 0.0 0 1 722.93 270.74 Q 722.51 339.08 722.75 440.00 C 722.76 444.20 722.09 449.04 722.18 453.33 Q 722.55 471.95 722.55 476.25 Q 722.59 545.04 722.73 575.50 Q 722.80 589.58 722.46 606.50 C 722.30 614.13 722.74 624.05 722.74 632.83 Q 722.79 679.35 722.78 812.01 Q 722.78 829.60 723.00 849.51 Q 723.02 851.52 722.59 852.84 A 1.57 1.56 8.9 0 1 721.10 853.92 L 542.20 853.92 A 2.03 2.03 0.0 0 1 540.35 852.73 Z"/><path d="M 860.63 867.08 Q 860.16 867.10 859.38 866.42 A 1.55 1.52 -20.8 0 0 858.51 866.04 Q 848.83 865.02 841.07 863.62 Q 839.44 863.33 818.38 858.88 Q 815.04 858.17 800.33 853.54 C 778.83 846.78 757.95 837.21 739.59 825.67 A 0.95 0.95 0.0 0 1 739.14 824.86 Q 739.11 783.81 739.12 579.75 Q 739.12 578.10 739.50 576.61 A 0.32 0.32 0.0 0 1 740.10 576.55 Q 740.80 578.03 741.95 579.60 C 759.89 604.19 780.94 626.37 804.14 649.21 Q 821.93 666.74 833.41 674.02 Q 856.75 688.82 884.51 693.16 A 0.37 0.36 82.5 0 1 884.79 693.38 Q 884.97 693.77 885.44 693.64 Q 885.72 693.57 886.08 693.60 C 899.85 694.78 914.20 695.14 928.37 693.93 A 4.22 4.19 32.2 0 0 929.40 693.70 Q 933.92 692.12 937.93 692.04 A 6.28 6.13 -52.0 0 0 939.41 691.84 C 959.90 686.65 978.05 675.92 994.31 661.93 Q 1002.86 654.58 1006.78 650.65 C 1023.52 633.86 1032.71 613.14 1036.06 589.75 Q 1037.14 582.20 1037.26 571.34 Q 1037.41 559.01 1037.50 547.13 Q 1037.78 510.59 1037.54 317.25 Q 1037.51 291.50 1037.49 271.04 A 0.86 0.85 -90.0 0 1 1038.34 270.18 L 1220.54 270.18 A 0.62 0.62 0.0 0 1 1221.16 270.81 C 1221.05 287.23 1221.34 301.01 1221.34 317.42 Q 1221.36 530.62 1221.30 560.00 C 1221.27 577.58 1219.12 595.03 1215.85 613.07 C 1203.68 680.20 1171.08 740.83 1120.62 786.87 Q 1110.31 796.27 1095.45 807.67 Q 1076.18 822.45 1050.50 836.49 Q 1016.26 855.20 977.54 862.20 A 3.90 3.77 27.5 0 0 976.60 862.48 Q 973.90 863.67 973.00 863.64 Q 969.43 863.50 966.73 864.84 A 2.15 2.02 -59.7 0 1 966.02 865.05 Q 959.59 865.81 952.33 866.08 Q 951.53 866.11 951.25 866.48 Q 951.01 866.79 950.96 866.85 A 1.38 1.37 -71.0 0 1 950.04 867.30 C 944.24 867.79 939.62 868.53 937.13 867.65 A 0.56 0.56 0.0 0 1 936.82 866.89 Q 936.94 866.64 936.93 866.53 A 0.51 0.50 87.6 0 0 936.49 866.12 L 933.77 865.85 A 0.73 0.72 2.9 0 0 932.97 866.57 L 932.97 867.33 A 0.65 0.65 0.0 0 1 932.34 867.98 L 927.02 868.09 A 0.56 0.55 -5.8 0 0 926.48 868.74 Q 926.48 868.76 926.54 868.89 A 0.41 0.41 0.0 0 1 926.18 869.46 Q 906.08 870.53 885.76 869.32 A 0.16 0.16 0.0 0 1 885.61 869.14 L 885.61 869.13 A 0.30 0.29 -82.8 0 1 885.95 868.86 Q 886.64 868.97 887.00 868.64 A 0.30 0.30 0.0 0 0 886.81 868.11 Q 874.38 867.94 871.80 867.98 C 868.51 868.02 863.84 866.95 860.63 867.08 Z"/><path d="M 1375.72 271.15 Q 1376.88 271.95 1378.29 271.93 Q 1388.47 271.77 1394.75 273.48 Q 1397.21 274.15 1398.50 274.23 Q 1403.09 274.52 1414.76 276.86 C 1424.91 278.89 1436.31 281.49 1445.96 284.56 Q 1475.92 294.08 1499.23 306.56 C 1543.29 330.14 1582.86 364.20 1611.80 405.18 Q 1646.85 454.81 1657.71 514.40 Q 1658.83 520.58 1659.07 523.59 C 1659.40 527.78 1660.54 531.35 1660.88 535.85 Q 1662.83 562.04 1662.83 570.50 Q 1662.79 743.83 1662.89 869.35 A 0.61 0.61 0.0 0 1 1662.28 869.96 L 1481.44 869.96 A 0.60 0.59 90.0 0 1 1480.85 869.36 Q 1480.78 776.96 1480.82 574.00 Q 1480.83 566.96 1480.28 559.50 Q 1477.13 516.05 1446.46 485.30 C 1426.22 465.01 1401.23 451.57 1373.27 447.40 Q 1372.99 447.36 1372.92 447.04 A 0.45 0.45 0.0 0 0 1372.52 446.69 Q 1352.79 445.09 1337.24 446.04 Q 1329.42 446.52 1318.85 448.94 C 1294.22 454.57 1271.53 468.45 1254.07 486.67 C 1252.08 488.75 1251.01 491.07 1249.10 492.41 A 0.27 0.27 0.0 0 1 1248.67 492.19 L 1248.67 287.38 A 1.46 1.46 0.0 0 1 1249.65 286.00 Q 1252.55 285.01 1254.28 284.54 Q 1275.29 278.96 1284.52 277.05 Q 1293.22 275.26 1308.77 273.47 Q 1310.92 273.22 1311.69 273.04 C 1313.28 272.66 1314.43 273.14 1316.08 272.59 Q 1318.59 271.77 1322.82 271.85 A 0.75 0.75 0.0 0 0 1323.35 271.63 L 1323.57 271.41 A 1.27 1.27 0.0 0 1 1324.39 271.04 Q 1349.13 269.21 1374.97 270.90 A 1.47 1.47 0.0 0 1 1375.72 271.15 Z"/><path d="M 1381.17 867.30 Q 1380.47 867.63 1376.00 867.75 Q 1348.59 868.45 1319.50 867.68 Q 1316.93 867.61 1313.96 866.98 A 0.29 0.27 3.1 0 1 1313.73 866.74 L 1313.71 866.47 A 0.41 0.40 87.5 0 0 1313.32 866.11 Q 1308.00 865.97 1304.81 865.30 Q 1299.23 864.13 1297.71 864.23 Q 1297.58 864.24 1292.90 863.74 Q 1290.64 863.50 1288.17 862.93 C 1281.03 861.25 1272.44 859.53 1266.88 858.07 Q 1216.53 844.78 1175.22 816.71 Q 1159.94 806.32 1153.67 801.20 Q 1152.50 800.23 1149.56 797.79 A 0.66 0.66 0.0 0 1 1149.52 796.82 Q 1206.40 739.88 1231.12 663.17 Q 1236.10 647.72 1238.95 635.31 A 0.71 0.71 0.0 0 1 1240.28 635.14 Q 1241.29 637.16 1242.05 638.22 C 1260.81 664.68 1289.82 684.76 1321.98 691.44 Q 1348.67 696.99 1377.37 691.77 Q 1418.27 684.33 1446.89 653.23 Q 1452.27 647.39 1453.77 644.67 A 0.41 0.41 0.0 0 1 1454.44 644.59 Q 1455.11 645.32 1455.11 647.01 Q 1455.08 698.85 1455.14 849.01 Q 1455.14 851.32 1453.49 851.51 Q 1451.72 851.72 1451.65 851.74 Q 1439.27 855.40 1433.37 857.11 Q 1426.68 859.06 1410.36 862.34 A 4.31 3.98 25.5 0 0 1409.46 862.62 Q 1406.79 863.79 1405.24 863.83 Q 1398.11 864.01 1390.66 865.45 Q 1386.25 866.30 1380.08 866.35 A 0.25 0.25 0.0 0 0 1379.97 866.83 Q 1380.29 866.99 1381.09 866.98 A 0.17 0.17 0.0 0 1 1381.17 867.30 Z"/></g></symbol>
-    <g id="rivaMarkG"><rect width="64" height="64" rx="14.5" fill="#0067c0"/><use href="#rivaLogo" x="9.00" y="20.13" width="46" height="23.74" style="color:#fff"/></g>
-  </defs>
-  <!-- Fluent-style line icons -->
-  <symbol id="i-terminal" viewBox="0 0 24 24"><path d="M6 8.5l4 3.5-4 3.5M12.5 16h5.5"/></symbol>
-  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8.5 7V5.5A1.5 1.5 0 0 1 10 4h4a1.5 1.5 0 0 1 1.5 1.5V7M3 12.5h18"/></symbol>
-  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-11 6.6L4 19.5l1.4-4.3A7.5 7.5 0 1 1 20 11.5z"/><path d="M9 11.8l2 2 4-4"/></symbol>
-  <symbol id="i-code" viewBox="0 0 24 24"><path d="M8.5 8l-4 4 4 4M15.5 8l4 4-4 4M13.5 5.5l-3 13"/></symbol>
-  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.5l7 2.6v5.4c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V6.1z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></symbol>
-  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.8 20a7.2 7.2 0 0 1 14.4 0"/></symbol>
-  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M4 7.5l8 5.5 8-5.5"/></symbol>
-  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></symbol>
-  <symbol id="i-power" viewBox="0 0 24 24"><path d="M12 3.5v8"/><path d="M7.1 6.6a7 7 0 1 0 9.8 0"/></symbol>
-  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z"/></symbol>
-  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
-  <symbol id="i-motion" viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2-5h6"/></symbol>
-  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11.5" height="11.5" rx="2.5"/><path d="M15.5 8.5V6.5A2.5 2.5 0 0 0 13 4H6.5A2.5 2.5 0 0 0 4 6.5V13a2.5 2.5 0 0 0 2.5 2.5h2"/></symbol>
-  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></symbol>
-  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18.5h10a4.5 4.5 0 0 0 .6-9 6 6 0 0 0-11.5 1.6A3.8 3.8 0 0 0 7 18.5z"/></symbol>
-  <symbol id="i-id" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="11" r="2.2"/><path d="M5.8 16a3.4 3.4 0 0 1 6.4 0M14.5 10h3.5M14.5 13.5h3.5"/></symbol>
-  <symbol id="i-move" viewBox="0 0 24 24"><path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/></symbol>
-  <symbol id="i-backup" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="2.7"/><path d="M5 6v6c0 1.5 3.1 2.7 7 2.7s7-1.2 7-2.7V6M5 12v6c0 1.5 3.1 2.7 7 2.7s7-1.2 7-2.7v-6"/></symbol>
-  <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4.5" y="5" width="15" height="10.5" rx="1.8"/><path d="M2.5 19h19M10.3 10.6l1.3 1.3 2.4-2.6"/></symbol>
-  <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="6.5" rx="2"/><rect x="4" y="13.5" width="16" height="6.5" rx="2"/><path d="M7.5 7.25h1M7.5 16.75h1M12 7.25h4.5M12 16.75h4.5"/></symbol>
-  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"/></symbol>
-  <symbol id="i-x" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17"/></symbol>
-  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
-  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="9.5" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></symbol>
-  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4.5v4h-4"/></symbol>
-  <symbol id="i-admin" viewBox="0 0 24 24"><path d="M12 3.5l7 2.6v5.4c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V6.1z"/><circle cx="12" cy="10.3" r="2.2"/><path d="M8.7 15.7a3.6 3.6 0 0 1 6.6 0"/></symbol>
-  <symbol id="i-door" viewBox="0 0 24 24"><path d="M13.5 4H6.5A1.5 1.5 0 0 0 5 5.5v13A1.5 1.5 0 0 0 6.5 20h7M10 12h10M17 9l3 3-3 3"/></symbol>
-  <symbol id="i-book" viewBox="0 0 24 24"><path d="M5 5.5A1.5 1.5 0 0 1 6.5 4H18v13H7a2 2 0 0 0-2 2z"/><path d="M5 19a2 2 0 0 0 2 2h11v-4M9 8h5"/></symbol>
-  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.5 3.5h3l1.5 4-2 1.3a10 10 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z"/></symbol>
-  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
-  <symbol id="i-send" viewBox="0 0 24 24"><path d="M20.5 3.5L3.5 10.5l7 2.5 2.5 7z"/><path d="M10.5 13l4-4"/></symbol>
-  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
-  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M3 9.2a13 13 0 0 1 18 0M6.2 12.6a8.2 8.2 0 0 1 11.6 0M9.4 16a3.6 3.6 0 0 1 5.2 0"/><circle cx="12" cy="19" r=".6"/></symbol>
-  <symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 9.5h3l4.5-4v13L7 14.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
-  <symbol id="i-battery" viewBox="0 0 24 24"><rect x="2.5" y="7.5" width="17" height="9" rx="2.2"/><path d="M22 10.5v3M5.5 10.5v3M8.5 10.5v3M11.5 10.5v3M14.5 10.5v3"/></symbol>
-  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3.5l1.8 5.2 5.2 1.8-5.2 1.8L12 17.5l-1.8-5.2L5 10.5l5.2-1.8z"/></symbol>
-  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5 13.5h6L10 21l8-10.5h-6z"/></symbol>
-  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3.5H7.5A1.5 1.5 0 0 0 6 5v14a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 18 19V7.5z"/><path d="M14 3.5v4h4M9 12h6M9 15.5h6"/></symbol>
-  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.5 5.4 3.5 8.5s-1 5.9-3.5 8.5c-2.5-2.6-3.5-5.4-3.5-8.5s1-5.9 3.5-8.5z"/></symbol>
-  <symbol id="i-handshake" viewBox="0 0 24 24"><path d="M3 11l4-4 3 1 2-1.5L17 11l4-1M7 7v6l4 4 1.5-1.5M14 14.5l-1.5 1.5M16 12.5l-2 2M21 10v4l-3.5 3"/></symbol>
-  <symbol id="i-loop" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.6-5.7L20 8.5M20 4.5v4h-4M20 12a8 8 0 0 1-13.6 5.7L4 15.5M4 19.5v-4h4"/></symbol>
-  <symbol id="c-min" viewBox="0 0 10 10"><path d="M0 5.5h10"/></symbol>
-  <symbol id="c-max" viewBox="0 0 10 10"><rect x=".5" y=".5" width="9" height="9" rx="1.5"/></symbol>
-  <symbol id="c-x" viewBox="0 0 10 10"><path d="M.5.5l9 9M9.5.5l-9 9"/></symbol>
-  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.8l1.6 2.3 2.7-.6.6 2.7 2.3 1.6-1.2 2.5 1.2 2.5-2.3 1.6-.6 2.7-2.7-.6L12 21.2l-1.6-2.3-2.7.6-.6-2.7-2.3-1.6L6 12.7 4.8 10.2 7.1 8.6l.6-2.7 2.7.6z"/></symbol>
-  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3.5 7A1.5 1.5 0 0 1 5 5.5h4.2l2 2H19A1.5 1.5 0 0 1 20.5 9v8.5A1.5 1.5 0 0 1 19 19H5a1.5 1.5 0 0 1-1.5-1.5z"/></symbol>
-  <symbol id="i-calc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2.5"/><rect x="8" y="6" width="8" height="3.5" rx=".8"/><path d="M8.5 13h.01M12 13h.01M15.5 13h.01M8.5 17h.01M12 17h.01M15.5 17h.01" stroke-width="2.4"/></symbol>
-  <symbol id="i-brush" viewBox="0 0 24 24"><path d="M19.5 4.5c-2.2 1-6.6 5.4-8.6 8.2l1.4 1.4c2.8-2 7.2-6.4 8.2-8.6z"/><path d="M10 13.5c-2.2 0-3.5 1.4-3.5 3.3 0 1.1-.7 2-2 2.4 1 .9 2.4 1.3 3.7 1.3 2.6 0 4.3-1.9 4.3-4.1z"/></symbol>
-  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="9.5" r="1.7"/><path d="M4 17l5-4.5 3.5 3 3-2.5 4.5 4"/></symbol>
-  <symbol id="i-activity" viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="16" rx="2.5"/><path d="M6.5 13.5h2.5l1.5-4 3 7 1.5-3h2.5"/></symbol>
-  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 6.5h15M9.5 6.5V5a1.5 1.5 0 0 1 1.5-1.5h2A1.5 1.5 0 0 1 14.5 5v1.5M6.5 6.5l.8 12.1A1.5 1.5 0 0 0 8.8 20h6.4a1.5 1.5 0 0 0 1.5-1.4l.8-12.1M10 10.5v6M14 10.5v6"/></symbol>
-  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M9 20.5h6M12 16.5v4"/></symbol>
-  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 10.5L12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-4v-6h-5v6h-4A1.5 1.5 0 0 1 4 19z"/></symbol>
-  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
-  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
-  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
-  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
-  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M15.2 4.8a2.1 2.1 0 0 1 3 3L8.5 17.5 4.5 19.5l2-4z"/><path d="M13.5 6.5l3 3"/></symbol>
-  <symbol id="i-cut" viewBox="0 0 24 24"><circle cx="6.5" cy="17" r="2.5"/><circle cx="17.5" cy="17" r="2.5"/><path d="M8.3 15.3L17 4M15.7 15.3L7 4"/></symbol>
-  <symbol id="i-paste" viewBox="0 0 24 24"><path d="M9 4.5H7A1.5 1.5 0 0 0 5.5 6v13A1.5 1.5 0 0 0 7 20.5h10a1.5 1.5 0 0 0 1.5-1.5V6A1.5 1.5 0 0 0 17 4.5h-2"/><rect x="9" y="3" width="6" height="3.5" rx="1"/></symbol>
-  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10.5l5 5 5-5M5 19.5h14"/></symbol>
-  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15.5V4.5M7 9l5-5 5 5M5 19.5h14"/></symbol>
-  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></symbol>
-  <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6.5h11M9 12h11M9 17.5h11M4.5 6.5h.01M4.5 12h.01M4.5 17.5h.01" /></symbol>
-  <symbol id="i-more" viewBox="0 0 24 24"><path d="M5.5 12h.01M12 12h.01M18.5 12h.01" stroke-width="2.6"/></symbol>
-  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7.5 5v14l11-7z"/></symbol>
-  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
-  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15zM10 20.5a2.2 2.2 0 0 0 4 0"/></symbol>
-  <symbol id="i-bell-off" viewBox="0 0 24 24"><path d="M8.2 5.9A6 6 0 0 1 18 11v4.2M18.5 18.5h-14L6 16.5V11c0-.9.2-1.7.5-2.5M10 20.5a2.2 2.2 0 0 0 4 0M4 4l16 16"/></symbol>
-  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></symbol>
-  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M14.5 6l-6 6 6 6"/></symbol>
-  <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="M6 9.5l6 6 6-6"/></symbol>
-  <symbol id="i-chev-u" viewBox="0 0 24 24"><path d="M6 14.5l6-6 6 6"/></symbol>
-  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.8h.01" stroke-width="2"/></symbol>
-  <symbol id="i-eraser" viewBox="0 0 24 24"><path d="M14 4.5l5.5 5.5-8.5 8.5H7l-2.5-2.5a1.4 1.4 0 0 1 0-2zM9 9.5l5.5 5.5M11 18.5h8.5"/></symbol>
-  <symbol id="i-line" viewBox="0 0 24 24"><path d="M5 19L19 5"/></symbol>
-  <symbol id="i-rect" viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="1"/></symbol>
-  <symbol id="i-ellipse" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="8.5" ry="6.5"/></symbol>
-  <symbol id="i-bucket" viewBox="0 0 24 24"><path d="M10 3.5l7.5 7.5-6.5 6.5a1.5 1.5 0 0 1-2.1 0L3.5 12.1a1.5 1.5 0 0 1 0-2.1zM4.5 11h12.5M19.5 15.5s1.5 2 1.5 3a1.5 1.5 0 0 1-3 0c0-1 1.5-3 1.5-3z"/></symbol>
-  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 7.5L4.5 12 9 16.5M4.5 12H15a4.5 4.5 0 0 1 0 9h-2"/></symbol>
-  <symbol id="i-redo" viewBox="0 0 24 24"><path d="M15 7.5l4.5 4.5-4.5 4.5M19.5 12H9a4.5 4.5 0 0 0 0 9h2"/></symbol>
-  <symbol id="i-zoom-in" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M8 10.5h5M10.5 8v5"/></symbol>
-  <symbol id="i-zoom-out" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M8 10.5h5"/></symbol>
-  <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3.5a8.5 8.5 0 0 0 0 17c1.3 0 1.9-.8 1.9-1.7 0-1.3-1.2-1.6-1.2-2.8 0-.9.7-1.5 1.6-1.5h2.2a4 4 0 0 0 4-4c0-3.9-3.8-7-8.5-7z"/><circle cx="7.8" cy="11" r=".9"/><circle cx="10.5" cy="7.5" r=".9"/><circle cx="15" cy="7.8" r=".9"/></symbol>
-  <symbol id="i-access" viewBox="0 0 24 24"><circle cx="12" cy="4.8" r="1.8"/><path d="M5 8.5c2.3.7 4.6 1 7 1s4.7-.3 7-1M12 9.5v4.5M12 14l-3 6.5M12 14l3 6.5"/></symbol>
-  <symbol id="i-disk" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="2.5"/><path d="M16.5 12h.01M7 12h5" stroke-width="2"/></symbol>
-  <symbol id="i-apps" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="3.25"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.8"/></symbol>
-  <symbol id="i-weather" viewBox="0 0 24 24"><path d="M9 4v1.2M4.6 5.8l.9.9M3 10.2h1.2M13.4 6.7l.9-.9"/><path d="M6.4 11.6a3.6 3.6 0 0 1 6.6-3"/><path d="M9.5 19.5h8a3.5 3.5 0 0 0 .4-7 4.6 4.6 0 0 0-8.8 1.2 2.9 2.9 0 0 0 .4 5.8z"/></symbol>
-  <symbol id="i-rain" viewBox="0 0 24 24"><path d="M7 15.5h10a4.5 4.5 0 0 0 .6-9 6 6 0 0 0-11.5 1.6A3.8 3.8 0 0 0 7 15.5z"/><path d="M8.5 18.5l-1 2M12.5 18.5l-1 2M16.5 18.5l-1 2"/></symbol>
-  <symbol id="i-snow" viewBox="0 0 24 24"><path d="M7 14.5h10a4.5 4.5 0 0 0 .6-9 6 6 0 0 0-11.5 1.6A3.8 3.8 0 0 0 7 14.5z"/><path d="M8.5 18h.01M12 20h.01M15.5 18h.01M10.2 21.5h.01M13.8 21.5h.01" stroke-width="2.2"/></symbol>
-  <symbol id="i-storm" viewBox="0 0 24 24"><path d="M7 14.5h10a4.5 4.5 0 0 0 .6-9 6 6 0 0 0-11.5 1.6A3.8 3.8 0 0 0 7 14.5z"/><path d="M12.5 14.5l-2 3.5h3l-2 3.5"/></symbol>
-  <symbol id="i-fog" viewBox="0 0 24 24"><path d="M4 9.5h16M6 13.5h12M4 17.5h16"/></symbol>
-  <symbol id="i-nightlight" viewBox="0 0 24 24"><path d="M15.5 16.5A6.5 6.5 0 0 1 9 6.2a7 7 0 1 0 8.8 9.6 6.6 6.6 0 0 1-2.3.7z"/><path d="M17 4.5v3M15.5 6h3M20 9.5v2M19 10.5h2"/></symbol>
-  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 4l8.5 4.5L12 13 3.5 8.5z"/><path d="M3.5 12.5L12 17l8.5-4.5M3.5 16L12 20.5l8.5-4.5"/></symbol>
-  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M14.5 3.5l6 6-3 1.2-3.7 3.7-.5 4.1-8.3-8.3 4.1-.5 3.7-3.7zM8.8 15.2L3.5 20.5"/></symbol>
-  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4.5h5.5V10M19.5 4.5l-8 8M17 14v4a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 5 18V9a1.5 1.5 0 0 1 1.5-1.5h4"/></symbol>
-  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.8l2.5 5.2 5.7.8-4.1 4 1 5.6L12 16.7l-5.1 2.7 1-5.6-4.1-4 5.7-.8z"/></symbol>
-  <symbol id="i-sort" viewBox="0 0 24 24"><path d="M7 4.5v15M3.5 16L7 19.5 10.5 16M17 19.5v-15M13.5 8L17 4.5 20.5 8"/></symbol>
-  <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3.5h11.5l3.5 3.5v11.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5V5A1.5 1.5 0 0 1 5.5 3.5z"/><path d="M8 3.5v5h7v-5M7.5 20v-6h9v6"/></symbol>
-  <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx=".8"/><path d="M9.5 3.5v3M14.5 3.5v3M9.5 17.5v3M14.5 17.5v3M3.5 9.5h3M3.5 14.5h3M17.5 9.5h3M17.5 14.5h3"/></symbol>
-  <symbol id="i-textsize" viewBox="0 0 24 24"><path d="M3.5 18.5L8 6.5l4.5 12M5.2 14.5h5.6M14 18.5l3-7.5 3 7.5M15 16h4"/></symbol>
-  <symbol id="i-taskview" viewBox="0 0 24 24"><rect x="3.5" y="5" width="7.5" height="14" rx="1.8"/><rect x="13" y="5" width="7.5" height="6" rx="1.8"/><rect x="13" y="13" width="7.5" height="6" rx="1.8"/></symbol>
-  <symbol id="i-update" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 0 1-13.2 4.9M4.5 12a7.5 7.5 0 0 1 13.2-4.9M17.7 3.5v3.6h-3.6M6.3 20.5v-3.6h3.6"/></symbol>
-  <symbol id="i-run" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><path d="M3.5 9h17M7 13h6M7 16h4"/></symbol>
-  <symbol id="i-desktop" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M9 20.5h6M12 16.5v4M3 13h18"/></symbol>
-  <symbol id="i-signal" viewBox="0 0 24 24"><path d="M5 19.5v-3M9.5 19.5v-6.5M14 19.5V9.5M18.5 19.5V5.5"/></symbol>
-  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
-  <symbol id="i-shortcut" viewBox="0 0 24 24"><path d="M9 16c0-4.5 2.5-7 7-7M12.5 5.5L16 9l-3.5 3.5"/></symbol>
-  <symbol id="c-restore" viewBox="0 0 10 10"><rect x=".5" y="2.5" width="7" height="7" rx="1.2"/><path d="M2.6.5h5.2A1.7 1.7 0 0 1 9.5 2.2v5.2"/></symbol>
-</svg>
-
-<!-- Boot screen: plain HTML so it paints before any script runs -->
-<div class="boot" id="boot" role="status" aria-label="rivaOS is starting">
-  <svg class="boot-logo" viewBox="0 0 1579 815" aria-hidden="true"><use href="#rivaLogo" width="1579" height="815"/></svg>
-  <div class="boot-spin" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+<div class="bar">
+  <div class="wrap">
+    <div class="textsize" role="group" aria-label="Text size">
+      <span aria-hidden="true">Text size:</span>
+      <button type="button" data-size="" aria-label="Normal text size" aria-pressed="true">A</button>
+      <button type="button" data-size="l" aria-label="Large text size" aria-pressed="false">A</button>
+      <button type="button" data-size="xl" aria-label="Largest text size" aria-pressed="false">A</button>
+    </div>
+    <header class="top">
+      <a class="logo" href="/" aria-label="Riva Computech, home"><img src="/brand/riva-computech-logo.svg" alt="Riva Computech" width="117" height="80" /></a>
+      <a class="btn" href="tel:+13134057164" data-track="call_header"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.3a10 10 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z"/></svg>Call (313) 405-7164</a>
+    </header>
+    <nav aria-label="On this page">
+      <ul class="menu">
+        <li><a href="#services">What we do</a></li>
+        <li><a href="#why">Why choose us</a></li>
+        <li><a href="#about">About Devik</a></li>
+        <li><a href="#contact">Contact us</a></li>
+      </ul>
+    </nav>
+  </div>
 </div>
 
-<div id="os"></div>
+<main id="main">
 
-<script type="module" src="/os/main.js"></script>
+<div class="hero">
+  <div class="wrap">
+    <p class="kicker">IT help for small businesses</p>
+    <h1>The IT person who actually <em>picks up the phone.</em></h1>
+    <p class="lead">Riva Computech looks after your email, your files and your computers. You talk directly to Devik, the engineer who does the work. No call centres. No waiting in line.</p>
+    <div class="actions">
+      <a class="btn" href="tel:+13134057164" data-track="call_hero"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.3a10 10 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z"/></svg>Call (313) 405-7164</a>
+      <a class="btn alt" href="#contact"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M4 7.5l8 5.5 8-5.5"/></svg>Send a message</a>
+    </div>
+    <ul class="promise">
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Free 30-minute first chat</li>
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Evenings and weekends too</li>
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Over 10 years of experience</li>
+    </ul>
+  </div>
+</div>
+
+<section id="services" aria-labelledby="h-services">
+  <div class="wrap">
+    <h2 id="h-services">What we can help with</h2>
+    <p class="lead">Everyday computer and email help for your business. A one-off job, or ongoing support.</p>
+    <ul class="cards">
+      <li class="card" id="svc-m365"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M4 7.5l8 5.5 8-5.5"/></svg></div>
+        <h3>Email and Microsoft 365</h3><p>We set up and look after your work email, Word, Excel, Teams and shared files, so everything is tidy and safe.</p></li>
+      <li class="card" id="svc-azure"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg></div>
+        <h3>Sign-ins and passwords</h3><p>One secure sign-in for each person, with access to the right things. Help when someone joins, leaves or gets locked out.</p></li>
+      <li class="card" id="svc-migrate"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/></svg></div>
+        <h3>Moving to a new system</h3><p>Changing email provider or moving your files? We plan it carefully, so nothing is lost and work carries on.</p></li>
+      <li class="card" id="svc-backup"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="2.7"/><path d="M5 6v6c0 1.5 3.1 2.7 7 2.7s7-1.2 7-2.7V6M5 12v6c0 1.5 3.1 2.7 7 2.7s7-1.2 7-2.7v-6"/></svg></div>
+        <h3>Backups</h3><p>Safe copies of your email and files. We test them, so we know they can be brought back on a bad day.</p></li>
+      <li class="card" id="svc-security"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l7 2.6v5.4c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V6.1z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg></div>
+        <h3>Protection from scams and viruses</h3><p>We keep your computers, phones and email protected, and watch for anything suspicious.</p></li>
+      <li class="card" id="svc-infra"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="6.5" rx="2"/><rect x="4" y="13.5" width="16" height="6.5" rx="2"/><path d="M7.5 7.25h1M7.5 16.75h1M12 7.25h4.5M12 16.75h4.5"/></svg></div>
+        <h3>Servers and office networks</h3><p>Office servers, networks and secure connections for working from home. Set up properly and kept running.</p></li>
+    </ul>
+    <p class="also"><b>We can also save you time.</b> Jobs you repeat on the computer can be made to happen automatically, the same way every time, so nothing gets forgotten.</p>
+    <div class="works">
+      <p>We work with:</p>
+      <ul>
+        <li><img src="/assets/logos/microsoft.svg" alt="Microsoft" width="120" height="26" /></li>
+        <li><img src="/assets/logos/azure.svg" alt="Microsoft Azure" width="100" height="26" /></li>
+        <li><img src="/assets/logos/windows.svg" alt="Windows" width="120" height="26" /></li>
+        <li><img src="/assets/logos/vmware.svg" alt="VMware" width="110" height="26" /></li>
+        <li><span class="citrix"><img src="/assets/logos/citrix.svg" alt="" width="24" height="24" />Citrix</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="why" aria-labelledby="h-why">
+  <div class="wrap">
+    <h2 id="h-why">Why people choose Riva Computech</h2>
+    <ul class="why">
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span><b>You talk to a real person.</b> Call or message Devik directly. He is the one who fixes it.</span></li>
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span><b>The same engineer every time.</b> Devik already knows your setup, so you never have to explain it twice.</span></li>
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span><b>Here when you need us.</b> Evenings, weekends and holidays too.</span></li>
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span><b>Over 10 years of experience.</b> Hands-on work with Microsoft systems, servers and networks.</span></li>
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span><b>Honest advice.</b> Straight answers, including “you don't need that.”</span></li>
+      <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span><b>Fixed properly.</b> Problems are solved and written down, not patched until next month.</span></li>
+    </ul>
+
+    <h2 id="how" style="margin-top:3rem">How it works</h2>
+    <ol class="steps">
+      <li><span><b>Call or send a message.</b> A few words about what you need is plenty.</span></li>
+      <li><span><b>A free 30-minute chat.</b> We talk through what is bothering you.</span></li>
+      <li><span><b>A clear plan and price.</b> You will know what needs doing, and what it costs, before any work starts.</span></li>
+      <li><span><b>The work gets done.</b> By Devik, the same person you spoke to.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section id="about" aria-labelledby="h-about">
+  <div class="wrap">
+    <h2 id="h-about">About Devik</h2>
+    <div class="about">
+      <!-- TODO(Devik): swap the initials for a real photo: <img class="avatar" src="/devik.jpg" alt="Devik Patel" width="124" height="124"> -->
+      <div class="avatar" aria-hidden="true">DP</div>
+      <div class="who">
+        <p class="lead">Hi, I'm Devik Patel. I own Riva Computech, and I'm the person you will actually work with.</p>
+        <p>I have spent more than ten years fixing and looking after computer systems for businesses. I keep a small number of clients on purpose, so I know each one well and you can always reach me.</p>
+        <p>My hours are flexible: evenings, weekends and holidays.</p>
+        <p class="sign">Devik Patel, Owner</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" aria-labelledby="h-contact">
+  <div class="wrap">
+    <h2 id="h-contact">Get in touch</h2>
+    <p class="lead">Call, email, or fill in the form below. Devik will reply, usually within one working day.</p>
+    <ul class="ways">
+      <li class="way">
+        <span class="label"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.3a10 10 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z"/></svg>Phone</span>
+        <span class="big"><a href="tel:+13134057164">(313) 405-7164</a></span>
+        <a class="btn" href="tel:+13134057164" data-track="call_contact">Call now</a>
+      </li>
+      <li class="way">
+        <span class="label"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M4 7.5l8 5.5 8-5.5"/></svg>Email</span>
+        <span class="big"><a href="mailto:rivacomputech@gmail.com">rivacomputech@<wbr>gmail.com</a></span>
+        <a class="btn alt" href="mailto:rivacomputech@gmail.com" data-track="email_contact">Send an email</a>
+      </li>
+      <li class="way wide">
+        <span class="label"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>Hours</span>
+        <span class="big">Weekdays, evenings, weekends and holidays</span>
+      </li>
+    </ul>
+
+    <form id="form" action="https://formspree.io/f/xvkkjper" method="POST" aria-labelledby="h-form">
+      <h3 id="h-form">Send a message</h3>
+      <p class="hint" style="margin:0">Tell us what you need help with. Give a phone number or an email address, whichever you prefer.</p>
+      <input type="hidden" name="_subject" value="New message from rivacomputech.com" />
+      <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <label for="f-name">Your name</label>
+      <input id="f-name" name="name" type="text" autocomplete="name" required />
+      <label for="f-phone">Your phone number</label>
+      <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" />
+      <label for="f-email">Your email address</label>
+      <input id="f-email" name="email" type="email" autocomplete="email" />
+      <label for="f-msg">How can we help?</label>
+      <textarea id="f-msg" name="message" rows="5" required></textarea>
+      <button class="btn" type="submit"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5L3.5 10.5l7 2.5 2.5 7z"/><path d="M10.5 13l4-4"/></svg>Send message</button>
+      <p class="status" id="status" role="alert"></p>
+    </form>
+    <div class="thanks" id="thanks" hidden tabindex="-1">
+      <h3>Thank you. Your message has been sent.</h3>
+      <p style="margin:0">Devik will get back to you soon, usually within one working day. If it is urgent, please call <a href="tel:+13134057164">(313) 405-7164</a>.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Riva Computech, back to the top"><img src="/brand/riva-computech-logo-white.svg" alt="Riva Computech" width="95" height="65" /></a>
+    <p>Call <a href="tel:+13134057164">(313) 405-7164</a> · Email <a href="mailto:rivacomputech@gmail.com">rivacomputech@gmail.com</a></p>
+    <p class="small">© <span id="year">2026</span> Riva Computech. Microsoft, Microsoft 365, Azure, Windows, VMware and Citrix are trademarks of their owners. Riva Computech is independent and is not affiliated with them.</p>
+    <p class="small">Enjoy computers? <a href="/desktop/">Try our interactive desktop</a>.</p>
+  </div>
+</footer>
+
+<div class="callbar" role="group" aria-label="Contact Riva Computech">
+  <a class="btn" href="tel:+13134057164" data-track="call_bar"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.3a10 10 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z"/></svg>Call</a>
+  <a class="btn alt" href="#contact"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M4 7.5l8 5.5 8-5.5"/></svg>Message</a>
+</div>
+
+<script>
+(function(){
+  var d=document, root=d.documentElement;
+  d.getElementById('year').textContent=new Date().getFullYear();
+
+  // Text size: three buttons, remembered for next time.
+  var sizes=[].slice.call(d.querySelectorAll('.textsize button'));
+  function mark(){var cur=root.getAttribute('data-text')||'';sizes.forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-size')===cur))})}
+  sizes.forEach(function(b){b.addEventListener('click',function(){var v=b.getAttribute('data-size');
+    if(v)root.setAttribute('data-text',v);else root.removeAttribute('data-text');
+    try{v?localStorage.setItem('riva-text',v):localStorage.removeItem('riva-text')}catch(e){} mark()})});
+  mark();
+
+  // Count calls and emails (anonymous totals only).
+  d.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-track]');if(a&&window.gtag)gtag('event',a.getAttribute('data-track'))});
+
+  // The form works without this script (it posts to Formspree). With it, the visitor stays on the page
+  // and gets clear, friendly messages.
+  var form=d.getElementById('form'), status=d.getElementById('status'), thanks=d.getElementById('thanks');
+  form.noValidate=true;
+  function say(msg){status.textContent=msg;status.className='status bad'}
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var f=form.elements, name=f.name.value.trim(), phone=f.phone.value.trim(), email=f.email.value.trim(), msg=f.message.value.trim();
+    if(!name){say('Please tell us your name.');f.name.focus();return}
+    if(!phone&&!email){say('Please give a phone number or an email address, so Devik can reply.');f.phone.focus();return}
+    if(email&&!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){say('That email address does not look right. Please check it.');f.email.focus();return}
+    if(!msg){say('Please tell us how we can help.');f.message.focus();return}
+    var btn=form.querySelector('button[type=submit]'); btn.disabled=true; status.className='status'; status.textContent='Sending your message…';
+    fetch(form.action,{method:'POST',headers:{Accept:'application/json'},body:new FormData(form)})
+      .then(function(r){ if(!r.ok) throw new Error('send failed'); form.hidden=true; thanks.hidden=false; thanks.focus(); if(window.gtag)gtag('event','generate_lead',{method:'simple_form'}) })
+      .catch(function(){ btn.disabled=false; say('Sorry, the message could not be sent. Please call (313) 405-7164 or email rivacomputech@gmail.com.') });
+  });
+})();
+</script>
 </body>
 </html>
