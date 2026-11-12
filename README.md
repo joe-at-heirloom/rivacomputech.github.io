@@ -22,7 +22,7 @@ No framework and no build step: plain HTML for the home page, native ES modules 
   sentence ("Sign-ins and access: one sign-in per person…"), then an *Includes* line with the terms
   people and search engines look for (Microsoft Entra ID, Active Directory, Intune…).
 - **Slogan:** "You mind your business. We'll mind your computers." It is the page's `<h1>`, set in
-  JetBrains Mono (a monospaced "terminal" typeface, used nowhere else on the page) with a cursor that
+  Space Mono (a monospaced, retro-computer typeface, used nowhere else on the page) with a cursor that
   blinks five times and then stays still. The plain description, "IT support for small businesses",
   opens the paragraph under it, so search engines and AI assistants still meet it in the first sentence.
 - **Sections, in order:** services · common reasons people get in touch · what to expect · how it works ·

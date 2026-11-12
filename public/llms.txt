@@ -1,13 +1,13 @@
 # Riva Computech
 
-> Riva Computech provides IT support for small businesses. It is run by one engineer, Devik Patel, who does the work himself: Microsoft 365 and email, sign-ins and access, migrations, backups, device and email security, servers and networks, and PowerShell automation.
+> Riva Computech provides IT support for small businesses: Microsoft 365 and email, sign-ins and access, migrations, backups, device and email security, servers and networks, and PowerShell automation. Clients deal directly with Devik Patel, the owner and the engineer who does the work.
 
 This file is a plain summary of https://rivacomputech.com/ for AI assistants and other tools. Everything in it is also on the website.
 
 **Key facts**
 
 - Name: Riva Computech
-- What it is: IT support for small businesses, run by one engineer
+- What it is: IT support for small businesses
 - Owner and engineer: Devik Patel. 10+ years of hands-on IT (help desk, Windows Server, virtualization, Microsoft 365 and Azure). BSc in Information Technology. Speaks English and Gujarati.
 - Who you deal with: Devik Patel, from the first message to the finished job. There is no help desk queue and no hand-off to someone else.
 - Cost: the first 30-minute chat is free. After that the client gets a plan that says what needs to be done, in what order, and what it will cost, before any work starts. No price list is published.
