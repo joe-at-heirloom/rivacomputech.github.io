@@ -28,15 +28,16 @@ No framework and no build step: plain HTML for the home page, native ES modules 
     once per visit, and not at all for visitors who have asked their device for reduced motion;
     without JavaScript the finished hero is simply there. The colors are at the top of the hero's CSS
     (`--screen`, `--screen-2`, `--blue`, `--sky`).
-  - **The taskbar** is fixed to the bottom of the screen and is the page's menu: an app icon and a
-    name for each section, with a marker under the one on screen. Wide screens also get a clock and a
-    *Book a free chat* button. Phones get five roomy items (no *Top*), and the bar slides away while
-    someone is typing so it never covers the keyboard. Its markup sits right after the header.
+  - **The taskbar** is fixed to the bottom of the screen and is the page's menu. It is kept quiet on
+    purpose: plain line icons in one color with the section names, and the section on screen is
+    simply brighter with a small blue mark. Wide screens also get a clock and a *Book a free chat*
+    button. Phones get five items (no *Top*), and the bar slides away while someone is typing so it
+    never covers the keyboard. Its markup sits right after the header.
   - **App windows:** the health check, the example script and the message form are drawn as windows
     with a title bar. The three little window buttons are decoration only.
-  - **App icons:** each service has its own color and a small "Running" light, and each section has
-    a line of PowerShell above its heading (`PS> Get-Service`). These are flavor and are hidden from
-    screen readers; the headings underneath stay in plain words.
+  - **App icons:** each service card has its own icon color and a small "Running" light, and each
+    section has a line of PowerShell above its heading (`PS> Get-Service`). These are flavor and are
+    hidden from screen readers; the headings underneath stay in plain words.
 - **Slogan:** "You mind your business. We'll mind your computers." It is the page's `<h1>`. The
   second sentence sits on a blue bar, the way selected text looks, with a cursor that blinks four
   times and then stays still. The plain description, "IT support for small businesses", is the
@@ -56,9 +57,11 @@ No framework and no build step: plain HTML for the home page, native ES modules 
 - **Questions people ask:** eleven short answers in a native accordion, so it works without JavaScript.
 - **Everything is centred:** hero, the "Works with" logo row (each logo sized by eye so they carry the
   same weight), service cards, windows, steps, and the footer.
-- **Phones first:** on a phone the whole hero, down to the phone number, fits above the taskbar on
-  the first screen (on the shortest phones the smile steps aside to make room). Nothing scrolls
-  sideways except the code inside the script window. Controls are at least 44px tall.
+- **Phones first, and not crowded:** the hero is given room rather than packed. On a phone it is
+  the logo, the smile, the slogan, one sentence and the type-here box, all above the taskbar on the
+  first screen (the line with the phone number is left to the Contact section, and on the shortest
+  phones the smile steps aside). Nothing scrolls sideways except the code inside the script window,
+  and controls are at least 44px tall.
 - **Readable:** Inter at 18px, strong contrast, buttons at least 48px tall. A small text-size control in
   the footer goes up to 22px and remembers the choice.
 - **A forgiving form:** name, a phone number *or* an email, and a message, with clear error messages.
