@@ -1,95 +1,60 @@
 <!doctype html>
 <!--
-  Source for public/og.png (the 1200×630 social share image).
+  Source for public/og.png (the 1200×630 social share image). It mirrors the home page's hero:
+  the dark screen, the slogan in Space Mono (white, then blue), and the riva bloom.
   Regenerate: serve the repo root (e.g. `python3 -m http.server 8090`), open
   http://localhost:8090/tools/og.html at a 1200×630 viewport, and screenshot it
-  (2× device scale, then downscale to 1200×630 for crisp text).
+  (2× device scale, then downscale to 1200×630 for crisp text). Then bump ?v= on the
+  og:image / twitter:image URLs (public/index.html and public/desktop/index.html).
 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <title>og</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=block">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cascadia-code@5.3.0/index.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Space+Mono:wght@700&display=block">
 <style>
   *{box-sizing:border-box}
-  html,body{margin:0;width:1200px;height:630px;overflow:hidden;background:#f6f9fd;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-  .wall{position:absolute;inset:0;background-repeat:no-repeat;background-size:1500px auto;background-position:230px 50%}
-  .scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(246,249,253,.98) 0%,rgba(246,249,253,.94) 38%,rgba(246,249,253,.35) 60%,rgba(246,249,253,0) 72%)}
-  .copy{position:absolute;left:76px;top:70px;width:600px}
-  .brand{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
-  .brand img.word{height:62px}
-  .brand span{font:600 13px/1 Inter;letter-spacing:.3em;color:#5c6b80;padding-left:2px}
-  .kicker{margin:38px 0 0;font:700 17px/1 Inter;letter-spacing:.12em;text-transform:uppercase;color:#0067c0}
-  h1{margin:18px 0 0;font:800 60px/1.05 Inter;letter-spacing:-.035em;color:#0b1b30}
-  h1 span{color:#0067c0}
-  .term{position:absolute;left:706px;top:96px;width:436px;border-radius:10px;overflow:hidden;background:#0c0c0c;
-    box-shadow:0 0 0 1px rgba(255,255,255,.08),0 40px 80px -20px rgba(8,30,70,.55),0 8px 24px rgba(8,30,70,.25)}
-  .bar{height:38px;background:#202020;display:flex;align-items:flex-end;padding-left:10px}
-  .tab{height:30px;display:flex;align-items:center;gap:9px;padding:0 14px;border-radius:8px 8px 0 0;background:#0c0c0c;color:#fff;font:500 13px Inter}
-  .tab i{width:16px;height:16px;border-radius:3px;background:#012456;display:grid;place-items:center}
-  .caps{margin-left:auto;display:flex;align-self:stretch}
-  .caps b{width:40px;display:grid;place-items:center}
-  .caps svg{width:10px;height:10px;stroke:#bbb;fill:none;stroke-width:1.2}
-  .out{padding:16px 20px 20px;font:16px/1.6 "Cascadia Code",ui-monospace,monospace;color:#cccccc;white-space:pre}
-  .y{color:#F9F1A5}.g{color:#16C60C}.h{color:#16C60C;font-weight:700}.cur{display:inline-block;width:.6em;height:1.05em;vertical-align:-.15em;background:#ccc}
-  .tb{position:absolute;left:0;right:0;bottom:0;height:58px;background:rgba(243,243,243,.86);backdrop-filter:blur(30px) saturate(1.6);border-top:1px solid rgba(0,0,0,.06);
-    display:flex;align-items:center;justify-content:center;gap:8px}
-  .tb .ic{width:42px;height:42px;border-radius:6px;display:grid;place-items:center;position:relative}
-  .tb .ic.on{background:rgba(0,0,0,.05)}
-  .tb .ic.on::after{content:"";position:absolute;bottom:2px;left:50%;width:16px;margin-left:-8px;height:3px;border-radius:2px;background:#0067c0}
-  .tile{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;background:linear-gradient(150deg,var(--a),var(--b));box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 1px 2px rgba(0,0,0,.2)}
-  .tile svg,.tb .s svg,.tray svg{width:17px;height:17px;fill:none;stroke:#fff;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
-  .tb .s{width:200px;height:36px;border-radius:18px;background:rgba(255,255,255,.75);box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);display:flex;align-items:center;gap:10px;padding:0 14px;font:500 14px Inter;color:#666;margin:0 4px}
-  .tb .s svg{stroke:#222;width:15px;height:15px;stroke-width:1.8}
-  .tray{position:absolute;right:22px;top:0;bottom:0;display:flex;align-items:center;gap:12px;font:500 14px Inter;color:#1b1b1b}
-  .tray svg{stroke:#1b1b1b;width:16px;height:16px;stroke-width:1.7}
+  html,body{margin:0;width:1200px;height:630px;overflow:hidden;-webkit-font-smoothing:antialiased}
+  body{position:relative;color:#fff;font-family:Inter,system-ui,sans-serif;text-align:center;
+    background:radial-gradient(780px 340px at 50% 100%,rgba(40,120,255,.5),rgba(40,120,255,0) 72%),radial-gradient(900px 420px at 50% 0,rgba(61,155,240,.16),rgba(61,155,240,0) 70%),linear-gradient(180deg,#0b1b30,#060f1d)}
+  .logo{position:absolute;left:50%;top:52px;height:68px;transform:translateX(-50%)}
+  h1{position:absolute;left:0;right:0;top:172px;margin:0;font:700 66px/1.2 "Space Mono",ui-monospace,monospace;letter-spacing:-.05em}
+  h1 span{display:block}
+  h1 .hl{color:#3d9bf0}
+  .cur{display:inline-block;width:.42em;height:.86em;margin-left:.12em;vertical-align:-.08em;background:currentColor}
+  p{position:absolute;left:0;right:0;top:366px;margin:0;font:500 30px/1.3 Inter,system-ui,sans-serif;color:rgba(255,255,255,.92)}
+  .bloom{position:absolute;left:50%;bottom:-222px;width:1000px;transform:translateX(-50%);
+    -webkit-mask-image:linear-gradient(to top,#000 40%,rgba(0,0,0,.3) 60%,transparent 80%);mask-image:linear-gradient(to top,#000 40%,rgba(0,0,0,.3) 60%,transparent 80%)}
 </style>
 </head>
 <body>
-<div class="wall" id="wall"></div>
-<div class="scrim"></div>
-
-<div class="copy">
-  <div class="brand"><img class="word" src="../public/brand/riva-logo.svg" alt="riva"><span>COMPUTECH</span></div>
-  <p class="kicker">Microsoft 365 · Azure · Infrastructure</p>
-  <h1>You mind<br>your business.<br><span>We'll mind<br>your computers.</span></h1>
-</div>
-
-<div class="term">
-  <div class="bar"><div class="tab"><i><svg viewBox="0 0 24 24" width="11" height="11"><path d="M6 7l6 5-6 5M13 17h5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></i>PowerShell</div>
-    <div class="caps"><b><svg viewBox="0 0 10 10"><path d="M0 5.5h10"/></svg></b><b><svg viewBox="0 0 10 10"><rect x=".5" y=".5" width="9" height="9" rx="1.5"/></svg></b><b><svg viewBox="0 0 10 10"><path d="M.5.5l9 9M9.5.5l-9 9"/></svg></b></div></div>
-<div class="out">PS C:\Riva&gt; <span class="y">Get-Service</span> Riva*
-
-<span class="h">Status   DisplayName</span>
-<span class="g">Running</span>  Microsoft 365
-<span class="g">Running</span>  Azure &amp; identity
-<span class="g">Running</span>  Migrations
-<span class="g">Running</span>  Backup &amp; continuity
-<span class="g">Running</span>  Devices &amp; security
-
-PS C:\Riva&gt; <span class="cur"></span></div>
-</div>
-
-<div class="tb">
-  <span class="ic"><img src="../public/brand/riva-logo.svg" alt="" style="height:15px"></span>
-  <span class="s"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg>Search</span>
-  <span class="ic"><svg viewBox="0 0 48 48" width="30" height="30"><path d="M4 11a3 3 0 0 1 3-3h11.2l4 4H41a3 3 0 0 1 3 3v22a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="#e8a317"/><path d="M4 17.5a3 3 0 0 1 3-3h34a3 3 0 0 1 3 3V37a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="#ffc83d"/></svg></span>
-  <span class="ic"><span class="tile" style="--a:#41a0ff;--b:#0a5cbf"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8.5 7V5.5A1.5 1.5 0 0 1 10 4h4a1.5 1.5 0 0 1 1.5 1.5V7M3 12.5h18"/></svg></span></span>
-  <span class="ic"><span class="tile" style="--a:#43d283;--b:#118c50"><svg viewBox="0 0 24 24"><path d="M12 3.5l7 2.6v5.4c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V6.1z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg></span></span>
-  <span class="ic on"><span class="tile" style="--a:#454545;--b:#0d0d0d"><svg viewBox="0 0 24 24"><path d="M6 8.5l4 3.5-4 3.5M12.5 16h5.5"/></svg></span></span>
-  <span class="ic"><span class="tile" style="--a:#55b0ff;--b:#0b66c4"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M4 7.5l8 5.5 8-5.5"/></svg></span></span>
-  <div class="tray">
-    <svg viewBox="0 0 24 24"><path d="M3 9.2a13 13 0 0 1 18 0M6.2 12.6a8.2 8.2 0 0 1 11.6 0M9.4 16a3.6 3.6 0 0 1 5.2 0"/></svg>
-    <svg viewBox="0 0 24 24"><path d="M4 9.5h3l4.5-4v13L7 14.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
-    <span>9:41 AM</span>
-  </div>
-</div>
-
-<script type="module">
-  import { wallpaperURL } from "../public/os/wallpapers.js";
-  document.getElementById("wall").style.backgroundImage = `url("${wallpaperURL("bloom", "light")}")`;
-  document.fonts.ready.then(() => document.body.dataset.ready = "1");
-</script>
+<img class="logo" src="../public/brand/riva-computech-logo-white.svg" alt="">
+<h1><span>You mind your business.</span><span class="hl">We'll mind your computers.<i class="cur"></i></span></h1>
+<p>IT support for small businesses</p>
+<!-- the same bloom as the home page's hero -->
+<svg class="bloom" viewBox="-700 -640 1400 860" aria-hidden="true" focusable="false">
+  <defs>
+    <path id="petal" d="M0 0C64-118 196-292 158-498C92-470 18-398-22-300C-58-206-42-84 0 0Z"/>
+    <linearGradient id="pb" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stop-color="#0a3a8f"/><stop offset="1" stop-color="#1d6bd4"/></linearGradient>
+    <linearGradient id="pm" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stop-color="#0a3a8f"/><stop offset=".6" stop-color="#1d6bd4"/><stop offset="1" stop-color="#52b0ff"/></linearGradient>
+    <linearGradient id="pf" x1=".2" y1="1" x2=".6" y2="0"><stop offset="0" stop-color="#1d6bd4"/><stop offset=".55" stop-color="#52b0ff"/><stop offset="1" stop-color="#bfe5ff"/></linearGradient>
+    <radialGradient id="pc"><stop offset="0" stop-color="#bfe5ff" stop-opacity=".95"/><stop offset="1" stop-color="#52b0ff" stop-opacity="0"/></radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7"/></filter>
+  </defs>
+  <g filter="url(#soft)" opacity=".9" fill="url(#pb)">
+    <use href="#petal" transform="rotate(-128) scale(1.12)"/><use href="#petal" transform="rotate(-82) scale(1.2)"/><use href="#petal" transform="rotate(-36) scale(1.18)"/><use href="#petal" transform="rotate(10) scale(1.14)"/>
+    <use href="#petal" transform="rotate(56) scale(1.06)"/><use href="#petal" transform="rotate(102) scale(.96)"/><use href="#petal" transform="rotate(148) scale(.9)"/>
+  </g>
+  <g opacity=".92" fill="url(#pm)">
+    <use href="#petal" transform="rotate(-105)"/><use href="#petal" transform="rotate(-59) scale(1.06)"/><use href="#petal" transform="rotate(-13) scale(1.04)"/>
+    <use href="#petal" transform="rotate(33) scale(.98)"/><use href="#petal" transform="rotate(79) scale(.9)"/><use href="#petal" transform="rotate(125) scale(.84)"/>
+  </g>
+  <g opacity=".78" fill="url(#pf)" style="mix-blend-mode:screen">
+    <use href="#petal" transform="rotate(-84) scale(.78)"/><use href="#petal" transform="rotate(-38) scale(.82)"/><use href="#petal" transform="rotate(8) scale(.8)"/>
+    <use href="#petal" transform="rotate(54) scale(.72)"/><use href="#petal" transform="rotate(100) scale(.64)"/>
+  </g>
+  <circle r="120" fill="url(#pc)"/>
+</svg>
+<script>document.fonts.ready.then(() => { document.body.dataset.ready = "1"; });</script>
 </body>
 </html>

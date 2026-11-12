@@ -227,9 +227,11 @@ for 30 minutes, and stores nothing. The User-Agent identifies the site, as MET N
 
 ## Share image
 
-`public/og.png` (1200×630) is rendered from `tools/og.html`. To change it, edit that page, serve the repo
-root (`python3 -m http.server 8090`), open `http://localhost:8090/tools/og.html` at 1200×630 and screenshot it.
-Then bump `?v=` on the `og:image` / `twitter:image` URLs in `public/index.html` so LinkedIn, Slack and others
+`public/og.png` (1200×630) is rendered from `tools/og.html`, which mirrors the home page's hero: the dark
+screen, the logo, the slogan in Space Mono (white, then blue) and the bloom. To change it, edit that page,
+serve the repo root (`python3 -m http.server 8090`), open `http://localhost:8090/tools/og.html` at 1200×630
+and screenshot it. Then bump `?v=` on the `og:image` / `twitter:image` URLs in `public/index.html` and
+`public/desktop/index.html` (and the `image` line in the home page's JSON-LD) so LinkedIn, Slack and others
 fetch the new image instead of a cached one.
 
 ## Editing the content
