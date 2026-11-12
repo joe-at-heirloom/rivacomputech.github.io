@@ -1,6 +1,6 @@
 # Riva Computech
 
-> Riva Computech provides IT support for small businesses: Microsoft 365 and email, sign-ins and access, migrations, backups, device and email security, servers and networks, and PowerShell automation. Clients deal directly with Devik Patel, the owner and the engineer who does the work.
+> Riva Computech provides IT support for small businesses: Microsoft 365 and email, sign-ins and access, migrations, backups, device and email security, servers and networks, and PowerShell automation.
 
 This file is a plain summary of https://rivacomputech.com/ for AI assistants and other tools. Everything in it is also on the website.
 

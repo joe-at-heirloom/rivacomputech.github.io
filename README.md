@@ -21,10 +21,18 @@ No framework and no build step: plain HTML for the home page, native ES modules 
 - **Plain words first, technical terms second:** each service has an everyday name and one plain
   sentence ("Sign-ins and access: one sign-in per person…"), then an *Includes* line with the terms
   people and search engines look for (Microsoft Entra ID, Active Directory, Intune…).
-- **Slogan:** "You mind your business. We'll mind your computers." It is the page's `<h1>`, set in
-  Space Mono (a monospaced, retro-computer typeface, used nowhere else on the page) with a cursor that
-  blinks five times and then stays still. The plain description, "IT support for small businesses",
-  opens the paragraph under it, so search engines and AI assistants still meet it in the first sentence.
+- **The hero is a "happy blue screen":** a friendly take on the blue error screen everyone has met.
+  Full-screen brand blue, blocky Space Mono type, and a face that starts as `:(` and turns into `:)`
+  once the slogan has typed itself. The typing runs once per visit, and not at all for visitors who
+  have asked their device for reduced motion; without JavaScript the finished hero is simply there.
+  To recolor it, change `--screen` and `--screen-2` at the top of the hero's CSS.
+- **Slogan:** "You mind your business. We'll mind your computers." It is the page's `<h1>`. The
+  second sentence is shown in reverse (blue on white), like a selected line, with a cursor that blinks
+  four times and then stays still. The plain description, "IT support for small businesses", is the
+  sentence under it, so search engines and AI assistants still meet it straight away.
+- **No buttons in the hero:** one box asks "What's going on with your computers?". The visitor types,
+  presses Enter and lands on the message form with their words already in it. A link such as
+  `/?q=our+email+is+down#contact` does the same. The phone number sits underneath as plain text.
 - **Sections, in order:** services · common reasons people get in touch · what to expect · how it works ·
   a quick IT health check · about Devik · questions people ask · get in touch.
 - **Health check:** eight checkboxes with a running count and a "good place to start" tip. *Ask Devik
