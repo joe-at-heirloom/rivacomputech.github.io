@@ -10,7 +10,7 @@
   gtag('js', new Date());
   gtag('config', 'G-9PCY0YE3SE');
 </script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Small Business IT Support &amp; Microsoft 365 Help | Riva Computech</title>
 <meta name="description" content="IT support for small businesses: Microsoft 365, email, backups, security and networks. One-off jobs or ongoing support. Free 30-minute first chat." />
 <meta name="theme-color" content="#0b1b30" />
@@ -47,13 +47,13 @@
 try{var t=localStorage.getItem('riva-text');if(t)r.setAttribute('data-text',t)}catch(e){}
 try{if(!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem('riva-typed')){
   r.className+=' anim';setTimeout(function(){if(!/\bdone\b/.test(r.className))r.className+=' done'},6000)}}catch(e){}   // the timer is a safety net
-function go(){var h=location.hash.slice(1).toLowerCase();if(/^(automation|terminal|settings|files)$/.test(h))location.replace('/desktop/#'+h)}
+function go(){var h=location.hash.slice(1).toLowerCase();if(/^(terminal|settings|files)$/.test(h))location.replace('/desktop/#'+h)}
 go();addEventListener('hashchange',go);})();
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<!-- Inter for everything; Space Mono for the hero (the headline, the smile and the type-here box). -->
+<!-- Inter for everything; Space Mono for the computer-flavored bits (headline, prompts, code). -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=Space+Mono:wght@400;700&display=swap" />
 
 <!-- Structured data for search engines and AI assistants. The FAQ text here must match the
@@ -155,9 +155,12 @@ h1,h2,h3{margin:0;color:#0b1b30;font-weight:800;letter-spacing:-.02em;line-heigh
 h2{font-size:clamp(1.6rem,3.4vw,2.15rem)}
 h3{font-size:1.1rem;font-weight:700;letter-spacing:-.01em}
 p{margin:0 0 1rem}
-.wrap{max-width:66rem;margin:0 auto;padding:0 1.25rem}
+.wrap{max-width:66rem;margin:0 auto;padding:0 max(1.25rem,env(safe-area-inset-right)) 0 max(1.25rem,env(safe-area-inset-left))}
 .lead{font-size:1.1rem;color:#4a5868;max-width:38rem;margin-left:auto;margin-right:auto;text-wrap:balance}
 .head{text-align:center;margin-bottom:2.4rem}
+/* a line of PowerShell above each heading, for flavor (hidden from screen readers) */
+.ps{margin:0 0 .6rem;font-size:.8rem;font-weight:700;letter-spacing:-.01em;color:#0067c0}
+.ps b{font-weight:400;color:#6b7c90}
 .head .lead{margin-top:.7rem;margin-bottom:0}
 .skip{position:absolute;left:-999rem;top:0;background:#0b1b30;color:#fff;padding:.7rem 1.1rem;z-index:10;font-weight:600;border-radius:0 0 .5rem 0}
 .skip:focus{left:0}
@@ -171,14 +174,12 @@ p{margin:0 0 1rem}
 .btn.alt:hover{background:#f1f6fc;border-color:#9db1c6;color:#0b1b30}
 .btn.lg{min-height:3.3rem;padding:.7rem 1.7rem;font-size:1.05rem}
 
-/* header */
+/* header: only the logo and a status line, lying on top of the hero. The taskbar is the menu. */
 .top{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.1rem 0}
 .logo{display:inline-flex}
 .logo img{display:block;height:3.2rem;width:auto}
-.nav{display:flex;align-items:center;gap:1.7rem}
-.nav a{white-space:nowrap}
-.nav a:not(.btn){color:#26323f;font-weight:500;text-decoration:none;padding:.4rem 0}
-.nav a:not(.btn):hover{color:#0067c0}
+.avail{display:flex;align-items:center;gap:.6rem;margin:0;font-size:.88rem;font-weight:500;color:rgba(255,255,255,.92)}
+.avail i{width:.55rem;height:.55rem;border-radius:50%;background:#3ddc84;box-shadow:0 0 0 .22rem rgba(61,220,132,.2)}
 
 /* ---- hero: "the screen" ---------------------------------------------------------------------------
    A dark screen, like a computer that has just been switched on. The slogan types itself in blocky
@@ -188,18 +189,14 @@ p{margin:0 0 1rem}
    with those words already in it.
    Colors: --screen and --screen-2 are the navy background, --blue is the brand blue (the bar, the
    keys, the petals) and --sky is its lighter partner for small things that sit straight on the navy. */
-:root{--screen:#0b1b30;--screen-2:#060f1d;--blue:#0067c0;--sky:#3d9bf0}
+:root{--screen:#0b1b30;--screen-2:#060f1d;--blue:#0067c0;--sky:#3d9bf0;--dock:3.6rem}
 .headbar{position:absolute;left:0;right:0;top:0;z-index:3}
-.headbar .nav a:not(.btn),.headbar .nav a:not(.btn):hover{color:#fff}
-.headbar .nav a:not(.btn):hover{text-decoration:underline;text-decoration-color:var(--sky);text-decoration-thickness:.11em;text-underline-offset:.35em}
-.headbar .btn:hover{background:#0a78dc;border-color:#0a78dc}   /* on navy, hover gets lighter rather than darker */
 .headbar :focus-visible,.hero :focus-visible{outline-color:#fff}
 
-.hero{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;min-height:min(100vh,60rem);min-height:min(100svh,60rem);padding:7.4rem 0 9.5rem;text-align:center;color:#fff;
-  background:radial-gradient(58rem 24rem at 50% 100%,rgba(0,103,192,.5),rgba(0,103,192,0) 72%),radial-gradient(70rem 34rem at 50% 0,rgba(61,155,240,.14),rgba(61,155,240,0) 70%),linear-gradient(180deg,var(--screen),var(--screen-2))}
+.hero{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;min-height:min(100vh,60rem);min-height:min(100svh,60rem);padding:7.4rem 0 calc(var(--dock) + 9rem);text-align:center;color:#fff;
+  background:radial-gradient(54rem 26rem at 50% 100%,rgba(40,120,255,.42),rgba(40,120,255,0) 72%),radial-gradient(70rem 34rem at 50% 0,rgba(61,155,240,.14),rgba(61,155,240,0) 70%),linear-gradient(180deg,var(--screen),var(--screen-2))}
 .hero>.face,.hero>.slogan,.hero>.wrap{position:relative;z-index:1}
 .hero>.wrap{width:100%}
-.face,.slogan,.ask-box b,.ask input,.ask button{font-family:"Space Mono",ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,"DejaVu Sans Mono",monospace}
 
 /* the face: a dim ":(" for the moment it takes the headline to type, then a blue ":)" */
 .face{margin:0 0 .28em;font-size:clamp(2.6rem,9vh,5rem);font-weight:700;line-height:1;letter-spacing:-.04em;color:var(--sky)}
@@ -230,9 +227,9 @@ html.anim:not(.typing):not(.done) .slogan{visibility:hidden}
 
 /* the box that replaces the buttons */
 .ask{margin:1.9rem auto 0;max-width:40rem}
-.ask label{display:block;margin:0 0 .65rem;font-weight:600;color:#fff}
+.ask label{display:block;margin:0 0 .65rem;font-weight:600;color:#fff;text-shadow:0 .05rem .7rem rgba(4,10,22,.9)}
 .ask label span{color:var(--sky)}
-.ask-box{display:flex;align-items:center;gap:.65rem;padding:.42rem .48rem .42rem 1.1rem;border:.11rem solid rgba(255,255,255,.34);border-radius:.9rem;background:rgba(255,255,255,.06);text-align:left;transition:border-color .15s,box-shadow .15s}
+.ask-box{display:flex;align-items:center;gap:.65rem;padding:.42rem .48rem .42rem 1.1rem;border:.11rem solid rgba(255,255,255,.34);border-radius:.9rem;background:rgba(9,20,38,.6);-webkit-backdrop-filter:blur(.9rem) saturate(1.4);backdrop-filter:blur(.9rem) saturate(1.4);text-align:left;transition:border-color .15s,box-shadow .15s}
 .ask-box:focus-within{border-color:var(--sky);box-shadow:0 0 0 .28rem rgba(61,155,240,.32)}
 .ask-box b{font-size:1.2rem;line-height:1;color:var(--sky)}
 .ask input{flex:1;min-width:0;min-height:2.75rem;padding:0;border:0;border-radius:0;background:none;color:#fff;font-size:1.02rem;line-height:1.3;letter-spacing:-.02em;outline:0;caret-color:var(--sky)}
@@ -241,9 +238,11 @@ html.anim:not(.typing):not(.done) .slogan{visibility:hidden}
 .ask button:hover{background:#0a78dc}
 .ask button:active{transform:translateY(.14rem);box-shadow:0 .06rem 0 #003b70}
 .ask button .ico{width:1.1rem;height:1.1rem;stroke-width:2.6}
-.hero-foot{margin:1.1rem 0 0;font-size:.93rem;color:rgba(255,255,255,.9);text-wrap:balance}
+.hero-foot{margin:1.1rem 0 0;font-size:.93rem;color:rgba(255,255,255,.92);text-wrap:balance;text-shadow:0 .05rem .7rem rgba(4,10,22,.95),0 0 .2rem rgba(4,10,22,.6)}
 .hero-foot a{color:#fff;font-weight:600;text-decoration-color:var(--sky);text-decoration-thickness:.11em;text-underline-offset:.2em}
-.bloom{position:absolute;z-index:0;left:50%;bottom:-11rem;width:52rem;max-width:180%;transform:translateX(-50%);pointer-events:none}
+/* the bloom: the riva flower from the desktop wallpaper, rising from behind the taskbar and fading upward */
+.bloom{position:absolute;z-index:0;left:50%;bottom:calc(var(--dock) - 10.6rem);width:60rem;max-width:215%;transform:translateX(-50%);pointer-events:none;
+  -webkit-mask-image:linear-gradient(to top,#000 36%,rgba(0,0,0,.28) 60%,transparent 86%);mask-image:linear-gradient(to top,#000 36%,rgba(0,0,0,.28) 60%,transparent 86%)}
 
 /* "works with" logos: each sized by eye so they look the same weight, all centred */
 .works{padding:2.2rem 0;border-bottom:.06rem solid #e6ecf2}
@@ -260,15 +259,60 @@ html.anim:not(.typing):not(.done) .slogan{visibility:hidden}
 section{padding:4.6rem 0;scroll-margin-top:1rem}
 .band{background:#f6f9fc}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin:0;padding:0;list-style:none}
-.card{display:flex;flex-direction:column;text-align:center;border:.06rem solid #dfe6ee;border-radius:1.1rem;padding:1.9rem 1.4rem 1.5rem;background:#fff;box-shadow:0 .06rem .15rem rgba(11,27,48,.05)}
+.card{position:relative;display:flex;flex-direction:column;text-align:center;border:.06rem solid #dfe6ee;border-radius:1.1rem;padding:1.9rem 1.4rem 1.5rem;background:#fff;box-shadow:0 .5rem 1.4rem rgba(11,27,48,.06),0 .06rem .15rem rgba(11,27,48,.05)}
 .badge{width:3.2rem;height:3.2rem;border-radius:.9rem;background:#e3effb;color:#0067c0;display:grid;place-items:center;margin:0 auto 1rem;flex:none}
 .badge .ico{width:1.6rem;height:1.6rem}
+/* each service gets its own app-icon color, and a small "Running" light like a service in Windows */
+.card .badge{color:#fff;box-shadow:inset 0 .06rem 0 rgba(255,255,255,.3),0 .3rem .7rem rgba(11,27,48,.18)}
+#svc-m365 .badge{background:linear-gradient(140deg,#41a0ff,#0a5cbf)}
+#svc-azure .badge{background:linear-gradient(140deg,#33cbd5,#08868f)}
+#svc-migrate .badge{background:linear-gradient(140deg,#a184ff,#5b3cd4)}
+#svc-backup .badge{background:linear-gradient(140deg,#43d283,#118c50)}
+#svc-security .badge{background:linear-gradient(140deg,#ffa66b,#d4471f)}
+#svc-infra .badge{background:linear-gradient(140deg,#7d8ca3,#3c495c)}
+.run{position:absolute;top:.95rem;right:1rem;display:flex;align-items:center;gap:.4rem;font-size:.66rem;font-weight:700;line-height:1;color:#0f7b0f}
+.run::before{content:"";width:.42rem;height:.42rem;border-radius:50%;background:#16c60c;box-shadow:0 0 0 .16rem rgba(22,198,12,.2)}
 .card h3{margin-bottom:.45rem}
 .card p{margin:0;color:#4a5868;font-size:.97rem}
 .card .inc{margin-top:auto;padding-top:1.1rem;font-size:.84rem;line-height:1.55;color:#56657a}
 .card .inc::before{content:"";display:block;width:2rem;height:.06rem;background:#cfd9e4;margin:0 auto .9rem}
 .card .inc b{color:#33404f;font-weight:600}
-.also{text-align:center;max-width:44rem;margin:1.8rem auto 0;color:#4a5868;text-wrap:balance}
+
+/* ---- windows: the health check, the script and the message form are drawn as app windows ------------- */
+.wnd{border:.06rem solid #d3dce7;border-radius:.8rem;background:#fff;box-shadow:0 1.3rem 3rem rgba(11,27,48,.13),0 .15rem .5rem rgba(11,27,48,.06);overflow:hidden;text-align:left}
+.wnd-bar{display:flex;align-items:center;gap:.6rem;min-height:2.6rem;padding:0 0 0 .8rem;background:#f1f5f9;border-bottom:.06rem solid #e1e8f0;font-size:.84rem;color:#33404f}
+.wnd-bar b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wnd-bar .tile{width:1.35rem;height:1.35rem;border-radius:.35rem}
+.wnd-bar .tile .ico{width:.85rem;height:.85rem}
+.caps{flex:none;display:flex;margin-left:auto}
+.caps svg{width:2.5rem;height:2.6rem;padding:.9rem .85rem;fill:none;stroke:currentColor;stroke-width:1.1;opacity:.55}
+/* app icons: a rounded tile with a white drawing, used in the taskbar and in window title bars */
+.tile{flex:none;display:grid;place-items:center;width:1.75rem;height:1.75rem;border-radius:.45rem;color:#fff;background:linear-gradient(140deg,var(--a,#41a0ff),var(--b,#0a5cbf));box-shadow:inset 0 .06rem 0 rgba(255,255,255,.28),0 .06rem .15rem rgba(0,0,0,.28)}
+.tile .ico{width:1.05rem;height:1.05rem;stroke-width:2.1}
+img.tile{background:none;box-shadow:0 .06rem .15rem rgba(0,0,0,.28)}
+.t-purple{--a:#a184ff;--b:#5b3cd4}.t-green{--a:#43d283;--b:#118c50}.t-orange{--a:#ffa66b;--b:#d4471f}.t-sky{--a:#55b0ff;--b:#0b66c4}
+
+/* the script window */
+.wnd.code{max-width:48rem;margin:0 auto;border-color:#1d2633;background:#0d1320;color:#d6deea}
+.wnd.code .wnd-bar{background:#161e2c;border-color:#232d3d;color:#e6ecf3}
+.runbtn{flex:none;display:inline-flex;align-items:center;gap:.4rem;min-height:2.45rem;margin:.25rem 0 .25rem auto;padding:0 .95rem;border:0;border-radius:.45rem;background:var(--blue);color:#fff;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer}
+.runbtn:hover{background:#0a78dc}
+.runbtn:disabled{opacity:.6;cursor:default}
+.runbtn svg{width:.7rem;height:.7rem;fill:currentColor}
+.runbtn+.caps{margin-left:.3rem}
+.wnd.code pre{margin:0;padding:1rem 1.1rem 1.1rem 0;overflow-x:auto;font-size:.8rem;line-height:1.65;counter-reset:l;-webkit-overflow-scrolling:touch;
+  /* a soft glow on whichever side has more code to scroll to */
+  background:linear-gradient(90deg,#0d1320 45%,rgba(13,19,32,0)) 0 0/2.5rem 100% no-repeat local,linear-gradient(270deg,#0d1320 45%,rgba(13,19,32,0)) 100% 0/2.5rem 100% no-repeat local,
+    linear-gradient(90deg,rgba(61,155,240,.28),rgba(61,155,240,0)) 0 0/1.1rem 100% no-repeat scroll,linear-gradient(270deg,rgba(61,155,240,.28),rgba(61,155,240,0)) 100% 0/1.1rem 100% no-repeat scroll}
+.wnd.code code{display:block;width:max-content;min-width:100%;font-family:inherit}
+.wnd.code code span.l{display:block;white-space:pre}
+.wnd.code code span.l::before{counter-increment:l;content:counter(l);display:inline-block;width:2.6rem;margin-right:1rem;text-align:right;color:#55627a;-webkit-user-select:none;user-select:none}
+.wnd.code .c{color:#6a9955}.wnd.code .f{color:#dcdcaa}.wnd.code .v{color:#9cdcfe}.wnd.code .s{color:#ce9178}.wnd.code .k{color:#c586c0}.wnd.code .o{color:#8fa1b5}
+.code-out{padding:.9rem 1.1rem;border-top:.06rem solid #232d3d;background:#090e18;font-size:.8rem;line-height:1.65}
+.code-out p{margin:0;overflow-wrap:anywhere}
+.code-out .ok{color:#3ddc84}.code-out .m{color:#8fa1b5}
+.code-note{max-width:48rem;margin:1.1rem auto 0;text-align:center;font-size:.85rem;color:#56657a;text-wrap:balance}
+.face,.slogan,.ask-box b,.ask input,.ask button,.ps,.run,.wnd.code pre,.code-out,.tty{font-family:"Space Mono",ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,"DejaVu Sans Mono",monospace}
 
 .reasons{list-style:none;margin:0 auto;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;max-width:56rem}
 .reasons li{display:flex;gap:.8rem;align-items:flex-start;background:#fff;border:.06rem solid #dfe6ee;border-radius:.9rem;padding:1rem 1.15rem}
@@ -295,19 +339,37 @@ section{padding:4.6rem 0;scroll-margin-top:1rem}
 .check b{display:block;color:#0b1b30;font-weight:700}
 .check .t{color:#4a5868;font-size:.93rem}
 .check label:has(input:checked){border-color:#7fb3e6;background:#f1f7fd}
-.score{text-align:center;margin:1.8rem auto 0;max-width:38rem}
-.score b{display:block;font-size:1.35rem;font-weight:800;letter-spacing:-.02em;color:#0b1b30}
-.score span{display:block;color:#4a5868;text-wrap:balance}
-.score .btn{margin-top:1.1rem}
-.note{font-size:.85rem;color:#56657a;text-align:center;margin:1.1rem auto 0;max-width:38rem;text-wrap:balance}
+.hc{max-width:58rem;margin:0 auto}
+.hc-body{display:grid;grid-template-columns:18.5rem minmax(0,1fr)}
+.hc-side{padding:1.7rem 1.4rem 1.5rem;border-right:.06rem solid #e1e8f0;background:#f7fafc;text-align:center}
+.ring{position:relative;display:grid;place-content:center;justify-items:center;width:8rem;height:8rem;margin:0 auto 1.1rem}
+.ring svg{position:absolute;left:0;top:0;width:100%;height:100%;fill:none;stroke:#e1e8f0;stroke-width:9}
+.ring #ring{stroke:var(--blue);stroke-linecap:round;stroke-dasharray:326.73;stroke-dashoffset:326.73;transition:stroke-dashoffset .35s,stroke .35s}
+.ring b{font-size:2.4rem;font-weight:800;line-height:1;letter-spacing:-.03em;color:#0b1b30}
+.ring span{margin-top:.15rem;font-size:.74rem;font-weight:600;color:#56657a}
+.hc .tip{margin:0 0 1.1rem;font-size:.95rem;color:#33404f;text-wrap:balance}
+.hc .btn{width:100%;padding:.55rem .6rem;font-size:.95rem}
+.note{margin:1.1rem 0 0;font-size:.82rem;color:#56657a;text-wrap:balance}
+.hc .check{grid-template-columns:1fr;gap:0;max-width:none;padding:.5rem}
+.hc .check li+li{border-top:.06rem solid #eef2f6}
+.hc .check label{border:0;border-radius:.6rem;padding:.8rem .85rem}
+.hc .check label:has(input:checked){background:#f1f7fd}
 
-.about{max-width:48rem;margin:0 auto;display:flex;gap:2rem;align-items:flex-start;border:.06rem solid #dfe6ee;border-radius:1.3rem;padding:2rem 2.2rem;background:#fff;box-shadow:0 .06rem .15rem rgba(11,27,48,.05)}
-.avatar{width:7rem;height:7rem;border-radius:50%;background:linear-gradient(140deg,#2b8be6,#0057b0);color:#fff;display:grid;place-items:center;font-size:2.2rem;font-weight:800;letter-spacing:-.02em;flex:none}
-.about p{color:#33404f}
-.about .first{font-size:1.1rem;color:#0b1b30;font-weight:600}
-.facts{display:grid;grid-template-columns:auto 1fr;gap:.4rem 1.3rem;margin:1.3rem 0 0;padding-top:1.2rem;border-top:.06rem solid #e6ecf2;font-size:.95rem;text-align:left}
-.facts dt{color:#56657a}
-.facts dd{margin:0;color:#0b1b30;font-weight:600}
+.about{display:grid;grid-template-columns:22.5rem minmax(0,1fr);gap:2.4rem;align-items:start;max-width:58rem;margin:0 auto}
+.idcard{padding:1.8rem 1.2rem 1.2rem;border:.06rem solid #dfe6ee;border-radius:1.1rem;background:#fff;box-shadow:0 .5rem 1.4rem rgba(11,27,48,.06),0 .06rem .15rem rgba(11,27,48,.05);text-align:center}
+.avatar{display:grid;place-items:center;width:5.6rem;height:5.6rem;margin:0 auto .9rem;border:.25rem solid #fff;border-radius:50%;background:linear-gradient(140deg,#2b8be6,#0057b0);box-shadow:0 .3rem .9rem rgba(11,27,48,.2);color:#fff;font-size:1.8rem;font-weight:800;letter-spacing:-.02em}
+.who{margin:0}
+.who b{display:block;font-size:1.2rem;font-weight:800;letter-spacing:-.02em;color:#0b1b30}
+.who span{display:block;font-size:.9rem;color:#56657a}
+.tty{margin-top:1.2rem;padding:.95rem .9rem;border-radius:.7rem;background:#0b1422;color:#d6deea;font-size:.7rem;line-height:1.65;text-align:left}
+.tty p{margin:0 0 .55rem;color:#fff;overflow-wrap:anywhere}
+.tty p span{color:#8fa1b5}
+.facts{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.2rem .9rem;margin:0}
+.facts dt{color:#3ddc84}
+.facts dd{margin:0;overflow-wrap:anywhere}
+.bio p{color:#33404f}
+.bio p:last-child{margin:0}
+.bio .first{font-size:1.15rem;font-weight:600;color:#0b1b30}
 .nw{white-space:nowrap}
 
 /* questions: a plain accordion (native <details>, so it works without JavaScript) */
@@ -325,13 +387,16 @@ section{padding:4.6rem 0;scroll-margin-top:1rem}
 /* contact */
 .contact{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:1.4rem;max-width:58rem;margin:0 auto;align-items:start}
 .ways{list-style:none;margin:0;padding:0;display:grid;gap:1rem}
-.way{display:flex;gap:1rem;align-items:center;border:.06rem solid #dfe6ee;border-radius:1.1rem;padding:1.1rem 1.2rem;background:#fff}
+.way{display:flex;gap:1rem;align-items:center;border:.06rem solid #dfe6ee;border-radius:1.1rem;padding:1.1rem 1.2rem;background:#fff;box-shadow:0 .5rem 1.4rem rgba(11,27,48,.05)}
 .way .badge{margin:0}
 .way small{display:block;color:#56657a;font-size:.82rem;font-weight:600}
 .way .v{display:block;font-size:1.08rem;font-weight:700;color:#0b1b30;text-decoration:none;overflow-wrap:anywhere;line-height:1.35}
 .way a.v:hover{color:#0067c0;text-decoration:underline}
-#form{border:.06rem solid #dfe6ee;border-radius:1.1rem;padding:1.7rem;background:#fff;box-shadow:0 .06rem .15rem rgba(11,27,48,.05)}
-#form h3{font-size:1.25rem;margin-bottom:.3rem}
+.mail-to{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem .6rem;margin:0;padding:.75rem 1.5rem;border-bottom:.06rem solid #e9eef4;font-size:.9rem}
+.mail-to span{color:#56657a}
+.mail-to b{padding:.15rem .7rem;border-radius:99rem;background:#e8f1fb;font-weight:600;color:#0b1b30}
+.mail-to i{font-style:normal;font-size:.85rem;color:#56657a;overflow-wrap:anywhere}
+#form{padding:1.2rem 1.5rem 1.6rem}
 .hint{color:#56657a;font-size:.93rem;margin:0}
 #form label{display:block;font-weight:600;font-size:.93rem;color:#0b1b30;margin:1rem 0 .35rem}
 #form input,#form textarea{display:block;width:100%;font:inherit;color:#0b1b30;background:#fff;border:.07rem solid #8494a6;border-radius:.6rem;padding:.65rem .85rem;min-height:3rem}
@@ -342,11 +407,34 @@ section{padding:4.6rem 0;scroll-margin-top:1rem}
 .status{margin:1rem 0 0;font-weight:600;font-size:.95rem}
 .status:empty{display:none}
 .status.bad{color:#a4161a;background:#fdecec;border-left:.25rem solid #a4161a;padding:.7rem .9rem;border-radius:.4rem}
-.thanks{border:.09rem solid #0f7b0f;border-radius:1.1rem;padding:1.7rem;background:#f0f9f0}
+.thanks{margin:1.3rem;border:.09rem solid #0f7b0f;border-radius:.8rem;padding:1.5rem;background:#f0f9f0}
 .thanks h3{font-size:1.25rem;color:#0b4d0b;margin-bottom:.4rem}
 
-/* footer */
-footer{background:#0b1b30;color:#c9d3df;padding:3.2rem 0 3rem;text-align:center;font-size:.92rem}
+/* ---- the taskbar -------------------------------------------------------------------------------------
+   Fixed to the bottom of the screen on every device, like the taskbar on a computer, and it is the
+   page's menu. A small bar marks the section on screen. On phones it slides away while someone is
+   typing, so it never sits on top of the keyboard. */
+.dock{position:fixed;z-index:20;left:0;right:0;bottom:0;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:var(--dock);
+  padding:.3rem max(.9rem,env(safe-area-inset-right)) calc(.3rem + env(safe-area-inset-bottom)) max(.9rem,env(safe-area-inset-left));
+  background:rgba(8,18,34,.86);-webkit-backdrop-filter:blur(1.1rem) saturate(1.6);backdrop-filter:blur(1.1rem) saturate(1.6);border-top:.06rem solid rgba(255,255,255,.13);color:#fff;
+  font-size:calc(11px + .2rem);transition:transform .2s}      /* grows only a little with the text-size buttons, so it always fits */
+.dock ul{grid-column:2;display:flex;gap:.15em;margin:0;padding:0;list-style:none}
+.dock li a{position:relative;display:flex;align-items:center;gap:.55em;min-height:3.1em;padding:.3em .8em;border-radius:.6em;color:#fff;font-weight:500;line-height:1.2;text-decoration:none;white-space:nowrap}
+.dock li a:hover{background:rgba(255,255,255,.1);color:#fff}
+.dock li a[aria-current]{background:rgba(255,255,255,.12)}
+.dock li a[aria-current]::after{content:"";position:absolute;left:1.78em;bottom:.1em;width:1em;height:.19em;margin-left:-.5em;border-radius:1em;background:var(--sky)}
+.dock .tile{width:1.95em;height:1.95em;border-radius:.5em}
+.dock .tile .ico{width:1.15em;height:1.15em}
+.dock i{font-style:normal}
+.dock-side{grid-column:3;justify-self:end;display:flex;align-items:center;gap:1.2em}
+.dock-side .btn{min-height:2.7em;padding:.3em 1.1em;border-radius:.6em;font-size:1em}
+.dock-side .btn:hover{background:#0a78dc;border-color:#0a78dc}
+.dock :focus-visible{outline-color:#fff}
+.clock{margin:0;text-align:right;font-size:.84em;line-height:1.35;color:rgba(255,255,255,.92);white-space:nowrap}
+.clock b{display:block;font-weight:500}
+
+/* footer (the extra space at the bottom is for the taskbar) */
+footer{background:#0b1b30;color:#c9d3df;padding:3.2rem 0 calc(var(--dock) + 2.6rem + env(safe-area-inset-bottom));text-align:center;font-size:.92rem}
 footer .logo img{height:3.3rem;margin:0 auto}
 footer a{color:#fff}
 footer p{margin:1rem auto 0;max-width:44rem}
@@ -360,25 +448,61 @@ footer .small{color:#9fb0c6;font-size:.84rem}
 @media (max-width:58rem){
   .cards{grid-template-columns:repeat(2,1fr)}
   .steps{grid-template-columns:repeat(2,1fr);max-width:36rem}
-  .nav{gap:1.2rem}
+}
+@media (max-width:84rem){.dock-side .btn{display:none}}
+/* phones and tablets: the taskbar is a row of icons with their names underneath, like an app's tab bar.
+   It slides away while someone is typing, so it never sits on top of the keyboard. */
+@media (max-width:64rem){
+  :root{--dock:3.8rem}
+  .dock{display:block;padding:.2rem .5rem calc(.2rem + env(safe-area-inset-bottom));font-size:calc(9px + .14rem)}
+  .dock ul{justify-content:space-around;gap:0;max-width:36rem;margin:0 auto}
+  .dock li{flex:1;min-width:0}
+  .dock li a{flex-direction:column;justify-content:center;gap:.36em;min-height:3.25rem;padding:.3rem 0 .34rem;letter-spacing:-.01em}
+  .dock li a i{display:none}
+  .dock li a[aria-current]::after{left:50%;bottom:.1rem}
+  .dock .tile{width:1.7rem;height:1.7rem;border-radius:.46rem}
+  .dock .tile .ico{width:1rem;height:1rem}
+  .dock-side{display:none}
+  html.kb .dock{transform:translateY(110%)}
+}
+/* phones held sideways: icons only, so the bar stays slim (the names are still read out by screen readers) */
+@media (max-width:64rem) and (max-height:27rem){
+  :root{--dock:3rem}
+  .dock li a{min-height:2.6rem;padding:.2rem 0}
+  .dock li a span:last-child{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+}
+@media (max-width:54rem){
+  .about{grid-template-columns:1fr;max-width:34rem;gap:1.6rem}
+  .hc-body{grid-template-columns:1fr}
+  .hc-side{border-right:0;border-bottom:.06rem solid #e1e8f0}
 }
 @media (max-width:50rem){
   .contact{grid-template-columns:1fr;max-width:34rem}
   .why,.reasons,.check{grid-template-columns:1fr;max-width:34rem}
 }
 @media (max-width:46rem){
-  .top{justify-content:center;padding:.9rem 0}
-  .nav{display:none}
-  .logo img{height:2.9rem}
-  .hero{padding:5.2rem 0 7.5rem}
-  .face{font-size:2.3rem;margin-bottom:.2em}
-  .hero .lead{margin-top:1.2rem;font-size:1rem}
-  .ask{margin-top:1.4rem}
-  .bloom{bottom:-8rem;width:36rem}
+  .top{justify-content:center;padding:.7rem 0}
+  .dock li:first-child{display:none}       /* five items on a phone, so each has room */
+  .dock ul{max-width:26rem}
+  .avail{display:none}
+  .logo img{height:2.5rem}
+  .hero{padding:4.25rem 0 calc(var(--dock) + 8.5rem)}
+  .face{font-size:2.1rem;margin-bottom:.16em}
+  .hero .lead{margin-top:1rem;font-size:min(1rem,4.7vw)}
+  .ask{margin-top:1.15rem}
+  .ask label{margin-bottom:.55rem;font-size:min(.97rem,4.4vw)}     /* the question stays on one line */
+  .hero-foot{margin-top:.85rem;font-size:.9rem}
+  .bloom{bottom:calc(var(--dock) - 5.4rem);width:38rem}
+  .wnd.code pre{font-size:.7rem}
+  .wnd.code .caps{display:none}
+  .runbtn{margin-right:.3rem}
+  .idcard{padding:1.6rem 1rem 1rem}
+  html[data-text] .facts{grid-template-columns:1fr;gap:0}      /* larger text: each fact under its name */
+  html[data-text] .facts dd{margin-bottom:.4rem}
+  .mail-to,#form{padding-left:1.15rem;padding-right:1.15rem}
   section{padding:3.4rem 0}
   .cards{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr;max-width:22rem}
-  .about{flex-direction:column;align-items:center;text-align:center;padding:1.7rem 1.3rem;gap:1.2rem}
   .works ul{gap:1rem 2rem}
 }
 /* narrower screens: the headline goes onto four short lines, sized so the longest one always fits */
@@ -386,24 +510,32 @@ footer .small{color:#9fb0c6;font-size:.84rem}
   .slogan{font-size:min(calc((100vw - 2.5rem)/9.9),11vh,5.6rem)}
   .slogan>span>span{display:block}
 }
-@media (max-width:30rem){.ask label{font-size:.97rem}.ask label span,.ask button span{display:none}.ask-box{gap:.5rem;padding-left:.9rem}}
+@media (max-width:30rem){.ask label span,.ask button span{display:none}.ask-box{gap:.5rem;padding-left:.9rem}}
+/* shorter phones: a little tighter, so everything down to the phone number sits above the taskbar */
+@media (max-width:46rem) and (max-height:42rem){
+  .hero{padding-top:3.95rem}
+  .face{font-size:1.9rem;margin-bottom:.1em}
+  .hero .lead{margin-top:.8rem}
+  .ask{margin-top:1rem}
+  .ask label{margin-bottom:.45rem}
+  .hero-foot{margin-top:.7rem;line-height:1.5}
+}
+/* the shortest phones: no smile, so the type-here box still fits above the taskbar */
+@media (max-width:46rem) and (max-height:36rem){.face{display:none}}
 /* wide but short screens (small laptops): tighten up so the box is on the first screen */
 @media (min-width:52.01rem) and (max-height:46rem){
-  .hero{padding-top:6rem}
-  .face{font-size:2.6rem;margin-bottom:.15em}
-  .slogan{font-size:min(calc((100vw - 2.5rem)/16.3),11.5vh,6.2rem)}
-  .hero .lead{margin-top:1.1rem}
-  .ask{margin-top:1.2rem}
+  .hero{padding-top:5.5rem}
+  .face{font-size:2.2rem;margin-bottom:.1em}
+  .slogan{font-size:min(calc((100vw - 2.5rem)/16.3),10.2vh,6.2rem)}
+  .hero .lead{margin-top:.8rem}
+  .ask{margin-top:1rem}
+  .hero-foot{margin-top:.7rem}
 }
 @media (max-width:21rem){.ask-box b{display:none}}
-/* The text-size buttons make the menu wider, but media queries can't see that, so at the two larger
-   sizes the menu folds away a little earlier. */
-@media (max-width:51rem){html[data-text="l"] .top{justify-content:center}html[data-text="l"] .nav{display:none}}
-@media (max-width:60rem){html[data-text="xl"] .nav{gap:1.2rem}}
-@media (max-width:57rem){html[data-text="xl"] .top{justify-content:center}html[data-text="xl"] .nav{display:none}}
+@media (max-width:22.5rem){.facts{grid-template-columns:1fr;gap:0}.facts dd{margin-bottom:.4rem}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @media print{
-  .nav,.textsize,form,.bloom,.score .btn,.cur,.face{display:none}
+  .dock,.avail,.textsize,form,.bloom,.score .btn,.cur,.face,.runbtn,.caps{display:none}
   .headbar{position:static}.headbar .logo img{filter:brightness(0)}
   .hero{display:block;min-height:0;padding:1rem 0;background:none;color:#000}
   .slogan{font-size:2rem;color:#000}.slogan .hl{padding:0;background:none;color:#000}
@@ -414,23 +546,40 @@ footer .small{color:#9fb0c6;font-size:.84rem}
 <body>
 <a class="skip" href="#main">Skip to main content</a>
 
+<!-- shared drawings: the three little window buttons (decoration only) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="c-min" viewBox="0 0 10 10"><path d="M1 5.5h8"/></symbol>
+  <symbol id="c-max" viewBox="0 0 10 10"><rect x="1.5" y="1.5" width="7" height="7" rx="1.2"/></symbol>
+  <symbol id="c-x" viewBox="0 0 10 10"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7"/></symbol>
+</svg>
+
 <!-- the header lies on top of the dark hero, so it uses the white logo -->
 <div class="wrap headbar">
   <header class="top">
     <a class="logo" href="/" aria-label="Riva Computech, home"><img src="/brand/riva-computech-logo-white.svg" alt="Riva Computech" width="117" height="80" /></a>
-    <nav class="nav" aria-label="On this page">
-      <a href="#services">Services</a>
-      <a href="#health">Health check</a>
-      <a href="#about">About</a>
-      <a href="#faq">Questions</a>
-      <a class="btn" href="#contact">Get in touch</a>
-    </nav>
+    <p class="avail"><i></i>Open to new projects</p>
   </header>
 </div>
 
+<!-- the taskbar: always at the bottom of the screen, and the page's menu. Each icon jumps to a section. -->
+<nav class="dock" id="dock" aria-label="Sections of this page">
+  <ul>
+    <li><a href="#top"><img class="tile" src="/brand/riva-icon.svg" alt="" width="64" height="64" /><span>Top</span></a></li>
+    <li><a href="#services"><span class="tile t-blue"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8.5 7V5.5A1.5 1.5 0 0 1 10 4h4a1.5 1.5 0 0 1 1.5 1.5V7M3 12.5h18"/></svg></span><span>Services</span></a></li>
+    <li><a href="#health"><span class="tile t-green"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l7 2.6v5.4c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V6.1z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg></span><span>Health<i> check</i></span></a></li>
+    <li><a href="#about"><span class="tile t-orange"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.8 20a7.2 7.2 0 0 1 14.4 0"/></svg></span><span>About</span></a></li>
+    <li><a href="#faq"><span class="tile t-purple"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9.3a3 3 0 1 1 4.7 2.5c-1 .7-1.7 1.4-1.7 2.7"/><path d="M12 17.8v.1"/></svg></span><span>Questions</span></a></li>
+    <li><a href="#contact"><span class="tile t-sky"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M4 7.5l8 5.5 8-5.5"/></svg></span><span>Contact</span></a></li>
+  </ul>
+  <div class="dock-side">
+    <a class="btn" href="#contact">Book a free chat</a>
+    <p class="clock" id="clock" aria-hidden="true" hidden><b></b><span></span></p>
+  </div>
+</nav>
+
 <main id="main">
 
-<div class="hero">
+<div class="hero" id="top">
   <p class="face" aria-hidden="true"></p>
   <h1 class="slogan"><span><span>You mind</span> <span>your business.</span></span> <span class="hl"><span>We'll mind</span> <span>your <span class="nw">computers.<i class="cur" aria-hidden="true"></i></span></span></span></h1>
   <div class="wrap">
@@ -447,17 +596,29 @@ footer .small{color:#9fb0c6;font-size:.84rem}
     </form>
     <p class="hero-foot">The first 30-minute chat is free. Rather talk? Call <a href="tel:+13134057164" data-track="call_hero">(313) 405-7164</a>.</p>
   </div>
-  <!-- the riva "bloom": a fan of petals rising from the bottom center (decorative) -->
-  <svg class="bloom" viewBox="-640 -560 1280 560" aria-hidden="true" focusable="false">
-    <defs><path id="petal" d="M0 0C64-118 196-292 158-498C92-470 18-398-22-300C-58-206-42-84 0 0Z"/></defs>
-    <g fill="#0067c0" opacity=".6">
-      <use href="#petal" transform="rotate(-84) scale(1.02)"/><use href="#petal" transform="rotate(-58) scale(1.08)"/><use href="#petal" transform="rotate(-32) scale(1.1)"/>
-      <use href="#petal" transform="rotate(-6) scale(1.1)"/><use href="#petal" transform="rotate(20) scale(1.08)"/><use href="#petal" transform="rotate(46) scale(1.02)"/><use href="#petal" transform="rotate(72) scale(.96)"/>
+  <!-- the riva "bloom": the flower from the desktop wallpaper, in its dark colors (decorative) -->
+  <svg class="bloom" viewBox="-700 -640 1400 860" aria-hidden="true" focusable="false">
+    <defs>
+      <path id="petal" d="M0 0C64-118 196-292 158-498C92-470 18-398-22-300C-58-206-42-84 0 0Z"/>
+      <linearGradient id="pb" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stop-color="#0a3a8f"/><stop offset="1" stop-color="#1d6bd4"/></linearGradient>
+      <linearGradient id="pm" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stop-color="#0a3a8f"/><stop offset=".6" stop-color="#1d6bd4"/><stop offset="1" stop-color="#52b0ff"/></linearGradient>
+      <linearGradient id="pf" x1=".2" y1="1" x2=".6" y2="0"><stop offset="0" stop-color="#1d6bd4"/><stop offset=".55" stop-color="#52b0ff"/><stop offset="1" stop-color="#bfe5ff"/></linearGradient>
+      <radialGradient id="pc"><stop offset="0" stop-color="#bfe5ff" stop-opacity=".95"/><stop offset="1" stop-color="#52b0ff" stop-opacity="0"/></radialGradient>
+      <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7"/></filter>
+    </defs>
+    <g filter="url(#soft)" opacity=".9" fill="url(#pb)">
+      <use href="#petal" transform="rotate(-128) scale(1.12)"/><use href="#petal" transform="rotate(-82) scale(1.2)"/><use href="#petal" transform="rotate(-36) scale(1.18)"/><use href="#petal" transform="rotate(10) scale(1.14)"/>
+      <use href="#petal" transform="rotate(56) scale(1.06)"/><use href="#petal" transform="rotate(102) scale(.96)"/><use href="#petal" transform="rotate(148) scale(.9)"/>
     </g>
-    <g fill="#3d9bf0" opacity=".28">
-      <use href="#petal" transform="rotate(-70) scale(.8)"/><use href="#petal" transform="rotate(-44) scale(.86)"/><use href="#petal" transform="rotate(-18) scale(.88)"/>
-      <use href="#petal" transform="rotate(8) scale(.86)"/><use href="#petal" transform="rotate(34) scale(.8)"/><use href="#petal" transform="rotate(60) scale(.74)"/>
+    <g opacity=".92" fill="url(#pm)">
+      <use href="#petal" transform="rotate(-105)"/><use href="#petal" transform="rotate(-59) scale(1.06)"/><use href="#petal" transform="rotate(-13) scale(1.04)"/>
+      <use href="#petal" transform="rotate(33) scale(.98)"/><use href="#petal" transform="rotate(79) scale(.9)"/><use href="#petal" transform="rotate(125) scale(.84)"/>
     </g>
+    <g opacity=".78" fill="url(#pf)" style="mix-blend-mode:screen">
+      <use href="#petal" transform="rotate(-84) scale(.78)"/><use href="#petal" transform="rotate(-38) scale(.82)"/><use href="#petal" transform="rotate(8) scale(.8)"/>
+      <use href="#petal" transform="rotate(54) scale(.72)"/><use href="#petal" transform="rotate(100) scale(.64)"/>
+    </g>
+    <circle r="120" fill="url(#pc)"/>
   </svg>
 </div>
 
@@ -477,37 +638,51 @@ footer .small{color:#9fb0c6;font-size:.84rem}
 <section id="services" aria-labelledby="h-services">
   <div class="wrap">
     <div class="head">
-      <h2 id="h-services">IT services for small businesses</h2>
+      <p class="ps" aria-hidden="true"><b>PS&gt;</b> Get-Service</p><h2 id="h-services">IT services for small businesses</h2>
       <p class="lead">The day-to-day work that keeps your email, files and computers running. Bring a single job, or ask for ongoing support.</p>
     </div>
     <ul class="cards">
-      <li class="card" id="svc-m365"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M4 7.5l8 5.5 8-5.5"/></svg></div>
+      <li class="card" id="svc-m365"><span class="run" aria-hidden="true">Running</span><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M4 7.5l8 5.5 8-5.5"/></svg></div>
         <h3>Microsoft 365 and email</h3><p>Work email, Teams, Word, Excel and shared files, set up properly and kept in order.</p>
         <p class="inc"><b>Includes:</b> tenant setup and licensing, Exchange Online, SharePoint and OneDrive, ongoing admin and clean-up.</p></li>
-      <li class="card" id="svc-azure"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg></div>
+      <li class="card" id="svc-azure"><span class="run" aria-hidden="true">Running</span><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg></div>
         <h3>Sign-ins and access</h3><p>One sign-in per person, with access to the right things, in the cloud and in the office.</p>
         <p class="inc"><b>Includes:</b> Microsoft Entra ID (Azure AD), Active Directory, hybrid identity, Group Policy, Azure tenant management.</p></li>
-      <li class="card" id="svc-migrate"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/></svg></div>
+      <li class="card" id="svc-migrate"><span class="run" aria-hidden="true">Running</span><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/></svg></div>
         <h3>Moving to a new system</h3><p>Changing email provider, combining two Microsoft 365 accounts or moving files, planned step by step to keep disruption small.</p>
         <p class="inc"><b>Includes:</b> email and mailbox migration, tenant-to-tenant migration, file and data migration, planned cutovers.</p></li>
-      <li class="card" id="svc-backup"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="2.7"/><path d="M5 6v6c0 1.5 3.1 2.7 7 2.7s7-1.2 7-2.7V6M5 12v6c0 1.5 3.1 2.7 7 2.7s7-1.2 7-2.7v-6"/></svg></div>
+      <li class="card" id="svc-backup"><span class="run" aria-hidden="true">Running</span><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="2.7"/><path d="M5 6v6c0 1.5 3.1 2.7 7 2.7s7-1.2 7-2.7V6M5 12v6c0 1.5 3.1 2.7 7 2.7s7-1.2 7-2.7v-6"/></svg></div>
         <h3>Backups and recovery</h3><p>Copies of your email and files kept somewhere separate, and tested, so you know they can be restored.</p>
         <p class="inc"><b>Includes:</b> backup and recovery, business continuity and disaster recovery, restore testing, monitoring and maintenance.</p></li>
-      <li class="card" id="svc-security"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l7 2.6v5.4c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V6.1z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg></div>
+      <li class="card" id="svc-security"><span class="run" aria-hidden="true">Running</span><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l7 2.6v5.4c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V6.1z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg></div>
         <h3>Devices and security</h3><p>Laptops and phones managed from one place, email filtered for scams, and unusual activity watched for.</p>
         <p class="inc"><b>Includes:</b> Microsoft Intune device management, endpoint and email security, EDR and SIEM monitoring.</p></li>
-      <li class="card" id="svc-infra"><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="6.5" rx="2"/><rect x="4" y="13.5" width="16" height="6.5" rx="2"/><path d="M7.5 7.25h1M7.5 16.75h1M12 7.25h4.5M12 16.75h4.5"/></svg></div>
+      <li class="card" id="svc-infra"><span class="run" aria-hidden="true">Running</span><div class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="6.5" rx="2"/><rect x="4" y="13.5" width="16" height="6.5" rx="2"/><path d="M7.5 7.25h1M7.5 16.75h1M12 7.25h4.5M12 16.75h4.5"/></svg></div>
         <h3>Servers and networks</h3><p>The servers, storage and network equipment in your office, set up and kept running.</p>
         <p class="inc"><b>Includes:</b> on-premises servers and storage, VMware, Hyper-V and Citrix, firewalls, networks and VPNs, domains, DNS and NAS.</p></li>
     </ul>
-    <p class="also"><b>Automation, too.</b> Repetitive admin, such as setting up a new hire or removing access when someone leaves, can be scripted in PowerShell so it's done the same way every time.</p>
+  </div>
+</section>
+
+<section id="automation" class="band" aria-labelledby="h-auto">
+  <div class="wrap">
+    <div class="head">
+      <p class="ps" aria-hidden="true"><b>PS&gt;</b> Invoke-Automation</p><h2 id="h-auto">The part we enjoy most: making it run itself.</h2>
+      <p class="lead">Repetitive admin is where mistakes creep in. So it gets scripted in PowerShell: the same steps, in the same order, every time.</p>
+    </div>
+    <div class="wnd code">
+      <div class="wnd-bar"><span class="tile t-purple"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 8l-4 4 4 4M15.5 8l4 4-4 4M13.5 5.5l-3 13"/></svg></span><b>Offboard-User.ps1</b><button class="runbtn" type="button" id="run" hidden><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 1.5v9l8-4.5z"/></svg>Run</button><span class="caps" aria-hidden="true"><svg><use href="#c-min"/></svg><svg><use href="#c-max"/></svg><svg><use href="#c-x"/></svg></span></div>
+      <pre tabindex="0" aria-label="Example PowerShell script: Offboard-User.ps1"><code><span class="l"><span class="c"># Offboard-User.ps1: every step, in order, every time.</span></span><span class="l"><span class="k">param</span>(</span><span class="l">    [Parameter(Mandatory)] [string] <span class="v">$User</span>,</span><span class="l">    [string] <span class="v">$Manager</span></span><span class="l">)</span><span class="l"> </span><span class="l"><span class="f">Connect-MgGraph</span> <span class="o">-Scopes</span> <span class="s">'User.ReadWrite.All'</span> <span class="o">-NoWelcome</span></span><span class="l"><span class="f">Connect-ExchangeOnline</span> <span class="o">-ShowBanner</span>:<span class="v">$false</span></span><span class="l"> </span><span class="l"><span class="c"># 1. Lock the door</span></span><span class="l"><span class="f">Update-MgUser</span> <span class="o">-UserId</span> <span class="v">$User</span> <span class="o">-AccountEnabled</span>:<span class="v">$false</span></span><span class="l"><span class="f">Revoke-MgUserSignInSession</span> <span class="o">-UserId</span> <span class="v">$User</span> | <span class="f">Out-Null</span></span><span class="l"> </span><span class="l"><span class="c"># 2. Keep the mail, hand it to their manager</span></span><span class="l"><span class="f">Set-Mailbox</span> <span class="o">-Identity</span> <span class="v">$User</span> <span class="o">-Type</span> Shared</span><span class="l"><span class="k">if</span> (<span class="v">$Manager</span>) {</span><span class="l">    <span class="f">Add-MailboxPermission</span> <span class="v">$User</span> <span class="o">-User</span> <span class="v">$Manager</span> <span class="o">-AccessRights</span> FullAccess</span><span class="l">}</span><span class="l"> </span><span class="l"><span class="c"># 3. Free up the licenses</span></span><span class="l"><span class="v">$skus</span> = (<span class="f">Get-MgUserLicenseDetail</span> <span class="o">-UserId</span> <span class="v">$User</span>).SkuId</span><span class="l"><span class="f">Set-MgUserLicense</span> <span class="o">-UserId</span> <span class="v">$User</span> <span class="o">-AddLicenses</span> @() <span class="o">-RemoveLicenses</span> <span class="v">$skus</span></span><span class="l"> </span><span class="l"><span class="f">Write-Host</span> <span class="s">"$User offboarded."</span> <span class="o">-ForegroundColor</span> Green</span></code></pre>
+      <div class="code-out" id="run-out" hidden aria-live="polite"></div>
+    </div>
+    <p class="code-note">The kind of script Riva Computech writes for when someone leaves a company. Pressing Run only shows what it would do: nothing is changed.</p>
   </div>
 </section>
 
 <section id="help" class="band" aria-labelledby="h-help">
   <div class="wrap">
     <div class="head">
-      <h2 id="h-help">Common reasons people get in touch</h2>
+      <p class="ps" aria-hidden="true"><b>PS&gt;</b> Get-EventLog -Newest 8</p><h2 id="h-help">Common reasons people get in touch</h2>
       <p class="lead">If one of these sounds familiar, it's a good place to start.</p>
     </div>
     <ul class="reasons">
@@ -526,7 +701,7 @@ footer .small{color:#9fb0c6;font-size:.84rem}
 
 <section id="why" aria-labelledby="h-why">
   <div class="wrap">
-    <div class="head"><h2 id="h-why">What to expect</h2></div>
+    <div class="head"><p class="ps" aria-hidden="true"><b>PS&gt;</b> Get-Help Riva</p><h2 id="h-why">What to expect</h2></div>
     <ul class="why">
       <li><span class="tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span><b>One person, start to finish</b><span class="t">Devik scopes the job, does the work and answers your messages.</span></span></li>
       <li><span class="tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span><b>Someone who knows your setup</b><span class="t">The same engineer every time, so you don't have to explain things twice.</span></span></li>
@@ -540,7 +715,7 @@ footer .small{color:#9fb0c6;font-size:.84rem}
 
 <section id="how" class="band" aria-labelledby="h-how">
   <div class="wrap">
-    <div class="head"><h2 id="h-how">How it works</h2></div>
+    <div class="head"><p class="ps" aria-hidden="true"><b>PS&gt;</b> Start-Project</p><h2 id="h-how">How it works</h2></div>
     <ol class="steps">
       <li><b>Send a message</b><span class="t">A couple of lines about what you need is plenty.</span></li>
       <li><b>Free 30-minute chat</b><span class="t">Talk through your setup and what's bugging you.</span></li>
@@ -553,45 +728,59 @@ footer .small{color:#9fb0c6;font-size:.84rem}
 <section id="health" aria-labelledby="h-health">
   <div class="wrap">
     <div class="head">
-      <h2 id="h-health">A quick IT health check</h2>
+      <p class="ps" aria-hidden="true"><b>PS&gt;</b> Test-ITHealth</p><h2 id="h-health">A quick IT health check</h2>
       <p class="lead">Eight things worth having in place. Check the boxes that are true for your business today.</p>
     </div>
-    <ul class="check">
-      <li><label><input type="checkbox" data-short="Two-step sign-in (MFA) isn't on for every account" data-fix="turn on two-step sign-in (MFA) for every account, admins first." /><span><b>Two-step sign-in (MFA) is on for every account</b><span class="t">Including admins and any shared logins. It stops most account break-ins.</span></span></label></li>
-      <li><label><input type="checkbox" data-short="No separate backup of Microsoft 365" data-fix="add a separate backup for your Microsoft 365 mail, OneDrive and SharePoint." /><span><b>Microsoft 365 is backed up separately</b><span class="t">Mail, OneDrive and SharePoint, not just the recycle bin.</span></span></label></li>
-      <li><label><input type="checkbox" data-short="Restores haven't been tested lately" data-fix="restore one file and one mailbox from your backup, to prove it works." /><span><b>A restore has been tested recently</b><span class="t">In the last six months, and it worked.</span></span></label></li>
-      <li><label><input type="checkbox" data-short="Admin accounts aren't separate" data-fix="give admins a separate admin account, and keep the number of admins small." /><span><b>Admin accounts are separate, and few</b><span class="t">Day-to-day logins don't have admin rights.</span></span></label></li>
-      <li><label><input type="checkbox" data-short="Devices aren't managed or encrypted" data-fix="enroll company laptops and phones in a device manager such as Intune, and turn on encryption." /><span><b>Company devices are managed and encrypted</b><span class="t">So a lost laptop is only a lost laptop.</span></span></label></li>
-      <li><label><input type="checkbox" data-short="Email is missing SPF, DKIM or DMARC" data-fix="publish SPF, DKIM and DMARC records for your email domain." /><span><b>Email has SPF, DKIM and DMARC</b><span class="t">Three settings that make it hard for others to send email as you.</span></span></label></li>
-      <li><label><input type="checkbox" data-short="Access doesn't end the day someone leaves" data-fix="write a short checklist for when someone leaves, so nothing is missed." /><span><b>Access ends the day someone leaves</b><span class="t">Accounts, devices and shared passwords.</span></span></label></li>
-      <li><label><input type="checkbox" data-short="The setup isn't written down" data-fix="write down the essentials: admin accounts, licenses, DNS, vendors and renewal dates." /><span><b>It's all written down</b><span class="t">If your IT person vanished tomorrow, someone else could pick it up.</span></span></label></li>
-    </ul>
-    <div class="score" id="score" hidden aria-live="polite">
-      <b id="score-n">0 of 8 in place</b>
-      <span id="score-tip">Check the boxes that are true today.</span>
-      <button class="btn alt" type="button" id="score-ask">Ask Devik about my result</button>
+    <div class="wnd hc">
+      <div class="wnd-bar"><span class="tile t-green"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l7 2.6v5.4c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V6.1z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg></span><b>Riva Health Check</b><span class="caps" aria-hidden="true"><svg><use href="#c-min"/></svg><svg><use href="#c-max"/></svg><svg><use href="#c-x"/></svg></span></div>
+      <div class="hc-body">
+        <div class="hc-side">
+          <div class="score" id="score" hidden aria-live="polite">
+            <p class="ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52"/><circle id="ring" cx="60" cy="60" r="52" transform="rotate(-90 60 60)"/></svg><b id="score-n">0</b><span>of 8 in place</span></p>
+            <p class="tip" id="score-tip">Check the boxes that are true today.</p>
+            <button class="btn" type="button" id="score-ask">Ask Devik about my result</button>
+          </div>
+          <p class="note">A quick self-check, not a full audit. Nothing you check is sent anywhere unless you choose to send it.</p>
+        </div>
+        <ul class="check">
+          <li><label><input type="checkbox" data-short="Two-step sign-in (MFA) isn't on for every account" data-fix="turn on two-step sign-in (MFA) for every account, admins first." /><span><b>Two-step sign-in (MFA) is on for every account</b><span class="t">Including admins and any shared logins. It stops most account break-ins.</span></span></label></li>
+          <li><label><input type="checkbox" data-short="No separate backup of Microsoft 365" data-fix="add a separate backup for your Microsoft 365 mail, OneDrive and SharePoint." /><span><b>Microsoft 365 is backed up separately</b><span class="t">Mail, OneDrive and SharePoint, not just the recycle bin.</span></span></label></li>
+          <li><label><input type="checkbox" data-short="Restores haven't been tested lately" data-fix="restore one file and one mailbox from your backup, to prove it works." /><span><b>A restore has been tested recently</b><span class="t">In the last six months, and it worked.</span></span></label></li>
+          <li><label><input type="checkbox" data-short="Admin accounts aren't separate" data-fix="give admins a separate admin account, and keep the number of admins small." /><span><b>Admin accounts are separate, and few</b><span class="t">Day-to-day logins don't have admin rights.</span></span></label></li>
+          <li><label><input type="checkbox" data-short="Devices aren't managed or encrypted" data-fix="enroll company laptops and phones in a device manager such as Intune, and turn on encryption." /><span><b>Company devices are managed and encrypted</b><span class="t">So a lost laptop is only a lost laptop.</span></span></label></li>
+          <li><label><input type="checkbox" data-short="Email is missing SPF, DKIM or DMARC" data-fix="publish SPF, DKIM and DMARC records for your email domain." /><span><b>Email has SPF, DKIM and DMARC</b><span class="t">Three settings that make it hard for others to send email as you.</span></span></label></li>
+          <li><label><input type="checkbox" data-short="Access doesn't end the day someone leaves" data-fix="write a short checklist for when someone leaves, so nothing is missed." /><span><b>Access ends the day someone leaves</b><span class="t">Accounts, devices and shared passwords.</span></span></label></li>
+          <li><label><input type="checkbox" data-short="The setup isn't written down" data-fix="write down the essentials: admin accounts, licenses, DNS, vendors and renewal dates." /><span><b>It's all written down</b><span class="t">If your IT person vanished tomorrow, someone else could pick it up.</span></span></label></li>
+        </ul>
+      </div>
     </div>
-    <p class="note">A quick self-check, not a full audit. Nothing you check is sent anywhere unless you choose to send it.</p>
   </div>
 </section>
 
 <section id="about" class="band" aria-labelledby="h-about">
   <div class="wrap">
-    <div class="head"><h2 id="h-about">About Devik Patel</h2></div>
+    <div class="head"><p class="ps" aria-hidden="true"><b>PS&gt;</b> Get-ADUser devik</p><h2 id="h-about">Hi, I'm Devik.</h2></div>
     <div class="about">
-      <!-- TODO(Devik): swap the initials for a real photo: <img class="avatar" src="/devik.jpg" alt="Devik Patel" width="126" height="126"> -->
-      <div class="avatar" aria-hidden="true">DP</div>
-      <div>
-        <p class="first">Hi, I'm Devik. I own Riva Computech and do the work myself, so I'm the person you'll deal with.</p>
-        <p>I've spent more than ten years in hands-on IT: help desk, Windows Server, virtualization and, these days, a lot of Microsoft 365 and Azure. I keep my client list small on purpose, so I know each setup well.</p>
-        <p style="margin:0">If a job has to be done twice, I'll probably write a script for it.</p>
-        <dl class="facts">
-          <dt>Role</dt><dd>Owner and engineer</dd>
-          <dt>Experience</dt><dd>10+ years of <span class="nw">hands-on IT</span></dd>
-          <dt>Education</dt><dd>BSc in Information Technology</dd>
-          <dt>Focus</dt><dd>Microsoft 365, Azure and infrastructure</dd>
-          <dt>Languages</dt><dd>English and Gujarati</dd>
-        </dl>
+      <div class="idcard">
+        <!-- TODO(Devik): swap the initials for a real photo: <img class="avatar" src="/devik.jpg" alt="Devik Patel" width="101" height="101"> -->
+        <div class="avatar" aria-hidden="true">DP</div>
+        <p class="who"><b>Devik Patel</b><span>Owner, Riva Computech</span></p>
+        <div class="tty">
+          <p aria-hidden="true"><span>PS C:\Riva&gt;</span> Get-ADUser devik</p>
+          <dl class="facts">
+            <dt>Title</dt><dd>Owner and engineer</dd>
+            <dt>Experience</dt><dd>10+ years of <span class="nw">hands-on IT</span></dd>
+            <dt>Education</dt><dd>BSc in Information Technology</dd>
+            <dt>Focus</dt><dd>Microsoft 365, Azure and infrastructure</dd>
+            <dt>Languages</dt><dd>English and Gujarati</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="bio">
+        <p class="first">I own Riva Computech and do the work myself, so I'm the person you'll actually work with.</p>
+        <p>I've spent more than ten years in <span class="nw">hands-on</span> IT: help desk, Windows Server, virtualization and, these days, a lot of Microsoft 365 and Azure. I keep my client list small on purpose, so I know each setup well.</p>
+        <p>My hours are flexible too: evenings, weekends and holidays.</p>
+        <p>My focus is simple: efficiency, practical solutions and working smarter. If a job has to be done twice, I'll probably write a PowerShell script for it.</p>
       </div>
     </div>
   </div>
@@ -599,7 +788,7 @@ footer .small{color:#9fb0c6;font-size:.84rem}
 
 <section id="faq" aria-labelledby="h-faq">
   <div class="wrap">
-    <div class="head"><h2 id="h-faq">Questions people ask</h2></div>
+    <div class="head"><p class="ps" aria-hidden="true"><b>PS&gt;</b> Read-Host 'Questions?'</p><h2 id="h-faq">Questions people ask</h2></div>
     <!-- If you change a question or answer here, change it in the JSON-LD block in <head> too. -->
     <div class="faq">
       <details open><summary><h3>What does Riva Computech do?</h3></summary><p>Riva Computech provides IT support for small businesses. That covers Microsoft 365 and email, sign-ins and access, moving to new systems, backups, device and email security, servers and networks, and PowerShell automation.</p></details>
@@ -621,7 +810,7 @@ footer .small{color:#9fb0c6;font-size:.84rem}
 <section id="contact" class="band" aria-labelledby="h-contact">
   <div class="wrap">
     <div class="head">
-      <h2 id="h-contact">Get in touch</h2>
+      <p class="ps" aria-hidden="true"><b>PS&gt;</b> Send-MailMessage</p><h2 id="h-contact">Get in touch</h2>
       <p class="lead">Send a message, call or email. Devik replies himself, usually within one business day.</p>
     </div>
     <div class="contact">
@@ -634,9 +823,10 @@ footer .small{color:#9fb0c6;font-size:.84rem}
           <span><small>Hours</small><span class="v">Weekdays, evenings, weekends and holidays</span></span></li>
       </ul>
 
-      <div>
+      <div class="wnd">
+        <div class="wnd-bar"><span class="tile t-sky"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M4 7.5l8 5.5 8-5.5"/></svg></span><b id="h-form">New message</b><span class="caps" aria-hidden="true"><svg><use href="#c-min"/></svg><svg><use href="#c-max"/></svg><svg><use href="#c-x"/></svg></span></div>
+        <p class="mail-to"><span>To</span><b>Devik Patel</b><i>rivacomputech@gmail.com</i></p>
         <form id="form" action="https://formspree.io/f/xvkkjper" method="POST" aria-labelledby="h-form">
-          <h3 id="h-form">Send a message</h3>
           <p class="hint">Leave a phone number or an email, whichever you prefer.</p>
           <input type="hidden" name="_subject" value="New message from rivacomputech.com" />
           <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
@@ -759,7 +949,8 @@ footer .small{color:#9fb0c6;font-size:.84rem}
   function tally(){
     var gaps=boxes.filter(function(b){return !b.checked}), n=boxes.length-gaps.length;
     if(n)touched=true;
-    d.getElementById('score-n').textContent=n+' of '+boxes.length+' in place';
+    d.getElementById('score-n').textContent=n;
+    var ring=d.getElementById('ring'); ring.style.strokeDashoffset=(326.73*(1-n/boxes.length)).toFixed(1); ring.style.stroke=gaps.length?'':'#0f7b0f';
     d.getElementById('score-tip').textContent=!touched?'Check the boxes that are true today.'
       :gaps.length?'A good place to start: '+gaps[0].getAttribute('data-fix')
       :'All eight are in place. Nice work.';
@@ -776,6 +967,39 @@ footer .small{color:#9fb0c6;font-size:.84rem}
     form.scrollIntoView();
     form.elements.name.focus({preventScroll:true});
     if(window.gtag)gtag('event','health_check_ask',{score:n});
+  });
+
+  // The taskbar: a clock, a marker under the section that is on screen, and (on phones) out of the way
+  // while someone is typing.
+  var dock=d.getElementById('dock'), links=[].slice.call(dock.querySelectorAll('li a')),
+      spots=links.map(function(a){return d.getElementById(a.getAttribute('href').slice(1))}), queued=0;
+  function spot(){
+    var line=innerHeight*.45, cur=0;
+    spots.forEach(function(el,i){if(el&&el.getBoundingClientRect().top<=line)cur=i});
+    links.forEach(function(a,i){if(i===cur)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});
+  }
+  addEventListener('scroll',function(){if(!queued){queued=1;requestAnimationFrame(function(){queued=0;spot()})}},{passive:true});
+  addEventListener('resize',spot); spot();
+  var clock=d.getElementById('clock');
+  function time(){var n=new Date();
+    clock.firstChild.textContent=n.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
+    clock.lastChild.textContent=n.toLocaleDateString([],{month:'numeric',day:'numeric',year:'numeric'})}
+  time(); clock.hidden=false; setInterval(time,20000);
+  d.addEventListener('focusin',function(e){var t=e.target;if(t.matches&&t.matches('input:not([type=checkbox]),textarea'))root.className+=' kb'});
+  d.addEventListener('focusout',function(){root.className=root.className.replace(/ kb\b/g,'')});
+
+  // The script window: Run prints what the script would do, one line at a time. Nothing really runs.
+  var run=d.getElementById('run'), out=d.getElementById('run-out'), still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  run.hidden=false;
+  run.addEventListener('click',function(){
+    var lines=[['m','PS C:\\Riva\\Scripts> .\\Offboard-User.ps1 -User sam@contoso.com -Manager alex@contoso.com'],
+      ['ok','Sign-in blocked and sessions revoked'],['ok','Mailbox kept as a shared mailbox; alex@contoso.com can open it'],
+      ['ok','Licenses freed up (2)'],['ok','sam@contoso.com offboarded.'],['m','That was a pretend run: nothing was changed.']];
+    run.disabled=true; out.hidden=false; out.textContent='';
+    lines.forEach(function(l,i){setTimeout(function(){
+      var p=d.createElement('p'); p.className=l[0]; p.textContent=(l[0]==='ok'?'\u2714 ':'')+l[1]; out.appendChild(p);
+      if(i===lines.length-1)run.disabled=false},still?0:360*i)});
+    if(window.gtag)gtag('event','run_script');
   });
 
   // The form works without this script (it posts to Formspree). With it, the visitor stays on the page

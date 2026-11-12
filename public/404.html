@@ -10,39 +10,49 @@
   gtag('js', new Date());
   gtag('config', 'G-9PCY0YE3SE');
 </script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Page not found — Riva Computech</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Page not found | Riva Computech</title>
 <meta name="robots" content="noindex" />
+<meta name="theme-color" content="#0b1b30" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <!-- Served for any unknown address by Cloudflare (assets.not_found_handling = "404-page" in wrangler.jsonc).
-     Plain and friendly, to match the home page. -->
+     The same dark screen as the home page, but here the face is a frown: a friendly take on the error
+     screen everyone has met, as the old site's 404 page was. -->
 <script>(function(){try{var t=localStorage.getItem('riva-text');if(t)document.documentElement.setAttribute('data-text',t)}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=Space+Mono:wght@700&display=swap" />
 <style>
-html{font-size:112.5%;color-scheme:light}
+html{font-size:112.5%;color-scheme:dark;-webkit-text-size-adjust:100%}
 html[data-text="l"]{font-size:125%}
 html[data-text="xl"]{font-size:140%}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:grid;place-items:center;padding:2rem 1.25rem;font-family:Inter,"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.6;color:#26323f;background:#eef5fc;-webkit-font-smoothing:antialiased}
-main{max-width:32rem;width:100%;text-align:center;background:#fff;border:.06rem solid #dfe6ee;border-radius:1.3rem;padding:2.4rem 1.8rem;box-shadow:0 .06rem .15rem rgba(11,27,48,.05)}
-img{display:block;height:3.6rem;width:auto;margin:0 auto 1.6rem}
-h1{font-size:1.8rem;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:0 0 .7rem;color:#0b1b30}
-p{margin:0 0 1.5rem;color:#4a5868}
-.actions{display:flex;flex-direction:column;gap:.8rem}
-.btn{display:flex;align-items:center;justify-content:center;min-height:3rem;padding:.6rem 1.4rem;border-radius:.75rem;border:.09rem solid #0067c0;background:#0067c0;color:#fff;font-weight:600;text-decoration:none;text-align:center}
-.btn:hover{background:#00539c;border-color:#00539c}
-.btn.alt{background:#fff;color:#0b1b30;border-color:#c5d0dc}
-.btn.alt:hover{background:#f1f6fc}
-:focus-visible{outline:.17rem solid #0067c0;outline-offset:.17rem}
+body{margin:0;min-height:100vh;min-height:100svh;display:grid;place-items:center;padding:2rem max(1.25rem,env(safe-area-inset-right)) 2rem max(1.25rem,env(safe-area-inset-left));
+  font-family:Inter,"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.6;color:#fff;-webkit-font-smoothing:antialiased;
+  background:radial-gradient(54rem 26rem at 50% 100%,rgba(40,120,255,.34),rgba(40,120,255,0) 72%),linear-gradient(180deg,#0b1b30,#060f1d) #0b1b30}
+main{width:100%;max-width:34rem;text-align:center}
+.logo img{display:block;height:3rem;width:auto;margin:0 auto 2.2rem}
+.face{margin:0 0 .25em;font-family:"Space Mono",ui-monospace,Menlo,Consolas,monospace;font-size:clamp(3.4rem,16vw,5.5rem);font-weight:700;line-height:1;letter-spacing:-.04em;color:#3d9bf0}
+h1{margin:0 0 .8rem;font-size:clamp(1.45rem,5.2vw,1.9rem);font-weight:800;letter-spacing:-.02em;line-height:1.2;text-wrap:balance}
+p{margin:0 0 1rem;color:rgba(255,255,255,.88);text-wrap:balance}
+.code{font-family:"Space Mono",ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;color:rgba(255,255,255,.7)}
+.code b{color:#3d9bf0}
+.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem;margin-top:1.8rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:3rem;padding:.6rem 1.4rem;border-radius:.75rem;border:.09rem solid #0067c0;background:#0067c0;color:#fff;font-weight:600;text-decoration:none;text-align:center}
+.btn:hover{background:#0a78dc;border-color:#0a78dc}
+.btn.alt{background:transparent;border-color:rgba(255,255,255,.45)}
+.btn.alt:hover{background:rgba(255,255,255,.1);border-color:#fff}
+:focus-visible{outline:.17rem solid #fff;outline-offset:.17rem;border-radius:.35rem}
+@media (max-width:30rem){.actions .btn{width:100%}}
 </style>
 </head>
 <body>
   <main>
-    <img src="/brand/riva-computech-logo.svg" alt="Riva Computech" width="117" height="80" />
-    <h1>Sorry, we can't find that page.</h1>
-    <p>It may have moved, or the address may be mistyped.</p>
+    <a class="logo" href="/" aria-label="Riva Computech, home"><img src="/brand/riva-computech-logo-white.svg" alt="Riva Computech" width="117" height="80" /></a>
+    <p class="face" aria-hidden="true">:(</p>
+    <h1>This page ran into a problem and couldn't be found.</h1>
+    <p>It may have moved, or the address may be mistyped. Nothing is wrong with your computer.</p>
+    <p class="code">Stop code: <b>RIVA_PAGE_NOT_FOUND</b></p>
     <div class="actions">
       <a class="btn" href="/">Go to the home page</a>
       <a class="btn alt" href="/#contact">Get in touch</a>

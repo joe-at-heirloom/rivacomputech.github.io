@@ -3,8 +3,8 @@
 **rivacomputech.com has two faces:**
 
 - **The home page (`/`)** is one simple, centred page in plain words: what Riva does, what to expect,
-  who Devik is, answers to common questions, and how to get in touch. Clean, modest and deliberately
-  uncomplicated.
+  who Devik is, answers to common questions, and how to get in touch. Modest and uncomplicated, with
+  the feel of a computer desktop: a dark "screen" up top, app windows, and a taskbar for a menu.
 - **rivaOS (`/desktop/`)** is the interactive version: a Windows 11-style desktop that runs in the
   browser, with windows, a file system, a PowerShell terminal and around 15 apps. It's linked from the
   home page's footer for anyone curious.
@@ -21,12 +21,22 @@ No framework and no build step: plain HTML for the home page, native ES modules 
 - **Plain words first, technical terms second:** each service has an everyday name and one plain
   sentence ("Sign-ins and access: one sign-in per person…"), then an *Includes* line with the terms
   people and search engines look for (Microsoft Entra ID, Active Directory, Intune…).
-- **The hero is a dark "screen":** full-height navy, like a computer that has just been switched on,
-  with the brand blue as the accent (the bar behind the second sentence, the smile, the Enter key,
-  the petals). The slogan types itself in blocky Space Mono, and the face is `:(` while it types and
-  lights up as `:)` when it finishes. The typing runs once per visit, and not at all for visitors who
-  have asked their device for reduced motion; without JavaScript the finished hero is simply there.
-  The four colors are at the top of the hero's CSS (`--screen`, `--screen-2`, `--blue`, `--sky`).
+- **It borrows the feel of a computer desktop** (the look the earlier site had), without being one:
+  - **The hero is a dark "screen":** full-height navy, with the riva bloom from the desktop wallpaper
+    rising from the bottom and the brand blue as the accent. The slogan types itself in blocky Space
+    Mono, and the face is `:(` while it types and lights up as `:)` when it finishes. The typing runs
+    once per visit, and not at all for visitors who have asked their device for reduced motion;
+    without JavaScript the finished hero is simply there. The colors are at the top of the hero's CSS
+    (`--screen`, `--screen-2`, `--blue`, `--sky`).
+  - **The taskbar** is fixed to the bottom of the screen and is the page's menu: an app icon and a
+    name for each section, with a marker under the one on screen. Wide screens also get a clock and a
+    *Book a free chat* button. Phones get five roomy items (no *Top*), and the bar slides away while
+    someone is typing so it never covers the keyboard. Its markup sits right after the header.
+  - **App windows:** the health check, the example script and the message form are drawn as windows
+    with a title bar. The three little window buttons are decoration only.
+  - **App icons:** each service has its own color and a small "Running" light, and each section has
+    a line of PowerShell above its heading (`PS> Get-Service`). These are flavor and are hidden from
+    screen readers; the headings underneath stay in plain words.
 - **Slogan:** "You mind your business. We'll mind your computers." It is the page's `<h1>`. The
   second sentence sits on a blue bar, the way selected text looks, with a cursor that blinks four
   times and then stays still. The plain description, "IT support for small businesses", is the
@@ -34,20 +44,29 @@ No framework and no build step: plain HTML for the home page, native ES modules 
 - **No buttons in the hero:** one box asks "What's going on with your computers?". The visitor types,
   presses Enter and lands on the message form with their words already in it. A link such as
   `/?q=our+email+is+down#contact` does the same. The phone number sits underneath as plain text.
-- **Sections, in order:** services · common reasons people get in touch · what to expect · how it works ·
-  a quick IT health check · about Devik · questions people ask · get in touch.
-- **Health check:** eight checkboxes with a running count and a "good place to start" tip. *Ask Devik
-  about my result* copies the result into the message box. Nothing is sent until the visitor presses
-  *Send message*.
+- **Sections, in order:** services · the example script · common reasons people get in touch · what
+  to expect · how it works · a quick IT health check · about Devik · questions people ask · get in touch.
+- **The example script:** a real offboarding script in a code window. *Run* prints what it would do,
+  one line at a time; nothing actually runs. The button only appears when JavaScript is on.
+- **Health check:** eight checkboxes, a ring that fills as they are checked, and a "good place to
+  start" tip. *Ask Devik about my result* copies the result into the message box. Nothing is sent
+  until the visitor presses *Send message*.
+- **About:** an ID card with a terminal-style read-out of the facts, beside a few paragraphs in
+  Devik's own words (the line about efficiency and working smarter is his, from the earlier site).
 - **Questions people ask:** eleven short answers in a native accordion, so it works without JavaScript.
 - **Everything is centred:** hero, the "Works with" logo row (each logo sized by eye so they carry the
-  same weight), service cards, steps, and the footer.
+  same weight), service cards, windows, steps, and the footer.
+- **Phones first:** on a phone the whole hero, down to the phone number, fits above the taskbar on
+  the first screen (on the shortest phones the smile steps aside to make room). Nothing scrolls
+  sideways except the code inside the script window. Controls are at least 44px tall.
 - **Readable:** Inter at 18px, strong contrast, buttons at least 48px tall. A small text-size control in
   the footer goes up to 22px and remembers the choice.
 - **A forgiving form:** name, a phone number *or* an email, and a message, with clear error messages.
   It posts to Formspree and works with JavaScript turned off.
-- **Old links still work:** `/#services`, `/#why`, `/#how`, `/#about`, `/#health` and `/#contact` jump to
-  those sections; `/#automation` and `/#terminal` open the matching app in rivaOS.
+- **Old links still work:** `/#services`, `/#automation`, `/#why`, `/#how`, `/#about`, `/#health` and
+  `/#contact` jump to those sections; `/#terminal`, `/#settings` and `/#files` open rivaOS.
+- **Page not found (`public/404.html`):** the same dark screen with a frown and a stop code, as a nod
+  to the earlier site's 404 page.
 
 To change the wording, edit `public/index.html` directly. (rivaOS has its own copy in
 `public/os/content.js`, including the slogan; if a service or the bio changes, update both, and
@@ -109,7 +128,7 @@ public/                     ← everything the browser downloads (Workers Static
     apps.js · icons.js · wallpapers.js
     apps/*.js               ← one module per app, loaded on first launch
     os.css                  ← Fluent design tokens + shell styles (apps carry their own CSS)
-  404.html                  ← plain "page not found"
+  404.html                  ← "page not found": the dark screen with a frown
   og.png                    ← share image (source: tools/og.html)
   llms.txt                  ← plain-text summary of the business for AI assistants
   brand/ · assets/logos/ · favicon.svg · robots.txt · sitemap.xml · _headers
