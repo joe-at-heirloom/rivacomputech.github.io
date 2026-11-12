@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Small Business IT Support &amp; Microsoft 365 Help | Riva Computech</title>
 <meta name="description" content="IT support for small businesses: Microsoft 365, email, backups, security and networks. One-off jobs or ongoing support. Free 30-minute first chat." />
-<meta name="theme-color" content="#0067c0" />
+<meta name="theme-color" content="#0b1b30" />
 <link rel="canonical" href="https://rivacomputech.com/" />
 
 <meta property="og:type" content="website" />
@@ -180,39 +180,41 @@ p{margin:0 0 1rem}
 .nav a:not(.btn){color:#26323f;font-weight:500;text-decoration:none;padding:.4rem 0}
 .nav a:not(.btn):hover{color:#0067c0}
 
-/* ---- hero: "the happy blue screen" ---------------------------------------------------------------
-   A friendly take on the blue error screen everyone has met: the same blue and blocky type, but a
-   smile instead of a frown, and the slogan instead of an error. The header sits on top of it.
+/* ---- hero: "the screen" ---------------------------------------------------------------------------
+   A dark screen, like a computer that has just been switched on. The slogan types itself in blocky
+   Space Mono; the face is ":(" while it types and lights up as ":)" when it finishes; the second
+   sentence sits on a blue bar, the way selected text looks. The header lies on top of it.
    Instead of buttons there is one box: type what's going on, press Enter, and the message form opens
    with those words already in it.
-   To recolor it, change the two blues here. */
-:root{--screen:#0067c0;--screen-2:#00509a}
+   Colors: --screen and --screen-2 are the navy background, --blue is the brand blue (the bar, the
+   keys, the petals) and --sky is its lighter partner for small things that sit straight on the navy. */
+:root{--screen:#0b1b30;--screen-2:#060f1d;--blue:#0067c0;--sky:#3d9bf0}
 .headbar{position:absolute;left:0;right:0;top:0;z-index:3}
 .headbar .nav a:not(.btn),.headbar .nav a:not(.btn):hover{color:#fff}
-.headbar .nav a:not(.btn):hover{text-decoration:underline;text-underline-offset:.35em}
-.headbar .btn{background:#fff;border-color:#fff;color:var(--screen-2)}
-.headbar .btn:hover{background:#e6f1fc;border-color:#e6f1fc;color:var(--screen-2)}
+.headbar .nav a:not(.btn):hover{text-decoration:underline;text-decoration-color:var(--sky);text-decoration-thickness:.11em;text-underline-offset:.35em}
+.headbar .btn:hover{background:#0a78dc;border-color:#0a78dc}   /* on navy, hover gets lighter rather than darker */
 .headbar :focus-visible,.hero :focus-visible{outline-color:#fff}
 
 .hero{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;min-height:min(100vh,60rem);min-height:min(100svh,60rem);padding:7.4rem 0 9.5rem;text-align:center;color:#fff;
-  background:radial-gradient(70rem 34rem at 50% 0,rgba(255,255,255,.14),rgba(255,255,255,0) 70%),linear-gradient(180deg,var(--screen),var(--screen-2))}
+  background:radial-gradient(58rem 24rem at 50% 100%,rgba(0,103,192,.5),rgba(0,103,192,0) 72%),radial-gradient(70rem 34rem at 50% 0,rgba(61,155,240,.14),rgba(61,155,240,0) 70%),linear-gradient(180deg,var(--screen),var(--screen-2))}
 .hero>.face,.hero>.slogan,.hero>.wrap{position:relative;z-index:1}
 .hero>.wrap{width:100%}
 .face,.slogan,.ask-box b,.ask input,.ask button{font-family:"Space Mono",ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,"DejaVu Sans Mono",monospace}
 
-/* the face: ":(" for the moment it takes the headline to type, then ":)" */
-.face{margin:0 0 .28em;font-size:clamp(2.6rem,9vh,5rem);font-weight:700;line-height:1;letter-spacing:-.04em}
+/* the face: a dim ":(" for the moment it takes the headline to type, then a blue ":)" */
+.face{margin:0 0 .28em;font-size:clamp(2.6rem,9vh,5rem);font-weight:700;line-height:1;letter-spacing:-.04em;color:var(--sky)}
 .face::before{content:":)"}
+html.anim:not(.done) .face{color:rgba(255,255,255,.5)}
 html.anim:not(.done) .face::before{content:":("}
 html.done .face{animation:pop .45s ease-out}
 @keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.18)}100%{transform:scale(1)}}
 
 /* the headline (the page's h1). Monospaced letters are all the same width, so the size is worked out
    from the screen: each sentence fills one line on wide screens, each half-sentence on narrow ones.
-   The second sentence is shown in reverse (blue on white), the way a selected line looks. */
+   The second sentence sits on a blue bar, the way selected text looks. */
 .slogan{margin:0;padding:0 1.25rem;font-size:min(calc((100vw - 2.5rem)/16.3),13vh,6.2rem);font-weight:700;letter-spacing:-.05em;line-height:1.2;color:#fff}
 .slogan>span{display:block}
-.slogan .hl{width:-moz-fit-content;width:fit-content;margin:.14em auto 0;padding:.03em .24em .07em;background:#fff;color:var(--screen)}
+.slogan .hl{width:-moz-fit-content;width:fit-content;margin:.14em auto 0;padding:.03em .24em .07em;background:var(--blue);color:#fff}
 /* the cursor blinks four times, then stays put (nothing on the page keeps moving) */
 .cur{display:inline-block;width:.42em;height:.86em;margin-left:.12em;vertical-align:-.08em;background:currentColor;animation:blink 1.1s steps(1) 4}
 @keyframes blink{50%{opacity:0}}
@@ -223,24 +225,24 @@ html.anim:not(.typing):not(.done) .slogan{visibility:hidden}
 .slogan .tc{position:absolute;left:0;top:0;margin:0;animation:none}
 .slogan .hl.in{transform-origin:0 50%;animation:wipe .16s ease-out}
 @keyframes wipe{from{transform:scaleX(0)}}
-.slogan .tc.b{color:var(--screen)}
 
 .hero .lead{margin:1.6rem auto 0;max-width:42rem;color:rgba(255,255,255,.92)}
 
 /* the box that replaces the buttons */
 .ask{margin:1.9rem auto 0;max-width:40rem}
 .ask label{display:block;margin:0 0 .65rem;font-weight:600;color:#fff}
-.ask-box{display:flex;align-items:center;gap:.65rem;padding:.42rem .48rem .42rem 1.1rem;border:.11rem solid rgba(255,255,255,.62);border-radius:.9rem;background:rgba(0,26,64,.34);text-align:left;transition:border-color .15s,box-shadow .15s}
-.ask-box:focus-within{border-color:#fff;box-shadow:0 0 0 .28rem rgba(255,255,255,.24)}
-.ask-box b{font-size:1.2rem;line-height:1;color:#fff}
-.ask input{flex:1;min-width:0;min-height:2.75rem;padding:0;border:0;border-radius:0;background:none;color:#fff;font-size:1.02rem;line-height:1.3;letter-spacing:-.02em;outline:0;caret-color:#fff}
-.ask input::placeholder{color:rgba(255,255,255,.8);opacity:1}
-.ask button{flex:none;display:inline-flex;align-items:center;gap:.4rem;min-height:2.75rem;padding:0 .85rem;border:0;border-radius:.55rem;background:#fff;color:var(--screen-2);font-size:.9rem;font-weight:700;line-height:1;cursor:pointer;box-shadow:0 .2rem 0 rgba(0,22,56,.45);transition:transform .08s,box-shadow .08s}
-.ask button:hover{background:#e6f1fc}
-.ask button:active{transform:translateY(.14rem);box-shadow:0 .06rem 0 rgba(0,22,56,.45)}
+.ask label span{color:var(--sky)}
+.ask-box{display:flex;align-items:center;gap:.65rem;padding:.42rem .48rem .42rem 1.1rem;border:.11rem solid rgba(255,255,255,.34);border-radius:.9rem;background:rgba(255,255,255,.06);text-align:left;transition:border-color .15s,box-shadow .15s}
+.ask-box:focus-within{border-color:var(--sky);box-shadow:0 0 0 .28rem rgba(61,155,240,.32)}
+.ask-box b{font-size:1.2rem;line-height:1;color:var(--sky)}
+.ask input{flex:1;min-width:0;min-height:2.75rem;padding:0;border:0;border-radius:0;background:none;color:#fff;font-size:1.02rem;line-height:1.3;letter-spacing:-.02em;outline:0;caret-color:var(--sky)}
+.ask input::placeholder{color:rgba(255,255,255,.66);opacity:1}
+.ask button{flex:none;display:inline-flex;align-items:center;gap:.4rem;min-height:2.75rem;padding:0 .85rem;border:0;border-radius:.55rem;background:var(--blue);color:#fff;font-size:.9rem;font-weight:700;line-height:1;cursor:pointer;box-shadow:0 .2rem 0 #003b70;transition:transform .08s,box-shadow .08s}
+.ask button:hover{background:#0a78dc}
+.ask button:active{transform:translateY(.14rem);box-shadow:0 .06rem 0 #003b70}
 .ask button .ico{width:1.1rem;height:1.1rem;stroke-width:2.6}
 .hero-foot{margin:1.1rem 0 0;font-size:.93rem;color:rgba(255,255,255,.9);text-wrap:balance}
-.hero-foot a{color:#fff;font-weight:600}
+.hero-foot a{color:#fff;font-weight:600;text-decoration-color:var(--sky);text-decoration-thickness:.11em;text-underline-offset:.2em}
 .bloom{position:absolute;z-index:0;left:50%;bottom:-11rem;width:52rem;max-width:180%;transform:translateX(-50%);pointer-events:none}
 
 /* "works with" logos: each sized by eye so they look the same weight, all centred */
@@ -412,7 +414,7 @@ footer .small{color:#9fb0c6;font-size:.84rem}
 <body>
 <a class="skip" href="#main">Skip to main content</a>
 
-<!-- the header lies on top of the blue hero, so it uses the white logo -->
+<!-- the header lies on top of the dark hero, so it uses the white logo -->
 <div class="wrap headbar">
   <header class="top">
     <a class="logo" href="/" aria-label="Riva Computech, home"><img src="/brand/riva-computech-logo-white.svg" alt="Riva Computech" width="117" height="80" /></a>
@@ -448,11 +450,11 @@ footer .small{color:#9fb0c6;font-size:.84rem}
   <!-- the riva "bloom": a fan of petals rising from the bottom center (decorative) -->
   <svg class="bloom" viewBox="-640 -560 1280 560" aria-hidden="true" focusable="false">
     <defs><path id="petal" d="M0 0C64-118 196-292 158-498C92-470 18-398-22-300C-58-206-42-84 0 0Z"/></defs>
-    <g fill="#fff" opacity=".1">
+    <g fill="#0067c0" opacity=".6">
       <use href="#petal" transform="rotate(-84) scale(1.02)"/><use href="#petal" transform="rotate(-58) scale(1.08)"/><use href="#petal" transform="rotate(-32) scale(1.1)"/>
       <use href="#petal" transform="rotate(-6) scale(1.1)"/><use href="#petal" transform="rotate(20) scale(1.08)"/><use href="#petal" transform="rotate(46) scale(1.02)"/><use href="#petal" transform="rotate(72) scale(.96)"/>
     </g>
-    <g fill="#fff" opacity=".1">
+    <g fill="#3d9bf0" opacity=".28">
       <use href="#petal" transform="rotate(-70) scale(.8)"/><use href="#petal" transform="rotate(-44) scale(.86)"/><use href="#petal" transform="rotate(-18) scale(.88)"/>
       <use href="#petal" transform="rotate(8) scale(.86)"/><use href="#petal" transform="rotate(34) scale(.8)"/><use href="#petal" transform="rotate(60) scale(.74)"/>
     </g>

@@ -21,14 +21,15 @@ No framework and no build step: plain HTML for the home page, native ES modules 
 - **Plain words first, technical terms second:** each service has an everyday name and one plain
   sentence ("Sign-ins and access: one sign-in per person…"), then an *Includes* line with the terms
   people and search engines look for (Microsoft Entra ID, Active Directory, Intune…).
-- **The hero is a "happy blue screen":** a friendly take on the blue error screen everyone has met.
-  Full-screen brand blue, blocky Space Mono type, and a face that starts as `:(` and turns into `:)`
-  once the slogan has typed itself. The typing runs once per visit, and not at all for visitors who
+- **The hero is a dark "screen":** full-height navy, like a computer that has just been switched on,
+  with the brand blue as the accent (the bar behind the second sentence, the smile, the Enter key,
+  the petals). The slogan types itself in blocky Space Mono, and the face is `:(` while it types and
+  lights up as `:)` when it finishes. The typing runs once per visit, and not at all for visitors who
   have asked their device for reduced motion; without JavaScript the finished hero is simply there.
-  To recolor it, change `--screen` and `--screen-2` at the top of the hero's CSS.
+  The four colors are at the top of the hero's CSS (`--screen`, `--screen-2`, `--blue`, `--sky`).
 - **Slogan:** "You mind your business. We'll mind your computers." It is the page's `<h1>`. The
-  second sentence is shown in reverse (blue on white), like a selected line, with a cursor that blinks
-  four times and then stays still. The plain description, "IT support for small businesses", is the
+  second sentence sits on a blue bar, the way selected text looks, with a cursor that blinks four
+  times and then stays still. The plain description, "IT support for small businesses", is the
   sentence under it, so search engines and AI assistants still meet it straight away.
 - **No buttons in the hero:** one box asks "What's going on with your computers?". The visitor types,
   presses Enter and lands on the message form with their words already in it. A link such as
