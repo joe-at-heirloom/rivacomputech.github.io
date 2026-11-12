@@ -24,10 +24,9 @@ No framework and no build step: plain HTML for the home page, native ES modules 
 - **It borrows the feel of a computer desktop** (the look the earlier site had), without being one:
   - **The hero is a dark "screen":** full-height navy, with the riva bloom from the desktop wallpaper
     rising from the bottom and the brand blue as the accent. The slogan types itself in blocky Space
-    Mono, and the face is `:(` while it types and lights up as `:)` when it finishes. The typing runs
-    once per visit, and not at all for visitors who have asked their device for reduced motion;
-    without JavaScript the finished hero is simply there. The colors are at the top of the hero's CSS
-    (`--screen`, `--screen-2`, `--blue`, `--sky`).
+    Mono. The typing runs once per visit, and not at all for visitors who have asked their device for
+    reduced motion; without JavaScript the finished hero is simply there. The colors are at the top
+    of the hero's CSS (`--screen`, `--screen-2`, `--blue`, `--sky`).
   - **The taskbar** is fixed to the bottom of the screen and is the page's menu. It is kept quiet on
     purpose: plain line icons in one color with the section names, and the section on screen is
     simply brighter with a small blue mark. Wide screens also get a clock and a *Book a free chat*
@@ -38,10 +37,10 @@ No framework and no build step: plain HTML for the home page, native ES modules 
   - **App icons:** each service card has its own icon color and a small "Running" light, and each
     section has a line of PowerShell above its heading (`PS> Get-Service`). These are flavor and are
     hidden from screen readers; the headings underneath stay in plain words.
-- **Slogan:** "You mind your business. We'll mind your computers." It is the page's `<h1>`. The
-  second sentence sits on a blue bar, the way selected text looks, with a cursor that blinks four
-  times and then stays still. The plain description, "IT support for small businesses", is the
-  sentence under it, so search engines and AI assistants still meet it straight away.
+- **Slogan:** "You mind your business. We'll mind your computers." It is the page's `<h1>`: the
+  first sentence in white, the second in blue, with a cursor that blinks four times and then stays
+  still. The plain description, "IT support for small businesses", is the sentence under it, so
+  search engines and AI assistants still meet it straight away.
 - **No buttons in the hero:** one box asks "What's going on with your computers?". The visitor types,
   presses Enter and lands on the message form with their words already in it. A link such as
   `/?q=our+email+is+down#contact` does the same. The phone number sits underneath as plain text.
@@ -58,9 +57,8 @@ No framework and no build step: plain HTML for the home page, native ES modules 
 - **Everything is centred:** hero, the "Works with" logo row (each logo sized by eye so they carry the
   same weight), service cards, windows, steps, and the footer.
 - **Phones first, and not crowded:** the hero is given room rather than packed. On a phone it is
-  the logo, the smile, the slogan, one sentence and the type-here box, all above the taskbar on the
-  first screen (the line with the phone number is left to the Contact section, and on the shortest
-  phones the smile steps aside). Nothing scrolls sideways except the code inside the script window,
+  the logo, the slogan, one sentence and the type-here box, all above the taskbar on the first
+  screen (the line with the phone number is left to the Contact section). Nothing scrolls sideways except the code inside the script window,
   and controls are at least 44px tall.
 - **Readable:** Inter at 18px, strong contrast, buttons at least 48px tall. A small text-size control in
   the footer goes up to 22px and remembers the choice.
@@ -69,7 +67,7 @@ No framework and no build step: plain HTML for the home page, native ES modules 
 - **Old links still work:** `/#services`, `/#automation`, `/#why`, `/#how`, `/#about`, `/#health` and
   `/#contact` jump to those sections; `/#terminal`, `/#settings` and `/#files` open rivaOS.
 - **Page not found (`public/404.html`):** the same dark screen with a frown and a stop code, as a nod
-  to the earlier site's 404 page.
+  to the earlier site's 404 page. (The home page itself has no face.)
 
 To change the wording, edit `public/index.html` directly. (rivaOS has its own copy in
 `public/os/content.js`, including the slogan; if a service or the bio changes, update both, and
